@@ -1,93 +1,39 @@
 <template>
   <div id="page-home" class="app-page">
-    <div id="sec-welcome" class="section">
-      <div class="welcome-txt">
-        <label>{{helloUser}} Peerapong!</label>
-        <h1>
-          {{currentDay}}
-          <br />
-          {{currentMonth}} {{currentDate}}, {{currentYear}}
-        </h1>
-      </div>
-      <div class="profile-btn">
-        <img src="/img/mockup/profile.png" draggable="false" />
-      </div>
-    </div>
-    <div id="sec-todayclass" class="section">
-      <div class="section-title">
-        <label>Your next class</label>
-      </div>
-      <div class="todayclass-pane">
-        <div class="todayclass-item">
-          <div class="todayclass-card"></div>
-        </div>
-        <div class="todayclass-item">
-          <div class="todayclass-card"></div>
-        </div>
-        <div class="todayclass-item">
-          <div class="todayclass-card"></div>
-        </div>
-        <div class="todayclass-item">
-          <div class="todayclass-card"></div>
-        </div>
-      </div>
-    </div>
-    <div id="sec-shortcuts" class="section">
-      <div class="shortcut-pane">
-        <div class="shortcut-item">
-          <div class="icon">
-            <img src="/img/icons/shortcut-calendar.svg" draggable="false" />
-          </div>
-          <label>Timetable</label>
-        </div>
-        <div class="shortcut-item">
-          <div class="icon">
-            <img src="/img/icons/shortcut-pencil.svg" draggable="false" />
-          </div>
-          <label>Activities</label>
-        </div>
-        <div class="shortcut-item">
-          <div class="icon">
-            <img src="/img/icons/shortcut-book.svg" draggable="false" />
-          </div>
-          <label>Classes</label>
-        </div>
-        <div class="shortcut-item">
-          <div class="icon">
-            <img src="/img/icons/shortcut-exam.svg" draggable="false" />
-          </div>
-          <label>Evaluation</label>
-        </div>
+    <div id="searchbar">
+      <div class="app-default-searchbar">
+        <label><i class="fas fa-search"></i>Search</label>
       </div>
     </div>
     <hr class="page-hr" />
     <div class="section">
-      <div class="section-title">
-        <label>Device Screen Resolution</label>
-      </div>
-      <h4>width: {{screenwidth}}px</h4>
-      <h4>height: {{screenheight}}px</h4>
+      <h2 style="font-size: 20px">Current screen resolution:</h2>
+      <h4 style="font-size: 30px; color: green">
+        {{ screenwidth }} × {{ screenheight }}
+      </h4>
     </div>
   </div>
 </template>
 
 <script>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 export default {
   name: "Home",
   components: {},
-  data: function() {
+  data: function () {
     return {};
   },
-  created: function() {},
+  created: function () {},
   methods: {},
   computed: {
-    screenheight: function() {
+    screenheight: function () {
       return window.innerHeight;
     },
-    screenwidth: function() {
+    screenwidth: function () {
       return window.innerWidth;
     },
-    helloUser: function() {
+    helloUser: function () {
       const time = new Date();
       const currentTime = time.getHours();
       // console.log(currentTime);
@@ -99,14 +45,11 @@ export default {
       else if (currentTime >= 21 && currentTime < 24) return "Good night";
       else return "Time error!";
     },
-    currentYear: function() {
+    currentYear: function () {
       const year = new Date();
-      return year
-        .getFullYear()
-        .toString()
-        .substring(2);
+      return year.getFullYear().toString().substring(2);
     },
-    currentDay: function() {
+    currentDay: function () {
       const day = new Date();
       const currentDay = day.getDay();
 
@@ -119,7 +62,7 @@ export default {
       else if (currentDay == 0) return "Sunday";
       else return "Day error!";
     },
-    currentMonth: function() {
+    currentMonth: function () {
       const month = new Date();
       const currentMonth = month.getMonth() + 1;
 
@@ -137,11 +80,11 @@ export default {
       else if (currentMonth == 12) return "December";
       else return "Month error!";
     },
-    currentDate: function() {
+    currentDate: function () {
       const numdate = new Date();
       return numdate.getDate();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

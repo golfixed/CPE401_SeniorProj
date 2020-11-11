@@ -2,39 +2,55 @@
   <div id="tabbar">
     <div class="tabbar-panel">
       <router-link to="/" class="tab-item">
-        <div class="icon" v-on:click="tabTap(1);">
-          <img class="inactive" src="/img/icons/tab-home.svg" draggable="false" />
-          <img class="active" src="/img/icons/tab-home-active.svg" draggable="false" />
-        </div>
-        <!-- <label>Home</label> -->
-      </router-link>
-      <router-link to="/today" class="tab-item">
-        <div class="icon" v-on:click="tabTap(2);">
-          <img class="inactive" src="/img/icons/tab-home.svg" draggable="false" />
-          <img class="active" src="/img/icons/tab-home-active.svg" draggable="false" />
-        </div>
-        <!-- <label>tab 1</label> -->
-      </router-link>
-      <div class="tab-item">
-        <div class="center-btn">
+        <div class="tab-btn" v-on:click="tabTap('Home')">
           <div class="icon">
-            <img src="/img/icons/tab-plus.svg" draggable="false" />
+            <img
+              class="inactive"
+              src="/img/icons/tab-home.svg"
+              draggable="false"
+            />
+            <img
+              class="active"
+              src="/img/icons/tab-home-active.svg"
+              draggable="false"
+            />
           </div>
+          <label>Home</label>
         </div>
-      </div>
-      <router-link to="/file" class="tab-item">
-        <div class="icon" v-on:click="tabTap(3);">
-          <img class="inactive" src="/img/icons/tab-home.svg" draggable="false" />
-          <img class="active" src="/img/icons/tab-home-active.svg" draggable="false" />
-        </div>
-        <!-- <label>tab 2</label> -->
       </router-link>
-      <router-link to="/menu" class="tab-item">
-        <div class="icon" v-on:click="tabTap(4);">
-          <img class="inactive" src="/img/icons/tab-menu.svg" draggable="false" />
-          <img class="active" src="/img/icons/tab-menu-active.svg" draggable="false" />
+      <router-link to="/classrooms" class="tab-item">
+        <div class="tab-btn" v-on:click="tabTap('Classrooms')">
+          <div class="icon">
+            <img
+              class="inactive"
+              src="/img/icons/tab-classroom.svg"
+              draggable="false"
+            />
+            <img
+              class="active"
+              src="/img/icons/tab-classroom-active.svg"
+              draggable="false"
+            />
+          </div>
+          <label>Classrooms</label>
         </div>
-        <!-- <label>More</label> -->
+      </router-link>
+      <router-link to="/chats" class="tab-item">
+        <div class="tab-btn" v-on:click="tabTap('Chats')">
+          <div class="icon">
+            <img
+              class="inactive"
+              src="/img/icons/tab-chat.svg"
+              draggable="false"
+            />
+            <img
+              class="active"
+              src="/img/icons/tab-chat-active.svg"
+              draggable="false"
+            />
+          </div>
+          <label>Chats</label>
+        </div>
       </router-link>
     </div>
   </div>
@@ -44,10 +60,10 @@
 export default {
   name: "tabbar",
   methods: {
-    tabTap: function(num) {
-      this.$store.commit("Update_currentPage", num);
-    }
-  }
+    tabTap: function (title) {
+      this.$store.commit("Update_currentPage", title);
+    },
+  },
 };
 </script>
 
@@ -55,12 +71,12 @@ export default {
 #tabbar {
   .tabbar-panel {
     display: grid;
-    grid-template-columns: repeat(5, 20%);
-    background-color: #ffffff;
+    grid-template-columns: repeat(3, 33.33%);
     height: 60px;
-    box-shadow: 0px -5px 20px rgba(0, 0, 0, 0.16);
     position: relative;
-    padding-bottom: 20px;
+    border: 1px solid #ededed;
+    border-width: 1px 0 0 0;
+    padding: 5px 20px 20px 20px;
   }
   .tab-item {
     display: flex;
@@ -68,8 +84,17 @@ export default {
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    div.tab-btn {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
     div.icon {
-      height: 20px;
+      height: 25px;
+      width: 25px;
       .active {
         display: none;
       }
@@ -84,15 +109,21 @@ export default {
     }
     label {
       font-size: 1em;
-      margin-top: 6px;
+      margin-top: 3px;
       color: #9a9a9a;
       font-weight: 400;
     }
   }
   .router-link-exact-active {
     label {
-      color: #e94a26;
-      font-weight: bold;
+      background: linear-gradient(
+        135deg,
+        rgba(60, 102, 151, 1) 0%,
+        rgba(59, 155, 80, 1) 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 400;
     }
     .icon {
       .active {
@@ -102,18 +133,6 @@ export default {
         display: none !important;
       }
     }
-  }
-  .center-btn {
-    width: 66px;
-    height: 66px;
-    background: #e94a26;
-    border: 2px solid #fff;
-    border-radius: 100%;
-    filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.2));
-    margin-top: -40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
 }
 </style>
