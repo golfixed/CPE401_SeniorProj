@@ -5,7 +5,7 @@
         <label><i class="fas fa-search"></i>Search</label>
       </div>
     </div>
-    <hr class="page-hr" />
+    <!-- <hr class="page-hr" /> -->
     <div class="section">
       <h2 style="font-size: 20px">Current screen resolution:</h2>
       <h4 style="font-size: 30px; color: green">

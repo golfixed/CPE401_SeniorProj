@@ -61,24 +61,24 @@ body {
   }
 }
 
-.app-statusbar {
-  padding-top: 20px !important;
-  // // iPhone XR, 11, 11 Pro Max
-  // @media screen and (height: 848px) and (width: 414px) {
-  //   padding-top: 44px !important;
-  // }
+// .app-statusbar {
+//   padding-top: 20px !important;
+//   // // iPhone XR, 11, 11 Pro Max
+//   // @media screen and (height: 848px) and (width: 414px) {
+//   //   padding-top: 44px !important;
+//   // }
 
-  // iPhone X, 11 Pro
-  @media screen and (height: 768px) and (width: 375px) {
-    padding-top: 44px !important;
-  }
-}
+//   // iPhone X, 11 Pro
+//   @media screen and (height: 768px) and (width: 375px) {
+//     padding-top: 44px !important;
+//   }
+// }
 .app-pagetitle {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 60px;
+  height: 80px;
 }
 .app-tabbar {
   position: fixed;
@@ -116,23 +116,24 @@ body {
   }
 }
 .app-page {
-  margin: 100px 0 100px 0;
+  margin: 80px 0 60px 0;
   padding: 20px;
   padding-top: 0;
+  background-color: #f6f6f6;
 
-  @media screen and (max-width: 375px) {
-    padding: 20px;
-  }
+  // @media screen and (max-width: 375px) {
+  //   padding: 20px;
+  // }
 
-  // iPhone XR, 11, 11 Pro Max
-  @media screen and (height: 848px) and (width: 414px) {
-    margin: 100px 0 100px 0 !important;
-  }
+  // // iPhone XR, 11, 11 Pro Max
+  // @media screen and (height: 848px) and (width: 414px) {
+  //   margin: 100px 0 100px 0 !important;
+  // }
 
-  // iPhone X, 11 Pro
-  @media screen and (height: 768px) and (width: 375px) {
-    margin: 100px 0 100px 0 !important;
-  }
+  // // iPhone X, 11 Pro
+  // @media screen and (height: 768px) and (width: 375px) {
+  //   margin: 100px 0 100px 0 !important;
+  // }
 }
 .page-hr {
   border: solid;
@@ -140,12 +141,17 @@ body {
   border-color: #f2f2f2;
   width: 100%;
 }
+#searchbar {
+  background-color: #ffffff;
+  padding: 0 20px;
+  padding-bottom: 20px;
+  margin: 0 -20px;
+}
 .app-default-searchbar {
   background-color: #f6f6f6;
   border-radius: 10px;
   height: 36px;
   padding: 0 20px;
-  margin-bottom: 20px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
