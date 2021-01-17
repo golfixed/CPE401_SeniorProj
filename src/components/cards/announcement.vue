@@ -1,12 +1,10 @@
 <template>
   <div class="card-wrapper">
     <div class="card card-a">
-      <label>CPE 401 Senior Project I</label>
+      <label>{{ subject_code }} {{ subject_title }}</label>
       <div class="message-box">
         <p class="message">
-          There will be no class this week. Make-up class date will be annouce
-          later.Your lab exercise score and quiz test score will be announced
-          through LEB2, please check it out later.
+          {{ message }}
         </p>
       </div>
       <label class="time">{{ timeDiff }}</label>
@@ -21,15 +19,15 @@ export default {
   props: {
     subject_code: String,
     subject_title: String,
-    time: Date,
+    time: String,
     isSeen: Boolean,
     message: String,
   },
   created: function () {},
   computed: {
     timeDiff(date) {
-      var then = moment([2020, 20, 17]);
-      var now = moment(date);
+      var post_time = this.time;
+      var then = moment(post_time, "MMM DD hh:mm:ss");
       return then.fromNow();
     },
   },
@@ -48,6 +46,11 @@ export default {
   label {
     color: #fff;
     font-size: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-box-pack: end;
   }
 
   div.message-box {
