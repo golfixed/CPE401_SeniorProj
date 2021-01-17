@@ -27,7 +27,7 @@ export default {
   computed: {
     timeDiff(date) {
       var post_time = this.time;
-      var then = moment(post_time, "MMM DD hh:mm:ss");
+      var then = moment(post_time, "MMM DD YY hh:mm:ss");
       return then.fromNow();
     },
   },
