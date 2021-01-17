@@ -64,12 +64,17 @@ body {
 // .app-statusbar {
 //   padding-top: 20px !important;
 //   // // iPhone XR, 11, 11 Pro Max
-//   // @media screen and (height: 848px) and (width: 414px) {
-//   //   padding-top: 44px !important;
-//   // }
+//   @media screen and (height: 848px) and (width: 414px) {
+//     padding-top: 44px !important;
+//   }
 
 //   // iPhone X, 11 Pro
 //   @media screen and (height: 768px) and (width: 375px) {
+//     padding-top: 44px !important;
+//   }
+
+//   //iPhone 12 Pro
+//   @media screen and (height: 797px) and (width: 390px) {
 //     padding-top: 44px !important;
 //   }
 // }
@@ -79,6 +84,7 @@ body {
   left: 0;
   width: 100vw;
   height: 80px;
+  z-index: 9999;
 }
 .app-tabbar {
   position: fixed;
