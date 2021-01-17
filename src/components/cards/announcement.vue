@@ -7,7 +7,7 @@
           {{ message }}
         </p>
       </div>
-      <label class="time">{{ timeDiff }}</label>
+      <label class="message-time">{{ timeDiff }}</label>
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
   computed: {
     timeDiff(date) {
       var post_time = this.time;
-      var then = moment(post_time, "MMM DD YY hh:mm:ss");
+      var then = moment(post_time, "MMM DD YYYY hh:mm:ss");
       return then.fromNow();
     },
   },
@@ -51,6 +51,7 @@ export default {
     -webkit-box-orient: vertical;
     overflow: hidden;
     -webkit-box-pack: end;
+    text-transform: uppercase;
   }
 
   div.message-box {
@@ -67,8 +68,9 @@ export default {
     }
   }
 
-  label.time {
+  label.message-time {
     opacity: 0.6;
+    text-transform: none;
   }
 }
 </style>
