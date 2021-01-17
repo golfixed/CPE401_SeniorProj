@@ -2,24 +2,32 @@
   <div id="app-title" class="app-statusbar">
     <div class="titlebar-left">
       <div class="profile-btn">
-        <img src="/img/mockup/profile.png" />
+        <img :src="this.user.picture_url" />
       </div>
       <label class="page-title">{{ this.$store.state.currentPage }}</label>
     </div>
 
     <div class="titlebar-right">
       <div class="top-btn" v-if="currentRoute == '/'">
-        <i class="fas fa-bell"></i>
-        <div class="noti-badge"></div>
+        <div class="btn-img-wrapper">
+          <img src="/img/icons/noti-bell.svg" />
+        </div>
+        <div v-if="notifications.length > 0" class="noti-badge">
+          {{ notifications.length }}
+        </div>
       </div>
       <div
         class="top-btn"
         v-if="currentRoute == '/classrooms' || currentRoute == '/chats'"
       >
-        <i class="fas fa-plus"></i>
+        <div class="btn-img-wrapper">
+          <img src="/img/icons/plus-btn.svg" />
+        </div>
       </div>
       <div class="top-btn">
-        <i class="fas fa-bars"></i>
+        <div class="btn-img-wrapper">
+          <img src="/img/icons/option-menu.svg" />
+        </div>
       </div>
     </div>
   </div>
@@ -28,10 +36,34 @@
 <script>
 export default {
   name: "pagetitle",
+  created: function () {
+    console.log(this.notifications.length);
+  },
   computed: {
     currentRoute: function () {
       return this.$route.path;
     },
+  },
+  data: function () {
+    return {
+      user: {
+        picture_url: "/img/mockup/profile.png",
+      },
+      notifications: [
+        {
+          id: 1,
+          title: "This is a testing notification text",
+        },
+        {
+          id: 2,
+          title: "This is a testing notification text",
+        },
+        {
+          id: 3,
+          title: "This is a testing notification text",
+        },
+      ],
+    };
   },
 };
 </script>
@@ -70,7 +102,7 @@ export default {
     .page-title {
       font-size: 2.25em;
       font-style: normal;
-      font-weight: bold;
+      font-weight: 600;
       background: linear-gradient(
         135deg,
         rgba(60, 102, 151, 1) 0%,
@@ -85,31 +117,33 @@ export default {
     align-items: center;
     justify-content: flex-end;
     .top-btn {
-      width: 25px;
+      width: 30px;
       height: 50px;
       margin-right: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
       position: relative;
-      i {
-        font-size: 24px;
-        background: linear-gradient(
-          135deg,
-          rgba(60, 102, 151, 1) 0%,
-          rgba(59, 155, 80, 1) 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+      div.btn-img-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
       div.noti-badge {
-        height: 10px;
-        width: 10px;
+        height: 18px;
+        width: 18px;
         background-color: #df5d5d;
         border-radius: 100px;
         position: absolute;
-        top: 10px;
-        right: -5px;
+        top: 8px;
+        right: -4px;
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1em;
+        font-weight: 600;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
       }
     }
     .top-btn:last-child {
