@@ -76,7 +76,7 @@ export default {
     position: relative;
     border: 1px solid #ededed;
     border-width: 1px 0 0 0;
-    padding: 5px 20px 20px 20px;
+    // padding: 5px 20px 20px 20px;
   }
   .tab-item {
     display: flex;
