@@ -42,8 +42,8 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(80px);
+  background: rgba(255, 255, 255, 1);
+  // backdrop-filter: blur(80px);
   padding: 0 20px;
   @media screen and (max-width: 375px) {
     padding: 0 20px;
