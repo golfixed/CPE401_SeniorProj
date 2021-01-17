@@ -89,7 +89,7 @@ body {
   left: 0;
   width: 100vw;
   height: 80px;
-  z-index: 9999;
+  z-index: 5;
 }
 .app-tabbar {
   position: fixed;
@@ -171,6 +171,8 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  outline: none;
+  border: none;
   label {
     color: #8b8b8b;
     font-weight: normal;

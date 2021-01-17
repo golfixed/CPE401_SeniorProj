@@ -42,9 +42,10 @@ export default {
       return this.$route.path;
     },
     currentPage: function () {
-      if (this.$route.path == "/") return "Home";
-      else if (this.$route.path == "/classrooms") return "Classrooms";
-      else if (this.$route.path == "/chats") return "Chats";
+      var page = this.$route.path;
+      if (page == "/") return "Home";
+      else if (page == "/classrooms") return "Classrooms";
+      else if (page == "/chats") return "Chats";
       else return "";
     },
   },
@@ -121,9 +122,9 @@ export default {
     align-items: center;
     justify-content: flex-end;
     .top-btn {
-      width: 30px;
+      width: 20px;
       height: 50px;
-      margin-right: 20px;
+      margin-right: 30px;
       display: flex;
       align-items: center;
       justify-content: center;

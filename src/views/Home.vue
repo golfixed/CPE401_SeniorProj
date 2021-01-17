@@ -1,9 +1,10 @@
 <template>
   <div id="page-home" class="app-page">
     <div id="searchbar">
-      <div class="app-default-searchbar">
+      <div v-on:click="openSearchPage()" class="app-default-searchbar">
         <label><i class="fas fa-search"></i>Search</label>
       </div>
+      <searchpage v-if="this.$store.state.searchPageOpen == true" />
     </div>
     <div
       id="section-announcement"
@@ -39,10 +40,12 @@
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import cardAnnouncement from "@/components/cards/announcement.vue";
+import searchpage from "@/components/searchpage.vue";
 export default {
   name: "Home",
   components: {
     cardAnnouncement,
+    searchpage,
   },
   data: function () {
     return {
@@ -73,7 +76,12 @@ export default {
     };
   },
   created: function () {},
-  methods: {},
+  methods: {
+    openSearchPage: function () {
+      console.log("clicked");
+      this.$store.commit("Open_searchPage");
+    },
+  },
   computed: {
     screenheight: function () {
       return window.innerHeight;
