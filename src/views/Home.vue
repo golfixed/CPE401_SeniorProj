@@ -5,8 +5,22 @@
         <label><i class="fas fa-search"></i>Search</label>
       </div>
     </div>
+    <div
+      id="section-announcement"
+      class="section app-default-pinnedbar app-default-borer-gray"
+    >
+      <div class="pin-title">
+        <label>Announcements</label>
+      </div>
+      <div class="pin-tray-wrap">
+        <div class="slide-tray">
+          <cardAnnouncement />
+          <cardAnnouncement />
+        </div>
+      </div>
+    </div>
     <!-- <hr class="page-hr" /> -->
-    <div class="section">
+    <div class="section" style="margin-top: 20px">
       <h2 style="font-size: 20px">Current screen resolution:</h2>
       <h4 style="font-size: 30px; color: green">
         {{ screenwidth }} × {{ screenheight }}
@@ -18,13 +32,37 @@
 <script>
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import cardAnnouncement from "@/components/cards/announcement.vue";
 export default {
   name: "Home",
-  components: {},
-  data: function () {
-    return {};
+  components: {
+    cardAnnouncement,
   },
-  created: function () {},
+  data: function () {
+    return {
+      announcement: [
+        {
+          time: "12:03:11",
+          subject_code: "CPE 401",
+          subject_title: "Senior Project I",
+          message:
+            "There will be no class this week. Make-up class date will be annouce later.Your lab exercise score and quiz test score will be announced through LEB2, please check it out later.",
+        },
+        {
+          time: "12:03:11",
+          subject_code: "CPE 401",
+          subject_title: "Senior Project I",
+          message:
+            "There will be no class this week. Make-up class date will be annouce later.Your lab exercise score and quiz test score will be announced through LEB2, please check it out later.",
+        },
+      ],
+    };
+  },
+  created: function () {
+    const time = new Date();
+    const currentTime = time.getTime();
+    console.log(currentTime);
+  },
   methods: {},
   computed: {
     screenheight: function () {
@@ -36,7 +74,7 @@ export default {
     helloUser: function () {
       const time = new Date();
       const currentTime = time.getHours();
-      // console.log(currentTime);
+
       if (currentTime < 0) return "Time Error!";
       else if (currentTime >= 0 && currentTime < 6) return "Good night";
       else if (currentTime >= 6 && currentTime < 12) return "Good morning";
@@ -90,100 +128,8 @@ export default {
 <style lang="scss" scoped>
 #page-home {
   display: block;
-  #sec-welcome {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding-bottom: 40px;
-    .welcome-txt {
-      label {
-        color: #9a9a9a;
-        font-size: 1.5em;
-        font-weight: 400;
-      }
-      h1 {
-        color: #4b4b4b;
-        font-size: 2.75em;
-        margin-top: 5px;
-        font-weight: 700;
-      }
-    }
-    .profile-btn {
-      width: 66px;
-      height: 66px;
-      border-radius: 100%;
-      overflow: hidden;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
-  }
-  #sec-todayclass {
-    padding-bottom: 10px;
-    .todayclass-pane {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      margin: 0 -30px;
-      width: 100vw;
-      @media screen and (max-width: 375px) {
-        margin: 0 0 0 -20px;
-      }
-    }
-    .todayclass-pane::-webkit-scrollbar {
-      display: none;
-    }
-    .todayclass-item {
-      flex: 0 0 auto;
-      padding: 20px 20px 30px 0;
-    }
-    .todayclass-item:first-child {
-      padding-left: 30px;
-      @media screen and (max-width: 375px) {
-        padding-left: 20px;
-      }
-    }
-    .todayclass-card {
-      width: 330px;
-      height: 170px;
-      border-radius: 20px;
-      background: #e94a26;
-      box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.16);
-
-      @media screen and (max-width: 375px) {
-        width: 290px;
-      }
-    }
-  }
-  #sec-shortcuts {
-    .shortcut-pane {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 20px;
-      .shortcut-item {
-        width: 25%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        div.icon {
-          height: 40px;
-          width: 40px;
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-          }
-        }
-        label {
-          color: #e94a26;
-          margin-top: 10px;
-        }
-      }
-    }
+  #section-announcement {
+    display: block;
   }
 }
 </style>

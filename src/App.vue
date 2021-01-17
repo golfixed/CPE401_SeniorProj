@@ -100,7 +100,7 @@ body {
   }
 
   //iPhone 12 Pro
-    @media screen and (height: 797px) and (width: 390px) {
+  @media screen and (height: 797px) and (width: 390px) {
     height: 80px;
   }
 }
@@ -149,7 +149,7 @@ body {
 #searchbar {
   background-color: #ffffff;
   padding: 0 20px;
-  padding-bottom: 20px;
+  padding-bottom: 15px;
   margin: 0 -20px;
 }
 .app-default-searchbar {
@@ -168,5 +168,52 @@ body {
       margin-right: 10px;
     }
   }
+}
+.app-default-pinnedbar {
+  height: fit-content;
+  background-color: #ffffff;
+  padding: 0px 20px 0px 20px;
+  margin: 0px -20px;
+  .pin-title {
+    padding-bottom: 15px;
+    label {
+      font-size: 16px;
+      color: #8b8b8b;
+      font-weight: 400;
+    }
+  }
+  .pin-tray-wrap {
+    margin: 0 -20px;
+
+    div.slide-tray {
+      padding: 0 20px 20px 20px;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+    }
+    div.slide-tray::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.app-default-borer-gray {
+  border: solid;
+  border-width: 0 0 1px 0;
+  border-color: #ededed;
+}
+//Misc Styles
+.card {
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.card-wrapper {
+  padding: 0 5px;
+}
+.card-wrapper:first-child {
+  padding-left: 0px;
+}
+.card-wrapper:last-child {
+  padding-right: 20px;
 }
 </style>
