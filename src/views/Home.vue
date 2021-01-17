@@ -26,7 +26,7 @@
       </div>
     </div>
     <!-- <hr class="page-hr" /> -->
-    <div class="section" style="margin-top: 20px">
+    <div class="section" style="margin-top: 20px; height: 1500px">
       <h2 style="font-size: 20px">Current screen resolution:</h2>
       <h4 style="font-size: 30px; color: green">
         {{ screenwidth }} × {{ screenheight }}

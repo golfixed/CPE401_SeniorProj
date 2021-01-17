@@ -1,6 +1,6 @@
 module.exports = {
     pwa: {
-        name: 'My Class',
+        name: 'Class(i)',
         themeColor: '#e94a26',
         appleMobileWebAppCapable: 'yes',
         appleMobileWebAppStatusBarStyle: 'default',
