@@ -98,6 +98,11 @@ body {
   @media screen and (height: 768px) and (width: 375px) {
     height: 80px;
   }
+
+  //iPhone 12 Pro
+    @media screen and (height: 797px) and (width: 390px) {
+    height: 80px;
+  }
 }
 .app-view {
   width: 100vw;
