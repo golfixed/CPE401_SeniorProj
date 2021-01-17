@@ -4,7 +4,7 @@
       <div class="profile-btn">
         <img :src="this.user.picture_url" />
       </div>
-      <label class="page-title">{{ this.$store.state.currentPage }}</label>
+      <label class="page-title">{{ currentPage }}</label>
     </div>
 
     <div class="titlebar-right">
@@ -36,12 +36,16 @@
 <script>
 export default {
   name: "pagetitle",
-  created: function () {
-    console.log(this.notifications.length);
-  },
+  created: function () {},
   computed: {
     currentRoute: function () {
       return this.$route.path;
+    },
+    currentPage: function () {
+      if (this.$route.path == "/") return "Home";
+      else if (this.$route.path == "/classrooms") return "Classrooms";
+      else if (this.$route.path == "/chats") return "Chats";
+      else return "";
     },
   },
   data: function () {

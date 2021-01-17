@@ -9,6 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 var moment = require('moment'); // require
 var dayjs = require('dayjs')
 
+// const { JSDOM } = require("jsdom");
+// const { window } = new JSDOM("");
+// const $ = require("jquery")(window);
 
 dayjs().format();
 moment().format();

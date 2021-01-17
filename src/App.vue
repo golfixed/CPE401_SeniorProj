@@ -25,7 +25,12 @@ export default {
 </script>
 
 <style lang="scss">
+html,
 body {
+  overscroll-behavior-x: none;
+}
+body {
+  -ms-touch-action: none;
   width: 100vw;
   height: 100vh;
   margin: 0;
