@@ -1,9 +1,7 @@
 <template>
   <div id="app">
-    <div class="app-pagetitle">
-      <pagetitle />
-    </div>
     <div class="app-view">
+      <topbar />
       <router-view />
     </div>
     <div class="app-tabbar">
@@ -14,12 +12,12 @@
 
 <script>
 import tabbar from "@/components/template/tabbar";
-import pagetitle from "@/components/template/pagetitle";
+import topbar from "@/components/template/topbar";
 export default {
   name: "app",
   components: {
     tabbar,
-    pagetitle,
+    topbar,
   },
 };
 </script>
@@ -83,7 +81,7 @@ body {
 //     padding-top: 44px !important;
 //   }
 // }
-.app-pagetitle {
+.app-title-bar {
   position: fixed;
   top: 0;
   left: 0;
@@ -114,6 +112,11 @@ body {
   @media screen and (height: 797px) and (width: 390px) {
     height: 80px;
   }
+
+  // iPhone 12 mini
+  @media screen and (height: 762px) and (width: 375px) {
+    height: 80px;
+  }
 }
 .app-view {
   width: 100vw;
@@ -132,7 +135,6 @@ body {
   }
 }
 .app-page {
-  margin: 80px 0 60px 0;
   padding: 20px;
   padding-top: 0;
   background-color: #f6f6f6;
@@ -157,7 +159,11 @@ body {
   border-color: #f2f2f2;
   width: 100%;
 }
-#searchbar {
+#search-bar {
+  margin-top: 80px;
+  padding: 0 20px;
+}
+.search-bar-wrapper {
   background-color: #ffffff;
   padding: 0 20px;
   padding-bottom: 15px;
@@ -182,13 +188,15 @@ body {
     }
   }
 }
+#section-favbar {
+  padding: 0 20px;
+}
 .app-default-pinnedbar {
   height: fit-content;
   background-color: #ffffff;
   padding: 0px 20px 0px 20px;
   margin: 0px -20px;
   .pin-title {
-    padding-bottom: 15px;
     label {
       font-size: 16px;
       color: #8b8b8b;
@@ -199,7 +207,7 @@ body {
     margin: 0 -20px;
 
     div.slide-tray {
-      padding: 0 20px 20px 20px;
+      padding: 20px;
       display: flex;
       flex-wrap: nowrap;
       overflow-x: auto;
@@ -214,19 +222,5 @@ body {
   border: solid;
   border-width: 0 0 1px 0;
   border-color: #ededed;
-}
-//Misc Styles
-.card {
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-}
-.card-wrapper {
-  padding: 0 5px;
-}
-.card-wrapper:first-child {
-  padding-left: 0px;
-}
-.card-wrapper:last-child {
-  padding-right: 20px;
 }
 </style>

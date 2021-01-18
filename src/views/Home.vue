@@ -1,33 +1,7 @@
 <template>
   <div id="page-home" class="app-page">
-    <div id="searchbar">
-      <div v-on:click="openSearchPage()" class="app-default-searchbar">
-        <label><i class="fas fa-search"></i>Search</label>
-      </div>
-      <searchpage v-if="this.$store.state.searchPageOpen == true" />
-    </div>
-    <div
-      id="section-announcement"
-      class="section app-default-pinnedbar app-default-borer-gray"
-    >
-      <div class="pin-title">
-        <label>Announcements</label>
-      </div>
-      <div class="pin-tray-wrap">
-        <div class="slide-tray">
-          <cardAnnouncement
-            v-for="items in announcements"
-            :key="items.id"
-            v-bind:subject_code="items.subject_code"
-            v-bind:subject_title="items.subject_title"
-            v-bind:message="items.message"
-            v-bind:time="items.time"
-          />
-        </div>
-      </div>
-    </div>
     <!-- <hr class="page-hr" /> -->
-    <div class="section" style="margin-top: 20px; height: 1500px">
+    <div class="section" style="padding-top: 20px; height: 1500px">
       <h2 style="font-size: 20px">Current screen resolution:</h2>
       <h4 style="font-size: 30px; color: green">
         {{ screenwidth }} × {{ screenheight }}
@@ -39,41 +13,12 @@
 <script>
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
-import cardAnnouncement from "@/components/cards/announcement.vue";
-import searchpage from "@/components/searchpage.vue";
+
 export default {
   name: "Home",
-  components: {
-    cardAnnouncement,
-    searchpage,
-  },
+  components: {},
   data: function () {
-    return {
-      announcements: [
-        {
-          id: 1,
-          time: "Jan 15 2021 10:23:25",
-          subject_code: "CPE 401",
-          subject_title: "Senior Project I",
-          message:
-            "There will be no class this week. Make-up class date will be annouce later.Your lab exercise score and quiz test score will be announced through LEB2, please check it out later.",
-        },
-        {
-          id: 2,
-          time: "Jan 10 2021 10:23:25",
-          subject_code: "CPE 100",
-          subject_title: "Basic Computer Programming Super super",
-          message: "Tomorrow is the last day for LAB#3 submission.",
-        },
-        {
-          id: 3,
-          time: "Jan 9 2020 10:30:25",
-          subject_code: "GEN 352",
-          subject_title: "DIGITAL ELECTRONICS AND LOGIC DESIGN",
-          message: "Tomorrow is the last day for LAB#3 submission.",
-        },
-      ],
-    };
+    return {};
   },
   created: function () {},
   methods: {
@@ -144,10 +89,4 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-#page-home {
-  display: block;
-  #section-announcement {
-    display: block;
-  }
-}
 </style>
