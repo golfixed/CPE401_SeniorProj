@@ -26,6 +26,7 @@ export default {
 html,
 body {
   overscroll-behavior-x: none;
+  touch-action: manipulation;
 }
 body {
   -ms-touch-action: none;
