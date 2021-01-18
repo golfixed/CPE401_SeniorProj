@@ -43,6 +43,9 @@ body {
     font-size: 10px;
   }
 }
+body::-webkit-scrollbar {
+  display: none;
+}
 #app {
   font-family: Helvetica Neue, Roboto, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -124,6 +127,9 @@ body {
   height: 100vh;
   overflow: scroll;
 }
+.app-view::-webkit-scrollbar {
+  display: none;
+}
 
 .section {
   .section-title {
@@ -161,8 +167,8 @@ body {
   width: 100%;
 }
 #search-bar {
-  margin-top: 80px;
   padding: 0 20px;
+  margin-top: 80px;
 }
 .search-bar-wrapper {
   background-color: #ffffff;
@@ -219,7 +225,7 @@ body {
   }
 }
 
-.app-default-borer-gray {
+.app-default-border-gray {
   border: solid;
   border-width: 0 0 1px 0;
   border-color: #ededed;
