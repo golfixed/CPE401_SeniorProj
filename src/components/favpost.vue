@@ -15,7 +15,7 @@
 <script>
 import moment from "moment";
 export default {
-  name: "announcement-card",
+  name: "fav-post",
   props: {
     subject_code: String,
     subject_title: String,
@@ -72,5 +72,21 @@ export default {
     opacity: 0.6;
     text-transform: none;
   }
+}
+//Misc Styles
+.card {
+  // -webkit-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+  // -moz-box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+  // box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.card-wrapper {
+  padding: 0 5px;
+}
+.card-wrapper:first-child {
+  padding-left: 0px;
+}
+.card-wrapper:last-child {
+  padding-right: 20px;
 }
 </style>

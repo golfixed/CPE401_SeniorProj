@@ -14,7 +14,16 @@
           </div>
         </div>
       </div>
-      <div></div>
+      <div class="search-result">
+        <div class="result-wrapper">
+          <div class="result-section">
+            <label>Classrooms</label>
+            <div class="result-list">
+              <div class="list"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -78,6 +87,20 @@ export default {
     label {
       font-size: 1.3em;
       color: #505050;
+    }
+  }
+  .search-result {
+    .result-wrapper {
+      .result-section {
+        label {
+          font-size: 1em;
+        }
+        div.result-list {
+          .list {
+            display: block;
+          }
+        }
+      }
     }
   }
 }
