@@ -35,33 +35,34 @@
     </div>
     <div id="search-bar">
       <div class="search-bar-wrapper">
-        <div v-on:click="openSearchPage()" class="app-default-searchbar">
+        <div v-on:click="openSearchPanel()" class="app-default-searchbar">
           <label v-if="currentRoute == '/'"
             ><i class="fas fa-search"></i>Search</label
           >
           <label v-if="currentRoute == '/classrooms'"
-            ><i class="fas fa-search"></i>Search Classes</label
+            ><i class="fas fa-search"></i>Search classrooms</label
           >
           <label v-if="currentRoute == '/chats'"
-            ><i class="fas fa-search"></i>Search Chats or Contacts</label
+            ><i class="fas fa-search"></i>Search chats or contacts</label
           >
         </div>
-        <searchpage v-if="this.$store.state.searchPageOpen == true" />
       </div>
     </div>
     <div id="section-favbar">
-      <div class="section app-default-pinnedbar app-default-borer-gray">
+      <div class="section app-default-pinnedbar app-default-border-gray">
         <div class="pin-title">
           <label v-if="currentRoute == '/'">Announcements</label>
-          <label
-            v-if="currentRoute == '/classrooms' || currentRoute == '/chats'"
-            >Favourite</label
+          <label v-if="currentRoute == '/classrooms' && favClassList.length > 0"
+            >Favourites</label
+          >
+          <label v-if="currentRoute == '/chats' && favChatList.length > 0"
+            >Favourites</label
           >
         </div>
         <div class="pin-tray-wrap">
           <div class="slide-tray" v-if="currentRoute == '/'">
             <favPost
-              v-for="items in announcements"
+              v-for="items in favPostList"
               :key="items.id"
               v-bind:subject_code="items.subject_code"
               v-bind:subject_title="items.subject_title"
@@ -71,7 +72,7 @@
           </div>
           <div class="slide-tray" v-if="currentRoute == '/chats'">
             <favChat
-              v-for="items in favChat"
+              v-for="items in favChatList"
               :key="items.id"
               v-bind:firstName="items.firstName"
               v-bind:profilePic="items.profilePic"
@@ -80,18 +81,44 @@
         </div>
       </div>
     </div>
+    <div id="search-panel" v-if="this.$store.state.searchPageOpen == true">
+      <searchPanel />
+    </div>
   </div>
 </template>
 
 <script>
 import favPost from "@/components/favpost.vue";
 import favChat from "@/components/favchat.vue";
+import searchPanel from "@/components/searchpage.vue";
 export default {
   name: "pagetitle",
   created: function () {},
   components: {
     favPost,
     favChat,
+    searchPanel,
+  },
+  methods: {
+    openSearchPanel: function () {
+      this.$store.commit("Open_searchPage");
+    },
+  },
+  mounted() {
+    document.querySelector(".app-view").addEventListener("scroll", function () {
+      var scrollTop = document.querySelector(".app-view").scrollTop;
+      var topbarClasses = document.querySelector(".app-title-bar").classList;
+
+      if (scrollTop >= 10) {
+        if (topbarClasses.contains("app-default-border-gray") === false) {
+          topbarClasses.toggle("app-default-border-gray");
+        }
+      } else {
+        if (topbarClasses.contains("app-default-border-gray") === true) {
+          topbarClasses.toggle("app-default-border-gray");
+        }
+      }
+    });
   },
   computed: {
     currentRoute: function () {
@@ -107,6 +134,7 @@ export default {
   },
   data: function () {
     return {
+      scrollPosition: null,
       user: {
         picture_url: "/img/mockup/profile.png",
       },
@@ -124,7 +152,7 @@ export default {
           title: "This is a testing notification text",
         },
       ],
-      announcements: [
+      favPostList: [
         {
           id: 1,
           time: "Jan 15 2021 10:23:25",
@@ -148,7 +176,7 @@ export default {
           message: "Tomorrow is the last day for LAB#3 submission.",
         },
       ],
-      favChat: [
+      favChatList: [
         {
           id: 1,
           firstName: "Peerapong",
@@ -180,6 +208,7 @@ export default {
           profilePic: "/img/mockup/profile_my.png",
         },
       ],
+      favClassList: [],
     };
   },
 };
