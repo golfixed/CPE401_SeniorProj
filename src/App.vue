@@ -2,10 +2,10 @@
   <div id="app">
     <div class="app-view">
       <topbar />
-      <router-view />
+      <router-view v-if="this.$store.state.searchPageOpen == false" />
     </div>
     <div class="app-tabbar">
-      <tabbar />
+      <tabbar v-if="this.$store.state.searchPageOpen == false" />
     </div>
   </div>
 </template>
@@ -229,5 +229,23 @@ body::-webkit-scrollbar {
   border: solid;
   border-width: 0 0 1px 0;
   border-color: #ededed;
+}
+
+.textline {
+  display: -webkit-box;
+
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-box-pack: end;
+}
+
+.textline-1 {
+  -webkit-line-clamp: 1;
+}
+.textline-2 {
+  -webkit-line-clamp: 2;
+}
+.textline-3 {
+  -webkit-line-clamp: 3;
 }
 </style>

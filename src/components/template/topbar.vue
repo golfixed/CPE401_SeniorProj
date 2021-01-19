@@ -35,7 +35,7 @@
     </div>
     <div id="search-bar">
       <div class="search-bar-wrapper">
-        <div v-on:click="openSearchPanel()" class="app-default-searchbar">
+        <div v-on:click="toggleSearchPanel()" class="app-default-searchbar">
           <label v-if="currentRoute == '/'"
             ><i class="fas fa-search"></i>Search</label
           >
@@ -81,8 +81,11 @@
         </div>
       </div>
     </div>
-    <div id="search-panel" v-if="this.$store.state.searchPageOpen == true">
-      <searchPanel />
+    <div id="search-panel">
+      <searchPanel
+        @closePage="toggleSearchPanel"
+        v-if="this.$store.state.searchPageOpen == true"
+      />
     </div>
   </div>
 </template>
@@ -100,8 +103,18 @@ export default {
     searchPanel,
   },
   methods: {
-    openSearchPanel: function () {
-      this.$store.commit("Open_searchPage");
+    toggleSearchPanel: function () {
+      var searchPanel = document.querySelector("#search-panel").classList;
+      if (searchPanel.contains("search-panel-show") === false) {
+        searchPanel.toggle("search-panel-show");
+        this.$store.commit("Open_searchPage");
+      } else {
+        if (searchPanel.contains("search-panel-show") === true) {
+          searchPanel.toggle("search-panel-show");
+          this.$store.commit("Close_searchPage");
+          document.querySelector(".app-view").scroll(0, 0);
+        }
+      }
     },
   },
   mounted() {
@@ -298,5 +311,21 @@ export default {
       margin-right: 0;
     }
   }
+}
+
+#search-panel {
+  position: absolute;
+  top: 100vh;
+  left: 0;
+  transition: all 0.3s;
+  height: 100vh;
+  width: 100vw;
+  z-index: 10;
+  background-color: #fff;
+}
+
+.search-panel-show {
+  top: 0 !important;
+  transition: all 0.3s;
 }
 </style>

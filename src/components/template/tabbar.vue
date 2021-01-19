@@ -2,7 +2,7 @@
   <div id="tabbar">
     <div class="tabbar-panel">
       <router-link to="/" class="tab-item">
-        <div class="tab-btn">
+        <div class="tab-btn" v-on:click="scrollTop()">
           <div class="icon">
             <img
               class="inactive"
@@ -19,7 +19,7 @@
         </div>
       </router-link>
       <router-link to="/classrooms" class="tab-item">
-        <div class="tab-btn">
+        <div class="tab-btn" v-on:click="scrollTop()">
           <div class="icon">
             <img
               class="inactive"
@@ -36,7 +36,7 @@
         </div>
       </router-link>
       <router-link to="/chats" class="tab-item">
-        <div class="tab-btn">
+        <div class="tab-btn" v-on:click="scrollTop()">
           <div class="icon">
             <img
               class="inactive"
@@ -59,7 +59,11 @@
 <script>
 export default {
   name: "tabbar",
-  methods: {},
+  methods: {
+    scrollTop: function () {
+      document.querySelector(".app-view").scroll(0, 0);
+    },
+  },
 };
 </script>
 
