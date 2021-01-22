@@ -49,7 +49,7 @@
       </div>
     </div>
     <div id="section-favbar">
-      <div class="section app-default-pinnedbar app-default-border-gray">
+      <div id="pinned-bar" class="section app-default-pinnedbar">
         <div class="pin-title">
           <label v-if="currentRoute == '/'">Announcements</label>
           <label v-if="currentRoute == '/classrooms' && favClassList.length > 0"

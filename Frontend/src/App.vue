@@ -230,6 +230,11 @@ body::-webkit-scrollbar {
   border-width: 0 0 1px 0;
   border-color: #ededed;
 }
+.app-default-border-gray-top {
+  border: solid;
+  border-width: 1px 0 0 0;
+  border-color: #ededed;
+}
 
 .textline {
   display: -webkit-box;

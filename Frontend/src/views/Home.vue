@@ -1,5 +1,5 @@
 <template>
-  <div id="page-home" class="app-page">
+  <div id="page-home" class="app-page app-default-border-gray-top">
     <!-- <hr class="page-hr" /> -->
     <div class="section" style="padding-top: 20px; height: 1500px">
       <h2 style="font-size: 20px">Current screen resolution:</h2>
