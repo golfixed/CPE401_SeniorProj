@@ -253,4 +253,17 @@ body::-webkit-scrollbar {
 .textline-3 {
   -webkit-line-clamp: 3;
 }
+.overlay-wrapper {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  background-color: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>

@@ -87,6 +87,11 @@
         v-if="this.$store.state.searchPageOpen == true"
       />
     </div>
+    <div id="fullPage-favPost">
+      <div class="overlay-wrapper">
+        <favPostEx />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -94,11 +99,13 @@
 import favPost from "@/components/favpost.vue";
 import favChat from "@/components/favchat.vue";
 import searchPanel from "@/components/searchpage.vue";
+import favPostEx from "@/components/favpost_expanded.vue";
 export default {
   name: "pagetitle",
   created: function () {},
   components: {
     favPost,
+    favPostEx,
     favChat,
     searchPanel,
   },
