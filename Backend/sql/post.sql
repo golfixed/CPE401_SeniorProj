@@ -1,0 +1,21 @@
+DROP TABLE IF EXISTS `post`;
+
+CREATE TABLE IF NOT EXISTS `post` (
+`id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`poll` int(10),
+`comment` int(10),
+`announce` boolean NOT NULL,
+`click_count` int(5) unsigned NOT NULL DEFAULT '0',
+`pic_url` text,
+`text` text,
+`create_at` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+`create_by` int(10) NOT NULL,
+`update_at` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+`update_by` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `post` 
+    ADD FOREIGN KEY (`poll`) REFERENCES `poll`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    ADD FOREIGN KEY (`comment`) REFERENCES `comment`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    ADD FOREIGN KEY (`create_by`) REFERENCES `account`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    ADD FOREIGN KEY (`update_by`) REFERENCES `account`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
