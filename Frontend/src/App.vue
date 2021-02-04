@@ -260,10 +260,11 @@ body::-webkit-scrollbar {
   top: 0;
   left: 0;
   z-index: 12;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.8);
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
 }
 </style>

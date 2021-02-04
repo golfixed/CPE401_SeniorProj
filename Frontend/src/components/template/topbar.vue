@@ -68,6 +68,7 @@
               v-bind:subject_title="items.subject_title"
               v-bind:message="items.message"
               v-bind:time="items.time"
+              @openPost="openFavPost(items.id)"
             />
           </div>
           <div class="slide-tray" v-if="currentRoute == '/chats'">
@@ -87,9 +88,18 @@
         v-if="this.$store.state.searchPageOpen == true"
       />
     </div>
-    <div id="fullPage-favPost">
-      <div class="overlay-wrapper">
-        <favPostEx />
+    <div id="fullPage-favPost" v-if="favPostIsOpen == true">
+      <div class="overlay-wrapper" v-on:click="closeFavPost">
+        <favPostEx
+          :subject_code="favPostClicked.subject_code"
+          :subject_title="favPostClicked.subject_title"
+          :time="favPostClicked.time"
+          :message="favPostClicked.message"
+          :firstName="favPostClicked.firstName"
+          :lastName="favPostClicked.lastName"
+          :pic="favPostClicked.profile_pic"
+          :isSeen="favPostClicked.isSeen"
+        />
       </div>
     </div>
   </div>
@@ -123,6 +133,13 @@ export default {
         }
       }
     },
+    openFavPost: function (id) {
+      this.favPostIsOpen = true;
+      this.favPostClicked = this.favPostList[id];
+    },
+    closeFavPost: function (id) {
+      this.favPostIsOpen = false;
+    },
   },
   mounted() {
     document.querySelector(".app-view").addEventListener("scroll", function () {
@@ -154,9 +171,22 @@ export default {
   },
   data: function () {
     return {
+      favPostIsOpen: false,
       scrollPosition: null,
       user: {
         picture_url: "/img/mockup/profile.png",
+      },
+      favPostClicked: {
+        id: 1,
+        firstName: "Bhaksiree",
+        lastName: "Tongtago",
+        profile_pic: '"/img/mockup/profile_volk.png"',
+        time: "Jan 15 2021 10:23:25",
+        subject_code: "CPE 401",
+        subject_title: "Senior Project I",
+        isSeen: "false",
+        message:
+          "There will be no class this week. Make-up class date will be annouce later.Your lab exercise score and quiz test score will be announced through LEB2, please check it out later.",
       },
       notifications: [
         {
@@ -175,9 +205,13 @@ export default {
       favPostList: [
         {
           id: 1,
+          firstName: "Bhaksiree",
+          lastName: "Tongtago",
+          profile_pic: '"/img/mockup/profile_volk.png"',
           time: "Jan 15 2021 10:23:25",
           subject_code: "CPE 401",
           subject_title: "Senior Project I",
+          isSeen: "false",
           message:
             "There will be no class this week. Make-up class date will be annouce later.Your lab exercise score and quiz test score will be announced through LEB2, please check it out later.",
         },

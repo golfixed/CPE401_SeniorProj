@@ -1,5 +1,5 @@
 <template>
-  <div class="card-wrapper">
+  <div class="card-wrapper" v-on:click="openPost">
     <div class="card card-a">
       <label>{{ subject_code }} {{ subject_title }}</label>
       <div class="message-box">
@@ -29,6 +29,11 @@ export default {
       var post_time = this.time;
       var then = moment(post_time, "MMM DD YYYY hh:mm:ss");
       return then.fromNow();
+    },
+  },
+  methods: {
+    openPost: function () {
+      this.$emit("openPost");
     },
   },
 };
