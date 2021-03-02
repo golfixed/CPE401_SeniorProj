@@ -1,11 +1,10 @@
 <?php 
-session_start();
-include('server.php'); 
+    session_start();
+    include('server.php'); 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,31 +12,24 @@ include('server.php');
 
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
+    
     <div class="header">
         <h2>Register</h2>
     </div>
 
     <form action="register_db.php" method="post">
         <?php include('errors.php'); ?>
-        <!-- notification message -->
         <?php if (isset($_SESSION['error'])) : ?>
-        <div class="error">
-            <h3>
-                <?php
-                    echo $_SESSION['error'];
-                    unset($_SESSION['error']);
-                ?>
-            </h3>
-        </div>
+            <div class="error">
+                <h3>
+                    <?php 
+                        echo $_SESSION['error'];
+                        unset($_SESSION['error']);
+                    ?>
+                </h3>
+            </div>
         <?php endif ?>
-
-
-
-
-
         <div class="input-group">
             <label for="username">Username</label>
             <input type="text" name="username">
@@ -57,9 +49,8 @@ include('server.php');
         <div class="input-group">
             <button type="submit" name="reg_user" class="btn">Register</button>
         </div>
-        <p>Already a member? <a href="login.php">Sign In</a></p>
+        <p>Already a member? <a href="login.php">Sign in</a></p>
     </form>
 
 </body>
-
 </html>
