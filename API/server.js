@@ -4,6 +4,8 @@ let app = express();
 let bodyParser = require('body-parser');
 let mysql = require('mysql');
 
+const port = 3000;
+
 // const http = require('http');
 
 
@@ -44,8 +46,101 @@ app.get('/account', (req, res) =>{
     })
 })
 
-app.listen(3000, () => {
-    console.log('Node App is running on port 3000');
+//POST - add member to account
+app.post('/account', (req, res) =>{
+    //สร้างตัวแปรเก็บข้อมูล ซึ่งเก็บใน request body
+    let username = req.body.username;
+    let email = req.body.email;
+    let password = req.body.password;
+    let role = req.body.role;
+    let gender = req.body.gender;
+    let phone = req.body.phone;
+
+    // validation
+    if (!username || !email || !password || !role || !gender || !phone) {
+        return res.status(400).send({ error: true, message: "Please provide more information."});
+    } else {
+        dbCon.query('INSERT INTO account (username, email, password, role, gender, phone ) VALUES(?, ?, ?, ?, ?, ?)', [username, email, password, role, gender, phone], (error, results, fields) => {
+            if (error) throw error;
+            return res.send({ error: false, data: results, message: "Member successfully added"})
+        })
+    }
+});
+
+// retrieve account by id 
+app.get('/account/:id', (req, res) => {
+    let id = req.params.id;
+
+    if (!id) {
+        return res.status(400).send({ error: true, message: "Please provide account id"});
+    } else {
+        dbCon.query("SELECT * FROM account WHERE id = ?", id, (error, results, fields) => {
+            if (error) throw error;
+
+            let message = "";
+            if (results === undefined || results.length == 0) {
+                message = "ID not found";
+            } else {
+                message = "Successfully retrieved ID data";
+            }
+
+            return res.send({ error: false, data: results[0], message: message })
+        })
+    }
+})
+
+// update book with id 
+app.put('/account', (req, res) => {
+    let id = req.body.id;
+    let username = req.body.username;
+    let email = req.body.email;
+    let password = req.body.password;
+    let role = req.body.role;
+    let gender = req.body.gender;
+    let phone = req.body.phone;
+
+    // validation
+    if (!id || !username || !email || !password || !role || !gender || !phone) {
+        return res.status(400).send({ error: true, message: 'Please provide more information'});
+    } else {
+            if (error) throw error;
+
+            let message = "";
+            if (results.changedRows === 0) {
+                message = "ID not found or data are same";
+            } else {
+                message = "ID information successfully updated";
+            }
+
+            return res.send({ error: false, data: results, message: message })
+        })
+    }
+})
+
+// delete account by id
+app.delete('/account', (req, res) => {
+    let id = req.body.id;
+
+    if (!id) {
+        return res.status(400).send({ error: true, message: "Please provide book id"});
+    } else {
+        dbCon.query('DELETE FROM account WHERE id = ?', [id], (error, results, fields) => {
+            if (error) throw error;
+
+            let message = "";
+            if (results.affectedRows === 0) {
+                message = "ID not found";
+            } else {
+                message = "ID successfully deleted";
+            }
+
+            return res.send({ error: false, data: results, message: message })
+        })
+    }
+})
+
+app.listen(port, () => {
+    console.log(`Node App is running on port ${port}`);
 })
 
 module.exports = app;
