@@ -103,6 +103,7 @@ app.put('/account', (req, res) => {
     if (!id || !username || !email || !password || !role || !gender || !phone) {
         return res.status(400).send({ error: true, message: 'Please provide more information'});
     } else {
+        dbCon.query('UPDATE account SET username = ?, email = ?, password = ?, role = ?, gender = ?, phone = ? WHERE id = ?', [username, email, password, role, gender, phone, id], (error, results, fields) => {
             if (error) throw error;
 
             let message = "";
