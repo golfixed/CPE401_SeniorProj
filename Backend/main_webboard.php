@@ -1,7 +1,20 @@
 <?php
-require 'server.php';
-$sql = "SELECT * FROM post ORDER BY id DESC ";
-$query = mysqli_query($sql);
+include 'server.php';
+
+$sql = "SELECT id, username FROM account";
+$result = mysqli_query($conn, $sql);
+// $sql = "SELECT * FROM post ORDER BY id DESC ";
+// $query = mysqli_query($sql);
+if (mysqli_num_rows($result) > 0) {
+    // output data of each row
+    while($row = mysqli_fetch_assoc($result)) {
+      echo "id: " . $row["id"]. " - Name: " . $row["username"]. " ". "<br>";
+    }
+  } else {
+    echo "0 results";
+  }
+  
+  mysqli_close($conn);
 ?>
 <!DOCTYPE html>
 <html>
@@ -45,29 +58,12 @@ padding: 5px;
 <th style="width: 30px;">ลำดับ</th>
 <th>หัวข้อกระทู้</th>
 <th style="width: 50px;">อ่าน</th>
-<th style="width: 50px;">ตอบ</th>
-<th style="width: 150px;">วันที่ตั้งกระทู้</th>
+<!-- <th style="width: 50px;">ตอบ</th> -->
+<!-- <th style="width: 150px;">วันที่ตั้งกระทู้</th> -->
 </tr>
 </thead>
 <tbody>
-<?php
-$i = 1;
-while ($result = mysqli_fetch_assoc($query)) {
-?>
-<tr>
-<td style="text-align: center;"><?php echo $i; ?></td>
-<td><a href="view_topic.php?id=<?php echo $result['id']; ?>"><?php echo $result['text']; ?></a></td>
-<td style="text-align: center;"><?php echo $result['view']; ?></td>
-<td style="text-align: center;"><?php echo $result['reply']; ?></td>
-<td style="text-align: center;"><?php echo $result['created']; ?></td>
-</tr>
-<?php
-$i++;
-}
-?>
 </tbody>
 </table>
 </body>
 </html>
-<?php
-mysqli_close();
