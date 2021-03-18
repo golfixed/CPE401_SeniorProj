@@ -27,13 +27,13 @@ let dbCon = mysql.createConnection({
     host:'localhost',
     user: 'root',
     password: '', 
-    database: 'class'
+    database: 'classi'
 })
 dbCon.connect();
 
 //GET - retrieve all account
-app.get('/account', (req, res) =>{
-    dbCon.query('SELECT * FROM account', (error, results, fields) =>{
+app.get('/class/member', (req, res) =>{
+    dbCon.query('SELECT * FROM class_member', (error, results, fields) =>{
         if(error) throw error;
         //check ว่ามีข้อมูลหรือไม่
         let message = "";
@@ -46,26 +46,35 @@ app.get('/account', (req, res) =>{
     })
 })
 
+//SIGN UP
 //POST - add member to account
-app.post('/account', (req, res) =>{
+app.post('/signup', (req, res) =>{
     //สร้างตัวแปรเก็บข้อมูล ซึ่งเก็บใน request body
-    let username = req.body.username;
+    let firstname = req.body.firstname;
+    let lastname = req.body.lastname;
     let email = req.body.email;
     let password = req.body.password;
     let role = req.body.role;
-    let gender = req.body.gender;
-    let phone = req.body.phone;
+    // let gender = req.body.gender;
+    // let phone = req.body.phone;
 
     // validation
-    if (!username || !email || !password || !role || !gender || !phone) {
+    // if (!username || !email || !password || !role || !gender || !phone) {
+    if (!firstname || !lastname || !email || !password || !role) {
         return res.status(400).send({ error: true, message: "Please provide more information."});
     } else {
-        dbCon.query('INSERT INTO account (username, email, password, role, gender, phone ) VALUES(?, ?, ?, ?, ?, ?)', [username, email, password, role, gender, phone], (error, results, fields) => {
+        // dbCon.query('INSERT INTO account (username, email, password, role, gender, phone ) VALUES(?, ?, ?, ?, ?, ?)', [username, email, password, role, gender, phone], (error, results, fields) => {
+        dbCon.query('INSERT INTO account (firstname, lastname, email, password, role) VALUES(?, ?, ?, ?, ?)', [firstname, lastname, email, password, role], (error, results, fields) => {
             if (error) throw error;
             return res.send({ error: false, data: results, message: "Member successfully added"})
         })
     }
-});
+})
+
+//PROFILE
+// app.get('/profile', (req, res) =>{
+//     let 
+// })
 
 // retrieve account by id 
 app.get('/account/:id', (req, res) => {
@@ -81,15 +90,14 @@ app.get('/account/:id', (req, res) => {
             if (results === undefined || results.length == 0) {
                 message = "ID not found";
             } else {
-                message = "Successfully retrieved ID data";
+                message = `Successfully retrieved ID ${id}`;
             }
-
             return res.send({ error: false, data: results[0], message: message })
         })
     }
 })
 
-// update book with id 
+// update account with id 
 app.put('/account', (req, res) => {
     let id = req.body.id;
     let username = req.body.username;
@@ -123,7 +131,7 @@ app.delete('/account', (req, res) => {
     let id = req.body.id;
 
     if (!id) {
-        return res.status(400).send({ error: true, message: "Please provide book id"});
+        return res.status(400).send({ error: true, message: "Please provide account id"});
     } else {
         dbCon.query('DELETE FROM account WHERE id = ?', [id], (error, results, fields) => {
             if (error) throw error;
@@ -139,6 +147,7 @@ app.delete('/account', (req, res) => {
         })
     }
 })
+
 
 app.listen(port, () => {
     console.log(`Node App is running on port ${port}`);
