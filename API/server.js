@@ -55,6 +55,7 @@ app.post('/signup', (req, res) =>{
     let email = req.body.email;
     let password = req.body.password;
     let role = req.body.role;
+    let image = req.body.image;
     // let gender = req.body.gender;
     // let phone = req.body.phone;
 
@@ -64,7 +65,7 @@ app.post('/signup', (req, res) =>{
         return res.status(400).send({ error: true, message: "Please provide more information."});
     } else {
         // dbCon.query('INSERT INTO account (username, email, password, role, gender, phone ) VALUES(?, ?, ?, ?, ?, ?)', [username, email, password, role, gender, phone], (error, results, fields) => {
-        dbCon.query('INSERT INTO account (firstname, lastname, email, password, role) VALUES(?, ?, ?, ?, ?)', [firstname, lastname, email, password, role], (error, results, fields) => {
+        dbCon.query('INSERT INTO account (firstname, lastname, email, password, role, image) VALUES(?, ?, ?, ?, ?, ?)', [firstname, lastname, email, password, role, image], (error, results, fields) => {
             if (error) throw error;
             return res.send({ error: false, data: results, message: "Member successfully added"})
         })
