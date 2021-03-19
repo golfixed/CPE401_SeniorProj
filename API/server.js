@@ -47,7 +47,7 @@ app.get('/class/member', (req, res) =>{
 })
 
 //SIGN UP
-app.post('/signup', (req, res) =>{
+app.post('/signUp', (req, res) =>{
     //สร้างตัวแปรเก็บข้อมูล ซึ่งเก็บใน request body
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
@@ -55,18 +55,14 @@ app.post('/signup', (req, res) =>{
     let password = req.body.password;
     let role = req.body.role;
     let image = req.body.image;
-    // let gender = req.body.gender;
-    // let phone = req.body.phone;
-
-    // validation
-    // if (!username || !email || !password || !role || !gender || !phone) {
+    
     if (!firstname || !lastname || !email || !password || !role) {
         return res.status(400).send({ error: true, message: "Please provide more information."});
     } else {
-        // dbCon.query('INSERT INTO account (username, email, password, role, gender, phone ) VALUES(?, ?, ?, ?, ?, ?)', [username, email, password, role, gender, phone], (error, results, fields) => {
-        dbCon.query('INSERT INTO account (firstname, lastname, email, password, role, image) VALUES(?, ?, ?, ?, ?, ?)', [firstname, lastname, email, password, role, image], (error, results, fields) => {
+        dbCon.query('INSERT INTO account (firstname, lastname, email, password, role, image) VALUES(?, ?, ?, ?, ?, ?)',
+         [firstname, lastname, email, password, role, image], (error, results, fields) => {
             if (error) throw error;
-            return res.send({ error: false, data: results, message: "Member successfully added"})
+            return res.send({ error: false, data: results, message: "Account successfully added"})
         })
     }
 })
