@@ -47,7 +47,6 @@ app.get('/class/member', (req, res) =>{
 })
 
 //SIGN UP
-//POST - add member to account
 app.post('/signup', (req, res) =>{
     //สร้างตัวแปรเก็บข้อมูล ซึ่งเก็บใน request body
     let firstname = req.body.firstname;
@@ -72,15 +71,10 @@ app.post('/signup', (req, res) =>{
     }
 })
 
-//PROFILE
-// app.get('/profile', (req, res) =>{
-//     let 
-// })
 
-// retrieve account by id 
-app.get('/account/:id', (req, res) => {
+//GET profile
+app.get('/profile/:id', (req, res) => {
     let id = req.params.id;
-
     if (!id) {
         return res.status(400).send({ error: true, message: "Please provide account id"});
     } else {
@@ -91,7 +85,7 @@ app.get('/account/:id', (req, res) => {
             if (results === undefined || results.length == 0) {
                 message = "ID not found";
             } else {
-                message = `Successfully retrieved ID ${id}`;
+                message = `Successfully retrieved profile ID = ${id}`;
             }
             return res.send({ error: false, data: results[0], message: message })
         })
