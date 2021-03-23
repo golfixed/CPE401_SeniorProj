@@ -31,6 +31,18 @@
             </div>
           </router-link>
         </button>
+        <h1
+          style="color: green; font-size: 30px"
+          v-if="this.connectServer == true"
+        >
+          Server is connected
+        </h1>
+        <h1
+          style="color: red; font-size: 30px"
+          v-if="this.connectServer == false"
+        >
+          No server connection
+        </h1>
       </div>
     </div>
     <div class="bottom-sec">
@@ -50,8 +62,26 @@
 </template>
 
 <script>
+import axios from "@/axios.js";
 export default {
   name: "Welcome",
+  created() {
+    this.test();
+  },
+  data() {
+    return {
+      connectServer: false,
+    };
+  },
+  methods: {
+    test: function () {
+      axios.get("/").then((res) => {
+        if (res.status != 404 || res.status != 500) {
+          this.connectServer = true;
+        }
+      });
+    },
+  },
 };
 </script>
 
