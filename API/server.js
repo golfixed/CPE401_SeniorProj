@@ -87,21 +87,24 @@ app.get('/profile/:id', (req, res) => {
     }
 })
 
-// update account with id 
-app.put('/account', (req, res) => {
+// UPDATE PROFILE
+app.put('/editProfile', (req, res) => {
     let id = req.body.id;
-    let username = req.body.username;
+    let firstname = req.body.firstname;
+    let lastname = req.body.lastname;
     let email = req.body.email;
     let password = req.body.password;
     let role = req.body.role;
+    let image = req.body.image;
     let gender = req.body.gender;
     let phone = req.body.phone;
 
     // validation
-    if (!id || !username || !email || !password || !role || !gender || !phone) {
+    // if (!id || !firstname || !lastname || !email || !password || !role || !image || !gender || !phone) {
+    if (!id || !firstname || !lastname || !email || !password) {
         return res.status(400).send({ error: true, message: 'Please provide more information'});
     } else {
-        dbCon.query('UPDATE account SET username = ?, email = ?, password = ?, role = ?, gender = ?, phone = ? WHERE id = ?', [username, email, password, role, gender, phone, id], (error, results, fields) => {
+        dbCon.query('UPDATE account SET firstname = ?, lastname = ?, email = ?, password = ?, role = ?, image = ?, gender = ?, phone = ? WHERE id = ?', [firstname, lastname, email, password, role, image, gender, phone, id], (error, results, fields) => {
             if (error) throw error;
 
             let message = "";
@@ -117,7 +120,7 @@ app.put('/account', (req, res) => {
 })
 
 // delete account by id
-app.delete('/account', (req, res) => {
+app.delete('/:class_code/deleteMember/:id', (req, res) => {
     let id = req.body.id;
 
     if (!id) {
