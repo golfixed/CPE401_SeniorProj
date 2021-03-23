@@ -2,9 +2,11 @@
 let express = require('express');
 let app = express();
 let mysql = require('mysql');
+const cors = require('cors');
 
 const port = 3000;
 
+app.use(cors())
 // const http = require('http');
 
 
@@ -55,7 +57,7 @@ app.post('/signUp', (req, res) =>{
     let role = req.body.role;
     let image = req.body.image;
     
-    if (!firstname || !lastname || !email || !password || !role) {
+    if (!firstname || !lastname || !email || !password) {
         return res.status(400).send({ error: true, message: "Please provide more information."});
     } else {
         dbCon.query('INSERT INTO account (firstname, lastname, email, password, role, image) VALUES(?, ?, ?, ?, ?, ?)',
@@ -66,6 +68,13 @@ app.post('/signUp', (req, res) =>{
     }
 })
 
+//GET classroom by class code
+app.get('/:class_code', (req, res) =>{
+    let classCode = req.params.class_code;
+    if(!class_code){
+        return res.status(400).send({ error: true, message: "Please provide class code"});
+    }
+})
 
 //GET profile
 app.get('/profile/:id', (req, res) => {
@@ -87,8 +96,10 @@ app.get('/profile/:id', (req, res) => {
     }
 })
 
+
+
 // UPDATE PROFILE
-app.put('/editProfile', (req, res) => {
+app.put('/profile/editProfile', (req, res) => {
     let id = req.body.id;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
@@ -119,21 +130,21 @@ app.put('/editProfile', (req, res) => {
     }
 })
 
-// delete account by id
-app.delete('/:class_code/deleteMember/:id', (req, res) => {
-    let id = req.body.id;
+// DELETE MEMBER
+app.delete('/:class_code/deleteMember', (req, res) => {
+    let email = req.body.email;
 
-    if (!id) {
-        return res.status(400).send({ error: true, message: "Please provide account id"});
+    if (!id || !class_code) {
+        return res.status(400).send({ error: true, message: "Please provide email"});
     } else {
-        dbCon.query('DELETE FROM account WHERE id = ?', [id], (error, results, fields) => {
+        dbCon.query('DELETE FROM account WHERE email = ?', [email], (error, results, fields) => {
             if (error) throw error;
 
             let message = "";
             if (results.affectedRows === 0) {
-                message = "ID not found";
+                message = "Member not found";
             } else {
-                message = "ID successfully deleted";
+                message = "Member successfully deleted";
             }
 
             return res.send({ error: false, data: results, message: message })
