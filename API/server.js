@@ -1,7 +1,6 @@
 //require dependencies
 let express = require('express');
 let app = express();
-let bodyParser = require('body-parser');
 let mysql = require('mysql');
 
 const port = 3000;
@@ -10,8 +9,8 @@ const port = 3000;
 
 
 //เรียกใช้ body parser
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // homepage route
 app.get('/', (req, res) => {
@@ -31,8 +30,8 @@ let dbCon = mysql.createConnection({
 })
 dbCon.connect();
 
-//GET - retrieve all account
-app.get('/class/member', (req, res) =>{
+//GET - retrieve all class member
+app.get('/:class_code/member', (req, res) =>{
     dbCon.query('SELECT * FROM class_member', (error, results, fields) =>{
         if(error) throw error;
         //check ว่ามีข้อมูลหรือไม่
