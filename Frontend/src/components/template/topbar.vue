@@ -36,7 +36,7 @@
     <div id="search-bar">
       <div class="search-bar-wrapper">
         <div v-on:click="toggleSearchPanel()" class="app-default-searchbar">
-          <label v-if="currentRoute == '/'"
+          <label v-if="currentRoute == '/home'"
             ><i class="fas fa-search"></i>Search</label
           >
           <label v-if="currentRoute == '/classrooms'"
@@ -51,7 +51,7 @@
     <div id="section-favbar">
       <div id="pinned-bar" class="section app-default-pinnedbar">
         <div class="pin-title">
-          <label v-if="currentRoute == '/'">Announcements</label>
+          <label v-if="currentRoute == '/home'">Announcements</label>
           <label v-if="currentRoute == '/classrooms' && favClassList.length > 0"
             >Favourites</label
           >
@@ -60,7 +60,7 @@
           >
         </div>
         <div class="pin-tray-wrap">
-          <div class="slide-tray" v-if="currentRoute == '/'">
+          <div class="slide-tray" v-if="currentRoute == '/home'">
             <favPost
               v-for="items in favPostList"
               :key="items.id"
@@ -68,7 +68,8 @@
               v-bind:subject_title="items.subject_title"
               v-bind:message="items.message"
               v-bind:time="items.time"
-              @openPost="openFavPost(items.id)"
+              v-bind:pic="items.profile_pic"
+              @openPost="toggleFavBar(items.id)"
             />
           </div>
           <div class="slide-tray" v-if="currentRoute == '/chats'">
@@ -88,8 +89,13 @@
         v-if="this.$store.state.searchPageOpen == true"
       />
     </div>
-    <div id="fullPage-favPost" v-if="favPostIsOpen == true">
-      <div class="overlay-wrapper" v-on:click="closeFavPost">
+    <div
+      id="overlay-bg"
+      class="overlay-wrapper"
+      v-on:click="toggleFavBar()"
+    ></div>
+    <div id="fullPage-wrapper">
+      <div id="fullPage-favPost">
         <favPostEx
           :subject_code="favPostClicked.subject_code"
           :subject_title="favPostClicked.subject_title"
@@ -99,6 +105,7 @@
           :lastName="favPostClicked.lastName"
           :pic="favPostClicked.profile_pic"
           :isSeen="favPostClicked.isSeen"
+          @closeFavPost="toggleFavBar()"
         />
       </div>
     </div>
@@ -133,12 +140,29 @@ export default {
         }
       }
     },
-    openFavPost: function (id) {
-      this.favPostIsOpen = true;
-      this.favPostClicked = this.favPostList[id];
+
+    toggleFavBar: function (id) {
+      var wrapper = document.querySelector("#fullPage-wrapper").classList;
+      if (wrapper.contains("fullPage-wrapper-show") === false) {
+        this.favPostClicked = this.favPostList[id];
+        wrapper.toggle("fullPage-wrapper-show");
+        this.toggleOverlay();
+      } else {
+        if (wrapper.contains("fullPage-wrapper-show") === true) {
+          wrapper.toggle("fullPage-wrapper-show");
+          this.toggleOverlay();
+        }
+      }
     },
-    closeFavPost: function (id) {
-      this.favPostIsOpen = false;
+    toggleOverlay: function () {
+      var overlay = document.querySelector("#overlay-bg").classList;
+      if (overlay.contains("overlay-wrapper-show") === false) {
+        overlay.toggle("overlay-wrapper-show");
+      } else {
+        if (overlay.contains("overlay-wrapper-show") === true) {
+          overlay.toggle("overlay-wrapper-show");
+        }
+      }
     },
   },
   mounted() {
@@ -163,7 +187,7 @@ export default {
     },
     currentPage: function () {
       var page = this.$route.path;
-      if (page == "/") return "Home";
+      if (page == "/home") return "Home";
       else if (page == "/classrooms") return "Classrooms";
       else if (page == "/chats") return "Chats";
       else return "";
@@ -177,14 +201,14 @@ export default {
         picture_url: "/img/mockup/profile.png",
       },
       favPostClicked: {
-        id: 1,
+        id: 0,
         firstName: "Bhaksiree",
         lastName: "Tongtago",
-        profile_pic: '"/img/mockup/profile_volk.png"',
+        profile_pic: "/img/mockup/profile_volk.png",
         time: "Jan 15 2021 10:23:25",
         subject_code: "CPE 401",
         subject_title: "Senior Project I",
-        isSeen: "false",
+        isSeen: false,
         message:
           "There will be no class this week. Make-up class date will be annouce later.Your lab exercise score and quiz test score will be announced through LEB2, please check it out later.",
       },
@@ -204,30 +228,38 @@ export default {
       ],
       favPostList: [
         {
-          id: 1,
+          id: 0,
           firstName: "Bhaksiree",
           lastName: "Tongtago",
-          profile_pic: '"/img/mockup/profile_volk.png"',
+          profile_pic: "/img/mockup/profile_volk.png",
           time: "Jan 15 2021 10:23:25",
           subject_code: "CPE 401",
           subject_title: "Senior Project I",
-          isSeen: "false",
+          isSeen: false,
           message:
             "There will be no class this week. Make-up class date will be annouce later.Your lab exercise score and quiz test score will be announced through LEB2, please check it out later.",
         },
         {
-          id: 2,
+          id: 1,
+          firstName: "Peerapong",
+          lastName: "Thammakaew",
+          profile_pic: "/img/mockup/profile.png",
           time: "Jan 10 2021 10:23:25",
           subject_code: "CPE 100",
           subject_title: "Basic Computer Programming Super super",
           message: "Tomorrow is the last day for LAB#3 submission.",
+          isSeen: false,
         },
         {
-          id: 3,
+          id: 2,
+          firstName: "Nithiwadee",
+          lastName: "Wangviboonkij",
+          profile_pic: "/img/mockup/profile_my.png",
           time: "Jan 9 2020 10:30:25",
           subject_code: "GEN 352",
           subject_title: "DIGITAL ELECTRONICS AND LOGIC DESIGN",
           message: "Tomorrow is the last day for LAB#3 submission.",
+          isSeen: false,
         },
       ],
       favChatList: [
@@ -269,6 +301,19 @@ export default {
 </script>
 
 <style lang="scss" scpoed>
+#fullPage-favPost {
+  // position: absolute;
+  z-index: 10;
+  width: 100vw;
+  transition: all 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.favPost-show {
+  top: 0 !important;
+  transition: all 0.3s;
+}
 #app-title {
   height: 80px;
   display: flex;

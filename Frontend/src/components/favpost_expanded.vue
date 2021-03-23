@@ -6,9 +6,9 @@
       </div>
       <div class="author">
         <div class="pic">
-          <img :key="pic" />
+          <img :src="pic" />
         </div>
-        <div>
+        <div class="name-time">
           <label>{{ firstName }} {{ lastName }}</label>
           <label class="message-time">{{ timeDiff }}</label>
         </div>
@@ -17,6 +17,26 @@
         <p class="message">
           {{ message }}
         </p>
+      </div>
+      <div class="action-bar">
+        <div class="btn-box">
+          <div class="icons">
+            <img src="/img/icons/favPostCard/reply.svg" />
+          </div>
+          <label class="btn-label">Reply</label>
+        </div>
+        <div class="btn-box">
+          <div class="icons">
+            <img src="/img/icons/favPostCard/bin.svg" />
+          </div>
+          <label class="btn-label">Delete</label>
+        </div>
+        <div class="btn-box" v-on:click="close()">
+          <div class="icons">
+            <img src="/img/icons/favPostCard/close.svg" />
+          </div>
+          <label class="btn-label">Close</label>
+        </div>
       </div>
     </div>
   </div>
@@ -36,6 +56,11 @@ export default {
     lastName: String,
     pic: String,
   },
+  methods: {
+    close: function () {
+      this.$emit("closeFavPost");
+    },
+  },
   created: function () {},
   computed: {
     timeDiff(date) {
@@ -48,6 +73,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.action-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 15px -15px -15px !important;
+  padding: 15px !important;
+  background-color: #00000018;
+  width: 100%;
+  .btn-box {
+    width: 33.33%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .icons {
+      width: 25px;
+      height: 25px;
+      margin-bottom: 10px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+    label.btn-label {
+      font-size: 12px;
+    }
+  }
+}
 .card-a {
   flex: 0 0 auto;
   height: fit-content;
@@ -64,10 +118,13 @@ export default {
   div.subject-title {
     margin: -15px 15px 0 -15px !important;
     padding: 15px !important;
-    background-color: #0000004a;
+    background-color: #00000018;
     width: 100%;
-    height: 20px;
+    // height: 20px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   div.message-box {
@@ -76,17 +133,34 @@ export default {
       font-weight: 500;
       color: #fff;
       font-size: 16px;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      -webkit-box-pack: end;
+      text-align: left;
     }
   }
 
   label.message-time {
     opacity: 0.6;
     text-transform: none;
+  }
+  .author {
+    display: flex;
+    padding-top: 15px;
+    div.pic {
+      height: 34px;
+      width: 34px;
+      border-radius: 100px;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+    div.name-time {
+      padding-left: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
   }
 }
 //Misc Styles
@@ -97,6 +171,5 @@ export default {
 }
 .card-wrapper {
   padding: 20px;
-  width: 100%;
 }
 </style>

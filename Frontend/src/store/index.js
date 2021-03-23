@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: () => ({
     searchPageOpen: false,
+    loggedIn: false,
   }),
   mutations: {
     Open_searchPage: (state) => {

@@ -3,9 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import axios from '@/axios.js'
+Vue.use(axios)
+
 var moment = require('moment'); // require
 var dayjs = require('dayjs')
 
@@ -21,6 +21,13 @@ Vue.config.productionTip = false
 new Vue({
   router,
   store,
+  axios,
   moment,
   render: h => h(App)
 }).$mount('#app')
+
+
+
+
+
+

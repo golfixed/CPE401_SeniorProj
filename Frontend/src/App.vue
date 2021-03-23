@@ -1,11 +1,16 @@
 <template>
-  <div id="app">
-    <div class="app-view">
-      <topbar />
-      <router-view v-if="this.$store.state.searchPageOpen == false" />
+  <div>
+    <div id="app" v-if="loggedIn == true">
+      <div class="app-view">
+        <topbar />
+        <router-view v-if="this.$store.state.searchPageOpen == false" />
+      </div>
+      <div class="app-tabbar">
+        <tabbar v-if="this.$store.state.searchPageOpen == false" />
+      </div>
     </div>
-    <div class="app-tabbar">
-      <tabbar v-if="this.$store.state.searchPageOpen == false" />
+    <div id="app" v-if="loggedIn == false">
+      <router-view />
     </div>
   </div>
 </template>
@@ -18,6 +23,11 @@ export default {
   components: {
     tabbar,
     topbar,
+  },
+  computed: {
+    loggedIn: function () {
+      return this.$store.state.loggedIn;
+    },
   },
 };
 </script>
@@ -66,6 +76,10 @@ body::-webkit-scrollbar {
     margin: 0;
     padding: 0;
   }
+}
+a {
+  text-decoration: none;
+  color: #505050;
 }
 
 // .app-statusbar {
@@ -254,17 +268,125 @@ body::-webkit-scrollbar {
   -webkit-line-clamp: 3;
 }
 .overlay-wrapper {
+  position: absolute;
+  top: 100vh;
+  left: 0;
   width: 100vw;
   height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 12;
-  background-color: rgba(255, 255, 255, 0.8);
+  z-index: 9;
+  background-color: rgba(255, 255, 255, 0);
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
+  transition: all 0.3s;
+}
+.overlay-wrapper-show {
+  top: 0 !important;
+  transition: all 0.3s;
+  background-color: rgba(255, 255, 255, 0.95);
+}
+#fullPage-wrapper {
+  position: absolute;
+  top: 100vh;
+  left: 0;
+  z-index: 10;
+}
+.fullPage-wrapper-show {
+  top: 50% !important;
+  /* left: 50% !important; */
+  transform: translate(0%, -50%);
+  transition: all 0.3s;
+}
+.welcome-page {
+  background-color: #f6f6f6;
+  width: 100vw;
+  height: 100vh;
+}
+input {
+  background-color: #fff;
+  border: solid;
+  border-width: 1px;
+  border-color: #ededed;
+  border-radius: 10px;
+  outline: none;
+  height: 40px;
+  width: 100%;
+  text-indent: 20px;
+  font-size: 16px;
+}
+button {
+  background-color: #fff;
+  border: solid;
+  border-width: 1px;
+  border-color: #ededed;
+  border-radius: 10px;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  label {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: bold;
+    color: #505050;
+  }
+  .single-land {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    div.img-wrapper {
+      width: 25px;
+      height: 25px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 10px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+}
+button:active {
+  background-color: rgb(250, 250, 250);
+}
+.bottom-btn {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  text-decoration-line: underline;
+  color: #479f60;
+}
+.hr-line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  margin-bottom: 20px;
+  div {
+    border: 1px solid #ededed;
+    border-width: 1px 0 0 0;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  label {
+    color: #505050;
+    background-color: #f6f6f6;
+    width: 30px;
+    text-align: center;
+    font-size: 16px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>
