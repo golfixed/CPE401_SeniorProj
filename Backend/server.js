@@ -1,11 +1,13 @@
 //require dependencies
 let express = require("express");
+const session = require("express-session");
 let app = express();
 let mysql = require("mysql");
 const cors = require("cors");
-
+const passport = require("passport");
 const port = 3000;
 
+const sessionConfig = require("./config/session.config");
 var corsOptions = {
   origin: "*",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -14,11 +16,14 @@ var corsOptions = {
 app.use(cors(corsOptions));
 // const http = require('localhost');
 
-app.listen(3000);
+app.listen(5000);
 
 //เรียกใช้ body parser
 app.use(express.json());
+app.use(session(sessionConfig));
 app.use(express.urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // homepage route
 app.get("/", (req, res) => {
