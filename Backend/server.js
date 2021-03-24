@@ -26,6 +26,13 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// local strategy
+require("./strategy/passport.local")();
+
+app.post("/login", passport.authenticate("local"), (req, res) =>
+  res.sendStatus(200)
+);
+
 // homepage route
 app.get("/", (req, res) => {
   return res.send({
