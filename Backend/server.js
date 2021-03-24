@@ -6,6 +6,8 @@ let mysql = require("mysql");
 const cors = require("cors");
 const passport = require("passport");
 const port = 3000;
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const sessionConfig = require("./config/session.config");
 var corsOptions = {
@@ -14,14 +16,13 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-// const http = require('localhost');
 
 app.listen(5000);
 
-//เรียกใช้ body parser
-app.use(express.json());
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(session(sessionConfig));
-app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
