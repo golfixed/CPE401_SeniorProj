@@ -60,26 +60,30 @@
           >
         </div>
         <div class="pin-tray-wrap">
-          <div class="slide-tray" v-if="currentRoute == '/home'">
-            <favPost
-              v-for="items in favPostList"
-              :key="items.id"
-              v-bind:subject_code="items.subject_code"
-              v-bind:subject_title="items.subject_title"
-              v-bind:message="items.message"
-              v-bind:time="items.time"
-              v-bind:pic="items.profile_pic"
-              @openPost="toggleFavBar(items.id)"
-            />
-          </div>
-          <div class="slide-tray" v-if="currentRoute == '/chats'">
-            <favChat
-              v-for="items in favChatList"
-              :key="items.id"
-              v-bind:firstName="items.firstName"
-              v-bind:profilePic="items.profilePic"
-            />
-          </div>
+          <transition name="fade" mode="out-in">
+            <div class="slide-tray" v-if="currentRoute == '/home'">
+              <favPost
+                v-for="items in favPostList"
+                :key="items.id"
+                v-bind:subject_code="items.subject_code"
+                v-bind:subject_title="items.subject_title"
+                v-bind:message="items.message"
+                v-bind:time="items.time"
+                v-bind:pic="items.profile_pic"
+                @openPost="toggleFavBar(items.id)"
+              />
+            </div>
+          </transition>
+          <transition name="fade" mode="out-in">
+            <div class="slide-tray" v-if="currentRoute == '/chats'">
+              <favChat
+                v-for="items in favChatList"
+                :key="items.id"
+                v-bind:firstName="items.firstName"
+                v-bind:profilePic="items.profilePic"
+              />
+            </div>
+          </transition>
         </div>
       </div>
     </div>

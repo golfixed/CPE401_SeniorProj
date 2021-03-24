@@ -24,16 +24,17 @@ const routes = [
     name: 'Home',
     component:  () => import( /* webpackChunkName: "Home" */ '../views/Home.vue')
   },
-  // {
-  //   path: '/classrooms',
-  //   name: 'Classrooms',
-  //   component:  () => import( /* webpackChunkName: "Classrooms" */ '../views/Classroom.vue')
-  // },
-  // {
-  //   path: '/Chat',
-  //   name: 'Chats',
-  //   component:  () => import( /* webpackChunkName: "Chats" */ '../views/Classroom.vue')
-  // },
+  {
+    path: '/classrooms',
+    name: 'Classrooms',
+    component:  () => import( /* webpackChunkName: "Classrooms" */ '../views/Classrooms.vue')
+  },
+  {
+    path: '/chats',
+    name: 'Chats',
+    component:  () => import( /* webpackChunkName: "Chats" */ '../views/Chats.vue')
+  },
+  { path: '*', redirect: '/home' }
 ]
 
 const router = new VueRouter({

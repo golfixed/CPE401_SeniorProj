@@ -43,6 +43,7 @@
         >
           No server connection
         </h1>
+        {{ resData }}
       </div>
     </div>
     <div class="bottom-sec">
@@ -71,6 +72,7 @@ export default {
   data() {
     return {
       connectServer: false,
+      resData: "",
     };
   },
   methods: {
@@ -78,6 +80,8 @@ export default {
       axios.get("/").then((res) => {
         if (res.status != 404 || res.status != 500) {
           this.connectServer = true;
+          // console.log(res);
+          this.resData = res.data;
         }
       });
     },

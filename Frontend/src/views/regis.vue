@@ -43,7 +43,7 @@
     </div>
     <div class="bottom-sec">
       <div class="wrapper">
-        <label class="bottom-label">Already had a accouint?</label>
+        <label class="bottom-label">Already had a account?</label>
         <label class="bottom-btn">Reset password</label>
       </div>
     </div>

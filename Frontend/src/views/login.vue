@@ -9,10 +9,12 @@
         <input type="text" placeholder="E-mail" />
         <input type="password" placeholder="Password" />
         <div class="btn-wrapper">
-          <button class="sign-in">
-            <div class="single-land">
-              <label>Sign In</label>
-            </div>
+          <button class="sign-in" v-on:click="signin">
+            <router-link to="/home">
+              <div class="single-land">
+                <label>Sign In</label>
+              </div>
+            </router-link>
           </button>
         </div>
       </div>
@@ -32,6 +34,11 @@ export default {
   name: "Login",
   components: {
     topNavi,
+  },
+  methods: {
+    signin: function () {
+      this.$store.commit("LogIn");
+    },
   },
 };
 </script>

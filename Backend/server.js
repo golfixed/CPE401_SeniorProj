@@ -8,13 +8,14 @@ const port = 3000;
 
 
 var corsOptions = {
-    origin: 'http://localhost:8080',
+    origin: '*',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
 app.use(cors(corsOptions));
 // const http = require('localhost'); 
 
+app.listen(3000, '10.35.244.243');
 
 //เรียกใช้ body parser
 app.use(express.json());
@@ -25,8 +26,13 @@ app.get('/', (req, res) => {
     return res.send({ 
         error: false, 
         message: 'Welcome to RESTful CRUD API with NodeJS, Express, MYSQL',
-        written_by: 'Bhaksiree'
+        written_by: 'Bhaksiree',
+        test: 'this is GOLF',
     })
+})
+
+app.get('/new',(req, res) => {
+    return res.send({test: 'GOLF'})
 })
 
 //connect to mysql database
