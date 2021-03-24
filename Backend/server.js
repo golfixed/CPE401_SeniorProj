@@ -5,7 +5,7 @@ let app = express();
 let mysql = require("mysql");
 const cors = require("cors");
 const passport = require("passport");
-const port = 3000;
+const port = 5000;
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -17,8 +17,6 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
-app.listen(5000);
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
