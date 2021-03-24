@@ -53,6 +53,8 @@ app.get('/:class_code/member', (req, res) =>{
     })
 })
 
+//SIGN IN
+
 //SIGN UP
 app.post('/signUp', (req, res) =>{
     //สร้างตัวแปรเก็บข้อมูล ซึ่งเก็บใน request body
