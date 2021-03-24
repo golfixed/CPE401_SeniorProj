@@ -2,10 +2,10 @@
 let express = require('express');
 let app = express();
 let mysql = require('mysql');
+let session = require('express-session');
 const cors = require('cors');
 
 const port = 3000;
-
 
 var corsOptions = {
     origin: 'http://localhost:8080',
@@ -14,7 +14,11 @@ var corsOptions = {
 
 app.use(cors(corsOptions));
 // const http = require('localhost'); 
-
+app.use(session({
+	secret: 'secret',
+	resave: true,
+	saveUninitialized: true
+}));
 
 //เรียกใช้ body parser
 app.use(express.json());
@@ -29,14 +33,14 @@ app.get('/', (req, res) => {
     })
 })
 
-//connect to mysql database
-// let dbCon = mysql.createConnection({
-//     host:'localhost',
-//     user: 'root',
-//     password: '', 
-//     database: 'classi'
-// })
-// dbCon.connect();
+// connect to mysql database
+let dbCon = mysql.createConnection({
+    host:'localhost',
+    user: 'root',
+    password: '', 
+    database: 'classi'
+})
+dbCon.connect();
 
 //GET - retrieve all class member
 app.get('/:class_code/member', (req, res) =>{
@@ -54,7 +58,25 @@ app.get('/:class_code/member', (req, res) =>{
 })
 
 //SIGN IN
-
+app.post('/signIn', function(req, res) {
+	let email = req.body.email;
+	let password = req.body.password;
+	if (email && password) {
+		dbCon.query('SELECT * FROM account WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
+			if (results.length > 0) {
+				req.session.loggedin = 1;
+				req.session.email = email;
+				res.redirect('/');
+			} else {
+				res.send('Incorrect Username and/or Password!');
+			}			
+			res.end();
+		});
+	} else {
+		res.send('Please enter Username and Password!');
+		res.end();
+	}
+});
 //SIGN UP
 app.post('/signUp', (req, res) =>{
     //สร้างตัวแปรเก็บข้อมูล ซึ่งเก็บใน request body
