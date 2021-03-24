@@ -10,6 +10,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
 const sessionConfig = require("./config/session.config");
+const authenMiddleware = require("./middleware/authen.middleware");
 var corsOptions = {
   origin: "*",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
@@ -34,7 +35,7 @@ app.post("/login", passport.authenticate("local"), (req, res) =>
 );
 
 // homepage route
-app.get("/", (req, res) => {
+app.get("/", authenMiddleware, (req, res) => {
   const user = req.session.passport.user;
 
   return res.send({
@@ -61,7 +62,7 @@ app.get("/new", (req, res) => {
 // dbCon.connect();
 
 //GET - retrieve all class member
-app.get("/:class_code/member", (req, res) => {
+app.get("/:class_code/member", authenMiddleware, (req, res) => {
   dbCon.query("SELECT * FROM class_member", (error, results, fields) => {
     if (error) throw error;
     //check ว่ามีข้อมูลหรือไม่
