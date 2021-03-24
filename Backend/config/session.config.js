@@ -1,6 +1,7 @@
 module.exports = {
-  secret: "keyboard cat",
+  name: "classi",
+  secret: "most4euei3n2secure1hash",
   resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true },
+  saveUninitialized: false,
+  cookie: { secure: false },
 };
