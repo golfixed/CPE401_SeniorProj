@@ -35,11 +35,14 @@ app.post("/login", passport.authenticate("local"), (req, res) =>
 
 // homepage route
 app.get("/", (req, res) => {
+  const user = req.session.passport.user;
+
   return res.send({
     error: false,
     message: "Welcome to RESTful CRUD API with NodeJS, Express, MYSQL",
     written_by: "Bhaksiree",
     test: "this is GOLF",
+    user,
   });
 });
 
