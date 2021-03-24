@@ -43,6 +43,7 @@ app.get("/", (req, res) => {
     written_by: "Bhaksiree",
     test: "this is GOLF",
     user,
+    username: user.username,
   });
 });
 
