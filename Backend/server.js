@@ -46,6 +46,11 @@ app.get("/", authenMiddleware, (req, res) => {
   });
 });
 
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  return res.sendStatus(200);
+});
+
 app.get("/new", (req, res) => {
   return res.send({ test: "GOLF" });
 });
