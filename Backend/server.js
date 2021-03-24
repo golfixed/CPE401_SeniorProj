@@ -1,8 +1,8 @@
 //require dependencies
-let express = require("express");
+const express = require("express");
 const session = require("express-session");
-let app = express();
-let mysql = require("mysql");
+const app = express();
+const mysql = require("mysql");
 const cors = require("cors");
 const passport = require("passport");
 const port = 5000;
@@ -11,7 +11,7 @@ const cookieParser = require("cookie-parser");
 
 const sessionConfig = require("./config/session.config");
 const authenMiddleware = require("./middleware/authen.middleware");
-var corsOptions = {
+const corsOptions = {
   origin: "*",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
