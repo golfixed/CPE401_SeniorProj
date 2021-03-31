@@ -34,6 +34,7 @@ app.get('/', (req, res) => {
 })
 
 // connect to mysql database
+
 let dbCon = mysql.createConnection({
     host:'localhost',
     user: 'root',
@@ -41,21 +42,6 @@ let dbCon = mysql.createConnection({
     database: 'classi'
 })
 dbCon.connect();
-
-//GET - retrieve all class member
-app.get('/:class_code/member', (req, res) =>{
-    dbCon.query('SELECT * FROM class_member', (error, results, fields) =>{
-        if(error) throw error;
-        //check ว่ามีข้อมูลหรือไม่
-        let message = "";
-        if(results === undefined || results.length == 0){
-            message = "No member";
-        }else{
-            message = "Successfully retrieved all account";
-        }
-        return res.send({error: false, data: results, message: message});
-    })
-})
 
 //SIGN IN
 app.post('/signIn', function(req, res) {
@@ -98,13 +84,47 @@ app.post('/signUp', (req, res) =>{
     }
 })
 
-//GET classroom by class code
-app.get('/:class_code', (req, res) =>{
-    let classCode = req.params.class_code;
-    if(!class_code){
-        return res.status(400).send({ error: true, message: "Please provide class code"});
+//GET Home create class
+app.post('/home/createClass', (req, res)=> {
+    let class_code = req.body.class_code;
+    let class_name = req.body.class_name;
+    let class_desc = req.body.class_desc;
+    let class_pic = req.body.class_pic;
+    let section = req.body.section;
+
+    if(!class_code || !class_name || !section){
+        return res.status(400).send({ error: true, message: "Please provide more information."});
+    }else{
+        dbCon.query('INSERT INTO class (class_code, class_name, section) VALUES (?, ? ,?)', [class_code, class_name, section], (error, results, fields) =>{
+            if(error) throw error;
+            return res.send({error: false, message: "Class Added"});
+        })
     }
 })
+
+//GET - retrieve all class member
+app.get('/:class_code/member', (req, res) =>{
+    dbCon.query('SELECT * FROM class_member', (error, results, fields) =>{
+        if(error) throw error;
+        //check ว่ามีข้อมูลหรือไม่
+        let message = "";
+        if(results === undefined || results.length == 0){
+            message = "No member";
+        }else{
+            message = "Successfully retrieved all account";
+        }
+        return res.send({error: false, data: results, message: message});
+    })
+})
+
+//GET classroom by class code
+// app.get('/:class_code', (req, res) =>{
+//     let classCode = req.params.class_code;
+//     if(!class_code){
+//         return res.status(400).send({ error: true, message: "Please provide class code"});
+//     }else
+//     {}
+// })
 
 //GET profile
 app.get('/profile/:id', (req, res) => {
@@ -125,7 +145,6 @@ app.get('/profile/:id', (req, res) => {
         })
     }
 })
-
 
 
 // UPDATE PROFILE
@@ -154,7 +173,6 @@ app.put('/profile/editProfile', (req, res) => {
             } else {
                 message = "ID information successfully updated";
             }
-
             return res.send({ error: false, data: results, message: message })
         })
     }
@@ -176,7 +194,6 @@ app.delete('/:class_code/deleteMember', (req, res) => {
             } else {
                 message = "Member successfully deleted";
             }
-
             return res.send({ error: false, data: results, message: message })
         })
     }
