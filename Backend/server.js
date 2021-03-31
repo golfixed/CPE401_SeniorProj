@@ -84,6 +84,20 @@ app.post('/signUp', (req, res) =>{
     }
 })
 
+//GET Chat
+app.get('/chat', (req, res)=>{
+    dbCon.query('SELECT * FROM chat_list', (error, results, fields) =>{
+        if(error) throw error;
+        let message = "";
+        if(results === undefined || results.length == 0){
+            message = "Chat is empty";
+        }else{
+            message = "This is chat list";
+        }
+        return res.send({error: false, data: results, message: message});
+    })
+})
+
 //GET Home create class
 app.post('/home/createClass', (req, res)=> {
     let class_code = req.body.class_code;
@@ -198,7 +212,6 @@ app.delete('/:class_code/deleteMember', (req, res) => {
         })
     }
 })
-
 
 app.listen(port, () => {
     console.log(`Node App is running on port ${port}`);
