@@ -140,9 +140,8 @@ app.get('/class/:class_code', (req, res) =>{
         return res.status(400).send({ error: true, message: "Please provide class code"});
     }else
     {
-        dbCon.query('SELECT * from class WHERE class_code = ?', class_code, (error, results, fields) =>{
+        dbCon.query('INSERT INTO class (class_code, class_name, class_desc, class_pic, section) VALUES (?, ? ,?, ?, ?)', [class_code, class_name, class_desc, class_pic, section], (error, results, fields) =>{
             if(error) throw error;
-
             let message ="";
             if(results === undefined || results.length == 0){
                 message = `No ${class_code} class`;
