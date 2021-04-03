@@ -63,6 +63,7 @@ app.post('/signIn', function(req, res) {
 		res.end();
 	}
 });
+
 //SIGN UP
 app.post('/signUp', (req, res) =>{
     //สร้างตัวแปรเก็บข้อมูล ซึ่งเก็บใน request body
@@ -117,7 +118,7 @@ app.post('/home/createClass', (req, res)=> {
 })
 
 //GET - retrieve all class member
-app.get('/:class_code/member', (req, res) =>{
+app.get('/class/:class_code/member', (req, res) =>{
     dbCon.query('SELECT * FROM class_member', (error, results, fields) =>{
         if(error) throw error;
         //check ว่ามีข้อมูลหรือไม่
@@ -132,13 +133,26 @@ app.get('/:class_code/member', (req, res) =>{
 })
 
 //GET classroom by class code
-// app.get('/:class_code', (req, res) =>{
-//     let classCode = req.params.class_code;
-//     if(!class_code){
-//         return res.status(400).send({ error: true, message: "Please provide class code"});
-//     }else
-//     {}
-// })
+app.get('/class/:class_code', (req, res) =>{
+    let class_code = req.params.class_code;
+    
+    if(!class_code){
+        return res.status(400).send({ error: true, message: "Please provide class code"});
+    }else
+    {
+        dbCon.query('SELECT * from class WHERE class_code = ?', class_code, (error, results, fields) =>{
+            if(error) throw error;
+
+            let message ="";
+            if(results === undefined || results.length == 0){
+                message = `No ${class_code} class`;
+            }else{
+                message = `This is ${class_code}`;
+            }
+            return res.send ({error: false, data: results[0], message: message})
+        })
+    }
+})
 
 //GET profile
 app.get('/profile/:id', (req, res) => {
