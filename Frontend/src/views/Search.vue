@@ -216,6 +216,14 @@ export default {
       this.$refs.searchInput.focus();
     },
   },
+  computed: {
+    screenheight: function () {
+      return window.innerHeight;
+    },
+    screenwidth: function () {
+      return window.innerWidth;
+    },
+  },
   created() {},
 };
 </script>

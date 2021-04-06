@@ -194,5 +194,6 @@ export default {
 .card-wrapper {
   padding: 20px;
   z-index: 21;
+  margin-top: -80px;
 }
 </style>
