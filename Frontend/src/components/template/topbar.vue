@@ -4,7 +4,9 @@
       <div id="app-title" class="app-statusbar">
         <div class="titlebar-left">
           <div class="profile-btn">
-            <img :src="this.user.picture_url" />
+            <router-link to="/settings">
+              <img :src="userProfilePic" />
+            </router-link>
           </div>
           <label class="page-title">{{ currentPage }}</label>
         </div>
@@ -158,9 +160,7 @@ export default {
   data: function () {
     return {
       scrollPosition: null,
-      user: {
-        picture_url: "/img/mockup/profile.png",
-      },
+      userProfilePic: this.$store.state.user.profile.pic,
       favPostClicked: {
         id: 0,
         firstName: "Bhaksiree",

@@ -1,7 +1,7 @@
 <template>
   <div class="welcome-page">
     <topNavi type="regis" />
-    <div class="content">
+    <div class="content-page">
       <div class="wrapper">
         <div class="page-header">
           <h1 class="pagename">Sign up with email</h1>

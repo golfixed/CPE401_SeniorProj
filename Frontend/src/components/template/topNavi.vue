@@ -39,7 +39,16 @@ export default {
 <style lang="scss">
 #navi-bar {
   height: 60px;
+  width: 100vw;
   grid-template-columns: 80px calc(100% - 160px) 80px;
+  background-color: #fff;
+  border: solid;
+  border-width: 0 0 1px 0;
+  border-color: #ededed;
+  z-index: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
   //   background-color: green;
   .left,
   .center,

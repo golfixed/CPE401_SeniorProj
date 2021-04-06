@@ -3,7 +3,9 @@
     <div id="app" v-if="isLogInPage == false">
       <div class="app-view">
         <topbar />
-        <router-view v-if="this.$store.state.searchPageOpen == false" />
+        <vue-page-transition>
+          <router-view v-if="this.$store.state.searchPageOpen == false" />
+        </vue-page-transition>
         <assistBtn />
       </div>
       <div class="app-tabbar">
@@ -11,7 +13,9 @@
       </div>
     </div>
     <div id="app" v-if="isLogInPage == true">
-      <router-view />
+      <vue-page-transition>
+        <router-view />
+      </vue-page-transition>
     </div>
   </div>
 </template>
@@ -379,5 +383,26 @@ button:active {
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
+.fullpage {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  overflow: scroll;
+  z-index: 20;
+  background-color: #ffffff;
+}
+
+.content-page {
+  margin-top: 60px;
+  position: fixed;
+  width: 100vw;
+  height: calc(100vh - 61px);
+  overflow: scroll;
+  // .wrapper {
+  //   height: 1500px;
+  // }
 }
 </style>

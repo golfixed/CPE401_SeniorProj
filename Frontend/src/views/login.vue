@@ -1,7 +1,7 @@
 <template>
   <div class="welcome-page">
     <topNavi type="login" />
-    <div class="content">
+    <div class="content-page">
       <div class="wrapper">
         <div class="page-header">
           <h1 class="pagename">Sign In with E-mail</h1>
@@ -100,9 +100,7 @@ input {
     padding-top: 5px !important;
   }
 }
-.content {
-  width: 100vw;
-}
+
 .bottom-sec {
   position: fixed;
   bottom: 0;

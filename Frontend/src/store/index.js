@@ -7,7 +7,16 @@ export default new Vuex.Store({
   state: () => ({
     searchPageOpen: false,
     loggedIn: true,
-    selected_ancmt: {}
+    selected_ancmt: {},
+    user:{
+      profile: {
+        firstName: 'Peerapong',
+        lastName: 'Thammakaew',
+        pic: '/img/mockup/profile.png',
+        role: 'ta',
+        email: 'peerapong.tmk@mail.kmutt.ac.th',
+      }
+    }
   }),
   mutations: {
     Open_searchPage: (state) => {

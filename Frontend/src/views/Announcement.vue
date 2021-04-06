@@ -1,5 +1,5 @@
 <template>
-  <div id="announcement-page">
+  <div id="announcement-page" class="fullpage">
     <div class="card-wrapper">
       <div class="card card-a">
         <div class="subject-title">
@@ -74,14 +74,6 @@ export default {
 
 <style lang="scss" scoped>
 #announcement-page {
-  position: fixed;
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  overflow: scroll;
-  z-index: 20;
-  background-color: #ffffff;
   display: flex;
   justify-content: center;
   align-items: center;
