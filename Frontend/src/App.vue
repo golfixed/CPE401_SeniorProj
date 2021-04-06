@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="app" v-if="loggedIn == true">
+    <div id="app" v-if="isLogInPage == false">
       <div class="app-view">
         <topbar />
         <router-view v-if="this.$store.state.searchPageOpen == false" />
@@ -9,7 +9,7 @@
         <tabbar v-if="this.$store.state.searchPageOpen == false" />
       </div>
     </div>
-    <div id="app" v-if="loggedIn == false">
+    <div id="app" v-if="isLogInPage == true">
       <router-view />
     </div>
   </div>
@@ -27,6 +27,14 @@ export default {
   computed: {
     loggedIn: function () {
       return this.$store.state.loggedIn;
+    },
+    currentRoute: function () {
+      return this.$route.path;
+    },
+    isLogInPage: function () {
+      var r = this.currentRoute;
+      if (r == "/" || r == "/login" || r == "/regis") return true;
+      else return false;
     },
   },
 };
