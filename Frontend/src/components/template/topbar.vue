@@ -35,17 +35,19 @@
     </div>
     <div id="search-bar">
       <div class="search-bar-wrapper">
-        <div v-on:click="toggleSearchPanel()" class="app-default-searchbar">
-          <label v-if="currentRoute == '/home'"
-            ><i class="fas fa-search"></i>Search</label
-          >
-          <label v-if="currentRoute == '/classrooms'"
-            ><i class="fas fa-search"></i>Search classrooms</label
-          >
-          <label v-if="currentRoute == '/chats'"
-            ><i class="fas fa-search"></i>Search chats or contacts</label
-          >
-        </div>
+        <router-link to="/search">
+          <div class="app-default-searchbar">
+            <label v-if="currentRoute == '/home'"
+              ><i class="fas fa-search"></i>Search</label
+            >
+            <label v-if="currentRoute == '/classrooms'"
+              ><i class="fas fa-search"></i>Search classrooms</label
+            >
+            <label v-if="currentRoute == '/chats'"
+              ><i class="fas fa-search"></i>Search chats or contacts</label
+            >
+          </div>
+        </router-link>
       </div>
     </div>
     <div id="section-favbar">
@@ -69,7 +71,7 @@
               v-bind:message="items.message"
               v-bind:time="items.time"
               v-bind:pic="items.profile_pic"
-              @openPost="toggleFavBar(items.id)"
+              @openPost="openAncmt(items.id)"
             />
           </div>
           <div class="slide-tray" v-if="currentRoute == '/chats'">
@@ -83,87 +85,47 @@
         </div>
       </div>
     </div>
-    <div id="search-panel">
-      <searchPanel
-        @closePage="toggleSearchPanel"
-        v-if="this.$store.state.searchPageOpen == true"
-      />
-    </div>
-    <div
-      id="overlay-bg"
-      class="overlay-wrapper"
-      v-on:click="toggleFavBar()"
-    ></div>
-    <div id="fullPage-wrapper">
-      <div id="fullPage-favPost">
-        <favPostEx
-          :subject_code="favPostClicked.subject_code"
-          :subject_title="favPostClicked.subject_title"
-          :time="favPostClicked.time"
-          :message="favPostClicked.message"
-          :firstName="favPostClicked.firstName"
-          :lastName="favPostClicked.lastName"
-          :pic="favPostClicked.profile_pic"
-          :isSeen="favPostClicked.isSeen"
-          @closeFavPost="toggleFavBar()"
-        />
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import favPost from "@/components/favpost.vue";
 import favChat from "@/components/favchat.vue";
-import searchPanel from "@/components/searchpage.vue";
-import favPostEx from "@/components/favpost_expanded.vue";
 export default {
   name: "pagetitle",
   created: function () {},
   components: {
     favPost,
-    favPostEx,
     favChat,
-    searchPanel,
   },
   methods: {
-    toggleSearchPanel: function () {
-      var searchPanel = document.querySelector("#search-panel").classList;
-      if (searchPanel.contains("search-panel-show") === false) {
-        searchPanel.toggle("search-panel-show");
-        this.$store.commit("Open_searchPage");
-      } else {
-        if (searchPanel.contains("search-panel-show") === true) {
-          searchPanel.toggle("search-panel-show");
-          this.$store.commit("Close_searchPage");
-          document.querySelector(".app-view").scroll(0, 0);
-        }
-      }
+    openAncmt: function (id) {
+      this.favPostClicked = this.favPostList[id];
     },
+    // toggleFavBar: function (id) {
+    //   var wrapper = document.querySelector("#fullPage-wrapper").classList;
+    //   if (wrapper.contains("fullPage-wrapper-show") === false) {
+    //     this.favPostClicked = this.favPostList[id];
+    //     wrapper.toggle("fullPage-wrapper-show");
 
-    toggleFavBar: function (id) {
-      var wrapper = document.querySelector("#fullPage-wrapper").classList;
-      if (wrapper.contains("fullPage-wrapper-show") === false) {
-        this.favPostClicked = this.favPostList[id];
-        wrapper.toggle("fullPage-wrapper-show");
-        this.toggleOverlay();
-      } else {
-        if (wrapper.contains("fullPage-wrapper-show") === true) {
-          wrapper.toggle("fullPage-wrapper-show");
-          this.toggleOverlay();
-        }
-      }
-    },
-    toggleOverlay: function () {
-      var overlay = document.querySelector("#overlay-bg").classList;
-      if (overlay.contains("overlay-wrapper-show") === false) {
-        overlay.toggle("overlay-wrapper-show");
-      } else {
-        if (overlay.contains("overlay-wrapper-show") === true) {
-          overlay.toggle("overlay-wrapper-show");
-        }
-      }
-    },
+    //     this.toggleOverlay();
+    //   } else {
+    //     if (wrapper.contains("fullPage-wrapper-show") === true) {
+    //       wrapper.toggle("fullPage-wrapper-show");
+    //       this.toggleOverlay();
+    //     }
+    //   }
+    // },
+    // toggleOverlay: function () {
+    //   var overlay = document.querySelector("#overlay-bg").classList;
+    //   if (overlay.contains("overlay-wrapper-show") === false) {
+    //     overlay.toggle("overlay-wrapper-show");
+    //   } else {
+    //     if (overlay.contains("overlay-wrapper-show") === true) {
+    //       overlay.toggle("overlay-wrapper-show");
+    //     }
+    //   }
+    // },
   },
   mounted() {
     document.querySelector(".app-view").addEventListener("scroll", function () {
@@ -195,7 +157,6 @@ export default {
   },
   data: function () {
     return {
-      favPostIsOpen: false,
       scrollPosition: null,
       user: {
         picture_url: "/img/mockup/profile.png",

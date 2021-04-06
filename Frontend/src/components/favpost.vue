@@ -1,15 +1,17 @@
 <template>
-  <div class="card-wrapper" v-on:click="openPost">
-    <div class="card card-a">
-      <label>{{ subject_code }} {{ subject_title }}</label>
-      <div class="message-box">
-        <p class="message">
-          {{ message }}
-        </p>
+  <router-link to="/announce">
+    <div class="card-wrapper" v-on:click="openPost">
+      <div class="card card-a">
+        <label>{{ subject_code }} {{ subject_title }}</label>
+        <div class="message-box">
+          <p class="message">
+            {{ message }}
+          </p>
+        </div>
+        <label class="message-time">{{ timeDiff }}</label>
       </div>
-      <label class="message-time">{{ timeDiff }}</label>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>

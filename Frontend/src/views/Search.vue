@@ -9,7 +9,7 @@
           placeholder="Search"
           ref="searchInput"
         />
-        <div v-on:click="closeSearchPage()" class="btn-close">
+        <div @click="$router.go(-1)" class="btn-close">
           <label>Close</label>
         </div>
       </div>
@@ -213,12 +213,7 @@ export default {
       this.keyword = "";
     },
     autoFocus: function () {
-      var pageOpen = this.$store.state.searchPageOpen;
-
-      if (pageOpen == false) console.log("nothing");
-      else {
-        this.$refs.searchInput.focus();
-      }
+      this.$refs.searchInput.focus();
     },
   },
   created() {},
@@ -230,11 +225,10 @@ export default {
   width: 100vw;
   height: 100vh;
   background-color: #f6f6f6;
-
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 7;
+  z-index: 30;
 }
 .search-page::-webkit-scrollbar {
   display: none;
@@ -270,12 +264,12 @@ export default {
   }
 }
 .search-result {
-  overflow-x: scroll;
-  height: 100vh;
-  width: 100vw;
   .result-wrapper {
     padding: 20px;
     margin-top: 81px;
+    overflow: scroll;
+    height: calc(100vh - 81px);
+    position: fixed;
     .result-section {
       label {
         font-size: 1.3em;

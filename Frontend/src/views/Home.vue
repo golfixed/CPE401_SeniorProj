@@ -1,22 +1,19 @@
 <template>
   <div id="page-home" class="app-page app-default-border-gray-top">
     <!-- <hr class="page-hr" /> -->
-    <div class="section" style="padding-top: 20px; height: 2000px">
+    <div class="section" style="padding-top: 20px; height: fit-content">
       <h2 style="font-size: 20px">Current screen resolution:</h2>
       <h4 style="font-size: 30px; color: green">
         {{ screenwidth }} × {{ screenheight }}
       </h4>
     </div>
-    <assistBtn />
   </div>
 </template>
 
 <script>
-import assistBtn from "@/components/assistBtn.vue";
-
 export default {
   name: "Home",
-  components: { assistBtn },
+
   data: function () {
     return {};
   },

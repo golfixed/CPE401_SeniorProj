@@ -4,6 +4,7 @@
       <div class="app-view">
         <topbar />
         <router-view v-if="this.$store.state.searchPageOpen == false" />
+        <assistBtn />
       </div>
       <div class="app-tabbar">
         <tabbar v-if="this.$store.state.searchPageOpen == false" />
@@ -18,11 +19,13 @@
 <script>
 import tabbar from "@/components/template/tabbar";
 import topbar from "@/components/template/topbar";
+import assistBtn from "@/components/assistBtn.vue";
 export default {
   name: "app",
   components: {
     tabbar,
     topbar,
+    assistBtn,
   },
   computed: {
     loggedIn: function () {
@@ -284,37 +287,6 @@ a {
 }
 .textline-3 {
   -webkit-line-clamp: 3;
-}
-.overlay-wrapper {
-  position: absolute;
-  top: 100vh;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9;
-  background-color: rgba(255, 255, 255, 0);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.3s;
-}
-.overlay-wrapper-show {
-  top: 0 !important;
-  transition: all 0.3s;
-  background-color: rgba(255, 255, 255, 0.95);
-}
-#fullPage-wrapper {
-  position: absolute;
-  top: 100vh;
-  left: 0;
-  z-index: 10;
-}
-.fullPage-wrapper-show {
-  top: 50% !important;
-  /* left: 50% !important; */
-  transform: translate(0%, -50%);
-  transition: all 0.3s;
 }
 .welcome-page {
   background-color: #f6f6f6;

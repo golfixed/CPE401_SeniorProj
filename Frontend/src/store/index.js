@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: () => ({
     searchPageOpen: false,
     loggedIn: true,
+    selected_ancmt: {}
   }),
   mutations: {
     Open_searchPage: (state) => {
@@ -17,6 +18,9 @@ export default new Vuex.Store({
     },
     LogIn:(state)=>{
       state.loggedIn = true;
+    },
+    Open_announcement: (state, payload) => {
+      state.selected_ancmt = payload
     }
   },
   actions: {},
