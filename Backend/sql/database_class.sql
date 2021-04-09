@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2021 at 11:51 AM
+-- Generation Time: Apr 09, 2021 at 11:35 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.2
 
@@ -38,7 +38,7 @@ CREATE TABLE `account` (
   `gender` varchar(10) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `create_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `update_at` datetime NOT NULL DEFAULT current_timestamp()
+  `update_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -47,6 +47,7 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`id`, `firstname`, `lastname`, `email`, `password`, `role`, `image`, `gender`, `phone`, `create_at`, `update_at`) VALUES
 (1, 'Kellina', 'Metzel', 'kmetzel0@yandex.ru', 'FI9HAdAHJLj', 'Automation Specialis', 'https://robohash.org/eumcorporiseos.bmp?size=50x50&set=set1', 'Male', '602-198-2840', '2020-11-23 21:57:18', '2020-03-29 02:12:34'),
+(1, 'Nithiwadee', 'Wangviboonkij', 'nithiwadee.my@mail.kmutt.ac.th', '-mindddk0106-', 'student', 'https://picsum.photos/200/300?random=2', 'Female', '0809424208', '2021-04-06 16:21:03', '2021-04-06 16:21:03'),
 (2, 'Ax', 'Sherrott', 'asherrott1@independent.co.uk', 'UXsNSMS', 'Administrative Offic', 'https://robohash.org/molestiasminusodio.bmp?size=50x50&set=set1', 'Male', '474-836-7011', '2020-12-18 00:06:57', '2020-11-17 23:11:51'),
 (3, 'Maryjane', 'Brockhurst', 'mbrockhurst2@buzzfeed.com', 'OalMJfQyM', 'Community Outreach S', 'https://robohash.org/etlaudantiumut.jpg?size=50x50&set=set1', 'Male', '413-889-2175', '2020-08-17 10:49:56', '2020-04-08 10:08:38'),
 (4, 'Aubrie', 'Siemons', 'asiemons3@wsj.com', 'w7BVd2H', 'Quality Control Spec', 'https://robohash.org/quoquicupiditate.png?size=50x50&set=set1', 'Female', '348-344-9753', '2020-12-26 12:43:36', '2020-10-09 09:19:13'),
@@ -164,6 +165,13 @@ CREATE TABLE `chatroom` (
   `create_by` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `chatroom`
+--
+
+INSERT INTO `chatroom` (`id`, `message`, `from`, `to`, `read`, `mute_noti`, `create_at`, `create_by`) VALUES
+(401, 401, 1, 2, 0, 0, '2021-04-08 15:49:59', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -177,6 +185,13 @@ CREATE TABLE `chat_list` (
   `classchat` int(10) NOT NULL,
   `favorite` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `chat_list`
+--
+
+INSERT INTO `chat_list` (`id`, `account`, `chat`, `classchat`, `favorite`) VALUES
+(1, 1, 401, 401, 1);
 
 -- --------------------------------------------------------
 
@@ -203,6 +218,13 @@ CREATE TABLE `class` (
   `update_by` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `class`
+--
+
+INSERT INTO `class` (`id`, `class_code`, `class_name`, `class_desc`, `class_pic`, `section`, `join_code`, `class_chat`, `material`, `post`, `mute_noti`, `favorite`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
+(401, 'CPE401', 'Senior Project', 'Hello', 'https://picsum.photos/200', 'A', 123456, 0, 401, 401, 0, 1, '2021-04-06 16:40:54', 1, '2021-04-06 16:40:54', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -220,6 +242,13 @@ CREATE TABLE `classchat` (
   `create_by` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `classchat`
+--
+
+INSERT INTO `classchat` (`id`, `message`, `class`, `to`, `read`, `mute_noti`, `create_at`, `create_by`) VALUES
+(401, 401, 401, 2, 0, 0, '2021-04-08 17:43:13', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -236,6 +265,13 @@ CREATE TABLE `class_log` (
   `update_by` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `class_log`
+--
+
+INSERT INTO `class_log` (`id`, `class`, `type`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
+(1, 401, 1, '2021-04-08 17:44:27', 1, '2021-04-08 17:44:27', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -248,6 +284,14 @@ CREATE TABLE `class_member` (
   `class` int(10) NOT NULL,
   `role_member` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `class_member`
+--
+
+INSERT INTO `class_member` (`id`, `account`, `class`, `role_member`) VALUES
+(401, 1, 401, 'student'),
+(402, 2, 401, 'teacher');
 
 -- --------------------------------------------------------
 
@@ -288,6 +332,13 @@ CREATE TABLE `material` (
   `update_by` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `material`
+--
+
+INSERT INTO `material` (`id`, `topic_name`, `material_url`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
+(401, 401, 'This is my first material.', '2021-04-06 16:31:11', 1, '2021-04-06 16:31:11', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -303,6 +354,13 @@ CREATE TABLE `material_topic` (
   `update_by` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `material_topic`
+--
+
+INSERT INTO `material_topic` (`id`, `title`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
+(401, 'Senior post', '2021-04-06 16:28:07', 1, '2021-04-06 16:28:07', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -315,10 +373,115 @@ CREATE TABLE `message` (
   `content` text NOT NULL,
   `pic_url` text DEFAULT NULL,
   `create_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `create_by` int(10) NOT NULL,
-  `update_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `update_by` int(10) NOT NULL
+  `create_by` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`id`, `type`, `content`, `pic_url`, `create_at`, `create_by`) VALUES
+(1, 2, 'cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel', 'http://dummyimage.com/124x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 1),
+(2, 2, 'nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl', 'http://dummyimage.com/222x100.png/dddddd/000000', '0000-00-00 00:00:00', 2),
+(3, 1, 'non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus', 'http://dummyimage.com/246x100.png/dddddd/000000', '0000-00-00 00:00:00', 3),
+(4, 1, 'mauris vulputate elementum nullam varius nulla facilisi cras non velit nec', 'http://dummyimage.com/128x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 4),
+(5, 2, 'sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh fusce lacus purus aliquet at feugiat non pretium quis lectus suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie', 'http://dummyimage.com/202x100.png/dddddd/000000', '0000-00-00 00:00:00', 5),
+(6, 1, 'erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec', 'http://dummyimage.com/132x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 6),
+(7, 1, 'aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce', 'http://dummyimage.com/182x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 7),
+(8, 2, 'a pede posuere nonummy integer non velit donec diam neque vestibulum eget vulputate ut ultrices vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis dui vel nisl duis ac nibh fusce lacus purus aliquet at feugiat non pretium quis lectus suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa', 'http://dummyimage.com/221x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 8),
+(9, 2, 'elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis', 'http://dummyimage.com/167x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 9),
+(10, 2, 'sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis dui vel nisl duis ac', 'http://dummyimage.com/154x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 10),
+(11, 2, 'tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy integer non velit donec diam neque vestibulum eget vulputate ut ultrices vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non', 'http://dummyimage.com/117x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 11),
+(12, 2, 'vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus in sagittis', 'http://dummyimage.com/199x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 12),
+(13, 2, 'duis ac nibh fusce lacus purus aliquet at feugiat non pretium quis lectus suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla', 'http://dummyimage.com/154x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 13),
+(14, 2, 'venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend', 'http://dummyimage.com/155x100.png/dddddd/000000', '0000-00-00 00:00:00', 14),
+(15, 2, 'phasellus sit amet erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi', 'http://dummyimage.com/196x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 15),
+(16, 1, 'sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum mauris ullamcorper purus sit amet nulla quisque arcu libero', 'http://dummyimage.com/219x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 16),
+(17, 2, 'libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque', 'http://dummyimage.com/167x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 17),
+(18, 1, 'ac leo pellentesque ultrices mattis odio donec vitae nisi nam', 'http://dummyimage.com/247x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 18),
+(19, 1, 'sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed', 'http://dummyimage.com/153x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 19),
+(20, 2, 'ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac', 'http://dummyimage.com/136x100.png/dddddd/000000', '0000-00-00 00:00:00', 20),
+(21, 2, 'volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper', 'http://dummyimage.com/122x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 21),
+(22, 1, 'cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit', 'http://dummyimage.com/157x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 22),
+(23, 1, 'turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis', 'http://dummyimage.com/133x100.png/dddddd/000000', '0000-00-00 00:00:00', 23),
+(24, 1, 'in sagittis dui vel nisl duis ac nibh fusce lacus', 'http://dummyimage.com/220x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 24),
+(25, 2, 'vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin', 'http://dummyimage.com/231x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 25),
+(26, 2, 'duis faucibus accumsan odio curabitur convallis duis consequat dui nec nisi volutpat eleifend donec ut dolor morbi vel lectus in quam fringilla', 'http://dummyimage.com/172x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 26),
+(27, 2, 'rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam', 'http://dummyimage.com/130x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 27),
+(28, 1, 'magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc', 'http://dummyimage.com/234x100.png/dddddd/000000', '0000-00-00 00:00:00', 28),
+(29, 2, 'venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in', 'http://dummyimage.com/203x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 29),
+(30, 2, 'quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum', 'http://dummyimage.com/215x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 30),
+(31, 2, 'nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean', 'http://dummyimage.com/211x100.png/dddddd/000000', '0000-00-00 00:00:00', 31),
+(32, 2, 'quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi', 'http://dummyimage.com/159x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 32),
+(33, 1, 'nisi volutpat eleifend donec ut dolor morbi vel lectus in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac', 'http://dummyimage.com/177x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 33),
+(34, 1, 'convallis tortor risus dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac diam', 'http://dummyimage.com/117x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 34),
+(35, 2, 'augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede', 'http://dummyimage.com/150x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 35),
+(36, 2, 'tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat nulla tempus vivamus', 'http://dummyimage.com/190x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 36),
+(37, 1, 'massa quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst', 'http://dummyimage.com/125x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 37),
+(38, 2, 'quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat', 'http://dummyimage.com/100x100.png/dddddd/000000', '0000-00-00 00:00:00', 38),
+(39, 2, 'rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque', 'http://dummyimage.com/201x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 39),
+(40, 1, 'imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in congue etiam justo etiam pretium iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna', 'http://dummyimage.com/218x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 40),
+(41, 1, 'sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum curabitur in libero ut massa volutpat convallis morbi odio odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis est phasellus sit amet erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam', 'http://dummyimage.com/193x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 41),
+(42, 2, 'pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus', 'http://dummyimage.com/227x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 42),
+(43, 1, 'vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl aenean lectus pellentesque eget nunc donec quis orci eget orci vehicula condimentum curabitur in libero ut massa volutpat convallis morbi odio odio elementum', 'http://dummyimage.com/150x100.png/dddddd/000000', '0000-00-00 00:00:00', 43),
+(44, 1, 'magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet', 'http://dummyimage.com/226x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 44),
+(45, 2, 'diam in magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus', 'http://dummyimage.com/140x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 45),
+(46, 2, 'justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget', 'http://dummyimage.com/116x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 46),
+(47, 1, 'vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est congue', 'http://dummyimage.com/104x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 47),
+(48, 1, 'leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices libero non mattis pulvinar nulla pede ullamcorper augue a suscipit nulla elit ac nulla sed vel enim sit amet nunc viverra dapibus nulla suscipit ligula in lacus curabitur at ipsum ac tellus semper interdum mauris ullamcorper purus sit amet nulla quisque arcu libero rutrum ac', 'http://dummyimage.com/114x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 48),
+(49, 2, 'id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate', 'http://dummyimage.com/103x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 49),
+(50, 1, 'nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit', 'http://dummyimage.com/177x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 50),
+(51, 1, 'vulputate ut ultrices vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin', 'http://dummyimage.com/104x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 51),
+(52, 1, 'eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec', 'http://dummyimage.com/135x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 52),
+(53, 2, 'quam pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras', 'http://dummyimage.com/221x100.png/dddddd/000000', '0000-00-00 00:00:00', 53),
+(54, 1, 'porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam', 'http://dummyimage.com/193x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 54),
+(55, 2, 'iaculis justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis', 'http://dummyimage.com/147x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 55),
+(56, 2, 'elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat', 'http://dummyimage.com/110x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 56),
+(57, 2, 'eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id', 'http://dummyimage.com/198x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 57),
+(58, 1, 'ipsum ac tellus semper interdum mauris ullamcorper purus sit amet nulla quisque arcu libero rutrum ac lobortis vel dapibus at diam', 'http://dummyimage.com/148x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 58),
+(59, 1, 'risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero', 'http://dummyimage.com/163x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 59),
+(60, 1, 'est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis', 'http://dummyimage.com/250x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 60),
+(61, 1, 'lorem quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc', 'http://dummyimage.com/131x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 61),
+(62, 2, 'phasellus sit amet erat nulla tempus vivamus in felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy integer non velit donec diam neque vestibulum eget vulputate ut ultrices vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin', 'http://dummyimage.com/146x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 62),
+(63, 1, 'ultrices vel augue vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus', 'http://dummyimage.com/247x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 63),
+(64, 1, 'sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras', 'http://dummyimage.com/106x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 64),
+(65, 2, 'id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie', 'http://dummyimage.com/222x100.png/dddddd/000000', '0000-00-00 00:00:00', 65),
+(66, 1, 'posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam', 'http://dummyimage.com/178x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 66),
+(67, 2, 'nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor', 'http://dummyimage.com/130x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 67),
+(68, 1, 'platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque', 'http://dummyimage.com/212x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 68),
+(69, 1, 'cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie', 'http://dummyimage.com/170x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 69),
+(70, 1, 'dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat', 'http://dummyimage.com/151x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 70),
+(71, 2, 'erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor', 'http://dummyimage.com/161x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 71),
+(72, 2, 'in quam fringilla rhoncus mauris enim leo rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum', 'http://dummyimage.com/164x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 72),
+(73, 2, 'justo in hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum', 'http://dummyimage.com/209x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 73),
+(74, 1, 'lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend', 'http://dummyimage.com/123x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 74),
+(75, 1, 'felis sed interdum venenatis turpis enim blandit mi in porttitor pede', 'http://dummyimage.com/110x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 75),
+(76, 2, 'id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut suscipit a feugiat et eros vestibulum ac est lacinia nisi', 'http://dummyimage.com/118x100.png/dddddd/000000', '0000-00-00 00:00:00', 76),
+(77, 1, 'integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo lacinia eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in est risus auctor sed tristique in tempus sit amet sem fusce consequat nulla nisl nunc nisl duis bibendum felis sed interdum venenatis turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu', 'http://dummyimage.com/111x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 77),
+(78, 1, 'nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id', 'http://dummyimage.com/112x100.png/dddddd/000000', '0000-00-00 00:00:00', 78),
+(79, 2, 'nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed accumsan felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices libero non mattis pulvinar nulla pede ullamcorper augue a', 'http://dummyimage.com/195x100.png/dddddd/000000', '0000-00-00 00:00:00', 79),
+(80, 2, 'venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor sit amet consectetuer adipiscing elit proin interdum mauris non ligula pellentesque ultrices phasellus id sapien in sapien iaculis congue vivamus metus arcu adipiscing molestie hendrerit at vulputate vitae nisl', 'http://dummyimage.com/244x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 80),
+(81, 2, 'ac diam cras pellentesque volutpat dui maecenas tristique est et tempus semper est quam pharetra magna ac consequat metus sapien ut nunc vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci pede venenatis non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris', 'http://dummyimage.com/146x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 81),
+(82, 1, 'aliquam non mauris morbi non lectus aliquam sit amet diam in', 'http://dummyimage.com/124x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 82),
+(83, 2, 'vestibulum ac est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat sapien arcu sed augue aliquam erat volutpat in', 'http://dummyimage.com/161x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 83),
+(84, 1, 'hac habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo', 'http://dummyimage.com/186x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 84),
+(85, 2, 'mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit', 'http://dummyimage.com/103x100.png/dddddd/000000', '0000-00-00 00:00:00', 85),
+(86, 2, 'posuere cubilia curae mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus vitae ipsum aliquam non mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet nullam orci pede', 'http://dummyimage.com/183x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 86),
+(87, 1, 'hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere', 'http://dummyimage.com/149x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 87),
+(88, 1, 'odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae consectetuer eget rutrum at lorem integer tincidunt ante vel ipsum praesent blandit lacinia erat vestibulum sed magna at nunc', 'http://dummyimage.com/166x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 88),
+(89, 1, 'eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa tempor convallis nulla', 'http://dummyimage.com/224x100.png/dddddd/000000', '0000-00-00 00:00:00', 89),
+(90, 1, 'praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices', 'http://dummyimage.com/141x100.png/dddddd/000000', '0000-00-00 00:00:00', 90),
+(91, 2, 'hac habitasse platea dictumst etiam faucibus cursus urna ut tellus nulla ut erat id mauris vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla sed', 'http://dummyimage.com/149x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 91),
+(92, 1, 'luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean sit amet justo morbi ut odio cras mi pede malesuada in imperdiet et commodo vulputate justo in blandit ultrices enim lorem ipsum dolor', 'http://dummyimage.com/132x100.png/dddddd/000000', '0000-00-00 00:00:00', 92),
+(93, 2, 'non sodales sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus aliquet pulvinar sed nisl nunc rhoncus dui vel sem sed sagittis nam congue risus semper porta volutpat quam pede lobortis ligula sit amet eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue', 'http://dummyimage.com/162x100.png/cc0000/ffffff', '0000-00-00 00:00:00', 93),
+(94, 1, 'morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque', 'http://dummyimage.com/213x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 94),
+(95, 1, 'felis ut at dolor quis odio consequat varius integer ac leo pellentesque ultrices mattis odio donec vitae nisi nam ultrices libero non mattis pulvinar nulla pede ullamcorper augue a suscipit nulla elit ac', 'http://dummyimage.com/245x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 95),
+(96, 1, 'vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum nulla tellus', 'http://dummyimage.com/195x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 96),
+(97, 1, 'rhoncus sed vestibulum sit amet cursus id turpis integer aliquet massa id lobortis convallis tortor risus dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit amet turpis elementum ligula vehicula consequat morbi a ipsum integer a nibh in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed', 'http://dummyimage.com/142x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 97),
+(98, 2, 'neque aenean auctor gravida sem praesent id massa id nisl venenatis lacinia aenean', 'http://dummyimage.com/108x100.png/5fa2dd/ffffff', '0000-00-00 00:00:00', 98),
+(99, 2, 'dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo aliquam quis turpis eget elit sodales scelerisque mauris sit amet eros suspendisse accumsan tortor', 'http://dummyimage.com/140x100.png/ff4444/ffffff', '0000-00-00 00:00:00', 99),
+(100, 2, 'sed tincidunt eu felis fusce posuere felis sed lacus morbi sem mauris', 'http://dummyimage.com/129x100.png/dddddd/000000', '0000-00-00 00:00:00', 100),
+(401, 1, 'Hello', 'https://picsum.photos/200', '2021-04-06 16:24:51', 1);
 
 -- --------------------------------------------------------
 
@@ -336,6 +499,13 @@ CREATE TABLE `notification` (
   `update_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_by` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `notification`
+--
+
+INSERT INTO `notification` (`id`, `class_log`, `read`, `delete`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
+(401, 1, 0, 0, '2021-04-08 17:46:11', 1, '2021-04-08 17:46:11', 1);
 
 -- --------------------------------------------------------
 
@@ -359,7 +529,10 @@ CREATE TABLE `poll` (
   `id` int(10) NOT NULL,
   `option` int(10) NOT NULL,
   `result` int(10) NOT NULL,
+  `title` varchar(250) NOT NULL,
+  `published` tinyint(1) NOT NULL DEFAULT 0,
   `expired` datetime DEFAULT NULL,
+  `content` text DEFAULT NULL,
   `create_at` datetime NOT NULL DEFAULT current_timestamp(),
   `create_by` int(10) NOT NULL,
   `update_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -374,8 +547,10 @@ CREATE TABLE `poll` (
 
 CREATE TABLE `poll_option` (
   `id` int(10) NOT NULL,
-  `voted_count` int(10) NOT NULL,
-  `description` varchar(500) NOT NULL
+  `poll` int(10) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  `content` text DEFAULT NULL,
+  `create_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -387,10 +562,29 @@ CREATE TABLE `poll_option` (
 CREATE TABLE `poll_result` (
   `id` int(10) NOT NULL,
   `option` int(10) NOT NULL,
-  `create_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `active` tinyint(1) NOT NULL DEFAULT 0,
+  `create_at` datetime DEFAULT current_timestamp(),
+  `create_by` int(10) DEFAULT NULL,
+  `update_at` datetime DEFAULT current_timestamp(),
+  `update_by` int(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `poll_vote`
+--
+
+CREATE TABLE `poll_vote` (
+  `id` int(10) NOT NULL,
+  `poll` int(10) NOT NULL,
+  `poll_option` int(10) NOT NULL,
+  `account` int(10) NOT NULL,
+  `content` text DEFAULT NULL,
+  `create_at` datetime NOT NULL,
   `create_by` int(10) NOT NULL,
-  `update_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `update_by` int(10) NOT NULL
+  `update_at` datetime DEFAULT NULL,
+  `update_by` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -413,6 +607,13 @@ CREATE TABLE `post` (
   `update_at` datetime NOT NULL DEFAULT current_timestamp(),
   `update_by` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`id`, `class`, `poll`, `comment`, `announce`, `click_count`, `pic_url`, `detail`, `create_at`, `create_by`, `update_at`, `update_by`) VALUES
+(401, 401, NULL, NULL, '0', 0, NULL, NULL, '2021-04-08 17:48:54', 1, '2021-04-08 17:48:54', 1);
 
 --
 -- Indexes for dumped tables
@@ -448,11 +649,10 @@ ALTER TABLE `chat_list`
 --
 ALTER TABLE `class`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `update_by` (`update_by`),
-  ADD KEY `create_by` (`create_by`),
-  ADD KEY `class_chat` (`class_chat`),
-  ADD KEY `material` (`material`),
-  ADD KEY `post` (`post`);
+  ADD KEY `class_ibfk_1` (`update_by`),
+  ADD KEY `class_ibfk_2` (`create_by`),
+  ADD KEY `class_ibfk_4` (`material`),
+  ADD KEY `class_ibfk_5` (`post`);
 
 --
 -- Indexes for table `classchat`
@@ -460,7 +660,6 @@ ALTER TABLE `class`
 ALTER TABLE `classchat`
   ADD PRIMARY KEY (`id`),
   ADD KEY `message` (`message`),
-  ADD KEY `class` (`class`),
   ADD KEY `to` (`to`),
   ADD KEY `create_by` (`create_by`);
 
@@ -511,8 +710,7 @@ ALTER TABLE `material_topic`
 --
 ALTER TABLE `message`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `create_by` (`create_by`),
-  ADD KEY `update_by` (`update_by`);
+  ADD KEY `create_by` (`create_by`);
 
 --
 -- Indexes for table `notification`
@@ -537,7 +735,8 @@ ALTER TABLE `poll`
 -- Indexes for table `poll_option`
 --
 ALTER TABLE `poll_option`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `poll` (`poll`);
 
 --
 -- Indexes for table `poll_result`
@@ -546,6 +745,17 @@ ALTER TABLE `poll_result`
   ADD PRIMARY KEY (`id`),
   ADD KEY `option` (`option`),
   ADD KEY `create_by` (`create_by`),
+  ADD KEY `update_by` (`update_by`);
+
+--
+-- Indexes for table `poll_vote`
+--
+ALTER TABLE `poll_vote`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `account` (`account`),
+  ADD KEY `create_by` (`create_by`),
+  ADD KEY `poll` (`poll`),
+  ADD KEY `poll_option` (`poll_option`),
   ADD KEY `update_by` (`update_by`);
 
 --
@@ -572,37 +782,37 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT for table `chatroom`
 --
 ALTER TABLE `chatroom`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=402;
 
 --
 -- AUTO_INCREMENT for table `chat_list`
 --
 ALTER TABLE `chat_list`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `class`
 --
 ALTER TABLE `class`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=402;
 
 --
 -- AUTO_INCREMENT for table `classchat`
 --
 ALTER TABLE `classchat`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=402;
 
 --
 -- AUTO_INCREMENT for table `class_log`
 --
 ALTER TABLE `class_log`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `class_member`
 --
 ALTER TABLE `class_member`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=403;
 
 --
 -- AUTO_INCREMENT for table `comment`
@@ -614,25 +824,25 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=402;
 
 --
 -- AUTO_INCREMENT for table `material_topic`
 --
 ALTER TABLE `material_topic`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=402;
 
 --
 -- AUTO_INCREMENT for table `message`
 --
 ALTER TABLE `message`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=402;
 
 --
 -- AUTO_INCREMENT for table `notification`
 --
 ALTER TABLE `notification`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=402;
 
 --
 -- AUTO_INCREMENT for table `poll`
@@ -653,10 +863,16 @@ ALTER TABLE `poll_result`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `poll_vote`
+--
+ALTER TABLE `poll_vote`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=402;
 
 --
 -- Constraints for dumped tables
@@ -683,11 +899,11 @@ ALTER TABLE `chat_list`
 -- Constraints for table `class`
 --
 ALTER TABLE `class`
-  ADD CONSTRAINT `class_ibfk_1` FOREIGN KEY (`update_by`) REFERENCES `account` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `class_ibfk_2` FOREIGN KEY (`create_by`) REFERENCES `account` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `class_ibfk_3` FOREIGN KEY (`class_chat`) REFERENCES `classchat` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `class_ibfk_4` FOREIGN KEY (`material`) REFERENCES `material` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `class_ibfk_5` FOREIGN KEY (`post`) REFERENCES `post` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `class_ibfk_1` FOREIGN KEY (`update_by`) REFERENCES `account` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `class_ibfk_2` FOREIGN KEY (`create_by`) REFERENCES `account` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `class_ibfk_3` FOREIGN KEY (`class_chat`) REFERENCES `classchat` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `class_ibfk_4` FOREIGN KEY (`material`) REFERENCES `material` (`id`) ON UPDATE NO ACTION,
+  ADD CONSTRAINT `class_ibfk_5` FOREIGN KEY (`post`) REFERENCES `post` (`id`) ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `classchat`
@@ -740,8 +956,7 @@ ALTER TABLE `material_topic`
 -- Constraints for table `message`
 --
 ALTER TABLE `message`
-  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`create_by`) REFERENCES `account` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `message_ibfk_2` FOREIGN KEY (`update_by`) REFERENCES `account` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `message_ibfk_1` FOREIGN KEY (`create_by`) REFERENCES `account` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `notification`
@@ -762,12 +977,28 @@ ALTER TABLE `poll`
   ADD CONSTRAINT `poll_ibfk_4` FOREIGN KEY (`update_by`) REFERENCES `account` (`id`) ON UPDATE CASCADE;
 
 --
+-- Constraints for table `poll_option`
+--
+ALTER TABLE `poll_option`
+  ADD CONSTRAINT `poll_option_ibfk_1` FOREIGN KEY (`poll`) REFERENCES `poll` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `poll_result`
 --
 ALTER TABLE `poll_result`
   ADD CONSTRAINT `poll_result_ibfk_1` FOREIGN KEY (`option`) REFERENCES `poll_option` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `poll_result_ibfk_2` FOREIGN KEY (`create_by`) REFERENCES `account` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `poll_result_ibfk_3` FOREIGN KEY (`update_by`) REFERENCES `account` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `poll_vote`
+--
+ALTER TABLE `poll_vote`
+  ADD CONSTRAINT `poll_vote_ibfk_1` FOREIGN KEY (`account`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `poll_vote_ibfk_2` FOREIGN KEY (`create_by`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `poll_vote_ibfk_3` FOREIGN KEY (`poll`) REFERENCES `poll` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `poll_vote_ibfk_4` FOREIGN KEY (`poll_option`) REFERENCES `poll_option` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `poll_vote_ibfk_5` FOREIGN KEY (`update_by`) REFERENCES `account` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `post`
