@@ -292,11 +292,7 @@ a {
 .textline-3 {
   -webkit-line-clamp: 3;
 }
-.welcome-page {
-  background-color: #f6f6f6;
-  width: 100vw;
-  height: 100vh;
-}
+
 input {
   background-color: #fff;
   border: solid;
