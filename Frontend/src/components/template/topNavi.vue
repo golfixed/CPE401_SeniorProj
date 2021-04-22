@@ -8,11 +8,8 @@
         <label>Back</label>
       </div>
     </div>
-    <div class="center" v-if="checkType == 'login'">
-      <label>Sign in</label>
-    </div>
-    <div class="right" v-if="checkType == 'login'">
-      <label>menu</label>
+    <div class="center">
+      <label>{{ pageName }}</label>
     </div>
   </div>
 </template>
@@ -21,17 +18,7 @@
 export default {
   name: "topNavibar",
   props: {
-    type: String,
-  },
-  created() {
-    this.checkType();
-  },
-  methods: {
-    checkType: function () {
-      if (this.$props.type == "login") {
-        return "login";
-      }
-    },
+    pageName: String,
   },
 };
 </script>
@@ -40,12 +27,13 @@ export default {
 #navi-bar {
   height: 60px;
   width: 100vw;
+  display: grid;
   grid-template-columns: 80px calc(100% - 160px) 80px;
   background-color: #fff;
   border: solid;
   border-width: 0 0 1px 0;
   border-color: #ededed;
-  z-index: 20px;
+  z-index: 20;
   position: fixed;
   top: 0;
   left: 0;
@@ -61,11 +49,11 @@ export default {
     width: 80px;
     // background-color: red;
     justify-content: flex-start;
-    padding-left: 20px;
     .btn-back {
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-left: 20px;
       div.icon {
         width: 15px;
         height: 15px;
@@ -86,10 +74,12 @@ export default {
     }
   }
   .center {
-    width: calc(100% - 160px);
+    width: -webkit-fill-available;
     justify-content: center;
     font-weight: 500;
     label {
+      width: 100%;
+      text-align: center;
       font-size: 18px;
       color: #202020;
       text-align: center;
