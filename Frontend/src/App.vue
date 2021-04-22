@@ -107,6 +107,10 @@ a {
   color: #505050;
 }
 
+input {
+  border-style: solid;
+}
+
 // .app-statusbar {
 //   padding-top: 20px !important;
 //   // // iPhone XR, 11, 11 Pro Max
@@ -409,5 +413,8 @@ button:active {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  a {
+    width: 100%;
+  }
 }
 </style>

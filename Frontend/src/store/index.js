@@ -14,6 +14,7 @@ export default new Vuex.Store({
         lastName: 'Thammakaew',
         pic: '/img/mockup/profile.png',
         role: 'ta',
+        sex: 'male',
         email: 'peerapong.tmk@mail.kmutt.ac.th',
       }
     }

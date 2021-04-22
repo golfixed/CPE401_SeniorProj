@@ -22,28 +22,30 @@
         </div>
       </div>
       <div class="items-group">
+        <router-link to="/settings/profile">
+          <itemSingle
+            label="Profile Settings"
+            desc="Display name, Gender, User roles"
+            type="normal"
+          />
+        </router-link>
         <itemSingle
-          text="Profile Settings"
-          desc="Display name, Gender, User roles"
-          type="normal"
-        />
-        <itemSingle
-          text="Account Settings"
+          label="Account Settings"
           desc="E-mail, Password, Deactivation"
           type="normal"
         />
         <itemSingle
-          text="Notifications"
+          label="Notifications"
           desc="Chat notification, Group notification"
           type="normal"
         />
       </div>
       <div class="items-group">
-        <itemSingle text="Feedback" type="normal" />
-        <itemSingle text="Support & Contact Us" type="normal" />
+        <itemSingle label="Feedback" type="normal" />
+        <itemSingle label="Support & Contact Us" type="normal" />
       </div>
       <div class="items-group">
-        <itemSingle text="Sign Out" type="center" />
+        <itemSingle label="Sign Out" type="red" />
       </div>
     </div>
   </div>
@@ -53,7 +55,7 @@
 import itemSingle from "@/components/lists/item_single.vue";
 import topNavi from "@/components/template/topNavi.vue";
 export default {
-  name: "Login",
+  name: "Settings",
   components: {
     topNavi,
     itemSingle,
