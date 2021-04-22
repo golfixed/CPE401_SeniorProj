@@ -1,57 +1,38 @@
 <template>
-  <div class="item">
-    <label class="item-name" v-if="typeCal == 'normal'">{{ label }}</label>
-    <label
-      class="item-name item-name-red item-name-center"
-      v-if="typeCal == 'red'"
-      >{{ label }}</label
-    >
-    <label
-      class="item-name item-name-green item-name-center"
-      v-if="typeCal == 'green'"
-      >{{ label }}</label
-    >
-    <label class="item-desc" v-if="desc">{{ desc }}</label>
-    <img
-      class="item-arrow"
-      src="/img/btn/item-chevron.svg"
-      draggable="false"
-      v-if="typeCal == 'normal'"
-    />
+  <div class="item-inputbox">
+    <label class="item-name">{{ label }}</label>
+    <div class="item-input" v-if="type == 'textbox'">
+      <input type="text" :placeholder="preInfo" />
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "list-item-single",
+  name: "list-item-input",
   props: {
-    label: String,
-    desc: String,
     type: String,
-  },
-  data() {
-    return {
-      typeCal: this.type,
-    };
+    label: String,
+    preInfo: String,
   },
 };
 </script>
 
 <style lang="scss" scope>
-.item {
+.item-inputbox {
   width: 100%;
   background-color: #fff;
   padding: 12px 0;
-  margin-bottom: 1px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
   position: relative;
+  margin-bottom: 1px;
   .item-name,
   .item-desc {
     padding-left: 20px !important;
-    width: 100%;
+    width: -webkit-fill-available;
   }
   .item-name {
     font-style: normal;
@@ -85,6 +66,16 @@ export default {
     top: 50%;
     right: 20px;
     transform: translateY(-50%);
+  }
+  .item-input {
+    max-width: 100vw;
+    width: -webkit-fill-available;
+    padding: 10px 20px 5px 20px;
+    input {
+      max-width: 100%;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
   }
 }
 </style>
