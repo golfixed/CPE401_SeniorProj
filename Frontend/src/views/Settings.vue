@@ -1,6 +1,6 @@
 <template>
   <div id="setting-page" class="fullpage">
-    <topNavi type="login" />
+    <topNavi pageName="Settings" />
     <div class="content-page">
       <div class="wrapper">
         <div class="page-header">
@@ -29,11 +29,13 @@
             type="normal"
           />
         </router-link>
-        <itemSingle
-          label="Account Settings"
-          desc="E-mail, Password, Deactivation"
-          type="normal"
-        />
+        <router-link to="/settings/account">
+          <itemSingle
+            label="Account Settings"
+            desc="E-mail, Password, Deactivation"
+            type="normal"
+          />
+        </router-link>
         <itemSingle
           label="Notifications"
           desc="Chat notification, Group notification"

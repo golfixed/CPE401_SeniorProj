@@ -1,37 +1,23 @@
 <template>
   <div id="setting-page" class="fullpage">
-    <topNavi pageName="Profile Settings" />
+    <topNavi pageName="Account Settings" />
     <div class="content-page">
       <div class="items-group">
         <itemInput
-          label="Firstname"
+          label="Email"
           type="textbox"
-          :preInfo="user.firstName"
-          name="firstname"
+          :preInfo="user.email"
+          name="email"
         />
         <itemInput
-          label="Lastname"
+          label="Password"
           type="textbox"
-          :preInfo="user.lastName"
-          name="lastname"
-        />
-        <itemSelect
-          label="Gender"
-          type="sex"
-          typeSelect="gender"
-          :preInfo="user.sex"
-          name="gender"
-        />
-        <itemSelect
-          label="User role"
-          type="role"
-          typeSelect="gender"
-          :preInfo="user.sex"
-          name="gender"
+          :preInfo="user.password"
+          name="email"
         />
       </div>
       <div class="items-group">
-        <itemSingle label="Save" type="green" />
+        <itemSingle label="Delete Account" type="red" />
       </div>
     </div>
   </div>
@@ -43,7 +29,7 @@ import itemInput from "@/components/lists/item_input.vue";
 import itemSingle from "@/components/lists/item_single.vue";
 import topNavi from "@/components/template/topNavi.vue";
 export default {
-  name: "Settings-Profile",
+  name: "Settings-Account",
   components: {
     topNavi,
     itemInput,

@@ -1,6 +1,6 @@
 <template>
   <div class="welcome-page">
-    <topNavi type="regis" />
+    <topNavi />
     <div class="content-page">
       <div class="wrapper">
         <div class="page-header">
