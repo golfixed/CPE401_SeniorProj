@@ -397,8 +397,17 @@ button:active {
   width: 100vw;
   height: calc(100vh - 61px);
   overflow: scroll;
+  overflow-x: hidden;
   // .wrapper {
   //   height: 1500px;
   // }
+}
+.items-group {
+  width: 100vw;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 </style>

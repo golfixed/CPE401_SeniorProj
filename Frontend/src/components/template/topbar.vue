@@ -11,7 +11,7 @@
           <label class="page-title">{{ currentPage }}</label>
         </div>
         <div class="titlebar-right">
-          <div class="top-btn" v-if="currentRoute == '/'">
+          <div class="top-btn" v-if="currentRoute == '/home'">
             <div class="btn-img-wrapper">
               <img src="/img/icons/noti-bell.svg" />
             </div>

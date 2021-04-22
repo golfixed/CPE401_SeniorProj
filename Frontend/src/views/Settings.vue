@@ -21,16 +21,42 @@
           <label class="email">{{ user.email }}</label>
         </div>
       </div>
+      <div class="items-group">
+        <itemSingle
+          text="Profile Settings"
+          desc="Display name, Gender, User roles"
+          type="normal"
+        />
+        <itemSingle
+          text="Account Settings"
+          desc="E-mail, Password, Deactivation"
+          type="normal"
+        />
+        <itemSingle
+          text="Notifications"
+          desc="Chat notification, Group notification"
+          type="normal"
+        />
+      </div>
+      <div class="items-group">
+        <itemSingle text="Feedback" type="normal" />
+        <itemSingle text="Support & Contact Us" type="normal" />
+      </div>
+      <div class="items-group">
+        <itemSingle text="Sign Out" type="center" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import itemSingle from "@/components/lists/item_single.vue";
 import topNavi from "@/components/template/topNavi.vue";
 export default {
   name: "Login",
   components: {
     topNavi,
+    itemSingle,
   },
   data() {
     return {
