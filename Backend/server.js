@@ -1,33 +1,54 @@
 //require dependencies
-let express = require("express");
-let app = express();
-let mysql = require("mysql");
+const express = require("express");
+const session = require("express-session");
+const app = express();
+const mysql = require("mysql");
 const cors = require("cors");
+const passport = require("passport");
+const port = 5000;
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
-const port = 3000;
-
-var corsOptions = {
+const sessionConfig = require("./config/session.config");
+const authenMiddleware = require("./middleware/authen.middleware");
+const corsOptions = {
   origin: "*",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.use(cors(corsOptions));
-// const http = require('localhost');
 
-app.listen(3000);
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(session(sessionConfig));
+app.use(passport.initialize());
+app.use(passport.session());
 
-//เรียกใช้ body parser
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// local strategy
+require("./strategy/passport.local")();
+
+app.post("/login", passport.authenticate("local"), (req, res) =>
+  res.sendStatus(200)
+);
 
 // homepage route
-app.get("/", (req, res) => {
+app.get("/", authenMiddleware, (req, res) => {
+  const user = req.session.passport.user;
+
   return res.send({
     error: false,
     message: "Welcome to RESTful CRUD API with NodeJS, Express, MYSQL",
     written_by: "Bhaksiree",
     test: "this is GOLF",
+    user,
+    username: user.username,
   });
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  return res.sendStatus(200);
 });
 
 app.get("/new", (req, res) => {
@@ -44,7 +65,7 @@ app.get("/new", (req, res) => {
 // dbCon.connect();
 
 //GET - retrieve all class member
-app.get("/:class_code/member", (req, res) => {
+app.get("/:class_code/member", authenMiddleware, (req, res) => {
   dbCon.query("SELECT * FROM class_member", (error, results, fields) => {
     if (error) throw error;
     //check ว่ามีข้อมูลหรือไม่
