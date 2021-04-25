@@ -17,7 +17,7 @@ let createNewUser = async (req, res) => {
         });
         req.flash("errors", errorsArr);
         // return res.redirect("/register");
-        return res.send({ error: false, message: "Hello"});
+        return res.send({ error: false, message: "Register Page"});
     }
 
     //create a new user
