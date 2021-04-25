@@ -11,14 +11,17 @@ let createNewUser = (data) => {
             // hash password
             let salt = bcrypt.genSaltSync(10);
             let userItem = {
-                fullname: data.fullname,
+                firstname: data.firstname,
+                lastname: data.lastname,
                 email: data.email,
                 password: bcrypt.hashSync(data.password, salt),
+                role: data.role,
+                image: data.image
             };
 
             //create a new account
             DBConnection.query(
-                ' INSERT INTO users set ? ', userItem,
+                ' INSERT INTO account SET ? ', userItem,
                 function(err, rows) {
                     if (err) {
                         reject(false)
@@ -34,7 +37,7 @@ let checkExistEmail = (email) => {
     return new Promise( (resolve, reject) => {
         try {
             DBConnection.query(
-                ' SELECT * FROM `users` WHERE `email` = ?  ', email,
+                ' SELECT * FROM `account` WHERE `email` = ?  ', email,
                 function(err, rows) {
                     if (err) {
                         reject(err)

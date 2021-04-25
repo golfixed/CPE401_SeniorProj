@@ -22,7 +22,7 @@ let initWebRoutes = (app) => {
     }));
 
     router.get("/register", registerController.getPageRegister);
-    router.post("/register", auth.validateRegister, registerController.createNewUser);
+    router.post("/register", registerController.createNewUser);
     router.post("/logout", loginController.postLogOut);
     return app.use("/", router);
 };

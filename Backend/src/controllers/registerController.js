@@ -17,15 +17,17 @@ let createNewUser = async (req, res) => {
         });
         req.flash("errors", errorsArr);
         // return res.redirect("/register");
-        return res.send({ error: false, message: "Register Page"});
+        return res.send({ error: false, message: "Hello"});
     }
 
     //create a new user
     let newUser = {
-        fullname: req.body.fullName,
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
         email: req.body.email,
-        password: req.body.password
-    };
+        password: req.body.password,
+        role: req.body.role,
+        image: req.body.image    };
     try {
         await registerService.createNewUser(newUser);
         // return res.redirect("/login");
