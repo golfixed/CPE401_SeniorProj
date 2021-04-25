@@ -3,9 +3,10 @@ import loginService from "../services/loginService";
 
 //GET OUR LOGIN PAGE
 let getPageLogin = (req, res) => {
-    return res.render("login.ejs", {
-        errors: req.flash("errors")
-    });
+    // return res.render("login.ejs", {
+    //     errors: req.flash("errors")
+    // });
+    return res.send({ error: false, message: "Login Page"});
 };
 
 let handleLogin = async (req, res) => {
