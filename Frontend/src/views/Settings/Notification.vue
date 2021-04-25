@@ -1,29 +1,23 @@
 <template>
   <div id="setting-page" class="fullpage">
-    <topNavi pageName="Account Settings" />
+    <topNavi pageName="Notification Settings" />
     <div class="content-page">
       <div class="items-group">
-        <itemInput
-          label="Email"
-          type="textbox"
-          :preInfo="user.email"
-          name="email"
+        <itemSelect
+          label="Classroom Notification"
+          type="class"
+          :preInfo="user.setting.noti.class"
+          name="noti_class"
         />
-        <itemInput
-          label="Password"
-          type="textbox"
-          :preInfo="user.password"
-          name="email"
-        />
-        <itemInput
-          label="Phone Number"
-          type="textbox"
-          :preInfo="user.phoneNo"
-          name="email"
+        <itemSelect
+          label="Chat Notification"
+          type="noti"
+          :preInfo="user.setting.noti.chat"
+          name="noti_chat"
         />
       </div>
       <div class="items-group">
-        <itemSingle label="Delete Account" type="red" />
+        <itemSingle label="Save" type="green" />
       </div>
     </div>
   </div>
@@ -35,7 +29,7 @@ import itemInput from "@/components/lists/item_input.vue";
 import itemSingle from "@/components/lists/item_single.vue";
 import topNavi from "@/components/template/topNavi.vue";
 export default {
-  name: "Settings-Account",
+  name: "Settings-Profile",
   components: {
     topNavi,
     itemInput,

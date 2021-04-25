@@ -2,26 +2,104 @@
   <div class="item-selectbox">
     <label class="item-name">{{ label }}</label>
     <div class="item-select" v-if="type == 'sex'">
-      <select>
-        <option value="" selected disabled hidden v-if="user.sex == 'male'">
+      <select v-on:click="clickSelect('sex')">
+        <option
+          value=""
+          selected
+          disabled
+          hidden
+          v-if="user.sex == 'male' && selectClick.sex == true"
+        >
           Male
         </option>
-        <option value="" selected disabled hidden v-if="user.sex == 'female'">
+        <option
+          value=""
+          selected
+          disabled
+          hidden
+          v-if="user.sex == 'female' && selectClick.sex == true"
+        >
           Female
         </option>
         <option>Male</option>
         <option>Female</option>
       </select>
     </div>
-    <div class="item-select" v-if="type == 'role'">
-      <select>
-        <option value="" selected disabled hidden v-if="user.sex == 'lec'">
-          Lecturer
+    <div class="item-select" v-if="type == 'class'">
+      <select v-on:click="clickSelect('class')">
+        <option
+          value=""
+          selected
+          disabled
+          hidden
+          v-if="
+            user.setting.noti.class == true && selectClick.noti_class == true
+          "
+        >
+          ON
         </option>
-        <option value="" selected disabled hidden v-if="user.sex == 'ta'">
+        <option
+          value=""
+          selected
+          disabled
+          hidden
+          v-if="
+            user.setting.noti.class == false && selectClick.noti_class == true
+          "
+        >
+          OFF
+        </option>
+        <option>ON</option>
+        <option>OFF</option>
+      </select>
+    </div>
+    <div class="item-select" v-if="type == 'noti'">
+      <select v-on:click="clickSelect('class')">
+        <option
+          value=""
+          selected
+          disabled
+          hidden
+          v-if="user.setting.noti.chat == true && selectClick.noti_chat == true"
+        >
+          ON
+        </option>
+        <option
+          value=""
+          selected
+          disabled
+          hidden
+          v-if="
+            user.setting.noti.chat == false && selectClick.noti_chat == true
+          "
+        >
+          OFF
+        </option>
+        <option>ON</option>
+        <option>OFF</option>
+      </select>
+    </div>
+    <div class="item-select" v-if="type == 'role'">
+      <select v-on:click="clickSelect('role')">
+        <option
+          value=""
+          selected
+          v-if="user.role == 'lec' && selectClick.role == true"
+        >
+          {{ user.role }}
+        </option>
+        <option
+          value=""
+          selected
+          v-if="user.role == 'ta' && selectClick.role == true"
+        >
           Teacher Assistant
         </option>
-        <option value="" selected disabled hidden v-if="user.sex == 'std'">
+        <option
+          value=""
+          selected
+          v-if="user.role == 'std' && selectClick.role == true"
+        >
           Student
         </option>
         <option>Student</option>
@@ -43,7 +121,21 @@ export default {
   data() {
     return {
       user: this.$store.state.user.profile,
+      selectClick: {
+        sex: true,
+        role: true,
+        noti_class: true,
+        noti_chat: true,
+      },
     };
+  },
+  methods: {
+    clickSelect: function (opt) {
+      if ((opt = "sex")) this.selectClick.sex = false;
+      if ((opt = "role")) this.selectClick.role = false;
+      if ((opt = "noti_class")) this.selectClick.noti_class = false;
+      if ((opt = "noti_chat")) this.selectClick.noti_chat = false;
+    },
   },
 };
 </script>

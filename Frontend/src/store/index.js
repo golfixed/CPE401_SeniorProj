@@ -16,6 +16,14 @@ export default new Vuex.Store({
         role: 'ta',
         sex: 'male',
         email: 'peerapong.tmk@mail.kmutt.ac.th',
+        phoneNo: '0984133769',
+        password: '******',
+        setting: {
+          noti: {
+            class: true,
+            chat: false,
+          }
+        }
       }
     }
   }),

@@ -15,9 +15,7 @@
           <h1 class="pagename">{{ user.firstName }} {{ user.lastName }}</h1>
           <label class="role" v-if="user.role == 'std'">Student</label>
           <label class="role" v-if="user.role == 'lec'">Lecturer</label>
-          <label class="role" v-if="user.role == 'ta'"
-            >Lecturer Assistant</label
-          >
+          <label class="role" v-if="user.role == 'ta'">Teacher Assistant</label>
           <label class="email">{{ user.email }}</label>
         </div>
       </div>
@@ -36,11 +34,13 @@
             type="normal"
           />
         </router-link>
-        <itemSingle
-          label="Notifications"
-          desc="Chat notification, Group notification"
-          type="normal"
-        />
+        <router-link to="/settings/notification">
+          <itemSingle
+            label="Notifications"
+            desc="Chat notification, Group notification"
+            type="normal"
+          />
+        </router-link>
       </div>
       <div class="items-group">
         <itemSingle label="Feedback" type="normal" />

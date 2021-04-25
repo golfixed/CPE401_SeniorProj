@@ -57,6 +57,16 @@ const routes = [
     name: 'Settings Profile',
     component:  () => import( /* webpackChunkName: "Settings" */ '../views/Settings/Profile.vue')
   },
+  {
+    path: '/settings/account',
+    name: 'Settings Account',
+    component:  () => import( /* webpackChunkName: "Settings" */ '../views/Settings/Account.vue')
+  },
+  {
+    path: '/settings/notification',
+    name: 'Settings Notification',
+    component:  () => import( /* webpackChunkName: "Settings" */ '../views/Settings/Notification.vue')
+  },
   { path: '*', redirect: '/home' }
 ]
 
