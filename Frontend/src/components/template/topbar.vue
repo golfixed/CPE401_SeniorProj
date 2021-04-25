@@ -39,32 +39,22 @@
       <div class="search-bar-wrapper">
         <router-link to="/search">
           <div class="app-default-searchbar">
-            <label v-if="currentRoute == '/home'"
-              ><i class="fas fa-search"></i>Search</label
-            >
-            <label v-if="currentRoute == '/classrooms'"
-              ><i class="fas fa-search"></i>Search classrooms</label
-            >
-            <label v-if="currentRoute == '/chats'"
-              ><i class="fas fa-search"></i>Search chats or contacts</label
-            >
+            <label><i class="fas fa-search"></i>Search</label>
           </div>
         </router-link>
       </div>
     </div>
     <div id="section-favbar">
-      <div id="pinned-bar" class="section app-default-pinnedbar">
+      <div
+        id="pinned-bar"
+        class="section app-default-pinnedbar"
+        v-if="currentRoute == '/home' && favPostList.length == 0"
+      >
         <div class="pin-title">
-          <label v-if="currentRoute == '/home'">Announcements</label>
-          <label v-if="currentRoute == '/classrooms' && favClassList.length > 0"
-            >Favourites</label
-          >
-          <label v-if="currentRoute == '/chats' && favChatList.length > 0"
-            >Favourites</label
-          >
+          <label>Announcements</label>
         </div>
         <div class="pin-tray-wrap">
-          <div class="slide-tray" v-if="currentRoute == '/home'">
+          <div class="slide-tray">
             <favPost
               v-for="items in favPostList"
               :key="items.id"
@@ -76,12 +66,37 @@
               @openPost="openAncmt(items.id)"
             />
           </div>
-          <div class="slide-tray" v-if="currentRoute == '/chats'">
+        </div>
+      </div>
+      <div
+        id="pinned-bar"
+        class="section app-default-pinnedbar"
+        v-if="currentRoute == '/classroom'"
+      >
+        <div class="pin-title">
+          <label>Favourites</label>
+        </div>
+        <div class="pin-tray-wrap"></div>
+      </div>
+      <div
+        id="pinned-bar"
+        class="section app-default-pinnedbar"
+        v-if="currentRoute == '/chats' && favChatList.length > 0"
+      >
+        <div class="pin-title">
+          <label>Favourites</label>
+        </div>
+        <div class="pin-tray-wrap">
+          <div class="slide-tray">
             <favChat
               v-for="items in favChatList"
               :key="items.id"
               v-bind:firstName="items.firstName"
               v-bind:profilePic="items.profilePic"
+            />
+            <favChat
+              firstName="add new"
+              profilePic="/img/btn/chat/plus_circle.png"
             />
           </div>
         </div>
@@ -104,30 +119,6 @@ export default {
     openAncmt: function (id) {
       this.favPostClicked = this.favPostList[id];
     },
-    // toggleFavBar: function (id) {
-    //   var wrapper = document.querySelector("#fullPage-wrapper").classList;
-    //   if (wrapper.contains("fullPage-wrapper-show") === false) {
-    //     this.favPostClicked = this.favPostList[id];
-    //     wrapper.toggle("fullPage-wrapper-show");
-
-    //     this.toggleOverlay();
-    //   } else {
-    //     if (wrapper.contains("fullPage-wrapper-show") === true) {
-    //       wrapper.toggle("fullPage-wrapper-show");
-    //       this.toggleOverlay();
-    //     }
-    //   }
-    // },
-    // toggleOverlay: function () {
-    //   var overlay = document.querySelector("#overlay-bg").classList;
-    //   if (overlay.contains("overlay-wrapper-show") === false) {
-    //     overlay.toggle("overlay-wrapper-show");
-    //   } else {
-    //     if (overlay.contains("overlay-wrapper-show") === true) {
-    //       overlay.toggle("overlay-wrapper-show");
-    //     }
-    //   }
-    // },
   },
   mounted() {
     document.querySelector(".app-view").addEventListener("scroll", function () {

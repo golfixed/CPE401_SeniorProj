@@ -417,4 +417,37 @@ button:active {
     width: 100%;
   }
 }
+.page-content-none {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6f6f6;
+  height: calc(100vh - 212px);
+  .no-msg {
+    text-align: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .title {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 21px;
+      text-align: center;
+      color: #8b8b8b;
+    }
+    .desc {
+      margin-top: 6px !important;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 20px;
+      text-align: center;
+      color: #8b8b8b;
+    }
+  }
+}
 </style>
