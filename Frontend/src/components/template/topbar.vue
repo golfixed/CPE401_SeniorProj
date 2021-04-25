@@ -96,7 +96,7 @@
             />
             <favChat
               firstName="add new"
-              profilePic="/img/btn/chat/plus_circle.png"
+              profilePic="/img/btn/chat/plus_circle.svg"
             />
           </div>
         </div>

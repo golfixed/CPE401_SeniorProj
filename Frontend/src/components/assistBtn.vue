@@ -11,6 +11,22 @@
 <script>
 export default {
   name: "assist-btn",
+  mounted() {
+    document.querySelector(".app-view").addEventListener("scroll", function () {
+      var scrollTop = document.querySelector(".app-view").scrollTop;
+      var btnClasses = document.querySelector(".assist-btn-wrapper").classList;
+
+      if (scrollTop >= 300) {
+        if (btnClasses.contains("assist-btn-hide") === false) {
+          btnClasses.toggle("assist-btn-hide");
+        }
+      } else {
+        if (btnClasses.contains("assist-btn-hide") === true) {
+          btnClasses.toggle("assist-btn-hide");
+        }
+      }
+    });
+  },
 };
 </script>
 
@@ -22,7 +38,7 @@ export default {
   height: 66px;
   bottom: 120px;
   right: 40px;
-
+  transition: all 0.3s;
   .assist-btn {
     width: 66px;
     height: 66px;
@@ -42,5 +58,9 @@ export default {
       }
     }
   }
+}
+.assist-btn-hide {
+  bottom: -70px;
+  transition: all 0.3s;
 }
 </style>
