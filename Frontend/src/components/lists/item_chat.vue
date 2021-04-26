@@ -4,7 +4,7 @@
       <img :src="picURL" draggable="false" />
     </div>
     <div class="text">
-      <label class="name">{{ name }}</label>
+      <label class="name">{{ fname }} {{ lname }}</label>
       <div class="preview">
         <label class="reply" v-if="lastReply == true"> You: </label>
         <label class="read" v-if="read == true">{{ previewMessage }}</label>
@@ -25,7 +25,8 @@ export default {
   name: "chat-list",
   props: {
     picURL: String,
-    name: String,
+    fname: String,
+    lname: String,
     previewMessage: String,
     time: String,
     read: Boolean,

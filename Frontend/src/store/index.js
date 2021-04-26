@@ -8,6 +8,7 @@ export default new Vuex.Store({
     searchPageOpen: false,
     loggedIn: true,
     selected_ancmt: {},
+    optionMenuOpen: false,
     user:{
       profile: {
         firstName: 'Peerapong',
@@ -39,6 +40,9 @@ export default new Vuex.Store({
     },
     Open_announcement: (state, payload) => {
       state.selected_ancmt = payload
+    },
+    Open_optionMenu: (state) => {
+      state.optionMenuOpen = true;
     }
   },
   actions: {},

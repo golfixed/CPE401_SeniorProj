@@ -7,6 +7,10 @@
           <router-view v-if="this.$store.state.searchPageOpen == false" />
         </vue-page-transition>
         <assistBtn />
+        <div class="option-menu-panel">
+          <optionMenu />
+        </div>
+        <div class="overlay-bg"></div>
       </div>
       <div class="app-tabbar">
         <tabbar v-if="this.$store.state.searchPageOpen == false" />
@@ -24,12 +28,14 @@
 import tabbar from "@/components/template/tabbar";
 import topbar from "@/components/template/topbar";
 import assistBtn from "@/components/assistBtn.vue";
+import optionMenu from "@/components/optionMenu.vue";
 export default {
   name: "app",
   components: {
     tabbar,
     topbar,
     assistBtn,
+    optionMenu,
   },
   computed: {
     loggedIn: function () {

@@ -11,7 +11,12 @@
           <label class="page-title">{{ currentPage }}</label>
         </div>
         <div class="titlebar-right">
-          <div class="top-btn" v-if="currentRoute == '/home'">
+          <div class="top-btn">
+            <div class="btn-img-wrapper topbar-plus-btn" id="topbar-plus-btn">
+              <img src="/img/icons/plus-btn.svg" />
+            </div>
+          </div>
+          <div class="top-btn">
             <div class="btn-img-wrapper">
               <img src="/img/icons/noti-bell.svg" />
             </div>
@@ -19,15 +24,7 @@
               {{ notifications.length }}
             </div>
           </div>
-          <div
-            class="top-btn"
-            v-if="currentRoute == '/classrooms' || currentRoute == '/chats'"
-          >
-            <div class="btn-img-wrapper topbar-plus-btn" id="topbar-plus-btn">
-              <img src="/img/icons/plus-btn.svg" />
-            </div>
-          </div>
-          <div class="top-btn">
+          <div class="top-btn" v-on:click="openOptionMenu()">
             <div class="btn-img-wrapper">
               <img src="/img/icons/option-menu.svg" />
             </div>
@@ -118,6 +115,9 @@ export default {
   methods: {
     openAncmt: function (id) {
       this.favPostClicked = this.favPostList[id];
+    },
+    openOptionMenu: function () {
+      this.$store.commit("Open_optionMenu");
     },
   },
   mounted() {
@@ -229,21 +229,6 @@ export default {
           id: 3,
           firstName: "Bhaksiree",
           profilePic: "/img/mockup/profile_volk.png",
-        },
-        {
-          id: 4,
-          firstName: "Peerapong",
-          profilePic: "/img/mockup/profile.png",
-        },
-        {
-          id: 5,
-          firstName: "Bhaksiree",
-          profilePic: "/img/mockup/profile_volk.png",
-        },
-        {
-          id: 6,
-          firstName: "Nithiwadee",
-          profilePic: "/img/mockup/profile_my.png",
         },
       ],
       favClassList: [],

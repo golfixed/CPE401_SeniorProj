@@ -16,7 +16,7 @@ export default {
       var scrollTop = document.querySelector(".app-view").scrollTop;
       var btnClasses = document.querySelector(".assist-btn-wrapper").classList;
       var topPlusBtn = document.querySelector("#topbar-plus-btn").classList;
-      if (scrollTop >= 300) {
+      if (scrollTop >= 100) {
         if (btnClasses.contains("assist-btn-hide") === false) {
           btnClasses.toggle("assist-btn-hide");
         }
@@ -68,8 +68,8 @@ export default {
 
 //move to top
 .assist-btn-hide {
-  bottom: 91%;
-  right: 48px;
+  bottom: calc(100vh - 72px);
+  right: 98px;
   transform: scale(0.5);
   transition: all 0.5s;
   opacity: 0;

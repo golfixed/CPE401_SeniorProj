@@ -5,7 +5,8 @@
         <chatItem
           v-for="items in chatList"
           :key="items.id"
-          v-bind:name="items.firstName + items.lastName"
+          v-bind:fname="items.firstName"
+          v-bind:lname="items.lastName"
           v-bind:picURL="items.picURL"
           v-bind:previewMessage="items.previewMessage"
           v-bind:time="items.time"
