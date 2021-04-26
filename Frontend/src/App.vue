@@ -7,10 +7,12 @@
           <router-view v-if="this.$store.state.searchPageOpen == false" />
         </vue-page-transition>
         <assistBtn />
-        <div class="option-menu-panel">
-          <optionMenu />
-        </div>
-        <div class="overlay-bg"></div>
+        <optionMenu />
+        <div
+          class="overlay-bg"
+          v-if="overlayShow == true"
+          v-on:click="closeAllMenu()"
+        ></div>
       </div>
       <div class="app-tabbar">
         <tabbar v-if="this.$store.state.searchPageOpen == false" />
@@ -48,6 +50,14 @@ export default {
       var r = this.currentRoute;
       if (r == "/" || r == "/login" || r == "/regis") return true;
       else return false;
+    },
+    overlayShow: function () {
+      return this.$store.state.overlayShow;
+    },
+  },
+  methods: {
+    closeAllMenu: function () {
+      this.$store.commit("Close_AllMenu");
     },
   },
 };
@@ -456,5 +466,14 @@ button:active {
       color: #8b8b8b;
     }
   }
+}
+.overlay-bg {
+  background-color: #0000003b;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 </style>

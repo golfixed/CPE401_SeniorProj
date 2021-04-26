@@ -1,34 +1,39 @@
 <template>
-  <div id="menu-panel">
-    <div class="top-grey-bar"></div>
-    <div class="wrapper-menu-item" v-if="currentPage == '/home'">
-      <optionMenu
-        v-for="option in optionHome"
-        :key="option.id"
-        v-bind:label="option.label"
-        v-bind:iconURL="option.iconURL"
-        v-bind:link="option.url"
-      />
+  <transition name="slidein">
+    <div id="menu-panel" v-if="isOpen == true">
+      <div class="top-grey-bar"></div>
+      <div class="wrapper-menu-item" v-if="currentPage == '/home'">
+        <optionMenu
+          v-for="option in optionHome"
+          :key="option.id"
+          v-bind:label="option.label"
+          v-bind:iconURL="option.iconURL"
+          v-bind:link="option.url"
+        />
+      </div>
+      <div class="wrapper-menu-item" v-if="currentPage == '/classroom'">
+        <optionMenu
+          v-for="option in optionClass"
+          :key="option.id"
+          v-bind:label="option.label"
+          v-bind:iconURL="option.iconURL"
+          v-bind:link="option.url"
+        />
+      </div>
+      <div class="wrapper-menu-item" v-if="currentPage == '/chats'">
+        <optionMenu
+          v-for="option in optionChat"
+          :key="option.id"
+          v-bind:label="option.label"
+          v-bind:iconURL="option.iconURL"
+          v-bind:link="option.url"
+        />
+      </div>
+      <div class="btn-cancel" v-on:click="closeAllMenu()">
+        <label>Cancel</label>
+      </div>
     </div>
-    <div class="wrapper-menu-item" v-if="currentPage == '/classroom'">
-      <optionMenu
-        v-for="option in optionClass"
-        :key="option.id"
-        v-bind:label="option.label"
-        v-bind:iconURL="option.iconURL"
-        v-bind:link="option.url"
-      />
-    </div>
-    <div class="wrapper-menu-item" v-if="currentPage == '/chats'">
-      <optionMenu
-        v-for="option in optionChat"
-        :key="option.id"
-        v-bind:label="option.label"
-        v-bind:iconURL="option.iconURL"
-        v-bind:link="option.url"
-      />
-    </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -39,7 +44,11 @@ export default {
     optionMenu,
   },
   mounted() {},
-  methods: {},
+  methods: {
+    closeAllMenu: function () {
+      this.$store.commit("Close_AllMenu");
+    },
+  },
   computed: {
     currentPage: function () {
       return this.$route.path;
@@ -77,7 +86,20 @@ export default {
         },
       ],
       optionClass: [],
-      optionChat: [],
+      optionChat: [
+        {
+          id: 0,
+          label: "Notification Settings",
+          iconURL: "/img/btn/menuOption/noti.svg",
+          url: "/settings/notification",
+        },
+        {
+          id: 1,
+          label: "Settings",
+          iconURL: "/img/btn/menuOption/setting.svg",
+          url: "/settings",
+        },
+      ],
     };
   },
 };
@@ -100,7 +122,7 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-bottom: 80px;
+  padding-bottom: 40px;
   transition: all 0.3s;
   .top-grey-bar {
     height: 5px;
@@ -117,10 +139,28 @@ export default {
     flex-direction: column;
   }
 }
-.bounce-enter-active {
+.slidein-enter-active {
   bottom: 0;
 }
-.bounce-leave-active {
+.slidein-leave-active {
   bottom: -100%;
+}
+.btn-cancel {
+  margin-top: 40px;
+  height: 50px;
+  width: calc(100% - 40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6f6f6;
+  border-radius: 20px;
+  label {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    color: #8b8b8b;
+  }
 }
 </style>

@@ -9,6 +9,7 @@ export default new Vuex.Store({
     loggedIn: true,
     selected_ancmt: {},
     optionMenuOpen: false,
+    overlayShow: false,
     user:{
       profile: {
         firstName: 'Peerapong',
@@ -43,6 +44,11 @@ export default new Vuex.Store({
     },
     Open_optionMenu: (state) => {
       state.optionMenuOpen = true;
+      state.overlayShow = true;
+    },
+    Close_AllMenu: (state) => {
+      state.optionMenuOpen = false;
+      state.overlayShow = false;
     }
   },
   actions: {},
