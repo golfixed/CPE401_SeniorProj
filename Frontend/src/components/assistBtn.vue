@@ -15,14 +15,20 @@ export default {
     document.querySelector(".app-view").addEventListener("scroll", function () {
       var scrollTop = document.querySelector(".app-view").scrollTop;
       var btnClasses = document.querySelector(".assist-btn-wrapper").classList;
-
+      var topPlusBtn = document.querySelector("#topbar-plus-btn").classList;
       if (scrollTop >= 300) {
         if (btnClasses.contains("assist-btn-hide") === false) {
           btnClasses.toggle("assist-btn-hide");
         }
+        if (topPlusBtn.contains("topbar-plus-btn-show") === false) {
+          topPlusBtn.toggle("topbar-plus-btn-show");
+        }
       } else {
         if (btnClasses.contains("assist-btn-hide") === true) {
           btnClasses.toggle("assist-btn-hide");
+        }
+        if (topPlusBtn.contains("topbar-plus-btn-show") === true) {
+          topPlusBtn.toggle("topbar-plus-btn-show");
         }
       }
     });
@@ -59,8 +65,20 @@ export default {
     }
   }
 }
+
+//move to top
 .assist-btn-hide {
-  bottom: -70px;
-  transition: all 0.3s;
+  bottom: 91%;
+  right: 48px;
+  transform: scale(0.5);
+  transition: all 0.5s;
+  opacity: 0;
 }
+
+//minimize
+// .assist-btn-hide {
+//   transform: scale(0.5);
+//   transition: all 0.2s;
+//   opacity: 0;
+// }
 </style>

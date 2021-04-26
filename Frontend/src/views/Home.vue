@@ -1,6 +1,6 @@
 <template>
   <div id="page-home" class="app-default-border-gray-top">
-    <div class="page-content-none">
+    <div class="page-content-none" v-if="recentAct.length == 0">
       <div class="no-msg">
         <label class="title">Nothing Going On Here</label>
         <label class="desc"
@@ -17,7 +17,9 @@ export default {
   name: "Home",
 
   data: function () {
-    return {};
+    return {
+      recentAct: [],
+    };
   },
   created: function () {},
   methods: {

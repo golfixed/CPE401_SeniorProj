@@ -23,7 +23,7 @@
             class="top-btn"
             v-if="currentRoute == '/classrooms' || currentRoute == '/chats'"
           >
-            <div class="btn-img-wrapper">
+            <div class="btn-img-wrapper topbar-plus-btn" id="topbar-plus-btn">
               <img src="/img/icons/plus-btn.svg" />
             </div>
           </div>
@@ -364,6 +364,17 @@ export default {
 
 .search-panel-show {
   top: 0 !important;
+  transition: all 0.6s;
+}
+.topbar-plus-btn {
+  opacity: 0;
   transition: all 0.3s;
+  transform: scale(0.5);
+}
+.topbar-plus-btn-show {
+  opacity: 1;
+  transition: all 0.3s;
+  transition-delay: 0.4s;
+  transform: scale(1);
 }
 </style>

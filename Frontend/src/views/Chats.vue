@@ -107,7 +107,7 @@ export default {
           lastReply: true,
         },
         {
-          id: 6,
+          id: 7,
           firstName: "Peerapong",
           lastName: "Thammakaew",
           picURL: "/img/mockup/profile.png",
@@ -117,7 +117,7 @@ export default {
           lastReply: true,
         },
         {
-          id: 6,
+          id: 8,
           firstName: "Peerapong",
           lastName: "Thammakaew",
           picURL: "/img/mockup/profile.png",
@@ -127,7 +127,7 @@ export default {
           lastReply: true,
         },
         {
-          id: 6,
+          id: 9,
           firstName: "Peerapong",
           lastName: "Thammakaew",
           picURL: "/img/mockup/profile.png",
@@ -137,7 +137,7 @@ export default {
           lastReply: true,
         },
         {
-          id: 6,
+          id: 10,
           firstName: "Peerapong",
           lastName: "Thammakaew",
           picURL: "/img/mockup/profile.png",
@@ -147,7 +147,7 @@ export default {
           lastReply: true,
         },
         {
-          id: 6,
+          id: 11,
           firstName: "Peerapong",
           lastName: "Thammakaew",
           picURL: "/img/mockup/profile.png",
@@ -157,7 +157,7 @@ export default {
           lastReply: true,
         },
         {
-          id: 6,
+          id: 12,
           firstName: "Peerapong",
           lastName: "Thammakaew",
           picURL: "/img/mockup/profile.png",
@@ -167,7 +167,7 @@ export default {
           lastReply: true,
         },
         {
-          id: 6,
+          id: 13,
           firstName: "Peerapong",
           lastName: "Thammakaew",
           picURL: "/img/mockup/profile.png",
