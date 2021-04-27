@@ -10,7 +10,6 @@ import passport from "passport";
 import dbCon from "./configs/DBConnection";
 
 let app = express();
-const jwt = require("jsonwebtoken");
 
 //use cookie parser
 app.use(cookieParser('secret'));
@@ -25,8 +24,7 @@ app.use(session({
     }
 }));
 
-
-const requireJWTAuth = passport.authenticate("jwt",{session:false});
+const requireJWTAuth = passport.authenticate('jwt', {session: false});
 
 app.get("/profile/:id", requireJWTAuth, (req, res) => {
     const id = req.params.id;
