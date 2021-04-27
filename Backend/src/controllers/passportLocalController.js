@@ -7,7 +7,7 @@ const passportJWT = require("passport-jwt"),
 ExtractJWT    = passportJWT.ExtractJwt,
 JWTStrategy   = passportJWT.Strategy
 
-const jwtPayload = "";
+const user = require('../services/loginService');
 
 let initPassportLocal = () => {
     passport.use(new LocalStrategy({
@@ -15,8 +15,8 @@ let initPassportLocal = () => {
         passwordField: 'password'
       }, 
       (email, password, cb) => {        
-    
-        //this one is typically a DB call.
+
+        //check email in DB
         if (email == loginService.handleLogin) 
           return cb(null, false, {message: 'Incorrect email or password.'})
                 
@@ -31,7 +31,7 @@ let initPassportLocal = () => {
         (jwtPayload, cb) => {
     
           try {
-            // find the user in db if needed
+            // find the user in DB
             if(jwtPayload.id == user.id) {
               return cb(null, user);
             } else {
