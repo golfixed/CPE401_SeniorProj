@@ -3,34 +3,45 @@ import passport from "passport";
 import loginService from "../services/loginService";
 
 let LocalStrategy = passportLocal.Strategy;
+const passportJWT = require("passport-jwt"),
+ExtractJWT    = passportJWT.ExtractJwt,
+JWTStrategy   = passportJWT.Strategy
+
+const jwtPayload = "";
 
 let initPassportLocal = () => {
     passport.use(new LocalStrategy({
-            usernameField: 'email',
-            passwordField: 'password',
-            passReqToCallback: true
+        usernameField: 'email',
+        passwordField: 'password'
+      }, 
+      (email, password, cb) => {        
+    
+        //this one is typically a DB call.
+        if (email == loginService.handleLogin) 
+          return cb(null, false, {message: 'Incorrect email or password.'})
+                
+        return cb(null, {message: 'Logged In Successfully'})
+      }
+    ));
+
+        passport.use(new JWTStrategy({
+            jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+            secretOrKey   : 'your_jwt_secret'
         },
-        async (req, email, password, done) => {
-            try {
-                await loginService.findUserByEmail(email).then(async (user) => {
-                    if (!user) {
-                        return done(null, false, req.flash("errors", `This user email "${email}" doesn't exist`));
-                    }
-                    if (user) {
-                        let match = await loginService.comparePassword(password, user);
-                        if (match === true) {
-                            return done(null, user, null)
-                        } else {
-                            return done(null, false, req.flash("errors", match)
-                            )
-                        }
-                    }
-                });
-            } catch (err) {
-                console.log(err);
-                return done(null, false, { message: err });
+        (jwtPayload, cb) => {
+    
+          try {
+            // find the user in db if needed
+            if(jwtPayload.id == user.id) {
+              return cb(null, user);
+            } else {
+              return cb(null, false);
             }
-        }));
+          } catch (error) {
+            return cb(error, false);
+          }
+        }
+    ));
 
 };
 
