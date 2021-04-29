@@ -14,15 +14,27 @@ let initPassportLocal = () => {
         usernameField: 'email',
         passwordField: 'password'
       }, 
-      (email, password, cb) => {        
-
-        //check email in DB
-        if (email == loginService.handleLogin) 
-          return cb(null, false, {message: 'Incorrect email or password.'})
-                
-        return cb(null, {message: 'Logged In Successfully'})
-      }
-    ));
+      async (email, password, done) => {
+        try {
+            await loginService.findUserByEmail(email).then(async (user) => {
+                if (!user) {
+                    return done(null, false, {message: 'Incorrect email'})
+                }
+                if (user) {
+                    let match = await loginService.comparePassword(password, user);
+                    if (match === true) {
+                        return done(null, user, null)
+                    } else {
+                        return done(null, false, {message: 'Incorrect password.'}
+                        )
+                    }
+                }
+            });
+        } catch (err) {
+            console.log(err);
+            return done(null, false, { message: err });
+        }
+    }));
 
         passport.use(new JWTStrategy({
             jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
