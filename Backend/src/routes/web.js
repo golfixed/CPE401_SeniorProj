@@ -28,7 +28,14 @@ let initWebRoutes = (app) => {
         passport.authenticate('local', {session: false}, (err, user, info) => {
             if (err) return next(err)
             if(user) {
-                const token = jwt.sign(user, 'your_jwt_secret')
+                const genToken = user => {
+                    return jwt.sign({
+                      iss: 'Classi jwt',
+                      sub: user.id,
+                      iat: new Date().getTime()
+                    }, 'your_jwt_secret');
+                  }
+                const token = genToken(user);
                 return res.json({user, token})
             } else {
                 return res.status(422).json(info)
