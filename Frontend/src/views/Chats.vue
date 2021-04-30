@@ -1,5 +1,5 @@
 <template>
-  <div id="page-home" class="app-default-border-gray-top">
+  <div id="page-chat" class="app-default-border-gray-top">
     <div class="page-list-wrapper" v-if="chatList.length > 0">
       <div class="chat-item">
         <chatItem
@@ -24,13 +24,14 @@
         >
       </div>
     </div>
+    <div class="end-of-page"></div>
   </div>
 </template>
 
 <script>
 import chatItem from "@/components/lists/item_chat.vue";
 export default {
-  name: "Chats",
+  name: "Chats-Page",
   components: {
     chatItem,
   },
@@ -191,6 +192,6 @@ export default {
 </script>
 <style lang="scss" scoped>
 .page-list-wrapper {
-  padding: 10px 20px 150px 20px;
+  padding: 10px 20px 0px 20px;
 }
 </style>

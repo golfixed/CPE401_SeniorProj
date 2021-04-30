@@ -5,6 +5,14 @@
         <img src="/img/btn/plus.svg" />
       </div>
     </div>
+    <div class="assist-menu">
+      <div class="assist-menu-item">
+        <div class="btn-img">
+          <img src="/img/btn/plus.svg" />
+        </div>
+        <label></label>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -81,4 +89,17 @@ export default {
 //   transition: all 0.2s;
 //   opacity: 0;
 // }
+.assist-menu {
+  .assist-menu-item {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(139.07deg, #3c6697 20.27%, #1e9f13 99.96%);
+    border: 2px solid #ffffff;
+    filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.2));
+    border-radius: 100%;
+  }
+}
 </style>

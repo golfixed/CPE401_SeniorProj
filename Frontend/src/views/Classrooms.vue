@@ -15,7 +15,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
 
 export default {
-  name: "Home",
+  name: "Classrooms-Page",
   components: {},
   data: function () {
     return {};

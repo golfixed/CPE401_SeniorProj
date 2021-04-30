@@ -1,8 +1,8 @@
 <template>
-  <div id="setting-page" class="fullpage">
+  <div id="page-setting" class="fullpage">
     <topNavi pageName="Settings" />
     <div class="content-page">
-      <div class="wrapper">
+      <div class="setting-head wrapper">
         <div class="page-header">
           <div class="profile-pic">
             <div class="img">
@@ -49,6 +49,7 @@
       <div class="items-group">
         <itemSingle label="Sign Out" type="red" />
       </div>
+      <div class="end-of-page"></div>
     </div>
   </div>
 </template>
@@ -76,7 +77,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#setting-page {
+#page-setting {
   background-color: #f6f6f6;
 }
 
@@ -149,70 +150,7 @@ input {
   width: 100%;
   margin: 20px 0;
 }
-.sign-in {
-  background-color: #479f60;
-  label {
-    color: #fff;
-  }
-}
-.sign-in:active {
-  background-color: #45945b;
-}
-.header {
-  height: 250px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex-direction: column;
-  padding-bottom: 20px;
-  .logo {
-    width: 120px;
-    height: 120px;
-    transform: translate(10px, 0);
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-  }
-  h1 {
-    color: #202020;
-    font-size: 24px;
-    padding-top: 20px !important;
-  }
-  h3 {
-    color: #8b8b8b;
-    font-size: 14px;
-    font-weight: 500;
-    padding-top: 5px !important;
-  }
-}
 
-.bottom-sec {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100vw;
-  padding: 20px 0 30px 0;
-
-  label.bottom-label {
-    width: 100%;
-    padding-top: 20px !important;
-    text-align: center;
-    color: #505050;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 16px;
-    line-height: 19px;
-    margin-bottom: 10px !important;
-    border: 1px solid #ededed;
-    border-width: 1px 0 0 0;
-  }
-  label.sign-up {
-    color: #479f60;
-    font-weight: 700;
-  }
-}
 .wrapper {
   padding: 0 20px;
   display: flex;

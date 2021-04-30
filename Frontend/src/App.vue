@@ -407,14 +407,14 @@ button:active {
   width: 100vw;
   top: 0;
   left: 0;
-  overflow: scroll;
+  overflow: hidden;
   z-index: 20;
   background-color: #ffffff;
+  padding-bottom: 80px;
 }
 
 .content-page {
   margin-top: 60px;
-  position: fixed;
   width: 100vw;
   height: calc(100vh - 61px);
   overflow: scroll;
@@ -422,6 +422,10 @@ button:active {
   // .wrapper {
   //   height: 1500px;
   // }
+}
+.end-of-page {
+  height: 100px;
+  width: 100%;
 }
 .items-group {
   width: 100vw;

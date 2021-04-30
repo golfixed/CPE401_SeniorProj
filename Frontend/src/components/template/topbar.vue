@@ -16,14 +16,14 @@
               <img src="/img/icons/plus-btn.svg" />
             </div>
           </div>
-          <div class="top-btn">
+          <router-link to="/notification" class="top-btn">
             <div class="btn-img-wrapper">
               <img src="/img/icons/noti-bell.svg" />
             </div>
             <div v-if="notifications.length > 0" class="noti-badge">
               {{ notifications.length }}
             </div>
-          </div>
+          </router-link>
           <div class="top-btn" v-on:click="openOptionMenu()">
             <div class="btn-img-wrapper">
               <img src="/img/icons/option-menu.svg" />

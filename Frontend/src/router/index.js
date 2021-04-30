@@ -53,6 +53,11 @@ const routes = [
     component:  () => import( /* webpackChunkName: "Settings" */ '../views/Settings.vue')
   },
   {
+    path: '/notification',
+    name: 'Notification',
+    component:  () => import( /* webpackChunkName: "Settings" */ '../views/Notification.vue')
+  },
+  {
     path: '/settings/profile',
     name: 'Settings Profile',
     component:  () => import( /* webpackChunkName: "Settings" */ '../views/Settings/Profile.vue')

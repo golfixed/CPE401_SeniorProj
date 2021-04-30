@@ -54,6 +54,7 @@ export default {
       justify-content: center;
       align-items: center;
       margin-left: 20px;
+      height: 100%;
       div.icon {
         width: 15px;
         height: 15px;
