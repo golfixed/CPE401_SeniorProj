@@ -5,6 +5,7 @@ import loginController from "../controllers/loginController";
 import auth from "../validation/authValidation";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
+import profileService from "../services/profileService";
 
 // Init all passport
 initPassportLocal();
@@ -39,13 +40,16 @@ let initWebRoutes = (app) => {
                 return res.json({user, token})
             } else {
                 return res.status(422).json(info)
-             }
+            }
         })(req, res, next);
     });
 
     router.get("/register", registerController.getPageRegister);
     router.post("/register", registerController.createNewUser);
     router.post("/logout", loginController.postLogOut);
+
+    router.get("/profile/:id", profileService);
+
     return app.use("/", router);
 };
 module.exports = initWebRoutes;
