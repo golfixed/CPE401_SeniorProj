@@ -68,7 +68,7 @@ import axios from "@/axios.js";
 export default {
   name: "Welcome",
   created() {
-    this.test();
+    // this.test();
   },
   data() {
     return {
@@ -77,15 +77,15 @@ export default {
     };
   },
   methods: {
-    test: function () {
-      axios.get("/").then((res) => {
-        if (res.status != 404 || res.status != 500) {
-          this.connectServer = true;
-          // console.log(res);
-          this.resData = res.data;
-        }
-      });
-    },
+    // test: function () {
+    //   axios.get("/").then((res) => {
+    //     if (res.status != 404 || res.status != 500) {
+    //       this.connectServer = true;
+    //       // console.log(res);
+    //       this.resData = res.data;
+    //     }
+    //   });
+    // },
   },
 };
 </script>

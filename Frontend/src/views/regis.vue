@@ -15,7 +15,16 @@
           v-model="regis.password"
         />
         <div class="btn-wrapper">
-          <button class="sign-in" v-on:click="signUp()">
+          <button
+            class="sign-in"
+            v-on:click="signUp()"
+            v-if="allFilled == true"
+          >
+            <div class="single-land">
+              <label>Sign Up</label>
+            </div>
+          </button>
+          <button class="sign-in grey" v-if="allFilled == false">
             <div class="single-land">
               <label>Sign Up</label>
             </div>
@@ -54,7 +63,7 @@
 import topNavi from "@/components/template/topNavi.vue";
 import axios from "@/axios.js";
 export default {
-  name: "Login",
+  name: "Register-Page",
   components: {
     topNavi,
   },
@@ -71,30 +80,35 @@ export default {
   methods: {
     signUp: function () {
       axios
-        .post("", {
+        .post("/register", {
           firstname: this.regis.fname,
           lastname: this.regis.lname,
           email: this.regis.email,
           password: this.regis.password,
         })
         .then(function (response) {
-          currentObj.output = response.data;
-        })
-        .catch(function (error) {
-          currentObj.output = error;
-        });
-    },
-    fetchNewsList: function () {
-      axios
-        .get("/news?page=" + this.page.now + "&limit=" + this.range)
-        .then((res) => {
-          this.news_data = res.data;
-          this.news_list = this.news_data.description.data;
-          this.page.all = this.news_data.page.all;
+          console.log(response);
         })
         .catch((error) => {
-          console.error(error.response);
+          if (!error.response) {
+            // network error
+            this.errorStatus = "Error: Network Error";
+          } else {
+            this.errorStatus = error.response.data.message;
+          }
         });
+    },
+  },
+  computed: {
+    allFilled: function () {
+      if (
+        this.regis.fname == "" ||
+        this.regis.lname == "" ||
+        this.regis.email == "" ||
+        this.regis.password == ""
+      ) {
+        return false;
+      } else return true;
     },
   },
 };
@@ -127,6 +141,12 @@ input {
 }
 .sign-in:active {
   background-color: #45945b;
+}
+.grey {
+  background-color: #c2c2c2;
+}
+.grey:active {
+  background-color: #b8b8b8;
 }
 .btn-fb {
   label {

@@ -6,8 +6,8 @@
         <div class="page-header">
           <h1 class="pagename">Sign In with E-mail</h1>
         </div>
-        <input type="text" placeholder="E-mail" />
-        <input type="password" placeholder="Password" />
+        <input type="text" placeholder="E-mail" v-model="email" />
+        <input type="password" placeholder="Password" v-model="password" />
         <div class="btn-wrapper">
           <button class="sign-in" v-on:click="signin">
             <router-link to="/home">
@@ -30,14 +30,36 @@
 
 <script>
 import topNavi from "@/components/template/topNavi.vue";
+import axios from "@/axios.js";
 export default {
-  name: "Login",
+  name: "Login-Page",
   components: {
     topNavi,
   },
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
   methods: {
     signin: function () {
-      this.$store.commit("LogIn");
+      axios
+        .get("/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch((error) => {
+          if (!error.response) {
+            // network error
+            this.errorStatus = "Error: Network Error";
+          } else {
+            this.errorStatus = error.response.data.message;
+          }
+        });
     },
   },
 };
