@@ -1,7 +1,7 @@
 <template>
   <div class="welcome-page">
-    <topNavi type="regis" />
-    <div class="content">
+    <topNavi />
+    <div class="content-page">
       <div class="wrapper">
         <div class="page-header">
           <h1 class="pagename">Sign up with email</h1>
@@ -15,7 +15,16 @@
           v-model="regis.password"
         />
         <div class="btn-wrapper">
-          <button class="sign-in" v-on:click="signUp()">
+          <button
+            class="sign-in"
+            v-on:click="signUp()"
+            v-if="allFilled == true"
+          >
+            <div class="single-land">
+              <label>Sign Up</label>
+            </div>
+          </button>
+          <button class="sign-in grey" v-if="allFilled == false">
             <div class="single-land">
               <label>Sign Up</label>
             </div>
@@ -43,7 +52,7 @@
     </div>
     <div class="bottom-sec">
       <div class="wrapper">
-        <label class="bottom-label">Already had a accouint?</label>
+        <label class="bottom-label">Already had an account?</label>
         <label class="bottom-btn">Reset password</label>
       </div>
     </div>
@@ -54,7 +63,7 @@
 import topNavi from "@/components/template/topNavi.vue";
 import axios from "@/axios.js";
 export default {
-  name: "Login",
+  name: "Register-Page",
   components: {
     topNavi,
   },
@@ -70,31 +79,27 @@ export default {
   },
   methods: {
     signUp: function () {
-      axios
-        .post("", {
-          firstname: this.regis.fname,
-          lastname: this.regis.lname,
-          email: this.regis.email,
-          password: this.regis.password,
-        })
-        .then(function (response) {
-          currentObj.output = response.data;
-        })
-        .catch(function (error) {
-          currentObj.output = error;
-        });
+      var body = {
+        firstname: this.regis.fname,
+        lastname: this.regis.lname,
+        email: this.regis.email,
+        password: this.regis.password,
+      };
+      axios.post("/register", body).then(function (response) {
+        console.log(response);
+      });
     },
-    fetchNewsList: function () {
-      axios
-        .get("/news?page=" + this.page.now + "&limit=" + this.range)
-        .then((res) => {
-          this.news_data = res.data;
-          this.news_list = this.news_data.description.data;
-          this.page.all = this.news_data.page.all;
-        })
-        .catch((error) => {
-          console.error(error.response);
-        });
+  },
+  computed: {
+    allFilled: function () {
+      if (
+        this.regis.fname == "" ||
+        this.regis.lname == "" ||
+        this.regis.email == "" ||
+        this.regis.password == ""
+      ) {
+        return false;
+      } else return true;
     },
   },
 };
@@ -127,6 +132,12 @@ input {
 }
 .sign-in:active {
   background-color: #45945b;
+}
+.grey {
+  background-color: #c2c2c2;
+}
+.grey:active {
+  background-color: #b8b8b8;
 }
 .btn-fb {
   label {

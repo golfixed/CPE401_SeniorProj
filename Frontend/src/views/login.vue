@@ -1,18 +1,20 @@
 <template>
   <div class="welcome-page">
-    <topNavi type="login" />
-    <div class="content">
+    <topNavi />
+    <div class="content-page">
       <div class="wrapper">
         <div class="page-header">
           <h1 class="pagename">Sign In with E-mail</h1>
         </div>
-        <input type="text" placeholder="E-mail" />
-        <input type="password" placeholder="Password" />
+        <input type="text" placeholder="E-mail" v-model="email" />
+        <input type="password" placeholder="Password" v-model="password" />
         <div class="btn-wrapper">
-          <button class="sign-in">
-            <div class="single-land">
-              <label>Sign In</label>
-            </div>
+          <button class="sign-in" v-on:click="signin">
+            <router-link to="/home">
+              <div class="single-land">
+                <label>Sign In</label>
+              </div>
+            </router-link>
           </button>
         </div>
       </div>
@@ -28,10 +30,37 @@
 
 <script>
 import topNavi from "@/components/template/topNavi.vue";
+import axios from "@/axios.js";
 export default {
-  name: "Login",
+  name: "Login-Page",
   components: {
     topNavi,
+  },
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    signin: function () {
+      axios
+        .post("/login", {
+          email: this.email,
+          password: this.password,
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch((error) => {
+          if (!error.response) {
+            // network error
+            this.errorStatus = "Error: Network Error";
+          } else {
+            this.errorStatus = error.response.data.message;
+          }
+        });
+    },
   },
 };
 </script>
@@ -93,9 +122,7 @@ input {
     padding-top: 5px !important;
   }
 }
-.content {
-  width: 100vw;
-}
+
 .bottom-sec {
   position: fixed;
   bottom: 0;

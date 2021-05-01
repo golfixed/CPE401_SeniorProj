@@ -1,16 +1,27 @@
 <template>
   <div>
-    <div id="app" v-if="loggedIn == true">
+    <div id="app" v-if="isLogInPage == false">
       <div class="app-view">
         <topbar />
-        <router-view v-if="this.$store.state.searchPageOpen == false" />
+        <vue-page-transition>
+          <router-view v-if="this.$store.state.searchPageOpen == false" />
+        </vue-page-transition>
+        <assistBtn />
+        <optionMenu />
+        <div
+          class="overlay-bg"
+          v-if="overlayShow == true"
+          v-on:click="closeAllMenu()"
+        ></div>
       </div>
       <div class="app-tabbar">
         <tabbar v-if="this.$store.state.searchPageOpen == false" />
       </div>
     </div>
-    <div id="app" v-if="loggedIn == false">
-      <router-view />
+    <div id="app" v-if="isLogInPage == true">
+      <vue-page-transition>
+        <router-view />
+      </vue-page-transition>
     </div>
   </div>
 </template>
@@ -18,21 +29,51 @@
 <script>
 import tabbar from "@/components/template/tabbar";
 import topbar from "@/components/template/topbar";
+import assistBtn from "@/components/assistBtn.vue";
+import optionMenu from "@/components/optionMenu.vue";
 export default {
   name: "app",
   components: {
     tabbar,
     topbar,
+    assistBtn,
+    optionMenu,
   },
   computed: {
     loggedIn: function () {
       return this.$store.state.loggedIn;
+    },
+    currentRoute: function () {
+      return this.$route.path;
+    },
+    isLogInPage: function () {
+      var r = this.currentRoute;
+      if (r == "/" || r == "/login" || r == "/regis") return true;
+      else return false;
+    },
+    overlayShow: function () {
+      return this.$store.state.overlayShow;
+    },
+  },
+  methods: {
+    closeAllMenu: function () {
+      this.$store.commit("Close_AllMenu");
     },
   },
 };
 </script>
 
 <style lang="scss">
+.pageslide-enter-active,
+.pageslide-leave-enter {
+  transform: translateY(0);
+  transition: all 0.3s linear;
+}
+.pageslide-enter,
+.pageslide-leave-to {
+  transform: translateY(100%);
+}
+
 html,
 body {
   overscroll-behavior-x: none;
@@ -82,6 +123,10 @@ a {
   color: #505050;
 }
 
+input {
+  border-style: solid;
+}
+
 // .app-statusbar {
 //   padding-top: 20px !important;
 //   // // iPhone XR, 11, 11 Pro Max
@@ -109,6 +154,7 @@ a {
 }
 .app-tabbar {
   position: fixed;
+  z-index: 10;
   bottom: 0;
   left: 0;
   width: 100vw;
@@ -267,42 +313,7 @@ a {
 .textline-3 {
   -webkit-line-clamp: 3;
 }
-.overlay-wrapper {
-  position: absolute;
-  top: 100vh;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9;
-  background-color: rgba(255, 255, 255, 0);
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: all 0.3s;
-}
-.overlay-wrapper-show {
-  top: 0 !important;
-  transition: all 0.3s;
-  background-color: rgba(255, 255, 255, 0.95);
-}
-#fullPage-wrapper {
-  position: absolute;
-  top: 100vh;
-  left: 0;
-  z-index: 10;
-}
-.fullPage-wrapper-show {
-  top: 50% !important;
-  /* left: 50% !important; */
-  transform: translate(0%, -50%);
-  transition: all 0.3s;
-}
-.welcome-page {
-  background-color: #f6f6f6;
-  width: 100vw;
-  height: 100vh;
-}
+
 input {
   background-color: #fff;
   border: solid;
@@ -314,6 +325,7 @@ input {
   width: 100%;
   text-indent: 20px;
   font-size: 16px;
+  box-shadow: none;
 }
 button {
   background-color: #fff;
@@ -388,5 +400,84 @@ button:active {
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
+.fullpage {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  z-index: 20;
+  background-color: #ffffff;
+  padding-bottom: 80px;
+}
+
+.content-page {
+  margin-top: 60px;
+  width: 100vw;
+  height: calc(100vh - 61px);
+  overflow: scroll;
+  overflow-x: hidden;
+  // .wrapper {
+  //   height: 1500px;
+  // }
+}
+.end-of-page {
+  height: 100px;
+  width: 100%;
+}
+.items-group {
+  width: 100vw;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  a {
+    width: 100%;
+  }
+}
+.page-content-none {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f6f6f6;
+  height: calc(100vh - 190px);
+  .no-msg {
+    text-align: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .title {
+      font-style: normal;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 21px;
+      text-align: center;
+      color: #8b8b8b;
+    }
+    .desc {
+      margin-top: 6px !important;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 20px;
+      text-align: center;
+      color: #8b8b8b;
+    }
+  }
+}
+.overlay-bg {
+  background-color: #0000003b;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
 }
 </style>

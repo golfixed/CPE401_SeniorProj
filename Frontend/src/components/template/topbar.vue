@@ -4,28 +4,27 @@
       <div id="app-title" class="app-statusbar">
         <div class="titlebar-left">
           <div class="profile-btn">
-            <img :src="this.user.picture_url" />
+            <router-link to="/settings">
+              <img :src="userProfilePic" />
+            </router-link>
           </div>
           <label class="page-title">{{ currentPage }}</label>
         </div>
         <div class="titlebar-right">
-          <div class="top-btn" v-if="currentRoute == '/'">
+          <div class="top-btn">
+            <div class="btn-img-wrapper topbar-plus-btn" id="topbar-plus-btn">
+              <img src="/img/icons/plus-btn.svg" />
+            </div>
+          </div>
+          <router-link to="/notification" class="top-btn">
             <div class="btn-img-wrapper">
               <img src="/img/icons/noti-bell.svg" />
             </div>
             <div v-if="notifications.length > 0" class="noti-badge">
               {{ notifications.length }}
             </div>
-          </div>
-          <div
-            class="top-btn"
-            v-if="currentRoute == '/classrooms' || currentRoute == '/chats'"
-          >
-            <div class="btn-img-wrapper">
-              <img src="/img/icons/plus-btn.svg" />
-            </div>
-          </div>
-          <div class="top-btn">
+          </router-link>
+          <div class="top-btn" v-on:click="openOptionMenu()">
             <div class="btn-img-wrapper">
               <img src="/img/icons/option-menu.svg" />
             </div>
@@ -35,32 +34,24 @@
     </div>
     <div id="search-bar">
       <div class="search-bar-wrapper">
-        <div v-on:click="toggleSearchPanel()" class="app-default-searchbar">
-          <label v-if="currentRoute == '/home'"
-            ><i class="fas fa-search"></i>Search</label
-          >
-          <label v-if="currentRoute == '/classrooms'"
-            ><i class="fas fa-search"></i>Search classrooms</label
-          >
-          <label v-if="currentRoute == '/chats'"
-            ><i class="fas fa-search"></i>Search chats or contacts</label
-          >
-        </div>
+        <router-link to="/search">
+          <div class="app-default-searchbar">
+            <label><i class="fas fa-search"></i>Search</label>
+          </div>
+        </router-link>
       </div>
     </div>
     <div id="section-favbar">
-      <div id="pinned-bar" class="section app-default-pinnedbar">
+      <div
+        id="pinned-bar"
+        class="section app-default-pinnedbar"
+        v-if="currentRoute == '/home' && favPostList.length == 0"
+      >
         <div class="pin-title">
-          <label v-if="currentRoute == '/home'">Announcements</label>
-          <label v-if="currentRoute == '/classrooms' && favClassList.length > 0"
-            >Favourites</label
-          >
-          <label v-if="currentRoute == '/chats' && favChatList.length > 0"
-            >Favourites</label
-          >
+          <label>Announcements</label>
         </div>
         <div class="pin-tray-wrap">
-          <div class="slide-tray" v-if="currentRoute == '/home'">
+          <div class="slide-tray">
             <favPost
               v-for="items in favPostList"
               :key="items.id"
@@ -69,44 +60,43 @@
               v-bind:message="items.message"
               v-bind:time="items.time"
               v-bind:pic="items.profile_pic"
-              @openPost="toggleFavBar(items.id)"
+              @openPost="openAncmt(items.id)"
             />
           </div>
-          <div class="slide-tray" v-if="currentRoute == '/chats'">
+        </div>
+      </div>
+      <div
+        id="pinned-bar"
+        class="section app-default-pinnedbar"
+        v-if="currentRoute == '/classroom'"
+      >
+        <div class="pin-title">
+          <label>Favourites</label>
+        </div>
+        <div class="pin-tray-wrap"></div>
+      </div>
+      <div
+        id="pinned-bar"
+        class="section app-default-pinnedbar"
+        v-if="currentRoute == '/chats' && favChatList.length > 0"
+      >
+        <div class="pin-title">
+          <label>Favourites</label>
+        </div>
+        <div class="pin-tray-wrap">
+          <div class="slide-tray">
             <favChat
               v-for="items in favChatList"
               :key="items.id"
               v-bind:firstName="items.firstName"
               v-bind:profilePic="items.profilePic"
             />
+            <favChat
+              firstName="add new"
+              profilePic="/img/btn/chat/plus_circle.svg"
+            />
           </div>
         </div>
-      </div>
-    </div>
-    <div id="search-panel">
-      <searchPanel
-        @closePage="toggleSearchPanel"
-        v-if="this.$store.state.searchPageOpen == true"
-      />
-    </div>
-    <div
-      id="overlay-bg"
-      class="overlay-wrapper"
-      v-on:click="toggleFavBar()"
-    ></div>
-    <div id="fullPage-wrapper">
-      <div id="fullPage-favPost">
-        <favPostEx
-          :subject_code="favPostClicked.subject_code"
-          :subject_title="favPostClicked.subject_title"
-          :time="favPostClicked.time"
-          :message="favPostClicked.message"
-          :firstName="favPostClicked.firstName"
-          :lastName="favPostClicked.lastName"
-          :pic="favPostClicked.profile_pic"
-          :isSeen="favPostClicked.isSeen"
-          @closeFavPost="toggleFavBar()"
-        />
       </div>
     </div>
   </div>
@@ -115,54 +105,19 @@
 <script>
 import favPost from "@/components/favpost.vue";
 import favChat from "@/components/favchat.vue";
-import searchPanel from "@/components/searchpage.vue";
-import favPostEx from "@/components/favpost_expanded.vue";
 export default {
   name: "pagetitle",
   created: function () {},
   components: {
     favPost,
-    favPostEx,
     favChat,
-    searchPanel,
   },
   methods: {
-    toggleSearchPanel: function () {
-      var searchPanel = document.querySelector("#search-panel").classList;
-      if (searchPanel.contains("search-panel-show") === false) {
-        searchPanel.toggle("search-panel-show");
-        this.$store.commit("Open_searchPage");
-      } else {
-        if (searchPanel.contains("search-panel-show") === true) {
-          searchPanel.toggle("search-panel-show");
-          this.$store.commit("Close_searchPage");
-          document.querySelector(".app-view").scroll(0, 0);
-        }
-      }
+    openAncmt: function (id) {
+      this.favPostClicked = this.favPostList[id];
     },
-
-    toggleFavBar: function (id) {
-      var wrapper = document.querySelector("#fullPage-wrapper").classList;
-      if (wrapper.contains("fullPage-wrapper-show") === false) {
-        this.favPostClicked = this.favPostList[id];
-        wrapper.toggle("fullPage-wrapper-show");
-        this.toggleOverlay();
-      } else {
-        if (wrapper.contains("fullPage-wrapper-show") === true) {
-          wrapper.toggle("fullPage-wrapper-show");
-          this.toggleOverlay();
-        }
-      }
-    },
-    toggleOverlay: function () {
-      var overlay = document.querySelector("#overlay-bg").classList;
-      if (overlay.contains("overlay-wrapper-show") === false) {
-        overlay.toggle("overlay-wrapper-show");
-      } else {
-        if (overlay.contains("overlay-wrapper-show") === true) {
-          overlay.toggle("overlay-wrapper-show");
-        }
-      }
+    openOptionMenu: function () {
+      this.$store.commit("Open_optionMenu");
     },
   },
   mounted() {
@@ -195,11 +150,8 @@ export default {
   },
   data: function () {
     return {
-      favPostIsOpen: false,
       scrollPosition: null,
-      user: {
-        picture_url: "/img/mockup/profile.png",
-      },
+      userProfilePic: this.$store.state.user.profile.pic,
       favPostClicked: {
         id: 0,
         firstName: "Bhaksiree",
@@ -277,21 +229,6 @@ export default {
           id: 3,
           firstName: "Bhaksiree",
           profilePic: "/img/mockup/profile_volk.png",
-        },
-        {
-          id: 4,
-          firstName: "Peerapong",
-          profilePic: "/img/mockup/profile.png",
-        },
-        {
-          id: 5,
-          firstName: "Bhaksiree",
-          profilePic: "/img/mockup/profile_volk.png",
-        },
-        {
-          id: 6,
-          firstName: "Nithiwadee",
-          profilePic: "/img/mockup/profile_my.png",
         },
       ],
       favClassList: [],
@@ -412,6 +349,17 @@ export default {
 
 .search-panel-show {
   top: 0 !important;
+  transition: all 0.6s;
+}
+.topbar-plus-btn {
+  opacity: 0;
   transition: all 0.3s;
+  transform: scale(0.5);
+}
+.topbar-plus-btn-show {
+  opacity: 1;
+  transition: all 0.3s;
+  transition-delay: 0.4s;
+  transform: scale(1);
 }
 </style>
