@@ -7,6 +7,7 @@ let getPageRegister = (req, res) => {
 };
 
 let createNewUser = async (req, res) => {
+    console.log('----------------REGIS NEW ACCOUNT---------------');
     //validate required fields
     let errorsArr = [];
     let validationErrors = validationResult(req);
@@ -19,7 +20,8 @@ let createNewUser = async (req, res) => {
         // return res.redirect("/register");
         return res.send({ error: false, message: "Register Page"});
     }
-
+    console.log('new regis info : ');
+    console.log(req.body);
     //create a new user
     let newUser = {
         firstname: req.body.firstname,
@@ -33,14 +35,13 @@ let createNewUser = async (req, res) => {
     };
     try {
         await registerService.createNewUser(newUser);
-        // return res.redirect("/login");
+        console.log('New user account register successfully');
+        // return res.redirect("/home");
         
         return res.send({ error: false, message: "Register Successfully"})
     } catch (err) {
         req.flash("errors", err);
-        // return res.redirect("/register");
-        if(newUser.email)
-        return res.send({ error: false, message: "This email has already exist."})
+        return res.send({ error: false, message: "ERROR"})
     }
 };
 module.exports = {

@@ -7,7 +7,9 @@ let createNewUser = (data) => {
         let isEmailExist = await checkExistEmail(data.email);
         if (isEmailExist) {
             reject(`This email "${data.email}" has already exist. Please choose an other email`);
+            console.log('email ALREADY EXIST');
         } else {
+            console.log('email NOT EXIST');
             // hash password
             let salt = bcrypt.genSaltSync(10);
             let userItem = {
@@ -15,14 +17,17 @@ let createNewUser = (data) => {
                 lastname: data.lastname,
                 email: data.email,
                 password: bcrypt.hashSync(data.password, salt)
+                
             };
-
+            console.log('Account CREATED');
             //create a new account
             DBConnection.query(
                 ' INSERT INTO account SET ? ', userItem,
                 function(err, rows) {
+                    console.log('DB INSERT NEW USER ITEM');
                     if (err) {
                         reject(false)
+                        console.log('found error: ' + err);
                     }
                     resolve("Create a new user successful");
                 }

@@ -52,7 +52,7 @@
     </div>
     <div class="bottom-sec">
       <div class="wrapper">
-        <label class="bottom-label">Already had a account?</label>
+        <label class="bottom-label">Already had an account?</label>
         <label class="bottom-btn">Reset password</label>
       </div>
     </div>
@@ -79,24 +79,15 @@ export default {
   },
   methods: {
     signUp: function () {
-      axios
-        .post("/register", {
-          firstname: this.regis.fname,
-          lastname: this.regis.lname,
-          email: this.regis.email,
-          password: this.regis.password,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch((error) => {
-          if (!error.response) {
-            // network error
-            this.errorStatus = "Error: Network Error";
-          } else {
-            this.errorStatus = error.response.data.message;
-          }
-        });
+      var body = {
+        firstname: this.regis.fname,
+        lastname: this.regis.lname,
+        email: this.regis.email,
+        password: this.regis.password,
+      };
+      axios.post("/register", body).then(function (response) {
+        console.log(response);
+      });
     },
   },
   computed: {

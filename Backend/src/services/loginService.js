@@ -5,11 +5,14 @@ let handleLogin = (email, password) => {
     return new Promise(async (resolve, reject) => {
         //check email is exist or not
         let user = await findUserByEmail(email);
+
         if (user) {
             //compare password
+            console.log('password compare STARTED');
             await bcrypt.compare(password, user.password).then((isMatch) => {
                 if (isMatch) {
                     resolve(true);
+                    console.log('password MATCHED');
                 } else {
                     reject(`The password that you've entered is incorrect`);
                 }
@@ -22,15 +25,19 @@ let handleLogin = (email, password) => {
 
 
 let findUserByEmail = (email) => {
+    console.log('user FINDIND');
     return new Promise((resolve, reject) => {
         try {
             DBConnection.query(
                 ' SELECT * FROM `account` WHERE `email` = ?  ', email,
                 function(err, rows) {
+                    console.log('query email SUCCESS');
                     if (err) {
+                        console.log('found error: ' + error);
                         reject(err)
                     }
                     let user = rows[0];
+                    console.log('user FOUND');
                     resolve(user);
                 }
             );

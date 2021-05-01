@@ -45,7 +45,7 @@ export default {
   methods: {
     signin: function () {
       axios
-        .get("/login", {
+        .post("/login", {
           email: this.email,
           password: this.password,
         })
