@@ -27,15 +27,20 @@ let createNewUser = async (req, res) => {
         email: req.body.email,
         password: req.body.password,
         role: req.body.role,
-        image: req.body.image    };
+        image: req.body.image,    
+        gender: req.body.gender,
+        phone: req.body.phone    
+    };
     try {
         await registerService.createNewUser(newUser);
         // return res.redirect("/login");
+        
         return res.send({ error: false, message: "Register Successfully"})
     } catch (err) {
         req.flash("errors", err);
         // return res.redirect("/register");
-        return res.send({ error: false, message: "Register Failed"})
+        if(newUser.email)
+        return res.send({ error: false, message: "This email has already exist."})
     }
 };
 module.exports = {
