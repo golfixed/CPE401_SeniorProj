@@ -46,7 +46,7 @@ let initWebRoutes = (app) => {
 
     router.get("/register", registerController.getPageRegister);
     router.post("/register", registerController.createNewUser);
-    router.post("/logout", loginController.postLogOut);
+    router.post("/logout", passport.authenticate('jwt', {session: false}), loginController.postLogOut);
 
     router.get("/profile/:id", profileService);
 
