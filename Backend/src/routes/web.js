@@ -2,7 +2,6 @@ import express from "express";
 import homePageController from "../controllers/homePageController";
 import registerController from "../controllers/registerController";
 import loginController from "../controllers/loginController";
-import auth from "../validation/authValidation";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
 import profileService from "../services/profileService";
