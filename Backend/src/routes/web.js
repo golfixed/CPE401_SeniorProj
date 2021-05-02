@@ -6,6 +6,7 @@ import auth from "../validation/authValidation";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
 import profileService from "../services/profileService";
+import createClass from "../services/createClass";
 
 // Init all passport
 initPassportLocal();
@@ -47,6 +48,8 @@ let initWebRoutes = (app) => {
     router.get("/register", registerController.getPageRegister);
     router.post("/register", registerController.createNewUser);
     router.post("/logout", passport.authenticate('jwt', {session: false}), loginController.postLogOut);
+
+    router.post("/class/createClass", createClass);
 
     router.get("/profile/:id", profileService);
 
