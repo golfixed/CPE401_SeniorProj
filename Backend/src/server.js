@@ -1,13 +1,11 @@
 require('dotenv').config();
 import express from "express";
-import configViewEngine from "./configs/viewEngine";
 import initWebRoutes from "./routes/web";
 import bodyParser from "body-parser";
 import cookieParser from 'cookie-parser';
 import session from "express-session";
 import connectFlash from "connect-flash";
 import passport from "passport";
-import dbCon from "./configs/DBConnection";
 
 let app = express();
 
@@ -28,8 +26,6 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Config view engine
-configViewEngine(app);
 
 //Enable flash message
 app.use(connectFlash());
