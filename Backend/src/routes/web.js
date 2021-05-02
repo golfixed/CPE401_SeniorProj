@@ -6,6 +6,7 @@ import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
 import profileService from "../services/profileService";
 import createClass from "../services/createClass";
+import classCode from "../services/classCode";
 
 // Init all passport
 initPassportLocal();
@@ -49,6 +50,7 @@ let initWebRoutes = (app) => {
     router.post("/logout", passport.authenticate('jwt', {session: false}), loginController.postLogOut);
 
     router.post("/class/createClass", createClass);
+    router.get("/class/:class_code", classCode);
 
     router.get("/profile/:id", profileService);
 
