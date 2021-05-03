@@ -46,12 +46,14 @@ let initWebRoutes = (app) => {
         })(req, res, next);
     });
 
+    const reqJWT = passport.authenticate('jwt', {session: false});
+
     router.get("/register", registerController.getPageRegister);
     router.post("/register", registerController.createNewUser);
-    router.post("/logout", passport.authenticate('jwt', {session: false}), loginController.postLogOut);
+    router.post("/logout", reqJWT, loginController.postLogOut);
 
     // router.post("/class/createClass", createClass);
-    router.post("/class/createClass", classController.createNewClass);
+    router.post("/class/createClass", reqJWT, classController.createNewClass);
     router.get("/class/:class_code", classCode);
 
     router.get("/profile/:id", profileService);
