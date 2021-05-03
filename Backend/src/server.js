@@ -1,23 +1,13 @@
 require('dotenv').config();
 import express from "express";
-import configViewEngine from "./configs/viewEngine";
 import initWebRoutes from "./routes/web";
 import bodyParser from "body-parser";
 import cookieParser from 'cookie-parser';
 import session from "express-session";
 import connectFlash from "connect-flash";
 import passport from "passport";
-import dbCon from "./configs/DBConnection";
-const cors = require('cors');
 
 let app = express();
-
-var corsOptions = {
-    origin: "http://localhost:8080",
-    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-  };
-  
-app.use(cors(corsOptions));
 
 //use cookie parser
 app.use(cookieParser('secret'));
@@ -36,8 +26,6 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//Config view engine
-configViewEngine(app);
 
 //Enable flash message
 app.use(connectFlash());

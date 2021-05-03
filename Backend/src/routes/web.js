@@ -2,10 +2,12 @@ import express from "express";
 import homePageController from "../controllers/homePageController";
 import registerController from "../controllers/registerController";
 import loginController from "../controllers/loginController";
-import auth from "../validation/authValidation";
+import classController from "../controllers/classController";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
 import profileService from "../services/profileService";
+import createClass from "../services/createNewClass";
+import classCode from "../services/classCode";
 
 // Init all passport
 initPassportLocal();
@@ -47,6 +49,10 @@ let initWebRoutes = (app) => {
     router.get("/register", registerController.getPageRegister);
     router.post("/register", registerController.createNewUser);
     router.post("/logout", passport.authenticate('jwt', {session: false}), loginController.postLogOut);
+
+    // router.post("/class/createClass", createClass);
+    router.post("/class/createClass", classController.createNewClass);
+    router.get("/class/:class_code", classCode);
 
     router.get("/profile/:id", profileService);
 
