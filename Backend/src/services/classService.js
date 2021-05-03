@@ -3,7 +3,7 @@ import DBConnection from "./../configs/DBConnection";
 let createNewClass = (data) => {
     return new Promise(async (resolve, reject) => {
         // check email is exist or not
-        let isClassExist = await checkExistClass(data.id);
+        let isClassExist = await checkExistClass(data.class_code, data.section);
         if (isClassExist) {
             reject(`This email "${data.id}" has already exist. Please choose an other email`);
         } else {
@@ -30,13 +30,13 @@ let createNewClass = (data) => {
     });
 };
 
-let checkExistClass = (class_code) => {
+let checkExistClass = (class_code, section) => {
     return new Promise( (resolve, reject) => {
         try {
             DBConnection.query(
-                ' SELECT * FROM `class` WHERE `class_code` = ?  ', class_code,
+                ' SELECT * FROM `class` WHERE `class_code` = ? AND `section` = ? ', [class_code, section],
                 function(err, rows) {
-                    if (err) {
+                    if (err) { 
                         reject(err)
                     }
                     if (rows.length > 0) {

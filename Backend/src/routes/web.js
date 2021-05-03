@@ -50,8 +50,8 @@ let initWebRoutes = (app) => {
     router.post("/register", registerController.createNewUser);
     router.post("/logout", passport.authenticate('jwt', {session: false}), loginController.postLogOut);
 
-    router.post("/class/createClass", createClass);
-    // router.post("/class/createClass", classController.createNewClass);
+    // router.post("/class/createClass", createClass);
+    router.post("/class/createClass", classController.createNewClass);
     router.get("/class/:class_code", classCode);
 
     router.get("/profile/:id", profileService);
