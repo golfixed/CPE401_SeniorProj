@@ -2,11 +2,11 @@ import dbCon from "../configs/DBConnection";
 import express from "express";
 import passport from "passport";
 
-let app = express();
+let editProfile = express();
 
 
-app.put('/profile/editProfile', passport.authenticate('jwt', {session: false}), (req, res) => {
-    let id = req.body.id;
+editProfile.put('/setting/:id/editProfile', passport.authenticate('jwt', {session: false}), (req, res) => {
+    let id = req.params.id;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
     let email = req.body.email;
@@ -18,10 +18,10 @@ app.put('/profile/editProfile', passport.authenticate('jwt', {session: false}), 
 
     // validation
     // if (!id || !firstname || !lastname || !email || !password || !role || !image || !gender || !phone) {
-    if (!id || !firstname || !lastname || !email || !password) {
+    if (!id) {
         return res.status(400).send({ error: true, message: 'Please provide more information'});
     } else {
-        dbCon.query('UPDATE account SET firstname = ?, lastname = ?, email = ?, password = ?, role = ?, image = ?, gender = ?, phone = ? WHERE id = ?', [firstname, lastname, email, password, role, image, gender, phone, id], (error, results, fields) => {
+        dbCon.query('UPDATE account SET firstname = ?, lastname = ?, role = ?, image = ? WHERE id = ?', [firstname, lastname, role, image, id], (error, results, fields) => {
             if (error) throw error;
 
             let message = "";
@@ -35,4 +35,4 @@ app.put('/profile/editProfile', passport.authenticate('jwt', {session: false}), 
     }
 })
 
-module.exports = app;
+module.exports = editProfile;
