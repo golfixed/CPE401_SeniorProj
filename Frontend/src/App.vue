@@ -3,7 +3,7 @@
     <div id="app" v-if="isLogInPage == false">
       <div class="app-view">
         <topbar />
-          <router-view v-if="this.$store.state.searchPageOpen == false" />
+        <router-view v-if="this.$store.state.searchPageOpen == false" />
 
         <assistBtn />
         <optionMenu />
@@ -18,9 +18,7 @@
       </div>
     </div>
     <div id="app" v-if="isLogInPage == true">
-
-        <router-view />
-
+      <router-view />
     </div>
   </div>
 </template>
@@ -371,6 +369,7 @@ button:active {
   text-align: center;
   text-decoration-line: underline;
   color: #479f60;
+  width: 100%;
 }
 .hr-line {
   display: flex;

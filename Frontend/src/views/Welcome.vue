@@ -57,7 +57,7 @@
               <router-link to="/regis">
                 <div class="single-land">
                   <div><img /></div>
-                  <label class="sign-up">Sign Up</label>
+                  <label class="sign-up">Register</label>
                 </div>
               </router-link>
             </button>

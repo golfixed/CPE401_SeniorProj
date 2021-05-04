@@ -4,7 +4,7 @@
     <div class="content-page">
       <div class="wrapper">
         <div class="page-header">
-          <h1 class="pagename">Sign In with E-mail</h1>
+          <h1 class="pagename">Login with E-mail</h1>
         </div>
         <input type="text" placeholder="E-mail" v-model="email" />
         <input type="password" placeholder="Password" v-model="password" />
@@ -66,6 +66,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content-page {
+  background-color: #f6f6f6;
+}
 .page-header {
   display: flex;
   justify-content: center;

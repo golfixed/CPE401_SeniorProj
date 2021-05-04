@@ -4,7 +4,7 @@
     <div class="content-page">
       <div class="wrapper">
         <div class="page-header">
-          <h1 class="pagename">Sign up with email</h1>
+          <h1 class="pagename">Register with email</h1>
         </div>
         <input type="text" placeholder="Firstname" v-model="regis.fname" />
         <input type="text" placeholder="Lastname" v-model="regis.lname" />
@@ -21,12 +21,12 @@
             v-if="allFilled == true"
           >
             <div class="single-land">
-              <label>Sign Up</label>
+              <label>Continue</label>
             </div>
           </button>
           <button class="sign-in grey" v-if="allFilled == false">
             <div class="single-land">
-              <label>Sign Up</label>
+              <label>Continue</label>
             </div>
           </button>
         </div>
@@ -53,7 +53,7 @@
     <div class="bottom-sec">
       <div class="wrapper">
         <label class="bottom-label">Already had an account?</label>
-        <label class="bottom-btn">Reset password</label>
+        <router-link to="/login" class="bottom-btn">Login</router-link>
       </div>
     </div>
   </div>

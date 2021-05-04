@@ -4,8 +4,8 @@
       <div class="no-msg">
         <label class="title">Nothing Going On Here</label>
         <label class="desc"
-          >To join classrooms and start a new discussion, <br />
-          tap the plus botton at buttom right.</label
+          >Join a class and start new conversations. <br />Tap Classrooms tab to
+          join class.</label
         >
       </div>
     </div>

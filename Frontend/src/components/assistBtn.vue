@@ -2,23 +2,48 @@
   <div class="assist-btn-wrapper">
     <div class="assist-btn">
       <div class="btn-img">
-        <img src="/img/btn/plus.svg" />
+        <img :src="iconToShow" />
       </div>
     </div>
-    <div class="assist-menu">
-      <div class="assist-menu-item">
-        <div class="btn-img">
-          <img src="/img/btn/plus.svg" />
+    <!-- <div class="assist-menu-wrapper">
+      <div class="assist-menu-item-box">
+        <label class="menu-label">Create Class</label>
+        <div class="assist-menu-item">
+          <div class="btn-img">
+            <img src="/img/btn/plus.svg" />
+          </div>
         </div>
-        <label></label>
       </div>
-    </div>
+      <div class="assist-menu-item-box">
+        <label class="menu-label">Create Class</label>
+        <div class="assist-menu-item">
+          <div class="btn-img">
+            <img src="/img/btn/plus.svg" />
+          </div>
+        </div>
+      </div>
+      <div class="assist-menu-item-box">
+        <label class="menu-label">Join Class</label>
+        <div class="assist-menu-item">
+          <div class="btn-img">
+            <img src="/img/btn/plus.svg" />
+          </div>
+        </div>
+      </div>
+    </div> -->
   </div>
 </template>
 
 <script>
 export default {
   name: "assist-btn",
+  computed: {
+    iconToShow: function () {
+      var page = this.$route.path;
+      if (page == "/home") return "/img/btn/write.svg";
+      else return "/img/btn/plus.svg";
+    },
+  },
   mounted() {
     document.querySelector(".app-view").addEventListener("scroll", function () {
       var scrollTop = document.querySelector(".app-view").scrollTop;
@@ -47,7 +72,7 @@ export default {
 <style lang="scss" scoped>
 .assist-btn-wrapper {
   position: absolute;
-  z-index: 8;
+  z-index: 12;
   width: 66px;
   height: 66px;
   bottom: 120px;
@@ -89,17 +114,40 @@ export default {
 //   transition: all 0.2s;
 //   opacity: 0;
 // }
-.assist-menu {
-  .assist-menu-item {
-    width: 50px;
-    height: 50px;
+.assist-menu-wrapper {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  bottom: 100px;
+  right: 0;
+  .assist-menu-item-box {
     display: flex;
-    justify-content: center;
+    width: 200px;
+    justify-content: flex-end;
     align-items: center;
-    background: linear-gradient(139.07deg, #3c6697 20.27%, #1e9f13 99.96%);
-    border: 2px solid #ffffff;
-    filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.2));
-    border-radius: 100%;
+    flex-direction: row;
+    margin-bottom: 30px;
+    .assist-menu-item {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+      border: 2px solid #ffffff;
+      filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.2));
+      border-radius: 100%;
+    }
+    .menu-label {
+      color: rgb(0, 0, 0);
+      margin-right: 20px !important;
+      font-weight: 500;
+      font-size: 14px;
+      filter: drop-shadow(0px 5px 10px rgba(0, 0, 0, 0.2));
+    }
+  }
+  .assist-menu-item-box:last-child {
+    margin-bottom: 0;
   }
 }
 </style>
