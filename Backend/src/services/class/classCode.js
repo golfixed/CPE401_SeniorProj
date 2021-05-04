@@ -4,7 +4,7 @@ import passport from "passport";
 
 let classCode = express();
 
-classCode.get('/class/:class_code', passport.authenticate('jwt', {session: false}), (req, res) =>{
+classCode.get('/:class_code', passport.authenticate('jwt', {session: false}), (req, res) =>{
     let class_code = req.params.class_code;
     
     if(!class_code){
