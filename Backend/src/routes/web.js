@@ -5,10 +5,11 @@ import loginController from "../controllers/loginController";
 import classController from "../controllers/classController";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
+
 import setting from "../services/setting";
-import createClass from "../services/createNewClass";
 import classCode from "../services/classCode";
 import editProfile from "../services/editProfile";
+import editAccount from "../services/editAccount";
 
 // Init all passport
 initPassportLocal();
@@ -59,6 +60,7 @@ let initWebRoutes = (app) => {
 
     router.get("/setting/:id", setting);
     router.put("/setting/:id/editProfile", editProfile);
+    router.put("/setting/:id/editAccount", editAccount);
 
     return app.use("/", router);
 };
