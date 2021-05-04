@@ -33,7 +33,7 @@ let findUserByEmail = (email) => {
                 function(err, rows) {
                     console.log('query email SUCCESS');
                     if (err) {
-                        console.log('found error: ' + error);
+                        console.log('found error: ' + err);
                         reject(err)
                     }
                     let user = rows[0];
