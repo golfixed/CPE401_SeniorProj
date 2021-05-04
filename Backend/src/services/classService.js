@@ -5,7 +5,7 @@ let createNewClass = (data) => {
         // check email is exist or not
         let isClassExist = await checkExistClass(data.class_code, data.section);
         if (isClassExist) {
-            reject(`This email "${data.id}" has already exist. Please choose an other email`);
+            reject(`This class "${data.id}" has already exist. Please choose an other class`);
         } else {
             
             let classObject = {
