@@ -1,11 +1,14 @@
 <template>
-  <div id="page-home" class="app-page app-default-border-gray-top">
-    <!-- <hr class="page-hr" /> -->
-    <div class="section" style="padding-top: 20px; height: 1500px">
-      <h2 style="font-size: 20px">Current screen resolution:</h2>
-      <h4 style="font-size: 30px; color: green">
-        {{ screenwidth }} × {{ screenheight }}
-      </h4>
+  <div id="page-classrooms" class="app-default-border-gray-top">
+    <div class="page-content-none">
+      <div class="no-msg">
+        <img class="icon" src="/img/icons/home_blank.svg" draggable="false" />
+        <label class="title">Nothing Going On Here</label>
+        <label class="desc"
+          >Join a class and start new conversations. <br />Tap Classrooms tab to
+          join class.</label
+        >
+      </div>
     </div>
   </div>
 </template>

@@ -399,6 +399,11 @@ button:active {
     transform: translate(-50%, -50%);
   }
 }
+#page-home,
+#page-classrooms,
+#page-chats {
+  height: fit-content;
+}
 .fullpage {
   position: fixed;
   height: 100vh;
@@ -450,6 +455,11 @@ button:active {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    .icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 20px;
+    }
     .title {
       font-style: normal;
       font-weight: 500;
@@ -468,6 +478,9 @@ button:active {
       color: #8b8b8b;
     }
   }
+}
+.page-content-none-fullpage {
+  height: calc(100vh - 61px);
 }
 .overlay-bg {
   background-color: #0000003b;

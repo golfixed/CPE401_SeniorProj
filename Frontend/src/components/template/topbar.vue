@@ -219,7 +219,8 @@ export default {
           isSeen: false,
         },
       ],
-      favChatList: [
+      favChatList: [],
+      favChatList2: [
         {
           id: 1,
           firstName: "Peerapong",
