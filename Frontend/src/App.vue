@@ -3,9 +3,8 @@
     <div id="app" v-if="isLogInPage == false">
       <div class="app-view">
         <topbar />
-        <vue-page-transition>
           <router-view v-if="this.$store.state.searchPageOpen == false" />
-        </vue-page-transition>
+
         <assistBtn />
         <optionMenu />
         <div
@@ -19,9 +18,9 @@
       </div>
     </div>
     <div id="app" v-if="isLogInPage == true">
-      <vue-page-transition>
+
         <router-view />
-      </vue-page-transition>
+
     </div>
   </div>
 </template>

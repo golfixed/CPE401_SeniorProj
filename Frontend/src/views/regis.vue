@@ -106,6 +106,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content-page {
+  background-color: #f6f6f6;
+}
 .btn-wrapper {
   width: 100%;
   margin: 20px 0;
