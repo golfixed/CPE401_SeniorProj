@@ -1,4 +1,4 @@
-import DBConnection from "./../configs/DBConnection";
+import DBConnection from "../../configs/DBConnection";
 
 let createNewClass = (data) => {
     return new Promise(async (resolve, reject) => {

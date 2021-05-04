@@ -1,4 +1,4 @@
-import classService from "./../services/classService";
+import classService from "../services/class/classService";
 import { validationResult } from "express-validator";
 
 //GET OUT REGISTER PAGE
