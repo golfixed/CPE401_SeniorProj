@@ -49,18 +49,22 @@
           No server connection
         </h1> -->
       </div>
-      <div class="set-bottom-wrapper">
-        <div class="set-bottom-box">
-          <div class="set-bottom">
-            <label class="bottom-label">Don't have an account?</label>
-            <button>
-              <router-link to="/regis">
-                <div class="single-land">
-                  <div><img /></div>
-                  <label class="sign-up">Register</label>
-                </div>
-              </router-link>
-            </button>
+      <div class="bottom-section">
+        <div class="wrapper">
+          <div class="hr-line">
+            <div>&nbsp;</div>
+            <label>or</label>
+          </div>
+          <div class="set-bottom-box">
+            <div class="set-bottom">
+              <button class="regis-btn">
+                <router-link to="/register">
+                  <div class="single-land">
+                    <label class="sign-up">Register</label>
+                  </div>
+                </router-link>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -96,6 +100,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.regis-btn {
+  background-color: #479f60;
+  label {
+    color: #fff;
+  }
+}
 button {
   margin-bottom: 10px;
 }
@@ -155,33 +165,25 @@ button:last-child {
     width: 100%;
   }
 }
-.set-bottom-wrapper {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  .set-bottom-box {
-    padding: 0 20px;
-    .set-bottom {
+.set-bottom-box {
+  .set-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .bottom-label {
+      color: #8b8b8b;
+      font-size: 14px;
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      border: solid;
+      border-width: 1px 0 0 0;
+      border-color: #ededed;
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-bottom: 40px;
-      .bottom-label {
-        color: #8b8b8b;
-        font-size: 14px;
-        padding-top: 10px !important;
-        padding-bottom: 10px !important;
-        border: solid;
-        border-width: 1px 0 0 0;
-        border-color: #ededed;
-        width: 100%;
-        text-align: center;
-      }
-      button {
-        margin-bottom: 0px;
-      }
+      text-align: center;
+    }
+    button {
+      margin-bottom: 0px;
     }
   }
 }

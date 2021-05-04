@@ -72,7 +72,7 @@ export default {
 <style lang="scss" scoped>
 .assist-btn-wrapper {
   position: absolute;
-  z-index: 12;
+  z-index: 11;
   width: 66px;
   height: 66px;
   bottom: 120px;

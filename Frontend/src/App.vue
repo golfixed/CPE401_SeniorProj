@@ -45,7 +45,7 @@ export default {
     },
     isLogInPage: function () {
       var r = this.currentRoute;
-      if (r == "/" || r == "/login" || r == "/regis") return true;
+      if (r == "/" || r == "/login" || r == "/register") return true;
       else return false;
     },
     overlayShow: function () {
@@ -377,7 +377,7 @@ button:active {
   align-items: center;
   width: 100%;
   position: relative;
-  margin-bottom: 20px;
+  height: 50px;
   div {
     border: 1px solid #ededed;
     border-width: 1px 0 0 0;
@@ -490,5 +490,13 @@ button:active {
   top: 0;
   left: 0;
   z-index: 10;
+}
+.bottom-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  padding: 20px 0 60px 0;
+  background-color: inherit;
 }
 </style>
