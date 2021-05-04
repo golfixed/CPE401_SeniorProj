@@ -6,18 +6,19 @@ let classCode = express();
 
 classCode.get('/:class_code', passport.authenticate('jwt', {session: false}), (req, res) =>{
     let class_code = req.params.class_code;
+    const {section} = req.query;
     
     if(!class_code){
         return res.status(400).send({ error: true, message: "Please provide class code"});
     }else
     {
-        dbCon.query('SELECT * FROM class WHERE class_code = ?', class_code, (error, results, fields) =>{
+        dbCon.query('SELECT * FROM class WHERE class_code = ? AND section = ?', [class_code, section], (error, results, fields) =>{
             if(error) throw error;
             let message ="";
             if(results === undefined || results.length == 0){
-                message = `No ${class_code} class`;
+                message = `There's no ${class_code} class or please specify the section `;
             }else{
-                message = `This is ${class_code}`;
+                message = `This is ${class_code} section ${section}`;
             }
             return res.send ({error: false, data: results[0], message: message})
         })
