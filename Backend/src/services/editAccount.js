@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 let editAccount = express();
 
 
-editAccount.put('/setting/:id/editAccount', passport.authenticate('jwt', {session: false}), (req, res) => {
+editAccount.put('/setting/:id/editAccount', (req, res) => {
     let id = req.params.id;
     let email = req.body.email;
     let phone = req.body.phone;

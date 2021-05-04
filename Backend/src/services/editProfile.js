@@ -5,7 +5,7 @@ import passport from "passport";
 let editProfile = express();
 
 
-editProfile.put('/setting/:id/editProfile', passport.authenticate('jwt', {session: false}), (req, res) => {
+editProfile.put('/setting/:id/editProfile', (req, res) => {
     let id = req.params.id;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;

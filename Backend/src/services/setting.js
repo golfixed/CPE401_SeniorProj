@@ -5,7 +5,7 @@ import passport from "passport";
 let setting = express();
 
 //get setting page by using ID
-setting.get("/setting/:id", passport.authenticate('jwt', {session: false}), (req, res) => {
+setting.get("/setting/:id", (req, res) => {
     const id = req.params.id;
     if (!id) {
       return res
