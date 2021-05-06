@@ -10,6 +10,7 @@ import setting from "../services/setting";
 import classCode from "../services/class/classCode";
 import editProfile from "../services/editProfile";
 import editAccount from "../services/editAccount";
+import classMember from "../services/class/classMember";
 
 // Init all passport
 initPassportLocal();
@@ -58,7 +59,7 @@ let initWebRoutes = (app) => {
     router.post("/class/createClass", reqJWT, classController.createNewClass);
     router.get("/:class_code", reqJWT, classCode);
 
-    router.get("/:class_code/classMembers", );
+    router.get("/:class_code/classMember", reqJWT, classMember);
 
     router.get("/setting/:id", reqJWT, setting);
     router.put("/setting/:id/editProfile", reqJWT, editProfile);
