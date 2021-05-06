@@ -1,6 +1,6 @@
 <template>
   <div class="welcome-page">
-    <topNavi />
+    <topNavi type="cancel" v-if="this.currentSubPage != 4" />
     <div class="subpage" v-if="currentSubPage == 1">
       <div class="content-page">
         <div class="wrapper">
@@ -43,7 +43,7 @@
           <div class="btn-wrapper">
             <button
               class="sign-in"
-              v-on:click="signUp()"
+              v-on:click="submitEmail()"
               v-if="allFilled == true"
             >
               <div class="single-land">
@@ -59,6 +59,13 @@
         </div>
       </div>
     </div>
+    <div class="subpage loading-page" v-if="isLoading == true">
+      <div class="content-page">
+        <div class="loading-wrapper">
+          <pageLoading label="hang on..." />
+        </div>
+      </div>
+    </div>
     <div class="subpage" v-if="currentSubPage == 2">
       <div class="content-page">
         <div class="wrapper">
@@ -66,7 +73,11 @@
             <h1 class="pagename">Select your role</h1>
           </div>
           <div class="role-wrapper">
-            <div class="role-item-box">
+            <div
+              class="role-item-box"
+              v-on:click="selectRole('tea')"
+              v-if="selectedRole == '' || selectedRole == 'std'"
+            >
               <div class="role-item">
                 <!-- <div class="role-img">
                   <img src="/img/icons/regis_teacher.svg" draggable="false" />
@@ -88,13 +99,69 @@
                 </div> -->
               </div>
             </div>
-            <div class="role-item-box">
+            <div
+              class="role-item-box role-item-box-selected"
+              v-on:click="selectRole('tea')"
+              v-if="selectedRole == 'tea'"
+            >
+              <div class="role-item">
+                <!-- <div class="role-img">
+                  <img src="/img/icons/regis_teacher.svg" draggable="false" />
+                </div> -->
+                <div class="textbox">
+                  <label class="role">Teacher</label>
+                  <label class="desc"
+                    >Create classrooms and announce post to all class
+                    members.</label
+                  >
+                  <ul class="feature">
+                    <li>create classroom</li>
+                    <li>announce post</li>
+                    <li>post file & material</li>
+                  </ul>
+                </div>
+                <!-- <div class="tick-box">
+                  <img src="/img/icons/role_tick.svg" draggable="false" />
+                </div> -->
+              </div>
+            </div>
+            <div
+              class="role-item-box"
+              v-on:click="selectRole('std')"
+              v-if="selectedRole == '' || selectedRole == 'tea'"
+            >
               <div class="role-item">
                 <!-- <div class="role-img">
                   <img src="/img/icons/regis_student.svg" draggable="false" />
                 </div> -->
                 <div class="textbox">
-                  <label class="role">Student or Teacher Assistant</label>
+                  <label class="role">Student</label>
+                  <label class="desc"
+                    >Join classes and chat with everyone.</label
+                  >
+                  <ul class="feature">
+                    <li>join classroom</li>
+                    <li>discuss within classroom</li>
+                    <li>chat with class members</li>
+                    <li>create post & poll</li>
+                  </ul>
+                </div>
+                <!-- <div class="tick-box">
+                  <img src="/img/icons/role_tick.svg" draggable="false" />
+                </div> -->
+              </div>
+            </div>
+            <div
+              class="role-item-box role-item-box-selected"
+              v-on:click="selectRole('std')"
+              v-if="selectedRole == 'std'"
+            >
+              <div class="role-item">
+                <!-- <div class="role-img">
+                  <img src="/img/icons/regis_student.svg" draggable="false" />
+                </div> -->
+                <div class="textbox">
+                  <label class="role">Student</label>
                   <label class="desc"
                     >Join classes and chat with everyone.</label
                   >
@@ -115,7 +182,7 @@
         </div>
         <div class="bottom-section">
           <div class="wrapper">
-            <div class="role-warning">
+            <div class="bottom-label">
               <label
                 >Role cannot be changed after this. <br />
                 <router-link to="/help" class="help-btn"
@@ -125,7 +192,11 @@
               >
             </div>
             <div class="btn-wrapper">
-              <button class="sign-in" v-if="selectedRole != ''">
+              <button
+                class="sign-in"
+                v-if="selectedRole != ''"
+                v-on:click="nextPage()"
+              >
                 <div class="single-land">
                   <label>Continue</label>
                 </div>
@@ -140,16 +211,93 @@
         </div>
       </div>
     </div>
+    <div class="subpage" v-if="currentSubPage == 3">
+      <div class="content-page">
+        <div class="wrapper">
+          <div class="page-header">
+            <h1 class="pagename">Set profile photo</h1>
+          </div>
+        </div>
+        <div class="wrapper">
+          <div class="set-profile-pic">
+            <div class="profile-pic">
+              <div class="img">
+                <img src="/img/icons/regis_profile.svg" />
+              </div>
+            </div>
+          </div>
+          <input type="file" />
+        </div>
+      </div>
+      <div class="bottom-section">
+        <div class="wrapper">
+          <div class="btn-wrapper">
+            <div class="bottom-label">
+              <label
+                >You can change profile photo later in settings page.<br />
+                <router-link to="/help" class="help-btn"
+                  >Visit our FAQ</router-link
+                >
+                section if you need help.</label
+              >
+            </div>
+            <button class="sign-in" v-on:click="submitRole()">
+              <div class="single-land">
+                <label>Continue</label>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="subpage" v-if="currentSubPage == 4">
+      <div class="content-page finish-page">
+        <div class="wrapper">
+          <div class="page-header">
+            <h1 class="pagename">You're all set!</h1>
+          </div>
+        </div>
+        <div class="wrapper">
+          <div class="setup-sum">
+            <div class="profile-pic">
+              <div class="img">
+                <img src="/img/icons/regis_profile.svg" />
+              </div>
+            </div>
+            <h1 class="pagename">{{ regis.fname }} {{ regis.lname }}</h1>
+            <label class="role" v-if="selectedRole == 'std'">Student</label>
+            <label class="role" v-if="selectedRole == 'tea'">Lecturer</label>
+            <label class="email">{{ regis.email }}</label>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-section">
+        <div class="wrapper">
+          <div class="btn-wrapper">
+            <router-link to="/home">
+              <button class="sign-in">
+                <div class="single-land">
+                  <label>Finish Setup</label>
+                </div>
+              </button>
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import topNavi from "@/components/template/topNavi.vue";
+import pageLoading from "@/components/pageLoading.vue";
 import axios from "@/axios.js";
+
 export default {
   name: "Register-Page",
   components: {
     topNavi,
+    pageLoading,
   },
   data() {
     return {
@@ -161,10 +309,19 @@ export default {
       },
       currentSubPage: 1,
       selectedRole: "",
+      isLoading: false,
     };
   },
   methods: {
-    signUp: function () {
+    nextPage: function () {
+      this.currentSubPage = this.currentSubPage + 1;
+      this.scrollTop();
+    },
+    scrollTop: function () {
+      document.querySelector(".app-view").scroll(0, 0);
+    },
+    submitEmail: function () {
+      this.isLoading = true;
       var info = {
         firstname: this.regis.fname,
         lastname: this.regis.lname,
@@ -173,15 +330,40 @@ export default {
       };
       axios.post("/register", info).then(function (response) {
         console.log(response);
-        if (response.status == 200) this.currentSubPage += 1;
-        else alert("Registration Failed, Please try again later.");
+        if (response.status != 404) {
+          console.log("Email check: Valid");
+          this.nextPage();
+        } else {
+          console.log("Email check error");
+          alert("Error: ");
+        }
       });
       //bypass change sub page
-      this.currentSubPage = this.currentSubPage + 1;
+
+      setTimeout(
+        function () {
+          this.isLoading = false;
+        }.bind(this),
+        2000
+      );
+      this.nextPage();
     },
-    submit: function () {
+    submitRole: function () {
       //bypass change sub page
-      this.currentSubPage = this.currentSubPage + 1;
+      console.log("Call API");
+      this.nextPage();
+    },
+    selectRole: function (role) {
+      if (this.selectedRole == "") {
+        this.selectedRole = role;
+        // console.log("brand new");
+      } else if (this.selectedRole == role) {
+        // console.log("same");
+        this.selectedRole = "";
+      } else {
+        // console.log("dup");
+        this.selectedRole = role;
+      }
     },
   },
   computed: {
@@ -200,6 +382,122 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.set-profile-pic {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 0;
+
+  width: 100vw;
+  div.profile-pic {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    margin-bottom: 20px;
+    z-index: 2;
+    div.img {
+      border-radius: 100%;
+      overflow: hidden;
+      width: 120px;
+      height: 120px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+    div.add {
+      background: #505050;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border-radius: 100%;
+      div.img-edit {
+        width: 13px;
+        height: 13px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+}
+.setup-sum {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 0;
+  background-color: #fff;
+  width: 100vw;
+  border: solid;
+  border-width: 1px;
+  border-color: #ededed;
+  width: 100%;
+  border-radius: 10px;
+  div.profile-pic {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    margin-bottom: 20px;
+    z-index: 2;
+    div.img {
+      border-radius: 100%;
+      overflow: hidden;
+      width: 120px;
+      height: 120px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+    div.edit {
+      background: linear-gradient(139.07deg, #3c6697 20.27%, #1e9f13 99.96%);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      border-radius: 100%;
+      div.img-edit {
+        width: 13px;
+        height: 13px;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+        }
+      }
+    }
+  }
+  h1.names {
+    color: #202020;
+    font-size: 24px;
+    line-height: 26px;
+  }
+  label.email,
+  label.role {
+    color: #8b8b8b;
+    font-size: 16px;
+    padding-top: 5px !important;
+  }
+}
+.loading-page {
+  z-index: 10;
+  position: relative;
+}
 .bottom-section {
   padding-top: 40px;
   background: rgb(246, 246, 246);
@@ -210,14 +508,16 @@ export default {
     rgba(246, 246, 246, 0) 100%
   );
 }
-.end-of-page {
-  height: 300px;
-}
+
 .hr-line {
   margin-top: -10px;
 }
 .content-page {
   background-color: #f6f6f6;
+}
+.finish-page {
+  padding-top: 61px;
+  margin-top: 0;
 }
 .btn-wrapper {
   width: 100%;
@@ -304,7 +604,6 @@ input {
     border-color: #ededed;
     border-radius: 10px;
     margin-bottom: 20px;
-    // border: 1px solid #479f60;
 
     .role-item {
       display: block;
@@ -335,12 +634,12 @@ input {
         }
         .role {
           font-size: 18px;
-          font-weight: 500;
+          font-weight: 600;
           color: #479f60;
-          border: 1px solid #479f60;
-          border-width: 0 0 1px 0;
-          padding-bottom: 5px !important;
-          margin-bottom: 5px !important;
+          // border: 1px solid #479f60;
+          // border-width: 0 0 1px 0;
+          // padding-bottom: 5px !important;
+          // margin-bottom: 5px !important;
         }
         .desc,
         .feature {
@@ -369,18 +668,27 @@ input {
   .role-item-box:last-child {
     margin-bottom: 0;
   }
+  .role-item-box-selected {
+    border: 1px solid #479f60;
+  }
 }
-.role-warning {
+.bottom-label {
   width: 100%;
   font-size: 14px;
   font-weight: normal;
   text-align: center;
   line-height: 18px;
   color: #505050;
+  margin-bottom: 15px;
   .help-btn {
     color: #479f60;
     font-weight: 500;
     text-decoration: underline;
   }
+}
+.loading-wrapper {
+  width: 100vw;
+  height: calc(100vh - 190px);
+  overflow: hidden;
 }
 </style>
