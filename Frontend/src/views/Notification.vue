@@ -1,6 +1,6 @@
 <template>
   <div id="page-setting" class="fullpage">
-    <topNavi pageName="Notifications" />
+    <topNavi pageName="Notifications" type="back" />
     <div class="content-page">
       <div
         class="page-content-none page-content-none-fullpage"

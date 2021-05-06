@@ -1,6 +1,6 @@
 <template>
   <div id="page-setting" class="fullpage">
-    <topNavi pageName="Settings" />
+    <topNavi pageName="Settings" type="back" />
     <div class="content-page">
       <div class="setting-head wrapper">
         <div class="page-header">

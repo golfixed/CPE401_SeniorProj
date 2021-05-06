@@ -1,6 +1,6 @@
 <template>
   <div id="setting-page" class="fullpage">
-    <topNavi pageName="Profile Settings" />
+    <topNavi pageName="Profile Settings" type="back" />
     <div class="content-page">
       <div class="items-group">
         <itemInput

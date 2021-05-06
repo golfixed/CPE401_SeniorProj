@@ -1,6 +1,6 @@
 <template>
   <div id="setting-page" class="fullpage">
-    <topNavi pageName="Notification Settings" />
+    <topNavi pageName="Notification Settings" type="back" />
     <div class="content-page">
       <div class="items-group">
         <itemSelect
