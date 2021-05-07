@@ -6,9 +6,10 @@ import cookieParser from 'cookie-parser';
 import session from "express-session";
 import connectFlash from "connect-flash";
 import passport from "passport";
+const fileUpload = require('express-fileupload');
+
 
 let app = express();
-
 //use cookie parser
 app.use(cookieParser('secret'));
 
@@ -33,6 +34,8 @@ app.use(connectFlash());
 //Config passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(fileUpload());
 
 // init all web routes
 initWebRoutes(app);
