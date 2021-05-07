@@ -9,15 +9,10 @@ editProfile.put('/setting/:id/editProfile', (req, res) => {
     let id = req.params.id;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
-    let email = req.body.email;
-    let password = req.body.password;
     let role = req.body.role;
     let image = req.body.image;
     let gender = req.body.gender;
-    let phone = req.body.phone;
-
-    // validation
-    // if (!id || !firstname || !lastname || !email || !password || !role || !image || !gender || !phone) {
+    
     if (!id) {
         return res.status(400).send({ error: true, message: 'Please provide more information'});
     } else {
