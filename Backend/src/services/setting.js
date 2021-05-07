@@ -1,6 +1,5 @@
 import dbCon from "../configs/DBConnection";
 import express from "express";
-import passport from "passport";
 
 let setting = express();
 
