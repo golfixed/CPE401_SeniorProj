@@ -1,11 +1,17 @@
 <template>
   <div id="navi-bar">
     <div class="left">
-      <div class="btn-back" @click="$router.go(-1)">
+      <div class="btn-back" @click="$router.go(-1)" v-if="type == 'back'">
         <div class="icon">
           <img src="/img/btn/chevron.png" />
         </div>
         <label>Back</label>
+      </div>
+      <div class="btn-back" @click="$router.go(-1)" v-if="type == 'cancel'">
+        <div class="icon">
+          <img src="/img/btn/chevron.png" />
+        </div>
+        <label>Cancel</label>
       </div>
     </div>
     <div class="center">
@@ -19,6 +25,7 @@ export default {
   name: "topNavibar",
   props: {
     pageName: String,
+    type: String,
   },
 };
 </script>

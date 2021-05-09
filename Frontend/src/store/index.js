@@ -10,7 +10,7 @@ export default new Vuex.Store({
     selected_ancmt: {},
     optionMenuOpen: false,
     overlayShow: false,
-    user:{
+    user: {
       profile: {
         firstName: 'Peerapong',
         lastName: 'Thammakaew',
@@ -36,7 +36,7 @@ export default new Vuex.Store({
     Close_searchPage: (state) => {
       state.searchPageOpen = false;
     },
-    LogIn:(state)=>{
+    LogIn: (state) => {
       state.loggedIn = true;
     },
     Open_announcement: (state, payload) => {

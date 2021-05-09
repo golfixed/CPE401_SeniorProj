@@ -13,7 +13,7 @@
         <div class="titlebar-right">
           <div class="top-btn">
             <div class="btn-img-wrapper topbar-plus-btn" id="topbar-plus-btn">
-              <img src="/img/icons/plus-btn.svg" />
+              <img :src="iconToShow" />
             </div>
           </div>
           <router-link to="/notification" class="top-btn">
@@ -147,6 +147,11 @@ export default {
       else if (page == "/chats") return "Chats";
       else return "";
     },
+    iconToShow: function () {
+      var page = this.currentRoute;
+      if (page == "/home") return "/img/icons/topbar-write.svg";
+      else return "/img/icons/plus-btn.svg";
+    },
   },
   data: function () {
     return {
@@ -214,7 +219,8 @@ export default {
           isSeen: false,
         },
       ],
-      favChatList: [
+      favChatList: [],
+      favChatList2: [
         {
           id: 1,
           firstName: "Peerapong",

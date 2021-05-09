@@ -1,6 +1,6 @@
 <template>
   <div id="setting-page" class="fullpage">
-    <topNavi pageName="Account Settings" />
+    <topNavi pageName="Account Settings" type="back" />
     <div class="content-page">
       <div class="items-group">
         <itemInput

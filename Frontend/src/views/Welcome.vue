@@ -35,17 +35,7 @@
             </router-link>
           </button>
         </div>
-        <div class="set-bottom">
-          <label class="bottom-label">Don't have an account?</label>
-          <button>
-            <router-link to="/regis">
-              <div class="single-land">
-                <div><img /></div>
-                <label class="sign-up">Sign Up</label>
-              </div>
-            </router-link>
-          </button>
-        </div>
+
         <!-- <h1
           style="color: green; font-size: 30px"
           v-if="this.connectServer == true"
@@ -58,6 +48,25 @@
         >
           No server connection
         </h1> -->
+      </div>
+      <div class="bottom-section">
+        <div class="wrapper">
+          <div class="hr-line">
+            <div>&nbsp;</div>
+            <label>or</label>
+          </div>
+          <div class="set-bottom-box">
+            <div class="set-bottom">
+              <button class="regis-btn">
+                <router-link to="/register">
+                  <div class="single-land">
+                    <label class="sign-up">Register</label>
+                  </div>
+                </router-link>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -91,6 +100,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.regis-btn {
+  background-color: #479f60;
+  label {
+    color: #fff;
+  }
+}
 button {
   margin-bottom: 10px;
 }
@@ -142,26 +157,20 @@ button:last-child {
 }
 .wrapper {
   padding: 0 20px;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
-
-  .set-top,
-  .set-bottom {
-    width: 100%;
-  }
+  // height: 100%;
+  display: block;
 
   .set-top {
     padding: 20px 0;
+    width: 100%;
   }
+}
+.set-bottom-box {
   .set-bottom {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 20px;
-
     .bottom-label {
       color: #8b8b8b;
       font-size: 14px;

@@ -3,9 +3,8 @@
     <div id="app" v-if="isLogInPage == false">
       <div class="app-view">
         <topbar />
-        <vue-page-transition>
-          <router-view v-if="this.$store.state.searchPageOpen == false" />
-        </vue-page-transition>
+        <router-view v-if="this.$store.state.searchPageOpen == false" />
+
         <assistBtn />
         <optionMenu />
         <div
@@ -19,9 +18,7 @@
       </div>
     </div>
     <div id="app" v-if="isLogInPage == true">
-      <vue-page-transition>
-        <router-view />
-      </vue-page-transition>
+      <router-view />
     </div>
   </div>
 </template>
@@ -48,7 +45,7 @@ export default {
     },
     isLogInPage: function () {
       var r = this.currentRoute;
-      if (r == "/" || r == "/login" || r == "/regis") return true;
+      if (r == "/" || r == "/login" || r == "/register") return true;
       else return false;
     },
     overlayShow: function () {
@@ -372,6 +369,7 @@ button:active {
   text-align: center;
   text-decoration-line: underline;
   color: #479f60;
+  width: 100%;
 }
 .hr-line {
   display: flex;
@@ -379,7 +377,7 @@ button:active {
   align-items: center;
   width: 100%;
   position: relative;
-  margin-bottom: 20px;
+  height: 50px;
   div {
     border: 1px solid #ededed;
     border-width: 1px 0 0 0;
@@ -400,6 +398,11 @@ button:active {
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
+#page-home,
+#page-classrooms,
+#page-chats {
+  height: fit-content;
 }
 .fullpage {
   position: fixed;
@@ -452,6 +455,11 @@ button:active {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    .icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 20px;
+    }
     .title {
       font-style: normal;
       font-weight: 500;
@@ -471,6 +479,9 @@ button:active {
     }
   }
 }
+.page-content-none-fullpage {
+  height: calc(100vh - 61px);
+}
 .overlay-bg {
   background-color: #0000003b;
   width: 100vw;
@@ -479,5 +490,13 @@ button:active {
   top: 0;
   left: 0;
   z-index: 10;
+}
+.bottom-section {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  padding: 20px 0 60px 0;
+  background-color: inherit;
 }
 </style>

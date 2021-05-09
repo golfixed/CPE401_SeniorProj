@@ -6,10 +6,12 @@ import './registerServiceWorker'
 import axios from '@/axios.js'
 import VuePageTransition from 'vue-page-transition'
 import VueBottomDialog from 'vue-bottom-dialog'
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 
 Vue.use(axios)
 Vue.use(VuePageTransition)
 Vue.use(VueBottomDialog)
+Vue.use(PulseLoader)
 
 var moment = require('moment'); // require
 var dayjs = require('dayjs')
@@ -30,6 +32,7 @@ new Vue({
   axios,
   moment,
   VuePageTransition,
+  PulseLoader,
   render: h => h(App)
 }).$mount('#app')
 
