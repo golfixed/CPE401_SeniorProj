@@ -35,12 +35,19 @@ export default {
     welcomePage,
   },
   data() {
-    return { isLoggedIn: false };
+    return {
+      isLoggedIn: false,
+      user: {},
+    };
   },
   mounted() {
-    if (localStorage.token) {
+    if (localStorage.token && localStorage.user) {
       this.isLoggedIn = true;
       this.$router.push({ path: "/" });
+    }
+    if (localStorage.user) {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.$store.commit("fetchProfile", this.user);
     }
   },
   computed: {

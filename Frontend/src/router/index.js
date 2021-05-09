@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
-var isLoggedIn = localStorage.token;
+var isToken = localStorage.token;
+var isUser = localStorage.user;
 
 const routes = [
   {
@@ -25,9 +26,11 @@ const routes = [
     name: 'Home',
     component: function () {
       console.log('home triggered');
-      console.log(isLoggedIn);
-      if (isLoggedIn == undefined) {
-        console.log('not logged in')
+      console.log(isToken);
+      console.log(isUser);
+      if (isToken == undefined || isUser == undefined) {
+        console.log('not logging in')
+        localStorage.clear();
         return import('../views/Welcome.vue')
       } else {
         console.log('logged in')

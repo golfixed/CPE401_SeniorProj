@@ -34,7 +34,11 @@
         v-if="currentPage == '/settings'"
         v-on:click="signOut()"
       >
-        <optionMenu label="Sign Out" iconURL="option.iconURL" link="" />
+        <optionMenu
+          label="Sign Out"
+          iconURL="/img/btn/menuOption/signout.svg"
+          link=""
+        />
       </div>
       <div class="btn-cancel" v-on:click="closeAllMenu()">
         <label>Cancel</label>

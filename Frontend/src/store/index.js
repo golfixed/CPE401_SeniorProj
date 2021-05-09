@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: () => ({
     searchPageOpen: false,
-    loggedIn: false,
+    // loggedIn: false,
     selected_ancmt: {},
     optionMenuOpen: false,
     overlayShow: false,
@@ -36,10 +36,9 @@ export default new Vuex.Store({
     Close_searchPage: (state) => {
       state.searchPageOpen = false;
     },
-    LogIn: (state, payload) => {
+    fetchProfile: (state, payload) => {
       // console.log(payload);
       state.user.profile = payload;
-      state.loggedIn = true;
     },
     Open_announcement: (state, payload) => {
       state.selected_ancmt = payload

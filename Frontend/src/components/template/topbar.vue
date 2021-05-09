@@ -5,7 +5,11 @@
         <div class="titlebar-left">
           <div class="profile-btn">
             <router-link to="/settings">
-              <img :src="userProfilePic" />
+              <img
+                src="/img/default_profile.svg"
+                v-if="userProfilePic == null"
+              />
+              <img :src="userProfilePic" v-if="userProfilePic == null" />
             </router-link>
           </div>
           <label class="page-title">{{ currentPage }}</label>

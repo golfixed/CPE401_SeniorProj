@@ -4,7 +4,7 @@
     <div class="content-page">
       <div class="wrapper">
         <div class="page-header">
-          <h1 class="pagename">Login with E-mail</h1>
+          <h1 class="pagename">Continue with E-mail</h1>
         </div>
         <input type="text" placeholder="E-mail" v-model="email" />
         <input type="password" placeholder="Password" v-model="password" />
@@ -15,7 +15,7 @@
         <div class="btn-wrapper">
           <button class="sign-in" v-on:click="SignIn()">
             <div class="single-land">
-              <label>Login</label>
+              <label>Log in</label>
             </div>
           </button>
         </div>
@@ -63,7 +63,9 @@ export default {
                 console.log("Login successfully");
                 localStorage.token = res.data.token;
                 this.user = res.data.user;
-                this.$store.commit("LogIn", this.user);
+                localStorage.setItem("user", JSON.stringify(this.user));
+                // this.user = res.data.user;
+                // this.$store.commit("LogIn", this.user);
                 // if (localStorage.token) {
                 //   this.$router.push({ path: "/" });
                 // }

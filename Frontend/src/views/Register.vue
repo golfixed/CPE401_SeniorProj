@@ -62,7 +62,7 @@
     <div class="subpage loading-page" v-if="isLoading == true">
       <div class="content-page">
         <div class="loading-wrapper">
-          <pageLoading label="hang on..." />
+          <pageLoading label="Registering, please wait..." />
         </div>
       </div>
     </div>
@@ -305,6 +305,7 @@ export default {
         email: "",
         password: "",
       },
+      user: {},
       currentSubPage: 1,
       selectedRole: "",
       isLoading: false,
@@ -312,7 +313,7 @@ export default {
   },
   methods: {
     completeSetup: function () {
-      this.$router.push({ path: "/" });
+      window.location.reload();
     },
     nextPage: function () {
       this.currentSubPage = this.currentSubPage + 1;
@@ -323,15 +324,15 @@ export default {
         email: this.regis.email,
         password: this.regis.password,
       };
-      axios.post("/login", loginInfo).then(function (res) {
-        if (res.status != 404) {
+      axios.post("/login", loginInfo).then((res) => {
+        if (res.status != 404 || res.status != 500) {
+          // console.log(res);
           console.log("Login successfully");
           localStorage.token = res.data.token;
-          this.$store.commit("LogIn", res.data.user);
-          this.nextPage();
-        } else {
-          console.log("Login Fail");
-          alert("Error: ");
+          this.user = res.data.user;
+          localStorage.setItem("user", JSON.stringify(this.user));
+        } else if (res == 422) {
+          alert("Login Failed: Incorrect email or password");
         }
       });
       this.isLoading = false;
@@ -348,7 +349,6 @@ export default {
         console.log(res);
         if (res.status != 404) {
           console.log("Email check: Valid");
-          this.nextPage();
         } else {
           console.log("Email check error");
           alert("Error: ");
