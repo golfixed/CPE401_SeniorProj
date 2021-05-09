@@ -12,17 +12,23 @@ let createNewUser = (data) => {
             console.log('email NOT EXIST');
             // hash password
             let salt = bcrypt.genSaltSync(10);
-            let userItem = {
-                firstname: data.firstname,
-                lastname: data.lastname,
-                email: data.email,
-                password: bcrypt.hashSync(data.password, salt)
-                
-            };
+            // let userItem = {
+            //     firstname: data.firstname,
+            //     lastname: data.lastname,
+            //     email: data.email,
+            //     password: bcrypt.hashSync(data.password, salt),
+            //     role: data.role
+            // };
+            
+            let firstname= data.firstname;
+            let lastname= data.lastname;
+            let email= data.email;
+            let password= bcrypt.hashSync(data.password, salt);
+            let role= data.role;
             console.log('Account CREATED');
             //create a new account
             DBConnection.query(
-                ' INSERT INTO account SET ? ', userItem,
+                ' INSERT INTO account (firstname, lastname, email, password, role) VALUES(?, ?, ?, ?, ?) ',[firstname, lastname, email, password, role] ,
                 function(err, rows) {
                     console.log('DB INSERT NEW USER ITEM');
                     if (err) {
