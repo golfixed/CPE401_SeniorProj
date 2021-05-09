@@ -7,7 +7,7 @@ import session from "express-session";
 import connectFlash from "connect-flash";
 import passport from "passport";
 const fileUpload = require('express-fileupload');
-
+const path = require('path');
 
 let app = express();
 //use cookie parser
@@ -35,6 +35,7 @@ app.use(connectFlash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 
 // init all web routes
