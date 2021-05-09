@@ -1,5 +1,5 @@
 <template>
-  <div class="welcome-page">
+  <div class="regis-page">
     <topNavi type="cancel" v-if="this.currentSubPage != 4" />
     <div class="subpage" v-if="currentSubPage == 1">
       <div class="content-page">
@@ -21,7 +21,7 @@
             <label>or</label>
           </div>
           <button>
-            <router-link to="/home">
+            <router-link to="/">
               <div class="single-land btn-fb">
                 <div class="img-wrapper">
                   <img src="/img/btn/facebook.png" />
@@ -274,13 +274,11 @@
       <div class="bottom-section">
         <div class="wrapper">
           <div class="btn-wrapper">
-            <router-link to="/home">
-              <button class="sign-in">
-                <div class="single-land">
-                  <label>Finish Setup</label>
-                </div>
-              </button>
-            </router-link>
+            <button class="sign-in" v-on:click="completeSetup()">
+              <div class="single-land">
+                <label>Finish Setup</label>
+              </div>
+            </button>
           </div>
         </div>
       </div>
@@ -313,24 +311,42 @@ export default {
     };
   },
   methods: {
+    completeSetup: function () {
+      this.$router.push({ path: "/" });
+    },
     nextPage: function () {
       this.currentSubPage = this.currentSubPage + 1;
-      this.scrollTop();
     },
-    scrollTop: function () {
-      document.querySelector(".app-view").scroll(0, 0);
+    SignIn: function () {
+      this.isLoading = true;
+      var loginInfo = {
+        email: this.regis.email,
+        password: this.regis.password,
+      };
+      axios.post("/login", loginInfo).then(function (res) {
+        if (res.status != 404) {
+          console.log("Login successfully");
+          localStorage.token = res.data.token;
+          this.$store.commit("LogIn", res.data.user);
+          this.nextPage();
+        } else {
+          console.log("Login Fail");
+          alert("Error: ");
+        }
+      });
+      this.isLoading = false;
     },
     submitEmail: function () {
       this.isLoading = true;
-      var info = {
+      var regisInfo = {
         firstname: this.regis.fname,
         lastname: this.regis.lname,
         email: this.regis.email,
         password: this.regis.password,
       };
-      axios.post("/register", info).then(function (response) {
-        console.log(response);
-        if (response.status != 404) {
+      axios.post("/register", regisInfo).then(function (res) {
+        console.log(res);
+        if (res.status != 404) {
           console.log("Email check: Valid");
           this.nextPage();
         } else {
@@ -351,6 +367,7 @@ export default {
     submitRole: function () {
       //bypass change sub page
       console.log("Call API");
+      this.SignIn();
       this.nextPage();
     },
     selectRole: function (role) {
@@ -519,9 +536,7 @@ export default {
   padding-top: 61px;
   margin-top: 0;
 }
-.btn-wrapper {
-  width: 100%;
-}
+
 .page-header {
   display: flex;
   justify-content: center;
@@ -685,10 +700,5 @@ input {
     font-weight: 500;
     text-decoration: underline;
   }
-}
-.loading-wrapper {
-  width: 100vw;
-  height: calc(100vh - 190px);
-  overflow: hidden;
 }
 </style>

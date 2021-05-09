@@ -6,25 +6,25 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: () => ({
     searchPageOpen: false,
-    loggedIn: true,
+    loggedIn: false,
     selected_ancmt: {},
     optionMenuOpen: false,
     overlayShow: false,
     user: {
       profile: {
-        firstName: 'Peerapong',
-        lastName: 'Thammakaew',
-        pic: '/img/mockup/profile.png',
-        role: 'ta',
-        sex: 'male',
-        email: 'peerapong.tmk@mail.kmutt.ac.th',
-        phoneNo: '0984133769',
-        password: '******',
-        setting: {
-          noti: {
-            class: true,
-            chat: false,
-          }
+        firstName: '',
+        lastName: '',
+        pic: '/img/default_profile.svg',
+        role: '',
+        sex: '',
+        email: '',
+        phoneNo: '',
+        password: '',
+      },
+      setting: {
+        noti: {
+          class: true,
+          chat: false,
         }
       }
     }
@@ -36,7 +36,9 @@ export default new Vuex.Store({
     Close_searchPage: (state) => {
       state.searchPageOpen = false;
     },
-    LogIn: (state) => {
+    LogIn: (state, payload) => {
+      // console.log(payload);
+      state.user.profile = payload;
       state.loggedIn = true;
     },
     Open_announcement: (state, payload) => {

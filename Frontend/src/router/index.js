@@ -2,30 +2,38 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
+var isLoggedIn = localStorage.token;
 
 const routes = [
-  {
-    path: '/',
-    name: 'Welcome',
-    component: () => import( /* webpackChunkName: "Welcome" */ '../views/Welcome.vue'),
-    meta: { transition: 'fade-in-left' },
-  },
   {
     path: '/login',
     name: 'Login',
     component: () => import( /* webpackChunkName: "Login" */ '../views/Login.vue'),
-    meta: { transition: 'fade-in-right' },
+  },
+  {
+    path: '/logout',
+    name: 'Logout',
+    component: () => import( /* webpackChunkName: "Login" */ '../views/Welcome.vue'),
   },
   {
     path: '/register',
     name: 'Regis',
     component: () => import( /* webpackChunkName: "Regis" */ '../views/Register.vue'),
-    meta: { transition: 'fade-in-right' },
   },
   {
-    path: '/home',
+    path: '/',
     name: 'Home',
-    component: () => import( /* webpackChunkName: "Home" */ '../views/Home.vue')
+    component: function () {
+      console.log('home triggered');
+      console.log(isLoggedIn);
+      if (isLoggedIn == undefined) {
+        console.log('not logged in')
+        return import('../views/Welcome.vue')
+      } else {
+        console.log('logged in')
+        return import('../views/Home.vue')
+      }
+    }
   },
   {
     path: '/classrooms',
@@ -72,7 +80,7 @@ const routes = [
     name: 'Settings Notification',
     component: () => import( /* webpackChunkName: "Settings" */ '../views/Settings/Notification.vue')
   },
-  { path: '*', redirect: '/home' }
+  { path: '*', redirect: '/' }
 ]
 
 const router = new VueRouter({

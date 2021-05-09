@@ -40,7 +40,7 @@ export default {
   computed: {
     iconToShow: function () {
       var page = this.$route.path;
-      if (page == "/home") return "/img/btn/write.svg";
+      if (page == "/") return "/img/btn/write.svg";
       else return "/img/btn/plus.svg";
     },
   },

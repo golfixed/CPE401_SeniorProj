@@ -2,7 +2,7 @@
   <transition name="slidein">
     <div id="menu-panel" v-if="isOpen == true">
       <div class="top-grey-bar"></div>
-      <div class="wrapper-menu-item" v-if="currentPage == '/home'">
+      <div class="wrapper-menu-item" v-if="currentPage == '/'">
         <optionMenu
           v-for="option in optionHome"
           :key="option.id"
@@ -29,6 +29,13 @@
           v-bind:link="option.url"
         />
       </div>
+      <div
+        class="wrapper-menu-item"
+        v-if="currentPage == '/settings'"
+        v-on:click="signOut()"
+      >
+        <optionMenu label="Sign Out" iconURL="option.iconURL" link="" />
+      </div>
       <div class="btn-cancel" v-on:click="closeAllMenu()">
         <label>Cancel</label>
       </div>
@@ -47,6 +54,11 @@ export default {
   methods: {
     closeAllMenu: function () {
       this.$store.commit("Close_AllMenu");
+    },
+    signOut: function () {
+      localStorage.clear();
+      this.$router.push({ path: "/logout" });
+      console.log("Logout successfully");
     },
   },
   computed: {
@@ -113,7 +125,7 @@ export default {
   left: 0;
   // bottom: -100%;
   bottom: 0;
-  z-index: 11;
+  z-index: 30;
   box-shadow: 0px -3px 20px 5px rgba(0, 0, 0, 0.08);
   border-radius: 20px 20px 0px 0px;
   overflow: hidden;

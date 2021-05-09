@@ -46,7 +46,7 @@
         <itemSingle label="Feedback" type="normal" />
         <itemSingle label="Support & Contact Us" type="normal" />
       </div>
-      <div class="items-group">
+      <div class="items-group" v-on:click="openOptionMenu()">
         <itemSingle label="Sign Out" type="red" />
       </div>
       <div class="end-of-page"></div>
@@ -68,9 +68,14 @@ export default {
       user: this.$store.state.user.profile,
     };
   },
+  mounted() {
+    if (!localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
+  },
   methods: {
-    signin: function () {
-      this.$store.commit("LogIn");
+    openOptionMenu: function () {
+      this.$store.commit("Open_optionMenu");
     },
   },
 };

@@ -7,11 +7,11 @@
       <h1>Welcome to Class(i)</h1>
       <h3>An ultimate tool for the best study experience.</h3>
     </div>
-    <div class="content">
+    <div class="content-page-welcome">
       <div class="wrapper">
         <div class="set-top">
           <button>
-            <router-link to="/home">
+            <router-link to="/">
               <div class="single-land">
                 <div class="img-wrapper">
                   <img src="/img/btn/facebook.png" />
@@ -75,7 +75,7 @@
 <script>
 import axios from "@/axios.js";
 export default {
-  name: "Welcome",
+  name: "Welcome-Page",
   created() {
     // this.test();
   },
@@ -84,6 +84,11 @@ export default {
       connectServer: false,
       resData: "",
     };
+  },
+  mounted() {
+    if (localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
   },
   methods: {
     // test: function () {
@@ -112,13 +117,7 @@ button {
 button:last-child {
   margin-bottom: 0;
 }
-.welcome-page {
-  background-color: #f6f6f6;
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  grid-template-rows: 40% 60%;
-}
+
 .header {
   height: 100%;
   display: flex;
@@ -151,7 +150,7 @@ button:last-child {
     padding-top: 5px !important;
   }
 }
-.content {
+.content-page-welcome {
   width: 100vw;
   height: 100%;
 }

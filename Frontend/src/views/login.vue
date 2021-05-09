@@ -1,6 +1,6 @@
 <template>
-  <div class="welcome-page">
-    <topNavi />
+  <div class="login-page">
+    <topNavi type="back" />
     <div class="content-page">
       <div class="wrapper">
         <div class="page-header">
@@ -8,21 +8,22 @@
         </div>
         <input type="text" placeholder="E-mail" v-model="email" />
         <input type="password" placeholder="Password" v-model="password" />
+      </div>
+    </div>
+    <div class="bottom-section">
+      <div class="wrapper">
         <div class="btn-wrapper">
-          <button class="sign-in" v-on:click="signin">
-            <router-link to="/home">
-              <div class="single-land">
-                <label>Sign In</label>
-              </div>
-            </router-link>
+          <button class="sign-in" v-on:click="SignIn()">
+            <div class="single-land">
+              <label>Login</label>
+            </div>
           </button>
         </div>
       </div>
     </div>
-    <div class="bottom-sec">
-      <div class="wrapper">
-        <label class="bottom-label">Forget your password?</label>
-        <label class="bottom-btn">Reset password</label>
+    <div class="loading-page" v-if="isLoading == true">
+      <div class="loading-wrapper">
+        <pageLoading label="Logging in, please wait..." />
       </div>
     </div>
   </div>
@@ -30,36 +31,51 @@
 
 <script>
 import topNavi from "@/components/template/topNavi.vue";
+import pageLoading from "@/components/pageLoading.vue";
 import axios from "@/axios.js";
 export default {
   name: "Login-Page",
   components: {
     topNavi,
+    pageLoading,
   },
   data() {
     return {
       email: "",
       password: "",
+      isLoading: false,
+      user: {},
     };
   },
   methods: {
-    signin: function () {
-      axios
-        .post("/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch((error) => {
-          if (!error.response) {
-            // network error
-            this.errorStatus = "Error: Network Error";
-          } else {
-            this.errorStatus = error.response.data.message;
-          }
-        });
+    SignIn: function () {
+      this.isLoading = true;
+      setTimeout(
+        function () {
+          axios
+            .post("/login", {
+              email: this.email,
+              password: this.password,
+            })
+            .then((res) => {
+              if (res.status != 404 || res.status != 500) {
+                // console.log(res);
+                console.log("Login successfully");
+                localStorage.token = res.data.token;
+                this.user = res.data.user;
+                this.$store.commit("LogIn", this.user);
+                // if (localStorage.token) {
+                //   this.$router.push({ path: "/" });
+                // }
+                window.location.reload();
+              } else if (res == 422) {
+                alert("Login Failed: Incorrect email or password");
+              }
+            });
+          this.isLoading = false;
+        }.bind(this),
+        2000
+      );
     },
   },
 };
@@ -82,10 +98,6 @@ export default {
 }
 input {
   margin-bottom: 10px;
-}
-.btn-wrapper {
-  width: 100%;
-  margin: 20px 0;
 }
 .sign-in {
   background-color: #479f60;

@@ -1,24 +1,20 @@
 <template>
   <div>
-    <div id="app" v-if="isLogInPage == false">
+    <div id="app">
       <div class="app-view">
-        <topbar />
-        <router-view v-if="this.$store.state.searchPageOpen == false" />
-
-        <assistBtn />
-        <optionMenu />
+        <topbar v-if="isLoggedIn == true" />
+        <router-view />
+        <assistBtn v-if="isLoggedIn == true" />
+        <optionMenu v-if="isLoggedIn == true" />
         <div
           class="overlay-bg"
           v-if="overlayShow == true"
           v-on:click="closeAllMenu()"
         ></div>
       </div>
-      <div class="app-tabbar">
-        <tabbar v-if="this.$store.state.searchPageOpen == false" />
+      <div class="app-tabbar" v-if="isLoggedIn == true">
+        <tabbar />
       </div>
-    </div>
-    <div id="app" v-if="isLogInPage == true">
-      <router-view />
     </div>
   </div>
 </template>
@@ -28,6 +24,7 @@ import tabbar from "@/components/template/tabbar";
 import topbar from "@/components/template/topbar";
 import assistBtn from "@/components/assistBtn.vue";
 import optionMenu from "@/components/optionMenu.vue";
+import welcomePage from "@/views/Welcome.vue";
 export default {
   name: "app",
   components: {
@@ -35,19 +32,18 @@ export default {
     topbar,
     assistBtn,
     optionMenu,
+    welcomePage,
+  },
+  data() {
+    return { isLoggedIn: false };
+  },
+  mounted() {
+    if (localStorage.token) {
+      this.isLoggedIn = true;
+      this.$router.push({ path: "/" });
+    }
   },
   computed: {
-    loggedIn: function () {
-      return this.$store.state.loggedIn;
-    },
-    currentRoute: function () {
-      return this.$route.path;
-    },
-    isLogInPage: function () {
-      var r = this.currentRoute;
-      if (r == "/" || r == "/login" || r == "/register") return true;
-      else return false;
-    },
     overlayShow: function () {
       return this.$store.state.overlayShow;
     },
@@ -489,14 +485,51 @@ button:active {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 20;
 }
 .bottom-section {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100vw;
-  padding: 20px 0 60px 0;
+  padding: 20px 0 20px 0;
   background-color: inherit;
+  .btn-wrapper {
+    width: 100%;
+  }
+}
+
+.loading-page {
+  z-index: 10;
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /* margin-top: 61px; */
+  background-color: #fff;
+}
+.loading-wrapper {
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+}
+.welcome-page {
+  overflow: hidden;
+}
+.welcome-page,
+.regis-page,
+.login-page {
+  z-index: 1000;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #f6f6f6;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 40% 60%;
 }
 </style>

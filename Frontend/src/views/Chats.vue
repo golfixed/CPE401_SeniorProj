@@ -37,6 +37,11 @@ export default {
   components: {
     chatItem,
   },
+  mounted() {
+    if (!localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
+  },
   data: function () {
     return {
       chatList: [],

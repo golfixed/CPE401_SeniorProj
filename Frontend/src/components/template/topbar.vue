@@ -45,7 +45,7 @@
       <div
         id="pinned-bar"
         class="section app-default-pinnedbar"
-        v-if="currentRoute == '/home' && favPostList.length == 0"
+        v-if="currentRoute == '/' && favPostList.length == 0"
       >
         <div class="pin-title">
           <label>Announcements</label>
@@ -106,7 +106,7 @@
 import favPost from "@/components/favpost.vue";
 import favChat from "@/components/favchat.vue";
 export default {
-  name: "pagetitle",
+  name: "Page-TopBar",
   created: function () {},
   components: {
     favPost,
@@ -142,14 +142,14 @@ export default {
     },
     currentPage: function () {
       var page = this.$route.path;
-      if (page == "/home") return "Home";
+      if (page == "/") return "Home";
       else if (page == "/classrooms") return "Classrooms";
       else if (page == "/chats") return "Chats";
       else return "";
     },
     iconToShow: function () {
       var page = this.currentRoute;
-      if (page == "/home") return "/img/icons/topbar-write.svg";
+      if (page == "/") return "/img/icons/topbar-write.svg";
       else return "/img/icons/plus-btn.svg";
     },
   },

@@ -23,6 +23,11 @@ export default {
   data: function () {
     return {};
   },
+  mounted() {
+    if (!localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
+  },
   created: function () {},
   methods: {
     openSearchPage: function () {
