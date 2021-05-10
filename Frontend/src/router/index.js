@@ -5,7 +5,20 @@ Vue.use(VueRouter)
 var isToken = localStorage.token;
 var isUser = localStorage.user;
 
+
 const routes = [
+  {
+    path: '/',
+    name: 'Welcome',
+    component: function () {
+      if (isToken == undefined || isUser == undefined) {
+        localStorage.clear();
+        return import('../views/Welcome.vue')
+      } else {
+        return import('../views/Home.vue')
+      }
+    }
+  },
   {
     path: '/login',
     name: 'Login',
@@ -20,23 +33,6 @@ const routes = [
     path: '/register',
     name: 'Regis',
     component: () => import( /* webpackChunkName: "Regis" */ '../views/Register.vue'),
-  },
-  {
-    path: '/',
-    name: 'Home',
-    component: function () {
-      console.log('home triggered');
-      console.log(isToken);
-      console.log(isUser);
-      if (isToken == undefined || isUser == undefined) {
-        console.log('not logging in')
-        localStorage.clear();
-        return import('../views/Welcome.vue')
-      } else {
-        console.log('logged in')
-        return import('../views/Home.vue')
-      }
-    }
   },
   {
     path: '/classrooms',

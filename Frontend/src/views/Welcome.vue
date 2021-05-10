@@ -11,21 +11,19 @@
       <div class="wrapper">
         <div class="set-top">
           <button>
-            <router-link to="/">
-              <div class="single-land">
-                <div class="img-wrapper">
-                  <img src="/img/btn/facebook.png" />
-                </div>
-                <label>Continue with Facebook</label>
+            <div class="single-land">
+              <div class="img-wrapper">
+                <img src="/img/btn/facebook.png" />
               </div>
-            </router-link>
+              <label>Continue with Facebook</label>
+            </div>
           </button>
-          <!-- <button>
+          <button>
             <div class="single-land">
               <div class="img-wrapper"><img src="/img/btn/google.png" /></div>
               <label>Continue with Google</label>
             </div>
-          </button> -->
+          </button>
           <button>
             <router-link to="/login">
               <div class="single-land">
@@ -147,7 +145,8 @@ button:last-child {
     color: #8b8b8b;
     font-size: 14px;
     font-weight: 500;
-    padding-top: 5px !important;
+    // padding-top: 5px !important;
+    text-align: center;
   }
 }
 .content-page-welcome {

@@ -64,6 +64,8 @@ export default {
 </script>
 
 <style lang="scss">
+$app-font: "Nunito", sans-serif;
+
 .pageslide-enter-active,
 .pageslide-leave-enter {
   transform: translateY(0);
@@ -98,7 +100,8 @@ body::-webkit-scrollbar {
   display: none;
 }
 #app {
-  font-family: Helvetica Neue, Roboto, Arial, sans-serif;
+  // font-family: Helvetica Neue, Roboto, Arial, sans-serif;
+  font-family: "Nunito", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -116,15 +119,12 @@ body::-webkit-scrollbar {
   p {
     margin: 0;
     padding: 0;
+    font-family: $app-font;
   }
 }
 a {
   text-decoration: none;
   color: #505050;
-}
-
-input {
-  border-style: solid;
 }
 
 // .app-statusbar {
@@ -189,6 +189,10 @@ input {
 }
 .app-view::-webkit-scrollbar {
   display: none;
+}
+::-webkit-input-placeholder {
+  /* Edge */
+  font-family: $app-font;
 }
 
 .section {
@@ -319,20 +323,22 @@ input {
   border: solid;
   border-width: 1px;
   border-color: #ededed;
-  border-radius: 10px;
+  border-radius: 50px;
   outline: none;
   height: 40px;
   width: 100%;
   text-indent: 20px;
   font-size: 16px;
   box-shadow: none;
+  border-style: solid;
+  -webkit-appearance: none;
 }
 button {
   background-color: #fff;
   border: solid;
   border-width: 1px;
   border-color: #ededed;
-  border-radius: 10px;
+  border-radius: 50px;
   outline: none;
   height: 50px;
   width: 100%;
@@ -504,6 +510,25 @@ button:active {
   .btn-wrapper {
     width: 100%;
   }
+  // iPhone XR, 11, 11 Pro Max
+  @media screen and (height: 848px) and (width: 414px) {
+    padding: 20px 0 40px 0;
+  }
+
+  // iPhone X, 11 Pro
+  @media screen and (height: 768px) and (width: 375px) {
+    padding: 20px 0 40px 0;
+  }
+
+  //iPhone 12 Pro
+  @media screen and (height: 797px) and (width: 390px) {
+    padding: 20px 0 40px 0;
+  }
+
+  // iPhone 12 mini
+  @media screen and (height: 762px) and (width: 375px) {
+    padding: 20px 0 40px 0;
+  }
 }
 
 .loading-page {
@@ -538,5 +563,19 @@ button:active {
   height: 100vh;
   display: grid;
   grid-template-rows: 40% 60%;
+}
+.bottom-label {
+  width: 100%;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+  line-height: 18px;
+  color: #505050;
+  margin-bottom: 15px;
+  .text-btn {
+    color: #479f60;
+    font-weight: 500;
+    text-decoration: underline;
+  }
 }
 </style>

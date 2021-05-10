@@ -40,6 +40,16 @@
       </div>
       <div class="bottom-section">
         <div class="wrapper">
+          <div class="bottom-label">
+            <label
+              >By registering, you agree to our<br />
+              <router-link to="/terms" class="text-btn">Terms</router-link>,
+              including our
+              <router-link to="/cookie" class="text-btn"
+                >Cookie Use.</router-link
+              ></label
+            >
+          </div>
           <div class="btn-wrapper">
             <button
               class="sign-in"
@@ -185,7 +195,7 @@
             <div class="bottom-label">
               <label
                 >Role cannot be changed after this. <br />
-                <router-link to="/help" class="help-btn"
+                <router-link to="/help" class="text-btn"
                   >Visit our FAQ</router-link
                 >
                 section if you need help.</label
@@ -235,7 +245,7 @@
             <div class="bottom-label">
               <label
                 >You can change profile photo later in settings page.<br />
-                <router-link to="/help" class="help-btn"
+                <router-link to="/help" class="text-btn"
                   >Visit our FAQ</router-link
                 >
                 section if you need help.</label
@@ -685,20 +695,6 @@ input {
   }
   .role-item-box-selected {
     border: 1px solid #479f60;
-  }
-}
-.bottom-label {
-  width: 100%;
-  font-size: 14px;
-  font-weight: normal;
-  text-align: center;
-  line-height: 18px;
-  color: #505050;
-  margin-bottom: 15px;
-  .help-btn {
-    color: #479f60;
-    font-weight: 500;
-    text-decoration: underline;
   }
 }
 </style>

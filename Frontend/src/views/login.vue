@@ -12,6 +12,14 @@
     </div>
     <div class="bottom-section">
       <div class="wrapper">
+        <div class="bottom-label">
+          <label
+            >Forgot your password?<br />
+            <router-link to="/terms" class="text-btn"
+              >Reset password</router-link
+            ></label
+          >
+        </div>
         <div class="btn-wrapper">
           <button class="sign-in" v-on:click="SignIn()">
             <div class="single-land">
