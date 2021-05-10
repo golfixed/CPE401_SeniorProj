@@ -28,8 +28,8 @@ let createNewUser = async (req, res) => {
         lastname: req.body.lastname,
         email: req.body.email,
         password: req.body.password,
-        role: req.body.role
-        // image: req.body.image,    
+        role: req.body.role,
+        image: req.body.image  
         // gender: req.body.gender,
         // phone: req.body.phone    
     };
