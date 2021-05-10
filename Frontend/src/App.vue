@@ -332,6 +332,8 @@ input {
   box-shadow: none;
   border-style: solid;
   -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 button {
   background-color: #fff;

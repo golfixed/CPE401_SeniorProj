@@ -185,4 +185,7 @@ button:last-child {
     }
   }
 }
+.bottom-section {
+  background-color: #f6f6f6;
+}
 </style>

@@ -42,7 +42,7 @@
         <div class="wrapper">
           <div class="bottom-label">
             <label
-              >By registering, you agree to our<br />
+              >By clicking continue, you agree to <br />our
               <router-link to="/terms" class="text-btn">Terms</router-link>,
               including our
               <router-link to="/cookie" class="text-btn"
