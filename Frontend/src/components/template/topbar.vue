@@ -294,7 +294,7 @@ export default {
     .page-title {
       font-size: 2.25em;
       font-style: normal;
-      font-weight: 500;
+      font-weight: 600;
       background: linear-gradient(
         135deg,
         rgba(60, 102, 151, 1) 0%,
