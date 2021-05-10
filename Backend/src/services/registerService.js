@@ -1,7 +1,6 @@
 import DBConnection from "./../configs/DBConnection";
 import bcrypt from "bcryptjs";
 
-
 let createNewUser = (data) => {
     return new Promise(async (resolve, reject) => {
         // check email is exist or not
@@ -27,43 +26,18 @@ let createNewUser = (data) => {
             let password= bcrypt.hashSync(data.password, salt);
             let role= data.role;
             console.log('Account CREATED');
-
-            if (!data.files)
-				return reject('No files were uploaded.');
-
-            let file = data.files.uploaded_image;
-            let image =file.name;
-
-            if(file.mimetype == "image/jpeg" ||file.mimetype == "image/png"||file.mimetype == "image/gif" ){
-                file.mv('public/images/upload_images/'+file.name, function(err){
-                    if (err)
- 
-	                return reject('ERROR');
-                    var sql = 'INSERT INTO account (firstname, lastname, email, password, role, image) VALUES(?, ?, ?, ?, ?, ?) ,[firstname, lastname, email, password, role, image]';
-
-                    DBConnection.query(sql, function(err, rows) {
-                        console.log('DB INSERT NEW USER ITEM');
-                        if (err) {
-                            reject(false)
-                            console.log('found error: ' + err);
-                        }
-                        resolve("Create a new user successful");
-                   });
-                })
-            }
-         
             //create a new account
-            // DBConnection.query(
-            //     ' INSERT INTO account (firstname, lastname, email, password, role, image) VALUES(?, ?, ?, ?, ?, ?) ',[firstname, lastname, email, password, role, image] ,
-            //     function(err, rows) {
-            //         console.log('DB INSERT NEW USER ITEM');
-            //         if (err) {
-            //             reject(false)
-            //             console.log('found error: ' + err);
-            //         }
-            //         resolve("Create a new user successful");
-            //     }
-            // );
+            DBConnection.query(
+                ' INSERT INTO account (firstname, lastname, email, password, role) VALUES(?, ?, ?, ?, ?) ',[firstname, lastname, email, password, role] ,
+                function(err, rows) {
+                    console.log('DB INSERT NEW USER ITEM');
+                    if (err) {
+                        reject(false)
+                        console.log('found error: ' + err);
+                    }
+                    resolve("Create a new user successful");
+                }
+            );
         }
     });
 };
