@@ -7,7 +7,6 @@ import session from "express-session";
 import connectFlash from "connect-flash";
 import passport from "passport";
 import multer from "multer";
-const fileUpload = require('express-fileupload');
 const path = require('path');
 
 let app = express();
@@ -49,12 +48,12 @@ const upload = multer({
         fileSize: 1024*1024*10
     }
 })
-app.use('/setting', express.static('upload/images'));
+app.use('/profile', express.static('upload/images'));
 app.post("/upload", upload.single('image'), (req, res) => {
-
-    res.send({
+    let id = req.body.id;
+    res.status(200).send({
         success: 1,
-        profile_url: `http://localhost:3000/setting/${req.file.filename}`
+        profile_url: `http://localhost:3000/profile/${req.file.filename}`
     })
 })
 
@@ -68,11 +67,6 @@ function errHandler(err, req, res, next) {
 }
 app.use(errHandler);
 
-// app.use('/uploads', express.static('uploads'));
-
-// app.use(express.static(path.join(__dirname, 'uploads')));
-// app.use('/setting', express.static('uploads/'));
-app.use(fileUpload());
 
 // init all web routes
 initWebRoutes(app);
