@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import session from "express-session";
 import connectFlash from "connect-flash";
 import passport from "passport";
+import multer from "multer";
 const fileUpload = require('express-fileupload');
 const path = require('path');
 
@@ -35,7 +36,42 @@ app.use(connectFlash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(express.static(path.join(__dirname, 'public')));
+const storage = multer.diskStorage({
+    destination: './upload/images',
+    filename: (req, file, cb) => {
+        return cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`)
+    }
+})
+
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024*1024*10
+    }
+})
+app.use('/setting', express.static('upload/images'));
+app.post("/upload", upload.single('image'), (req, res) => {
+
+    res.send({
+        success: 1,
+        profile_url: `http://localhost:3000/setting/${req.file.filename}`
+    })
+})
+
+function errHandler(err, req, res, next) {
+    if (err instanceof multer.MulterError) {
+        res.json({
+            success: 0,
+            message: err.message
+        })
+    }
+}
+app.use(errHandler);
+
+// app.use('/uploads', express.static('uploads'));
+
+// app.use(express.static(path.join(__dirname, 'uploads')));
+// app.use('/setting', express.static('uploads/'));
 app.use(fileUpload());
 
 // init all web routes
