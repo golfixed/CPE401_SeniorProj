@@ -7,6 +7,7 @@ import session from "express-session";
 import connectFlash from "connect-flash";
 import passport from "passport";
 import multer from "multer";
+import dbCon from "./configs/DBConnection";
 const path = require('path');
 
 let app = express();
@@ -50,11 +51,19 @@ const upload = multer({
 })
 app.use('/profile', express.static('upload/images'));
 app.post("/upload", upload.single('image'), (req, res) => {
-    let id = req.body.id;
-    res.status(200).send({
-        success: 1,
-        profile_url: `http://localhost:3000/profile/${req.file.filename}`
+    let email = req.body.email;
+    var image  = `http://localhost:3000/profile/${req.file.filename}`;
+    // let image = req.body.image;
+
+    dbCon.query("UPDATE account SET image = ? WHERE email = ?", [image, email], (error, results, fields) => {
+        if (error) throw error;
+
+        res.status(200).send({
+            success: 1,
+            profile_url: image 
+        })
     })
+    console.log(image);
 })
 
 function errHandler(err, req, res, next) {
