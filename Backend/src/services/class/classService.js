@@ -19,8 +19,6 @@ let createNewClass = (data) => {
                return result.join('');
             }
             
-            console.log(joinCode(6));
-
             let classObject = {
                 class_code: data.class_code,
                 class_name: data.class_name,
@@ -29,6 +27,8 @@ let createNewClass = (data) => {
                 join_code: joinCode(6),
                 section: data.section
             };
+        
+            console.log(classObject.join_code);
 
             //create a new account
             DBConnection.query(
