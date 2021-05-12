@@ -52,8 +52,7 @@ const upload = multer({
 app.use('/profile', express.static('upload/images'));
 app.post("/upload", upload.single('image'), (req, res) => {
     let email = req.body.email;
-    var image  = `http://localhost:3000/profile/${req.file.filename}`;
-    // let image = req.body.image;
+    let image  = `http://localhost:3000/profile/${req.file.filename}`;
 
     dbCon.query("UPDATE account SET image = ? WHERE email = ?", [image, email], (error, results, fields) => {
         if (error) throw error;
