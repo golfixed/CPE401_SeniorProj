@@ -8,11 +8,25 @@ let createNewClass = (data) => {
             reject(`This class "${data.id}" has already exist. Please choose an other class`);
         } else {
             
+            function joinCode(length) {
+                var result           = [];
+                var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+                var charactersLength = characters.length;
+                for ( var i = 0; i < length; i++ ) {
+                  result.push(characters.charAt(Math.floor(Math.random() * 
+             charactersLength)));
+               }
+               return result.join('');
+            }
+            
+            console.log(joinCode(6));
+
             let classObject = {
                 class_code: data.class_code,
                 class_name: data.class_name,
                 class_desc: data.class_desc,
                 class_pic: data.class_pic,
+                join_code: joinCode(6),
                 section: data.section
             };
 
