@@ -59,7 +59,7 @@ let initWebRoutes = (app) => {
     router.post("/class/createClass", reqJWT, classController.createNewClass);
     router.get("/:class_code", reqJWT, classCode);
 
-    router.get("/:class_code/classMember", reqJWT, classMember);
+    router.get("/classMember/:class_code/:section", reqJWT, classMember);
 
     router.get("/setting/:id", reqJWT, setting);
     router.put("/setting/:id/editProfile", reqJWT, editProfile);
