@@ -278,7 +278,7 @@ a {
     margin: 0 -20px;
 
     div.slide-tray {
-      padding: 20px;
+      padding: 15px 20px;
       display: flex;
       flex-wrap: nowrap;
       overflow-x: auto;

@@ -49,7 +49,7 @@
       <div
         id="pinned-bar"
         class="section app-default-pinnedbar"
-        v-if="currentRoute == '/' && favPostList.length == 0"
+        v-if="currentRoute == '/' && favPostList.length > 0"
       >
         <div class="pin-title">
           <label>Announcements</label>
@@ -223,8 +223,7 @@ export default {
           isSeen: false,
         },
       ],
-      favChatList: [],
-      favChatList2: [
+      favChatList: [
         {
           id: 1,
           firstName: "Peerapong",

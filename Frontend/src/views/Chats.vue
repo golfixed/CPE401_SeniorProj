@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="page-content-none">
+    <div class="page-content-none" v-if="chatList.length == 0">
       <div class="no-msg">
         <img class="icon" src="/img/icons/home_blank.svg" draggable="false" />
         <label class="title">Nothing Going On Here</label>
@@ -44,8 +44,7 @@ export default {
   },
   data: function () {
     return {
-      chatList: [],
-      chatList2: [
+      chatList: [
         {
           id: 0,
           firstName: "Nithiwadee",

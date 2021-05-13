@@ -75,7 +75,7 @@ export default {
   z-index: 11;
   width: 66px;
   height: 66px;
-  bottom: 120px;
+  bottom: 100px;
   right: 40px;
   transition: all 0.3s;
   .assist-btn {

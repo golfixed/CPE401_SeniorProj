@@ -108,7 +108,7 @@ export default {
       }
     }
     label {
-      font-size: 1.25em;
+      font-size: 1em;
       margin-top: 3px;
       color: #9a9a9a;
       font-weight: 400;
