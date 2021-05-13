@@ -50,20 +50,40 @@ const upload = multer({
     }
 })
 app.use('/profile', express.static('upload/images'));
-app.post("/upload", upload.single('image'), (req, res) => {
+app.post("/uploadProfile", upload.single('image'), (req, res) => {
     let email = req.body.email;
     let image  = `http://localhost:3000/profile/${req.file.filename}`;
 
-    dbCon.query("UPDATE account SET image = ? WHERE email = ?", [image, email], (error, results, fields) => {
-        if (error) throw error;
-
-        res.status(200).send({
-            success: 1,
-            profile_url: image 
+    if(!email){
+        res.status(400).send({error: true, message: 'Please give your email to upload your profile picture'});
+    }else{
+        dbCon.query("UPDATE account SET image = ? WHERE email = ?", [image, email], (error, results, fields) => {
+            if (error) throw error;
+    
+            res.status(200).send({
+                error: false,
+                account: email,
+                profile_url: image 
+            })
         })
-    })
-    console.log(image);
+        console.log(image);
+    }
 })
+// app.post("/upload", upload.single('image'), (req, res) => {
+//     let class_code = req.params.class_code;
+//     let section = req.query;
+//     let image  = `http://localhost:3000/profile/${req.file.filename}`;
+
+//     dbCon.query("UPDATE class SET class_pic = ? WHERE class_id = ?", [image, email], (error, results, fields) => {
+//         if (error) throw error;
+
+//         res.status(200).send({
+//             success: 1,
+//             profile_url: image 
+//         })
+//     })
+//     console.log(image);
+// })
 
 function errHandler(err, req, res, next) {
     if (err instanceof multer.MulterError) {
@@ -74,7 +94,6 @@ function errHandler(err, req, res, next) {
     }
 }
 app.use(errHandler);
-
 
 // init all web routes
 initWebRoutes(app);
