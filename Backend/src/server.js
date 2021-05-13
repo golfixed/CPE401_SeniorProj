@@ -55,7 +55,7 @@ app.post("/uploadProfile", upload.single('image'), (req, res) => {
     let image  = `http://localhost:3000/profile/${req.file.filename}`;
 
     if(!email){
-        res.status(400).send({error: true, message: 'Please give your email to upload your profile picture'});
+        res.status(400).send({error: true, message: 'Please give your EMAIL to upload your profile picture'});
     }else{
         dbCon.query("UPDATE account SET image = ? WHERE email = ?", [image, email], (error, results, fields) => {
             if (error) throw error;
@@ -69,21 +69,27 @@ app.post("/uploadProfile", upload.single('image'), (req, res) => {
         console.log(image);
     }
 })
-// app.post("/upload", upload.single('image'), (req, res) => {
-//     let class_code = req.params.class_code;
-//     let section = req.query;
-//     let image  = `http://localhost:3000/profile/${req.file.filename}`;
 
-//     dbCon.query("UPDATE class SET class_pic = ? WHERE class_id = ?", [image, email], (error, results, fields) => {
-//         if (error) throw error;
+app.use('/classPic', express.static('upload/images'));
+app.post("/uploadClassProfile", upload.single('image'), (req, res) => {
+    let class_id = req.body.class_id;
+    let image  = `http://localhost:3000/classPic/${req.file.filename}`;
 
-//         res.status(200).send({
-//             success: 1,
-//             profile_url: image 
-//         })
-//     })
-//     console.log(image);
-// })
+    if(!class_id){
+        res.status(400).send({error: true, message: 'Please give CLASS ID to upload your profile picture'});
+    }else{
+        dbCon.query("UPDATE class SET class_pic = ? WHERE id = ?", [image, class_id], (error, results, fields) => {
+            if (error) throw error;
+    
+            res.status(200).send({
+                error: false,
+                class_id: class_id,
+                profile_url: image 
+            })
+        })
+        console.log(image);
+    }
+})
 
 function errHandler(err, req, res, next) {
     if (err instanceof multer.MulterError) {
