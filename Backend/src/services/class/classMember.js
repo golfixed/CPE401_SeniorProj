@@ -19,12 +19,12 @@ classMember.get("/classMember/:class_code/:section", (req, res) =>{
             if(error) throw error;
             let message ="";
             if(results === undefined || results.length == 0){
-                message = `There's no members in class id =${classMembers.class} `;
+                message = `There's no members in class id =${classMembers.class} section ${classMembers.section}`;
             }else{
-                message = `Request members in  class id = ${classMembers.class} successfully`;
+                message = `Request members in  class id = ${classMembers.class} section ${classMembers.section} successfully`;
             }
             console.log(message);
-            return res.send ({error: false, data: results, message: message})
+            return res.status(200).send ({error: false, data: results, message: message})
         })
     }else{
         console.log("NO MEMBER")

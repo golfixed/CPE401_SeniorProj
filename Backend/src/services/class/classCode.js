@@ -6,7 +6,7 @@ let classCode = express();
 
 classCode.get('/:class_code', (req, res) =>{
     let class_code = req.params.class_code;
-    const {section} = req.query;
+    let {section} = req.query;
     if(!class_code){
         return res.status(400).send({ error: true, message: "Please provide class code"});
     }else
