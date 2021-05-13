@@ -6,29 +6,24 @@ let createNewUser = (data) => {
         // check email is exist or not
         let isEmailExist = await checkExistEmail(data.email);
         if (isEmailExist) {
-            reject(`This email "${data.email}" has already exist. Please choose an other email`);
+            reject(`${data.email} has already exist. Please choose an other email`);
             console.log('email ALREADY EXIST');
         } else {
             console.log('email NOT EXIST');
             // hash password
             let salt = bcrypt.genSaltSync(10);
-            // let userItem = {
-            //     firstname: data.firstname,
-            //     lastname: data.lastname,
-            //     email: data.email,
-            //     password: bcrypt.hashSync(data.password, salt),
-            //     role: data.role
-            // };
-            
-            let firstname= data.firstname;
-            let lastname= data.lastname;
-            let email= data.email;
-            let password= bcrypt.hashSync(data.password, salt);
-            let role= data.role;
+            let userItem = {
+                firstname: data.firstname,
+                lastname: data.lastname,
+                email: data.email,
+                password: bcrypt.hashSync(data.password, salt),
+                role: data.role
+            };
+
             console.log('Account CREATED');
             //create a new account
             DBConnection.query(
-                ' INSERT INTO account (firstname, lastname, email, password, role) VALUES(?, ?, ?, ?, ?) ',[firstname, lastname, email, password, role] ,
+                ' INSERT INTO account SET ? ', userItem,
                 function(err, rows) {
                     console.log('DB INSERT NEW USER ITEM');
                     if (err) {
@@ -46,7 +41,7 @@ let checkExistEmail = (email) => {
     return new Promise( (resolve, reject) => {
         try {
             DBConnection.query(
-                ' SELECT * FROM `account` WHERE `email` = ?  ', email,
+                ' SELECT * FROM account WHERE email = ?  ', email,
                 function(err, rows) {
                     if (err) {
                         reject(err)
