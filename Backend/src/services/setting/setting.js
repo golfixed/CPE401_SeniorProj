@@ -1,4 +1,4 @@
-import dbCon from "../configs/DBConnection";
+import dbCon from "../../configs/DBConnection";
 import express from "express";
 
 let setting = express();

@@ -6,10 +6,10 @@ import classController from "../controllers/classController";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
 
-import setting from "../services/setting";
+import setting from "../services/setting/setting";
 import classCode from "../services/class/classCode";
-import editProfile from "../services/editProfile";
-import editAccount from "../services/editAccount";
+import editProfile from "../services/setting/editProfile";
+import editAccount from "../services/setting/editAccount";
 import classMember from "../services/class/classMember";
 
 // Init all passport
