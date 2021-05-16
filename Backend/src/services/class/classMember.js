@@ -14,7 +14,7 @@ classMember.get("/classMember/:class_code/:section", (req, res) =>{
     }
 
     if(classMembers.class){
-        dbCon.query('SELECT class_member.class, class_member.role_member, class.class_code, class.section, account.firstname,account.lastname FROM class_member,class,account WHERE class_member.class=class.id AND class_member.account=account.id AND class.class_code= ? AND class.section = ?', [classMembers.class, classMembers.section], (error, results, fields) =>{
+        dbCon.query('SELECT class_member.class , class_member.id, class_member.role_member, class.class_code, class.section, account.firstname,account.lastname FROM class_member,class,account WHERE class_member.class=class.id AND class_member.account=account.id AND class.class_code= ? AND class.section = ?', [classMembers.class, classMembers.section], (error, results, fields) =>{
 
             if(error) throw error;
             let message ="";
