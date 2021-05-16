@@ -1,16 +1,16 @@
 import dbCon from "../../configs/DBConnection";
 import express from "express";
-import passport from "passport";
 
-let app = express();
+let delMember = express();
 
-app.delete('/:class_code/deleteMember', passport.authenticate('jwt', {session: false}), (req, res) => {
-    let email = req.body.email;
+//delete member by id
+delMember.delete('/deleteMember/:id', (req, res) => {
+    let id = req.params.id;
 
-    if (!id || !class_code) {
-        return res.status(400).send({ error: true, message: "Please provide email"});
+    if (!id) {
+        return res.status(400).send({ error: true, message: "Please specify class id or account id"});
     } else {
-        dbCon.query('DELETE FROM account WHERE email = ?', [email], (error, results, fields) => {
+        dbCon.query('DELETE FROM class_member WHERE id = ?', id, (error, results, fields) => {
             if (error) throw error;
 
             let message = "";
@@ -24,4 +24,4 @@ app.delete('/:class_code/deleteMember', passport.authenticate('jwt', {session: f
     }
 })
 
-module.exports = app;
+module.exports = delMember;

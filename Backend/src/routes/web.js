@@ -11,6 +11,7 @@ import classCode from "../services/class/classCode";
 import editProfile from "../services/setting/editProfile";
 import editAccount from "../services/setting/editAccount";
 import classMember from "../services/class/classMember";
+import delMember from "../services/class/delMember";
 
 // Init all passport
 initPassportLocal();
@@ -60,6 +61,8 @@ let initWebRoutes = (app) => {
     router.get("/:class_code", reqJWT, classCode);
 
     router.get("/classMember/:class_code/:section", reqJWT, classMember);
+    router.delete("/deleteMember/:id", reqJWT, delMember);
+
 
     router.get("/setting/:id", reqJWT, setting);
     router.put("/setting/:id/editProfile", reqJWT, editProfile);
