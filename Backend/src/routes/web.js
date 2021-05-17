@@ -12,12 +12,15 @@ import editProfile from "../services/setting/editProfile";
 import editAccount from "../services/setting/editAccount";
 import classMember from "../services/class/classMember";
 import delMember from "../services/class/delMember";
+import joinClass from "../services/class/joinClass";
 import createPost from "../services/class/post/createPost";
+import addComment from "../services/class/post/addComment";
 import getPost from "../services/class/post/getPost";
 import delPost from "../services/class/post/delPost";
 import createTopic from "../services/class/materials/createTopic";
 import postMaterial from "../services/class/materials/postMaterial";
 import getMaterials from "../services/class/materials/getMaterials";
+import delMaterial from "../services/class/materials/deleteMaterial";
 
 // Init all passport
 initPassportLocal();
@@ -57,30 +60,36 @@ let initWebRoutes = (app) => {
     });
 
     const reqJWT = passport.authenticate('jwt', {session: false});
-
+    //REGISTOR
     router.get("/register", registerController.getPageRegister);
     router.post("/register", registerController.createNewUser);
     router.post("/logout", reqJWT, loginController.postLogOut);
 
-    // router.post("/class/createClass", createClass);
-    router.post("/class/createClass", reqJWT, classController.createNewClass);
+    //CLASS
     router.get("/:class_code", reqJWT, classCode);
+    router.post("/class/createClass", reqJWT, classController.createNewClass);
+    router.post("/joinClass", reqJWT, joinClass);
 
+    //CLASS MEMBER
     router.get("/classMember/:class_code/:section", reqJWT, classMember);
     router.delete("/deleteMember/:id", reqJWT, delMember);
-    
+
+    //MATERIAL
     router.get("/materials/:id", reqJWT, getMaterials);
     router.post("/createTopic", reqJWT, createTopic);
     router.post("/postMaterial", reqJWT, postMaterial);
+    router.delete("/deleteMaterial/:id", reqJWT, delMaterial);
 
+    //POST
     router.post("/:class/createPost", reqJWT, createPost);
+    router.post("/addComment/:post", reqJWT, addComment);
     router.get("/post/:id", reqJWT, getPost);
     router.delete("/deletePost/:id", reqJWT, delPost);
 
-
+    //SETTING
     router.get("/setting/:id", reqJWT, setting);
-    router.put("/setting/:id/editProfile", reqJWT, editProfile);
-    router.put("/setting/:id/editAccount",reqJWT, editAccount);
+    router.put("/setting/editProfile/:id", reqJWT, editProfile);
+    router.put("/setting/editAccount/:id",reqJWT, editAccount);
 
     return app.use("/", router);
 };
