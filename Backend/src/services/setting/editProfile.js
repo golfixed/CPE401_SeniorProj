@@ -4,7 +4,7 @@ import express from "express";
 let editProfile = express();
 
 
-editProfile.put('/setting/:id/editProfile', (req, res) => {
+editProfile.put('/setting/editProfile/:id', (req, res) => {
     let id = req.params.id;
     let firstname = req.body.firstname;
     let lastname = req.body.lastname;
