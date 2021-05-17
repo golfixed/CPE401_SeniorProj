@@ -13,6 +13,7 @@ import editAccount from "../services/setting/editAccount";
 import classMember from "../services/class/classMember";
 import delMember from "../services/class/delMember";
 import createPost from "../services/class/post/createPost";
+import getPost from "../services/class/post/getPost";
 
 // Init all passport
 initPassportLocal();
@@ -65,6 +66,7 @@ let initWebRoutes = (app) => {
     router.delete("/deleteMember/:id", reqJWT, delMember);
 
     router.post("/createPost/:class", reqJWT, createPost);
+    router.get("/post/:id", reqJWT, getPost);
 
 
     router.get("/setting/:id", reqJWT, setting);
