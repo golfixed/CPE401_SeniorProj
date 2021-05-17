@@ -65,6 +65,30 @@ let checkExistClass = (class_code, section) => {
         }
     });
 };
+
+let checkExistClassById = (id) => {
+    return new Promise( (resolve, reject) => {
+        try {
+            DBConnection.query(
+                ' SELECT * FROM `class` WHERE `id` = ? ', [id],
+                function(err, rows) {
+                    if (err) { 
+                        reject(err)
+                    }
+                    if (rows.length > 0) {
+                        resolve(true)
+                    } else {
+                        resolve(false)
+                    }
+                }
+            );
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
 module.exports = {
-    createNewClass: createNewClass
+    createNewClass: createNewClass,
+    checkExistClassById: checkExistClassById
 };
