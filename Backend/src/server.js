@@ -104,7 +104,28 @@ app.post("/uploadPostPic", upload.single('image'), (req, res) => {
     
             res.status(200).send({
                 error: false,
-                class_id: post_id,
+                post_id: post_id,
+                profile_url: image 
+            })
+        })
+        console.log(image);
+    }
+})
+
+app.use('/commentPic', express.static('upload/images'));
+app.post("/uploadCommentPic", upload.single('image'), (req, res) => {
+    let comment_id = req.body.id;
+    let image  = `http://localhost:3000/commentPic/${req.file.filename}`;
+
+    if(!comment_id){
+        res.status(400).send({error: true, message: 'Please give COMMENT ID to upload your picture'});
+    }else{
+        dbCon.query("UPDATE comment SET pic_url = ? WHERE id = ?", [image, comment_id], (error, results, fields) => {
+            if (error) throw error;
+    
+            res.status(200).send({
+                error: false,
+                comment_id: comment_id,
                 profile_url: image 
             })
         })
