@@ -1,9 +1,10 @@
 import dbCon from "../../../configs/DBConnection";
+import classService from "../../../services/class/classService";
 import express from "express";
 
 let createPost = express();
 
-createPost.post("/createPost/:class", (req, res) => {
+createPost.post("/:class/createPost", (req, res) => {
 
     let post = {
         class: req.params.class,
@@ -20,7 +21,8 @@ createPost.post("/createPost/:class", (req, res) => {
 
     if(!post.class){
         res.status(400).send({error: true, message: "Please provide class id"})
-
+    // }else if(!classService.checkExistClassById(post.class)){
+    //     res.status(400).send({error: true, message: `No class id ${post.class} exist`})
     }else{
         dbCon.query("INSERT INTO post SET ?", post, (error, results, fields) =>{
             if (error) throw error;
