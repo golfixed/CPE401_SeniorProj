@@ -72,12 +72,23 @@
       <div
         id="pinned-bar"
         class="section app-default-pinnedbar"
-        v-if="currentRoute == '/classroom'"
+        v-if="currentRoute == '/classrooms'"
       >
         <div class="pin-title">
           <label>Favourites</label>
         </div>
-        <div class="pin-tray-wrap"></div>
+        <div class="pin-tray-wrap">
+          <div class="slide-tray">
+            <favClass
+              v-for="items in favClassList"
+              :key="items.id"
+              v-bind:subject_code="items.code"
+              v-bind:subject_title="items.subject"
+              v-bind:section="items.section"
+              v-bind:prevMember="items.prevMember"
+            />
+          </div>
+        </div>
       </div>
       <div
         id="pinned-bar"
@@ -107,14 +118,16 @@
 </template>
 
 <script>
-import favPost from "@/components/favpost.vue";
-import favChat from "@/components/favchat.vue";
+import favPost from "@/components/favPost.vue";
+import favChat from "@/components/favChat.vue";
+import favClass from "@/components/favClass.vue";
 export default {
   name: "Page-TopBar",
   created: function () {},
   components: {
     favPost,
     favChat,
+    favClass,
   },
   methods: {
     openAncmt: function (id) {
@@ -240,7 +253,71 @@ export default {
           profilePic: "/img/mockup/profile_volk.png",
         },
       ],
-      favClassList: [],
+      favClassList: [
+        {
+          id: 0,
+          code: "CPE100",
+          subject: "Basic Computer Programming I",
+          section: 2,
+          pictureURL: "/img/mockup/class.png",
+          prevMember: [
+            {
+              id: 0,
+              pictureURL: "/img/mockup/profile.png",
+            },
+            {
+              id: 1,
+              pictureURL: "/img/mockup/profile_volk.png",
+            },
+            {
+              id: 2,
+              pictureURL: "/img/mockup/profile_my.png",
+            },
+          ],
+        },
+        {
+          id: 1,
+          code: "CPE100",
+          subject: "Basic Computer Programming I",
+          section: 2,
+          pictureURL: "/img/mockup/class.png",
+          prevMember: [
+            {
+              id: 0,
+              pictureURL: "/img/mockup/profile.png",
+            },
+            {
+              id: 1,
+              pictureURL: "/img/mockup/profile_volk.png",
+            },
+            {
+              id: 2,
+              pictureURL: "/img/mockup/profile_my.png",
+            },
+          ],
+        },
+        {
+          id: 2,
+          code: "CPE100",
+          subject: "Basic Computer Programming I",
+          section: 2,
+          pictureURL: "/img/mockup/class.png",
+          prevMember: [
+            {
+              id: 0,
+              pictureURL: "/img/mockup/profile.png",
+            },
+            {
+              id: 1,
+              pictureURL: "/img/mockup/profile_volk.png",
+            },
+            {
+              id: 2,
+              pictureURL: "/img/mockup/profile_my.png",
+            },
+          ],
+        },
+      ],
     };
   },
 };

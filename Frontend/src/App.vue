@@ -64,7 +64,7 @@ export default {
 </script>
 
 <style lang="scss">
-$app-font: "Nunito", sans-serif;
+$app-font: "Helvetica Nueue", "Roboto", sans-serif;
 
 .pageslide-enter-active,
 .pageslide-leave-enter {
