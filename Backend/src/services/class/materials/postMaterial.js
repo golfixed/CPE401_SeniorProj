@@ -6,13 +6,14 @@ let postMaterial = express();
 postMaterial.post("/postMaterial", (req, res) => {
 
     let material ={
-        topic_name: req.body.topic_name,
+        title: req.body.title,
+        material_topic: req.body.material_topic,
         material_url: req.body.material_url,
         create_by: req.body.create_by,
         update_by: req.body.update_by
     }
 
-    if(!material.topic_name){
+    if(!material.material_topic){
         res.status(400).send({error: true, message: "Please select TOPIC to add material"})
 
     }else{
