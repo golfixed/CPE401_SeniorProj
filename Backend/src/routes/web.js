@@ -14,6 +14,7 @@ import classMember from "../services/class/classMember";
 import delMember from "../services/class/delMember";
 import createPost from "../services/class/post/createPost";
 import getPost from "../services/class/post/getPost";
+import delPost from "../services/class/post/delPost";
 
 // Init all passport
 initPassportLocal();
@@ -64,9 +65,10 @@ let initWebRoutes = (app) => {
 
     router.get("/classMember/:class_code/:section", reqJWT, classMember);
     router.delete("/deleteMember/:id", reqJWT, delMember);
-
+    
     router.post("/createPost/:class", reqJWT, createPost);
     router.get("/post/:id", reqJWT, getPost);
+    router.delete("/deletePost/:id", reqJWT, delPost);
 
 
     router.get("/setting/:id", reqJWT, setting);
