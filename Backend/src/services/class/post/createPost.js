@@ -4,7 +4,7 @@ import express from "express";
 let createPost = express();
 
 createPost.post("/createPost/:class", (req, res) => {
-    // let class_id = req.params.class;
+
     let post = {
         class: req.params.class,
         // class_id: req.body.class,
@@ -18,16 +18,21 @@ createPost.post("/createPost/:class", (req, res) => {
         update_by: req.body.update_by
     }
 
-    dbCon.query("INSERT INTO post SET ?", post, (error, results, fields) =>{
-        if (error) throw error;
+    if(!post.class){
+        res.status(400).send({error: true, message: "Please provide class id"})
 
-        return res.status(200).send({
-          error: false,
-          data: results,
-          post: post,
-          message: "Post successfully",
+    }else{
+        dbCon.query("INSERT INTO post SET ?", post, (error, results, fields) =>{
+            if (error) throw error;
+    
+            return res.status(200).send({
+              error: false,
+              data: results,
+              post: post,
+              message: "Post successfully",
+            })
         })
-    })
+    }
 })
 
 module.exports = createPost;
