@@ -17,6 +17,7 @@ import getPost from "../services/class/post/getPost";
 import delPost from "../services/class/post/delPost";
 import createTopic from "../services/class/materials/createTopic";
 import postMaterial from "../services/class/materials/postMaterial";
+import getMaterials from "../services/class/materials/getMaterials";
 
 // Init all passport
 initPassportLocal();
@@ -68,6 +69,7 @@ let initWebRoutes = (app) => {
     router.get("/classMember/:class_code/:section", reqJWT, classMember);
     router.delete("/deleteMember/:id", reqJWT, delMember);
     
+    router.get("/materials/:id", reqJWT, getMaterials);
     router.post("/createTopic", reqJWT, createTopic);
     router.post("/postMaterial", reqJWT, postMaterial);
 
