@@ -91,6 +91,27 @@ app.post("/uploadClassProfile", upload.single('image'), (req, res) => {
     }
 })
 
+app.use('/postPic', express.static('upload/images'));
+app.post("/uploadPostPic", upload.single('image'), (req, res) => {
+    let post_id = req.body.id;
+    let image  = `http://localhost:3000/postPic/${req.file.filename}`;
+
+    if(!post_id){
+        res.status(400).send({error: true, message: 'Please give POST ID to upload your picture'});
+    }else{
+        dbCon.query("UPDATE post SET pic_url = ? WHERE id = ?", [image, post_id], (error, results, fields) => {
+            if (error) throw error;
+    
+            res.status(200).send({
+                error: false,
+                class_id: post_id,
+                profile_url: image 
+            })
+        })
+        console.log(image);
+    }
+})
+
 function errHandler(err, req, res, next) {
     if (err instanceof multer.MulterError) {
         res.json({
