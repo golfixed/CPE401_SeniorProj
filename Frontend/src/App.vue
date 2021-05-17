@@ -2,7 +2,7 @@
   <div>
     <div id="app">
       <div class="app-view">
-        <topbar v-if="isLoggedIn == true" />
+        <topBar v-if="isLoggedIn == true" />
         <router-view />
         <assistBtn v-if="isLoggedIn == true" />
         <optionMenu v-if="isLoggedIn == true" />
@@ -21,7 +21,7 @@
 
 <script>
 import tabbar from "@/components/template/tabbar";
-import topbar from "@/components/template/topbar";
+import topBar from "@/components/template/topBar";
 import assistBtn from "@/components/assistBtn.vue";
 import optionMenu from "@/components/optionMenu.vue";
 import welcomePage from "@/views/Welcome.vue";
@@ -29,7 +29,7 @@ export default {
   name: "app",
   components: {
     tabbar,
-    topbar,
+    topBar,
     assistBtn,
     optionMenu,
     welcomePage,
@@ -473,9 +473,9 @@ button:active {
     }
     .title {
       font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 21px;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 20px;
       text-align: center;
       color: #8b8b8b;
     }
@@ -483,8 +483,8 @@ button:active {
       margin-top: 6px !important;
       font-style: normal;
       font-weight: normal;
-      font-size: 16px;
-      line-height: 20px;
+      font-size: 14px;
+      line-height: 16px;
       text-align: center;
       color: #8b8b8b;
     }
