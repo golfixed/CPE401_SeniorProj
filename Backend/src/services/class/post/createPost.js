@@ -31,7 +31,7 @@ createPost.post("/:class/createPost", (req, res) => {
               error: false,
               data: results,
               post: post,
-              message: "Post successfully",
+              message: "Post successfully"
             })
         })
     }
