@@ -12,11 +12,8 @@ createPoll.post('/createPoll', (req, res) => {
         update_by: req.body.update_by
     }
 
-    let poll_option = {
-        // poll_id: req.body.poll,
-        options: req.body.options
-    }
-
+    let options= req.body.options;
+    
     dbCon.query('INSERT INTO poll SET ?', poll, (error, results, fields) =>{
         if (error) throw error;
         // res.send({data_poll: results});
@@ -25,21 +22,20 @@ createPoll.post('/createPoll', (req, res) => {
             if (error) throw error;
             console.log('insert id from poll');
             
-            // let poll_id = req.body.poll;
-            dbCon.query('UPDATE poll_option SET options = ? WHERE id = 50',[poll_option.options], (error, results, fields) =>{
+            dbCon.query('UPDATE poll_option SET options = ? WHERE poll IN (SELECT MAX(poll) FROM poll_option)',[options], (error, results, fields) =>{
+                console.log('update options');
                 if (error) throw error;
                 
                 return res.status(200).send({
-                  error: false,
-                  data: results,
-                  poll: poll,
-                  message: "create poll successfully"
+                    error: false,
+                    data: results,
+                    poll: poll,
+                    options: options,
+                    message: "create poll successfully"
                 })
             })
         })
-
     })
-    
 })
 
 module.exports = createPoll;
