@@ -1,5 +1,5 @@
 <template>
-  <div class="assist-btn-wrapper">
+  <div class="assist-btn-wrapper" v-if="currentPage != '/chats'">
     <div class="assist-btn">
       <div class="btn-img">
         <img :src="iconToShow" />
@@ -42,6 +42,9 @@ export default {
       var page = this.$route.path;
       if (page == "/") return "/img/btn/write.svg";
       else return "/img/btn/plus.svg";
+    },
+    currentPage: function () {
+      return this.$route.path;
     },
   },
   mounted() {

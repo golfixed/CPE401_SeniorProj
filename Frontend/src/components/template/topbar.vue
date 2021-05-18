@@ -90,7 +90,7 @@
           </div>
         </div>
       </div>
-      <div
+      <!-- <div
         id="pinned-bar"
         class="section app-default-pinnedbar"
         v-if="currentRoute == '/chats' && favChatList.length > 0"
@@ -112,7 +112,7 @@
             />
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

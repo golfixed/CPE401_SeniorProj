@@ -26,7 +26,7 @@
         />
         <label class="title">Under developing...</label>
         <label class="desc"
-          >This feature is not ready yet. <br />We'll notify you once it is
+          >This feature is not ready yet. <br />We will let you know once it is
           ready.</label
         >
       </div>

@@ -2,15 +2,15 @@
   <router-link to="">
     <div class="card-wrapper">
       <div class="card card-a">
-        <label>{{ subject_code }}</label>
-        <label> {{ subject_title }}</label>
-        <label>Section {{ section }}</label>
+        <label class="code">{{ subject_code }}</label>
+        <label class="title"> {{ subject_title }}</label>
+        <label class="section">Section {{ section }}</label>
         <div class="prev-member-box">
-          <div class="member-item" v-for="item in prevMember" :key="item.id">
-            <img :src="item.pictureURL" />
-          </div>
           <div class="member-item">
             <label class="more-num">+{{ prevMember.length }}</label>
+          </div>
+          <div class="member-item" v-for="item in prevMember" :key="item.id">
+            <img :src="item.pictureURL" />
           </div>
         </div>
       </div>
@@ -31,6 +31,10 @@ export default {
   created: function () {},
   computed: {},
   methods: {},
+  mounted() {},
+  data() {
+    return {};
+  },
 };
 </script>
 
@@ -51,7 +55,28 @@ export default {
     -webkit-box-orient: vertical;
     overflow: hidden;
     -webkit-box-pack: end;
+  }
+  .code {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    margin-bottom: 5px !important;
     text-transform: uppercase;
+  }
+  .title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    margin-bottom: 15px !important;
+  }
+  .section {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    margin-bottom: 15px !important;
   }
 
   div.message-box {
@@ -91,8 +116,10 @@ export default {
 }
 .prev-member-box {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
+  flex-direction: row-reverse;
+  padding-left: 10px;
   .member-item {
     width: 34px;
     height: 34px;
@@ -118,9 +145,6 @@ export default {
       text-align: center;
       color: #c9c9c9;
     }
-  }
-  .member-item:first-child {
-    margin-left: 0px;
   }
 }
 </style>

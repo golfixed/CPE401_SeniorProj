@@ -13,14 +13,14 @@
         ></div>
       </div>
       <div class="app-tabbar" v-if="isLoggedIn == true">
-        <tabbar />
+        <tabBar />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import tabbar from "@/components/template/tabbar";
+import tabBar from "@/components/template/tabBar";
 import topBar from "@/components/template/topBar";
 import assistBtn from "@/components/assistBtn.vue";
 import optionMenu from "@/components/optionMenu.vue";
@@ -28,7 +28,7 @@ import welcomePage from "@/views/Welcome.vue";
 export default {
   name: "app",
   components: {
-    tabbar,
+    tabBar,
     topBar,
     assistBtn,
     optionMenu,
