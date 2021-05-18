@@ -8,8 +8,6 @@ createPost.post("/:class/createPost", (req, res) => {
 
     let post = {
         class: req.params.class,
-        // class_id: req.body.class,
-        poll: req.body.poll,
         comment: req.body.comment,
         announce: req.body.announce,
         click_count:req.body.click_count, 
