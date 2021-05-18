@@ -20,12 +20,16 @@ createPoll.post('/createPoll', (req, res) => {
     dbCon.query('INSERT INTO poll SET ?', poll, (error, results, fields) =>{
         if (error) throw error;
         
+        dbCon.query('INSERT INTO poll_option (poll) SELECT id FROM poll;',(error, results, fields) =>{
+            if (error) throw error;
+            console.log('insert id from poll');
             return res.status(200).send({
               error: false,
               data: results,
               poll: poll,
               message: "create poll successfully"
             })
+        })
 
     })
     
