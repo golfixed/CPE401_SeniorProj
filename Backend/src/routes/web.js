@@ -14,6 +14,7 @@ import classMember from "../services/class/classMember";
 import delMember from "../services/class/delMember";
 import joinClass from "../services/class/joinClass";
 import createPost from "../services/class/post/createPost";
+import createPoll from "../services/class/post/createPoll";
 import addComment from "../services/class/post/addComment";
 import delComment from "../services/class/post/delComment";
 import getPost from "../services/class/post/getPost";
@@ -87,6 +88,10 @@ let initWebRoutes = (app) => {
     router.delete("/deleteComment/:id", reqJWT, delComment);
     router.get("/post/:id", reqJWT, getPost);
     router.delete("/deletePost/:id", reqJWT, delPost);
+    
+    //POLL
+    router.post("/createPoll", reqJWT, createPoll);
+    
 
     //SETTING
     router.get("/setting/:id", reqJWT, setting);
