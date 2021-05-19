@@ -5,7 +5,6 @@ let getJoinCode = express();
 
 getJoinCode.get('/pinCode/:id', (req, res) =>{
     let id =req.params.id;
-    let join_code =req.body.join_code;
 
     if(!id){
         res.status(400).send({error: true, message: "Please provide post id"})
@@ -15,14 +14,14 @@ getJoinCode.get('/pinCode/:id', (req, res) =>{
             
             let message = "";
             if(results === undefined || results.length == 0){
-                message = `There's no post id = ${id} `;
+                message = `There's no id = ${id} `;
             }else{
-                message = `Get post id = ${id} successfully`;
+                message = `Get pin code from class id = ${id} successfully`;
             }
+            console.log(results)
             return res.status(200).send ({error: false, data: results, message: message})
         })
     }
-
 })
 
 module.exports = getJoinCode;
