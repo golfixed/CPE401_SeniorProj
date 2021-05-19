@@ -12,6 +12,7 @@ import editProfile from "../services/setting/editProfile";
 import editAccount from "../services/setting/editAccount";
 import classMember from "../services/class/classMember";
 import delMember from "../services/class/delMember";
+import getJoinCode from "../services/class/getJoinCode";
 import joinClass from "../services/class/joinClass";
 import createPost from "../services/class/post/createPost";
 import createPoll from "../services/class/post/createPoll";
@@ -72,6 +73,9 @@ let initWebRoutes = (app) => {
     router.post("/class/createClass", reqJWT, classController.createNewClass);
     router.post("/joinClass", reqJWT, joinClass);
 
+    //PIN CLASS
+    router.get("/pinCode/:id", reqJWT, getJoinCode);
+
     //CLASS MEMBER
     router.get("/classMember/:class_code/:section", reqJWT, classMember);
     router.delete("/deleteMember/:id", reqJWT, delMember);
@@ -91,7 +95,6 @@ let initWebRoutes = (app) => {
     
     //POLL
     router.post("/createPoll", reqJWT, createPoll);
-    
 
     //SETTING
     router.get("/setting/:id", reqJWT, setting);
