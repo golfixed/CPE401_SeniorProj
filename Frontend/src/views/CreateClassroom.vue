@@ -1,7 +1,7 @@
 <template>
   <div class="regis-page">
-    <topNavi type="cancel" />
-    <div class="subpage">
+    <topNavi type="cancel" v-if="currentSubPage == 1" />
+    <div class="subpage" v-if="currentSubPage == 1 && isLoading == false">
       <div class="content-page">
         <div class="wrapper">
           <div class="page-header">
@@ -36,7 +36,11 @@
       <div class="bottom-section">
         <div class="wrapper">
           <div class="btn-wrapper">
-            <button class="sign-in" v-on:click="" v-if="allFilled == true">
+            <button
+              class="sign-in"
+              v-on:click="createClass()"
+              v-if="allFilled == true"
+            >
               <div class="single-land">
                 <label>Continue</label>
               </div>
@@ -50,10 +54,42 @@
         </div>
       </div>
     </div>
+    <div class="subpage" v-if="currentSubPage == 2 && isLoading == false">
+      <div class="content-page finish-page">
+        <div class="wrapper">
+          <div class="page-header">
+            <h1 class="pagename">New Class Created</h1>
+          </div>
+        </div>
+        <div class="wrapper">
+          <div class="setup-sum">
+            <div class="pin-box">
+              <label class="pin-code">{{ classInfo.joinCode }}</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-section">
+        <div class="wrapper">
+          <div class="btn-wrapper">
+            <button class="sign-in" v-on:click="Continue()">
+              <div class="single-land">
+                <label>Continue</label>
+              </div>
+            </button>
+            <button class="close-btn" v-on:click="closePage()">
+              <div class="single-land">
+                <label>Close</label>
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="subpage loading-page" v-if="isLoading == true">
       <div class="content-page">
         <div class="loading-wrapper">
-          <pageLoading label="Registering, please wait..." />
+          <pageLoading label="Creating, please wait..." />
         </div>
       </div>
     </div>
@@ -82,15 +118,65 @@ export default {
         desc: "",
       },
       isLoading: false,
+      currentSubPage: 1,
+      classInfo: {
+        id: 3,
+        joinCode: "2NRWLX",
+      },
     };
   },
-  methods: {},
+  methods: {
+    createClass: function () {
+      this.isLoading = true;
+      var userID = this.$store.state.user.profile.id;
+      axios
+        .post("/createclass", {
+          class_code: this.createInfo.code,
+          class_name: this.createInfo.name,
+          class_desc: this.createInfo.desc,
+          section: this.createInfo.section,
+          create_by: userID,
+        })
+        .then((res) => {
+          if (res.status != 404 || res.status != 500) {
+            console.log(res);
+            console.log("Create Class successfully");
+            this.getClassInfo();
+          } else if (res == 422) {
+            console.log("Create Failed");
+          }
+        });
+      this.isLoading = false;
+    },
+    Continue: function () {
+      this.$router.push("/classrooms/" + this.classInfo.id);
+    },
+    closePage: function () {
+      this.$router.push("/");
+    },
+    getClassInfo: function () {
+      axios
+        .post("/getclassinfo", {
+          class_code: this.createInfo.code,
+          section: this.createInfo.section,
+        })
+        .then((res) => {
+          if (res.status != 404 || res.status != 500) {
+            console.log(res);
+            console.log("Get class info successfully");
+            this.classInfo = res.data.classInfo;
+            this.currentSubPage = 2;
+          } else if (res == 422) {
+            console.log("Get Failed");
+          }
+        });
+    },
+  },
   computed: {
     allFilled: function () {
       if (
         this.createInfo.code == "" ||
         this.createInfo.section == "" ||
-        this.createInfo.desc == "" ||
         this.createInfo.name == ""
       ) {
         return false;
@@ -154,14 +240,14 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 20px 0;
+  padding: 10px 0;
   background-color: #fff;
   width: 100vw;
   border: solid;
   border-width: 1px;
   border-color: #ededed;
   width: 100%;
-  border-radius: 10px;
+  border-radius: 100px;
   div.profile-pic {
     width: 120px;
     height: 120px;
@@ -257,6 +343,13 @@ input {
   background-color: #479f60;
   label {
     color: #fff;
+  }
+}
+.close-btn {
+  margin-top: 10px;
+  border: 0;
+  label {
+    color: #8b8b8b;
   }
 }
 .sign-in:active {
@@ -408,5 +501,18 @@ textarea {
 }
 textarea::placeholder {
   margin-top: 20px;
+}
+.pin-box {
+  // height: 200px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .pin-code {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    color: #479f60;
+  }
 }
 </style>
