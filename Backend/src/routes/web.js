@@ -15,6 +15,7 @@ import classMember from "../services/class/classMember";
 import delMember from "../services/class/delMember";
 import getJoinCode from "../services/class/getJoinCode";
 import joinClass from "../services/class/joinClass";
+import getclassinfo from "../services/class/getclassinfo";
 import createPost from "../services/class/post/createPost";
 import createPoll from "../services/class/poll/createPoll";
 import getPoll from "../services/class/poll/getPoll";
@@ -74,7 +75,8 @@ let initWebRoutes = (app) => {
     //CLASS
     router.get("/classrooms", reqJWT, classList);
     router.get("/classrooms/:class_code", reqJWT, classCode);
-    router.post("/class/createClass", reqJWT, classController.createNewClass);
+    router.get("/getclassinfo", reqJWT, getclassinfo);
+    router.post("/createClass", reqJWT, classController.createNewClass);
     router.post("/joinClass", reqJWT, joinClass);
 
     //PIN CLASS
