@@ -18,14 +18,16 @@ let createNewClass = (data) => {
                }
                return result.join('');
             }
-            
+
             let classObject = {
                 class_code: data.class_code,
                 class_name: data.class_name,
                 class_desc: data.class_desc,
-                class_pic: data.class_pic,
                 join_code: joinCode(6),
-                section: data.section
+                section: data.section,
+                create_by: data.create_by,
+                mute_noti:false,
+                favorite: false
             };
         
             console.log(classObject.join_code);
@@ -34,22 +36,27 @@ let createNewClass = (data) => {
             DBConnection.query(
                 ' INSERT INTO class SET ? ', classObject,
                 function(err, rows) {
+                    console.log('db err: ' + err)
                     if (err) {
                         reject(false)
                     }
                     resolve("Create a new class successful");
                 }
             );
+
         }
     });
 };
 
 let checkExistClass = (class_code, section) => {
+    // console.log('check class exist');
     return new Promise( (resolve, reject) => {
         try {
             DBConnection.query(
                 ' SELECT * FROM `class` WHERE `class_code` = ? AND `section` = ? ', [class_code, section],
                 function(err, rows) {
+                    // console.log('error:' + err);
+                    // console.log('rows:' + rows);
                     if (err) { 
                         reject(err)
                     }
@@ -66,29 +73,7 @@ let checkExistClass = (class_code, section) => {
     });
 };
 
-let checkExistClassById = (id) => {
-    return new Promise( (resolve, reject) => {
-        try {
-            DBConnection.query(
-                ' SELECT * FROM `class` WHERE `id` = ? ', [id],
-                function(err, rows) {
-                    if (err) { 
-                        reject(err)
-                    }
-                    if (rows.length > 0) {
-                        resolve(true)
-                    } else {
-                        resolve(false)
-                    }
-                }
-            );
-        } catch (err) {
-            reject(err);
-        }
-    });
-};
 
 module.exports = {
-    createNewClass: createNewClass,
-    checkExistClassById: checkExistClassById
+    createNewClass: createNewClass
 };

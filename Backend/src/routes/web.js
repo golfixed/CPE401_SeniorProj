@@ -15,8 +15,11 @@ import classMember from "../services/class/classMember";
 import delMember from "../services/class/delMember";
 import getJoinCode from "../services/class/getJoinCode";
 import joinClass from "../services/class/joinClass";
+import getclassinfo from "../services/class/getclassinfo";
 import createPost from "../services/class/post/createPost";
-import createPoll from "../services/class/post/createPoll";
+import createPoll from "../services/class/poll/createPoll";
+import getPoll from "../services/class/poll/getPoll";
+import clickVotes from "../services/class/poll/vote";
 import addComment from "../services/class/post/addComment";
 import delComment from "../services/class/post/delComment";
 import getPost from "../services/class/post/getPost";
@@ -72,7 +75,8 @@ let initWebRoutes = (app) => {
     //CLASS
     router.get("/classrooms", reqJWT, classList);
     router.get("/classrooms/:class_code", reqJWT, classCode);
-    router.post("/class/createClass", reqJWT, classController.createNewClass);
+    router.get("/getclassinfo", reqJWT, getclassinfo);
+    router.post("/createClass", reqJWT, classController.createNewClass);
     router.post("/joinClass", reqJWT, joinClass);
 
     //PIN CLASS
@@ -97,6 +101,8 @@ let initWebRoutes = (app) => {
     
     //POLL
     router.post("/createPoll", reqJWT, createPoll);
+    router.get("/polls/:id", reqJWT, getPoll);
+    router.post("/clickVotes", reqJWT, clickVotes);
 
     //SETTING
     router.get("/setting/:id", reqJWT, setting);
