@@ -1,10 +1,10 @@
-import dbCon from "../configs/DBConnection";
+import dbCon from "../../configs/DBConnection";
 import express from "express";
-import passport from "passport";
 
-let app = express();
+let setting = express();
 
-app.get("/profile/:id", passport.authenticate('jwt', {session: false}), (req, res) => {
+//get setting page by using ID
+setting.get("/setting/:id", (req, res) => {
     const id = req.params.id;
     if (!id) {
       return res
@@ -29,17 +29,5 @@ app.get("/profile/:id", passport.authenticate('jwt', {session: false}), (req, re
     }
   });
 
-  app.get('/search', (req, res) => {
-    const filters = req.query;
-    const filteredUsers = dbCon.filter(user => {
-      let isValid = true;
-      for (key in filters) {
-        console.log(key, user[key], filters[key]);
-        isValid = isValid && user[key] == filters[key];
-      }
-      return isValid;
-    });
-    res.send(filteredUsers);
-  });
 
-  module.exports = app;
+  module.exports = setting;

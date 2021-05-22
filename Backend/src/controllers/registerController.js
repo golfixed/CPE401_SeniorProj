@@ -3,7 +3,7 @@ import { validationResult } from "express-validator";
 
 //GET OUT REGISTER PAGE
 let getPageRegister = (req, res) => {
-    return res.send({ error: false, message: "Register Page" });
+    return res.send({ error: false, message: "Register Page"});
 };
 
 let createNewUser = async (req, res) => {
@@ -18,7 +18,7 @@ let createNewUser = async (req, res) => {
         });
         req.flash("errors", errorsArr);
         // return res.redirect("/register");
-        return res.send({ error: false, message: "Register Page" });
+        return res.send({ error: false, message: "Register Page"});
     }
     console.log('new regis info : ');
     console.log(req.body);
@@ -27,8 +27,8 @@ let createNewUser = async (req, res) => {
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         email: req.body.email,
-        password: req.body.password
-        // role: req.body.role,
+        password: req.body.password,
+        role: req.body.role
         // image: req.body.image,    
         // gender: req.body.gender,
         // phone: req.body.phone    
@@ -36,12 +36,11 @@ let createNewUser = async (req, res) => {
     try {
         await registerService.createNewUser(newUser);
         console.log('New user account register successfully');
-        // return res.redirect("/home");
-
-        return res.send({ status: 200, error: false, message: "Register Successfully" })
+        return res.send({ error: false, data: newUser, message: "Register Successfully"})
     } catch (err) {
         req.flash("errors", err);
-        return res.send({ error: false, message: "ERROR" })
+        console.log(err);
+        return res.send({ error: false, message: err})
     }
 };
 module.exports = {

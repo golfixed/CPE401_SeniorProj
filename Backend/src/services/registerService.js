@@ -6,7 +6,7 @@ let createNewUser = (data) => {
         // check email is exist or not
         let isEmailExist = await checkExistEmail(data.email);
         if (isEmailExist) {
-            reject(`This email "${data.email}" has already exist. Please choose an other email`);
+            reject(`${data.email} has already exist. Please choose an other email`);
             console.log('email ALREADY EXIST');
         } else {
             console.log('email NOT EXIST');
@@ -16,9 +16,10 @@ let createNewUser = (data) => {
                 firstname: data.firstname,
                 lastname: data.lastname,
                 email: data.email,
-                password: bcrypt.hashSync(data.password, salt)
-                
+                password: bcrypt.hashSync(data.password, salt),
+                role: data.role
             };
+
             console.log('Account CREATED');
             //create a new account
             DBConnection.query(
@@ -40,7 +41,7 @@ let checkExistEmail = (email) => {
     return new Promise( (resolve, reject) => {
         try {
             DBConnection.query(
-                ' SELECT * FROM `account` WHERE `email` = ?  ', email,
+                ' SELECT * FROM account WHERE email = ?  ', email,
                 function(err, rows) {
                     if (err) {
                         reject(err)

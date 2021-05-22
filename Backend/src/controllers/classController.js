@@ -1,4 +1,4 @@
-import classService from "./../services/classService";
+import classService from "../services/class/classService";
 import { validationResult } from "express-validator";
 
 //GET OUT REGISTER PAGE
@@ -31,7 +31,7 @@ let createNewClass = async (req, res) => {
         await classService.createNewClass(classObject);
         // return res.redirect("/login");
         
-        return res.send({ error: false, message: "Added class Successfully"})
+        return res.send({ error: false, classObject: classObject, message: "Added class Successfully"})
     } catch (err) {
         req.flash("errors", err);
         // return res.redirect("/register");
