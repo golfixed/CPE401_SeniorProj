@@ -15,69 +15,84 @@ const routes = [
         localStorage.clear();
         return import('../views/Welcome.vue')
       } else {
-        return import('../views/Home.vue')
+        return import('../views/Classrooms.vue')
       }
     }
   },
   {
     path: '/login',
     name: 'Login',
-    component: () => import( /* webpackChunkName: "Login" */ '../views/Login.vue'),
+    component: () => import('../views/Login.vue'),
   },
   {
     path: '/logout',
     name: 'Logout',
-    component: () => import( /* webpackChunkName: "Login" */ '../views/Welcome.vue'),
+    component: () => import('../views/Welcome.vue'),
   },
   {
     path: '/register',
     name: 'Regis',
-    component: () => import( /* webpackChunkName: "Regis" */ '../views/Register.vue'),
+    component: () => import(  '../views/Register.vue'),
+  },
+  // {
+  //   path: '/classrooms',
+  //   name: 'Classrooms',
+  //   component: () => import('../views/Classrooms.vue')
+  // },
+  {
+    path: '/classrooms/:id',
+    name: 'ClassroomPage',
+    component: () => import(  '../views/ClassPage.vue')
   },
   {
-    path: '/classrooms',
-    name: 'Classrooms',
-    component: () => import( /* webpackChunkName: "Classrooms" */ '../views/Classrooms.vue')
+    path: '/classrooms/:id/member',
+    name: 'ClassroomMember',
+    component: () => import(  '../views/ClassMembers.vue')
   },
   {
-    path: '/chats',
-    name: 'Chats',
-    component: () => import( /* webpackChunkName: "Chats" */ '../views/Chats.vue')
+    path: '/createclass',
+    name: 'CreateClassroom',
+    component: () => import(  '../views/CreateClassroom.vue')
   },
+  // {
+  //   path: '/chats',
+  //   name: 'Chats',
+  //   component: () => import( '../views/Chats.vue')
+  // },
   {
     path: '/search',
     name: 'Search',
-    component: () => import( /* webpackChunkName: "Search" */ '../views/Search.vue')
+    component: () => import( '../views/Search.vue')
   },
   {
     path: '/announce',
     name: 'Announcement',
-    component: () => import( /* webpackChunkName: "Announcement" */ '../views/Announcement.vue')
+    component: () => import(  '../views/Announcement.vue')
   },
   {
     path: '/settings',
     name: 'Settings',
-    component: () => import( /* webpackChunkName: "Settings" */ '../views/Settings.vue')
+    component: () => import( '../views/Settings.vue')
   },
   {
     path: '/notification',
     name: 'Notification',
-    component: () => import( /* webpackChunkName: "Settings" */ '../views/Notification.vue')
+    component: () => import( '../views/Notification.vue')
   },
   {
     path: '/settings/profile',
     name: 'Settings Profile',
-    component: () => import( /* webpackChunkName: "Settings" */ '../views/Settings/Profile.vue')
+    component: () => import(  '../views/Settings/Profile.vue')
   },
   {
     path: '/settings/account',
     name: 'Settings Account',
-    component: () => import( /* webpackChunkName: "Settings" */ '../views/Settings/Account.vue')
+    component: () => import( '../views/Settings/Account.vue')
   },
   {
     path: '/settings/notification',
     name: 'Settings Notification',
-    component: () => import( /* webpackChunkName: "Settings" */ '../views/Settings/Notification.vue')
+    component: () => import('../views/Settings/Notification.vue')
   },
   { path: '*', redirect: '/' }
 ]
