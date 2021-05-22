@@ -77,7 +77,7 @@ let initWebRoutes = (app) => {
     router.get("/pinCode/:id", reqJWT, getJoinCode);
 
     //CLASS MEMBER
-    router.get("/classMember/:class_code/:section", reqJWT, classMember);
+    router.get("/:class_code/:section/classMember", reqJWT, classMember);
     router.delete("/deleteMember/:id", reqJWT, delMember);
 
     //MATERIAL

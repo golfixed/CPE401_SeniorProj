@@ -3,7 +3,7 @@ import express from "express";
 
 let classMember = express();
 
-classMember.get("/classMember/:class_code/:section", (req, res) =>{
+classMember.get("/:class_code/:section/classMember", (req, res) =>{
     
     let classMembers = {
         class: req.params.class_code,
