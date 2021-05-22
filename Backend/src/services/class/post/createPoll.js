@@ -8,32 +8,26 @@ createPoll.post('/createPoll', (req, res) => {
         published: req.body.published,
         expired: req.body.expired,
         content: req.body.content,
+        option1: req.body.option1,
+        option2: req.body.option2,
+        option3: req.body.option3,
+        option4: req.body.option4,
+        option5: req.body.option5,
         create_by: req.body.create_by,
         update_by: req.body.update_by
     }
-
-    let options= req.body.options;
     
+    if(!poll.option1 && !poll.option2){
+        res.status(400).send({error: true, message: "Please provide at least 2 options"})
+    }
     dbCon.query('INSERT INTO poll SET ?', poll, (error, results, fields) =>{
         if (error) throw error;
-        // res.send({data_poll: results});
-
-        dbCon.query('INSERT INTO poll_option (poll) SELECT MAX(id) FROM poll',(error, results, fields) =>{
-            if (error) throw error;
-            console.log('insert id from poll');
-            
-            dbCon.query('UPDATE poll_option SET options = ? WHERE poll IN (SELECT MAX(poll) FROM poll_option)',[options], (error, results, fields) =>{
-                console.log('update options');
-                if (error) throw error;
-                
-                return res.status(200).send({
-                    error: false,
-                    data: results,
-                    poll: poll,
-                    options: options,
-                    message: "create poll successfully"
-                })
-            })
+        
+        return res.status(200).send({
+            error: false,
+            data: results,
+            poll: poll,
+            message: "create poll successfully"
         })
     })
 })
