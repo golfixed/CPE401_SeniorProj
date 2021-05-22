@@ -103,6 +103,7 @@ export default {
       console.log("Call join class API");
     },
     createClassroom: function () {
+      this.$store.commit("Close_AllMenu");
       this.$router.push("/createclass");
     },
   },

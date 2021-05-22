@@ -3,10 +3,13 @@ import express from "express";
 
 let getclassinfo = express();
 
-getclassinfo.get('/getclassinfo', (req, res) =>{
+getclassinfo.post('/getclassinfo', (req, res) =>{
     let class_code =req.body.class_code;
     let section = req.body.section
 
+    console.log(req.body.class_code);
+    console.log(req.body.section);
+    
     if(!class_code || !section){
         res.status(400).send({error: true, message: "Please provide class code and section"})
     }else{
@@ -20,7 +23,7 @@ getclassinfo.get('/getclassinfo', (req, res) =>{
                 message = `Successfully`;
             }
             console.log(results)
-            return res.status(200).send ({error: false, classInfo: results, message: message})
+            return res.status(200).send ({error: false, classInfo: results[0], message: message})
         })
     }
 })

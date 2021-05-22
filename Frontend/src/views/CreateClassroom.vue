@@ -64,7 +64,7 @@
         <div class="wrapper">
           <div class="setup-sum">
             <div class="pin-box">
-              <label class="pin-code">{{ classInfo.joinCode }}</label>
+              <label class="pin-code">{{ classInfo.join_code }}</label>
             </div>
           </div>
         </div>
@@ -121,7 +121,7 @@ export default {
       currentSubPage: 1,
       classInfo: {
         id: 3,
-        joinCode: "2NRWLX",
+        join_code: "2NRWLX",
       },
     };
   },
@@ -139,11 +139,11 @@ export default {
         })
         .then((res) => {
           if (res.status != 404 || res.status != 500) {
-            console.log(res);
-            console.log("Create Class successfully");
+            // console.log(res);
+            // console.log("Create Class successfully");
             this.getClassInfo();
           } else if (res == 422) {
-            console.log("Create Failed");
+            // console.log("Create Failed");
           }
         });
       this.isLoading = false;
@@ -155,21 +155,22 @@ export default {
       this.$router.push("/");
     },
     getClassInfo: function () {
-      axios
-        .post("/getclassinfo", {
-          class_code: this.createInfo.code,
-          section: this.createInfo.section,
-        })
-        .then((res) => {
-          if (res.status != 404 || res.status != 500) {
-            console.log(res);
-            console.log("Get class info successfully");
-            this.classInfo = res.data.classInfo;
-            this.currentSubPage = 2;
-          } else if (res == 422) {
-            console.log("Get Failed");
-          }
-        });
+      var payload = {
+        class_code: this.createInfo.code,
+        section: this.createInfo.section,
+      };
+      // console.log(payload);
+      axios.post("/getclassinfo", payload).then((res) => {
+        if (res.status != 404 || res.status != 500) {
+          // console.log(res);
+          // console.log("Get class info successfully");
+          this.classInfo = res.data.classInfo;
+          // console.log(this.classInfo);
+          this.currentSubPage = 2;
+        } else if (res.status == 422 || res.status == 400) {
+          // console.log("Get Failed");
+        }
+      });
     },
   },
   computed: {

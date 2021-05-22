@@ -13,6 +13,12 @@
         </div>
         <label>Cancel</label>
       </div>
+      <div class="btn-back" @click="$router.push('/')" v-if="type == 'gohome'">
+        <div class="icon">
+          <img src="/img/btn/chevron.png" />
+        </div>
+        <label>Back</label>
+      </div>
     </div>
     <div class="center">
       <label>{{ pageName }}</label>

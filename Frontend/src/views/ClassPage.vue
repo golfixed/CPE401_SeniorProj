@@ -1,6 +1,6 @@
 <template>
   <div id="page-setting" class="fullpage">
-    <topNavi type="back" :menu="true" optionName="classpage" />
+    <topNavi type="gohome" :menu="true" optionName="classpage" />
     <div class="content-page">
       <div class="class-info">
         <div class="info">
