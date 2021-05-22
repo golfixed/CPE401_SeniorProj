@@ -1,20 +1,11 @@
 <template>
-  <div class="chat-item">
-    <div class="profile-pic">
-      <img :src="pictureURL" draggable="false" />
-    </div>
-    <div class="text">
-      <label class="name">{{ fname }} {{ lname }}</label>
-      <div class="preview">
-        <label class="reply" v-if="lastReply == true"> You: </label>
-        <label class="read" v-if="read == true">{{ previewMessage }}</label>
-        <label class="unread" v-if="read == false">{{ previewMessage }}</label>
+  <div class="item-wrapper">
+    <div class="contact-item">
+      <div class="profile-pic">
+        <img :src="pictureURL" draggable="false" />
       </div>
-    </div>
-    <div class="misc">
-      <label class="time">{{ time }}</label>
-      <div class="unread" v-if="read == false">
-        <img src="/img/btn/chat/dot_red.svg" draggable="false" />
+      <div class="text">
+        <label class="name">{{ fname }} {{ lname }}</label>
       </div>
     </div>
   </div>
@@ -22,12 +13,11 @@
 
 <script>
 export default {
-  name: "chat-list",
+  name: "contact-list",
   props: {
     pictureURL: String,
     fname: String,
     lname: String,
-    previewMessage: String,
     time: String,
     read: Boolean,
     lastReply: Boolean,
@@ -36,17 +26,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.chat-item {
+.item-wrapper {
+  padding: 0 20px;
+  width: 100%;
+  max-width: 100vw;
+}
+// .contact-item:first-child {
+//   padding-top: 10px;
+// }
+// .contact-item:last-child {
+//   padding-bottom: 10px;
+// }
+.contact-item {
   width: 100%;
   padding: 10px 0;
   max-width: 100vw;
-  display: grid;
-  grid-template-columns: 54px auto 40px;
+  display: flex;
+  background-color: #fff;
   .profile-pic {
-    width: 54px;
-    height: 54px;
+    width: 44px;
+    height: 44px;
     border-radius: 100%;
     overflow: hidden;
+    margin-left: 20px;
     img {
       width: 100%;
       height: 100%;

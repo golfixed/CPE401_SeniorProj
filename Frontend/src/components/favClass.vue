@@ -1,5 +1,5 @@
 <template>
-  <router-link to="">
+  <router-link :to="link">
     <div class="card-wrapper">
       <div class="card card-a">
         <label class="code">{{ subject_code }}</label>
@@ -7,9 +7,9 @@
         <label class="section">Section {{ section }}</label>
         <div class="prev-member-box">
           <div class="member-item">
-            <label class="more-num">+{{ prevMember.length }}</label>
+            <label class="more-num">+{{ prevPic.length }}</label>
           </div>
-          <div class="member-item" v-for="item in prevMember" :key="item.id">
+          <div class="member-item" v-for="item in prevPic" :key="item.id">
             <img :src="item.pictureURL" />
           </div>
         </div>
@@ -27,13 +27,20 @@ export default {
     subject_title: String,
     section: Number,
     prevMember: Array,
+    id: Number,
   },
   created: function () {},
   computed: {},
   methods: {},
-  mounted() {},
+  mounted() {
+    this.prevPic = this.prevMember.reverse();
+    this.link = "/classrooms/" + this.id;
+  },
   data() {
-    return {};
+    return {
+      prevPic: [{}],
+      link: "",
+    };
   },
 };
 </script>

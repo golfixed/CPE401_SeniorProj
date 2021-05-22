@@ -1,25 +1,28 @@
 <template>
-  <div class="class-item">
-    <div class="text-box">
-      <label class="code">{{ code }}</label>
-      <label class="title">{{ title }}</label>
-      <label class="section">Section {{ section }}</label>
-    </div>
-    <div class="img-box">
-      <div class="member-item">
-        <label class="more-num">+{{ prevPic.length }}</label>
+  <router-link :to="link">
+    <div class="class-item">
+      <div class="text-box">
+        <label class="code">{{ code }}</label>
+        <label class="title">{{ title }}</label>
+        <label class="section">Section {{ section }}</label>
       </div>
-      <div class="member-item" v-for="item in prevPic" :key="item.id">
-        <img :src="item.pictureURL" />
+      <div class="img-box">
+        <div class="member-item">
+          <label class="more-num">+{{ prevPic.length }}</label>
+        </div>
+        <div class="member-item" v-for="item in prevPic" :key="item.id">
+          <img :src="item.pictureURL" />
+        </div>
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <script>
 export default {
   name: "class-list",
   props: {
+    id: Number,
     code: String,
     title: String,
     section: Number,
@@ -28,10 +31,12 @@ export default {
   data: function () {
     return {
       prevPic: [{}],
+      link: "",
     };
   },
   mounted() {
     this.prevPic = this.prevMember.reverse();
+    this.link = "/classrooms/" + this.id;
   },
 };
 </script>
@@ -48,7 +53,7 @@ export default {
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    padding-right: 20px;
+    padding-right: 10px;
     .code {
       font-style: normal;
       font-weight: bold;

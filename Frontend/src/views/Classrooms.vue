@@ -16,6 +16,7 @@
           v-for="item in classList"
           :key="item.id"
           v-if="item.isPinned == false"
+          v-bind:id="item.id"
           v-bind:code="item.code"
           v-bind:title="item.title"
           v-bind:section="item.section"
@@ -131,6 +132,7 @@ export default {
     if (!localStorage.token && !localStorage.user) {
       this.$router.push({ path: "/" });
     }
+    this.$store.commit("Close_AllMenu");
   },
   created: function () {},
   methods: {},
@@ -138,6 +140,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+#page-classrooms {
+  background-color: #f6f6f6;
+}
 .class-item-wrapper {
   padding: 0 20px;
 }
