@@ -17,6 +17,15 @@
     <div class="center">
       <label>{{ pageName }}</label>
     </div>
+    <div class="right">
+      <div
+        class="btn-img-wrapper"
+        v-on:click="openOptionMenu(optionName)"
+        v-if="menu == true"
+      >
+        <img src="/img/icons/option-menu.svg" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -26,6 +35,13 @@ export default {
   props: {
     pageName: String,
     type: String,
+    menu: Boolean,
+    optionName: String,
+  },
+  methods: {
+    openOptionMenu: function (payload) {
+      this.$store.commit("Open_optionMenu", payload);
+    },
   },
 };
 </script>
@@ -97,7 +113,12 @@ export default {
   .right {
     width: 80px;
     justify-content: flex-end;
-    padding-right: 20px;
+    .btn-img-wrapper {
+      margin-right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 </style>

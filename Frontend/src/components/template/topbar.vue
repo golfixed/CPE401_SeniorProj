@@ -17,7 +17,7 @@
         <div class="titlebar-right">
           <div class="top-btn">
             <div class="btn-img-wrapper topbar-plus-btn" id="topbar-plus-btn">
-              <img :src="iconToShow" />
+              <img src="/img/icons/plus-btn.svg" />
             </div>
           </div>
           <router-link to="/notification" class="top-btn">
@@ -28,7 +28,7 @@
               {{ notifications.length }}
             </div>
           </router-link>
-          <div class="top-btn" v-on:click="openOptionMenu()">
+          <div class="top-btn" v-on:click="openOptionMenu('home')">
             <div class="btn-img-wrapper">
               <img src="/img/icons/option-menu.svg" />
             </div>
@@ -71,21 +71,23 @@
       </div>
       <div
         id="pinned-bar"
-        class="section app-default-pinnedbar"
-        v-if="currentRoute == '/classrooms'"
+        class="section app-default-pinnedbar grey-bg"
+        v-if="currentRoute == '/'"
       >
         <div class="pin-title">
-          <label>Favourites</label>
+          <label>Pinned Classrooms</label>
         </div>
         <div class="pin-tray-wrap">
           <div class="slide-tray">
             <favClass
-              v-for="items in favClassList"
-              :key="items.id"
-              v-bind:subject_code="items.code"
-              v-bind:subject_title="items.subject"
-              v-bind:section="items.section"
-              v-bind:prevMember="items.prevMember"
+              v-for="item in favClassList"
+              :key="item.id"
+              v-if="item.isPinned == true"
+              v-bind:id="item.id"
+              v-bind:subject_code="item.code"
+              v-bind:subject_title="item.subject"
+              v-bind:section="item.section"
+              v-bind:prevMember="item.prevMember"
             />
           </div>
         </div>
@@ -133,8 +135,8 @@ export default {
     openAncmt: function (id) {
       this.favPostClicked = this.favPostList[id];
     },
-    openOptionMenu: function () {
-      this.$store.commit("Open_optionMenu");
+    openOptionMenu: function (payload) {
+      this.$store.commit("Open_optionMenu", payload);
     },
   },
   mounted() {
@@ -164,11 +166,11 @@ export default {
       else if (page == "/chats") return "Chats";
       else return "";
     },
-    iconToShow: function () {
-      var page = this.currentRoute;
-      if (page == "/") return "/img/icons/topbar-write.svg";
-      else return "/img/icons/plus-btn.svg";
-    },
+    // iconToShow: function () {
+    //   var page = this.currentRoute;
+    //   if (page == "/") return "/img/icons/topbar-write.svg";
+    //   else return "/img/icons/plus-btn.svg";
+    // },
   },
   data: function () {
     return {
@@ -260,6 +262,7 @@ export default {
           subject: "Basic Computer Programming I",
           section: 2,
           pictureURL: "/img/mockup/class.png",
+          isPinned: true,
           prevMember: [
             {
               id: 0,
@@ -281,6 +284,7 @@ export default {
           subject: "Basic Computer Programming I",
           section: 2,
           pictureURL: "/img/mockup/class.png",
+          isPinned: true,
           prevMember: [
             {
               id: 0,
@@ -302,6 +306,29 @@ export default {
           subject: "Basic Computer Programming I",
           section: 2,
           pictureURL: "/img/mockup/class.png",
+          isPinned: false,
+          prevMember: [
+            {
+              id: 0,
+              pictureURL: "/img/mockup/profile.png",
+            },
+            {
+              id: 1,
+              pictureURL: "/img/mockup/profile_volk.png",
+            },
+            {
+              id: 2,
+              pictureURL: "/img/mockup/profile_my.png",
+            },
+          ],
+        },
+        {
+          id: 3,
+          code: "CPE100",
+          subject: "Basic Computer Programming I",
+          section: 2,
+          pictureURL: "/img/mockup/class.png",
+          isPinned: true,
           prevMember: [
             {
               id: 0,
@@ -447,5 +474,9 @@ export default {
   transition: all 0.3s;
   transition-delay: 0.4s;
   transform: scale(1);
+}
+.grey-bg {
+  background-color: #f6f6f6 !important;
+  padding-top: 15px !important;
 }
 </style>

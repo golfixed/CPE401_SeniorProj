@@ -2,7 +2,10 @@
   <transition name="slidein">
     <div id="menu-panel" v-if="isOpen == true">
       <div class="top-grey-bar"></div>
-      <div class="wrapper-menu-item" v-if="currentPage == '/'">
+      <div
+        class="wrapper-menu-item"
+        v-if="this.$store.state.optionMenu.home == true"
+      >
         <optionMenu
           v-for="option in optionHome"
           :key="option.id"
@@ -11,18 +14,12 @@
           v-bind:link="option.url"
         />
       </div>
-      <div class="wrapper-menu-item" v-if="currentPage == '/classroom'">
+      <div
+        class="wrapper-menu-item"
+        v-if="this.$store.state.optionMenu.classpage == true"
+      >
         <optionMenu
-          v-for="option in optionClass"
-          :key="option.id"
-          v-bind:label="option.label"
-          v-bind:iconURL="option.iconURL"
-          v-bind:link="option.url"
-        />
-      </div>
-      <div class="wrapper-menu-item" v-if="currentPage == '/chats'">
-        <optionMenu
-          v-for="option in optionChat"
+          v-for="option in optionClassPage"
           :key="option.id"
           v-bind:label="option.label"
           v-bind:iconURL="option.iconURL"
@@ -31,10 +28,10 @@
       </div>
       <div
         class="wrapper-menu-item"
-        v-if="currentPage == '/settings'"
-        v-on:click="signOut()"
+        v-if="this.$store.state.optionMenu.settings == true"
       >
         <optionMenu
+          v-on:click="signOut()"
           label="Sign Out"
           iconURL="/img/btn/menuOption/signout.svg"
           link=""
@@ -112,6 +109,26 @@ export default {
         {
           id: 1,
           label: "Settings",
+          iconURL: "/img/btn/menuOption/setting.svg",
+          url: "/settings",
+        },
+      ],
+      optionClassPage: [
+        {
+          id: 0,
+          label: "Pin to favourite",
+          iconURL: "/img/btn/menuOption/noti.svg",
+          url: "/settings/notification",
+        },
+        {
+          id: 1,
+          label: "Mute Notification",
+          iconURL: "/img/btn/menuOption/noti.svg",
+          url: "/settings/notification",
+        },
+        {
+          id: 2,
+          label: "Leave this class",
           iconURL: "/img/btn/menuOption/setting.svg",
           url: "/settings",
         },

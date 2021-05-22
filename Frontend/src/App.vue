@@ -4,17 +4,18 @@
       <div class="app-view">
         <topBar v-if="isLoggedIn == true" />
         <router-view />
-        <assistBtn v-if="isLoggedIn == true" />
+        <joinCreateBtn v-if="isLoggedIn == true" />
         <optionMenu v-if="isLoggedIn == true" />
+        <modalJoinCreate v-if="isLoggedIn == true" />
         <div
           class="overlay-bg"
           v-if="overlayShow == true"
           v-on:click="closeAllMenu()"
         ></div>
       </div>
-      <div class="app-tabbar" v-if="isLoggedIn == true">
+      <!-- <div class="app-tabbar" v-if="isLoggedIn == true">
         <tabBar />
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -22,17 +23,19 @@
 <script>
 import tabBar from "@/components/template/tabBar";
 import topBar from "@/components/template/topBar";
-import assistBtn from "@/components/assistBtn.vue";
+import joinCreateBtn from "@/components/joinCreateBtn.vue";
 import optionMenu from "@/components/optionMenu.vue";
+import modalJoinCreate from "@/components/modals/join_create.vue";
 import welcomePage from "@/views/Welcome.vue";
 export default {
   name: "app",
   components: {
     tabBar,
     topBar,
-    assistBtn,
+    joinCreateBtn,
     optionMenu,
     welcomePage,
+    modalJoinCreate,
   },
   data() {
     return {
@@ -326,7 +329,7 @@ input {
   border-radius: 50px;
   outline: none;
   height: 40px;
-  width: 100%;
+  width: -webkit-fill-available;
   text-indent: 20px;
   font-size: 16px;
   box-shadow: none;
@@ -408,6 +411,11 @@ button:active {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+}
+.hr-line-white {
+  label {
+    background-color: #fff;
   }
 }
 #page-home,

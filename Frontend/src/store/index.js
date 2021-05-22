@@ -9,6 +9,13 @@ export default new Vuex.Store({
     // loggedIn: false,
     selected_ancmt: {},
     optionMenuOpen: false,
+    optionMenu: {
+      home: false,
+      classrooms: false,
+      classpage: false,
+      settings: false,
+    },
+    assistModal: false,
     overlayShow: false,
     user: {
       profile: {
@@ -43,13 +50,31 @@ export default new Vuex.Store({
     Open_announcement: (state, payload) => {
       state.selected_ancmt = payload
     },
-    Open_optionMenu: (state) => {
-      state.optionMenuOpen = true;
+    Open_optionMenu: (state, payload) => {
+      if(payload == 'home') {
+        state.optionMenu.home = true;
+      } else if (payload == 'classrooms'){
+        state.optionMenu.classrooms = true;
+      } else if (payload == 'classpage'){
+        state.optionMenu.classpage = true;
+      } else if (payload == 'settings') {
+        state.optionMenu.settings = true;
+      }
       state.overlayShow = true;
+      state.optionMenuOpen = true;
     },
     Close_AllMenu: (state) => {
       state.optionMenuOpen = false;
+      state.optionMenu.home = false;
+      state.optionMenu.classrooms = false;
+      state.optionMenu.classpage = false;
+      state.optionMenu.settings = false;
       state.overlayShow = false;
+      state.assistModal = false;
+    },
+    Open_assistMenu: (state) => {
+      state.assistModal = true;
+      state.overlayShow = true;
     }
   },
   actions: {},

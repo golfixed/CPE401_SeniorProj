@@ -50,7 +50,7 @@
         <itemSingle label="Feedback" type="normal" />
         <itemSingle label="Support & Contact Us" type="normal" />
       </div>
-      <div class="items-group" v-on:click="openOptionMenu()">
+      <div class="items-group" v-on:click="openOptionMenu('settings')">
         <itemSingle label="Sign Out" type="red" />
       </div>
       <div class="end-of-page"></div>
@@ -76,10 +76,11 @@ export default {
     if (!localStorage.token) {
       this.$router.push({ path: "/" });
     }
+    this.$store.commit("Close_AllMenu");
   },
   methods: {
-    openOptionMenu: function () {
-      this.$store.commit("Open_optionMenu");
+    openOptionMenu: function (payload) {
+      this.$store.commit("Open_optionMenu", payload);
     },
   },
 };
