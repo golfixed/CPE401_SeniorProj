@@ -60,19 +60,19 @@ const upload = multer({
     }
 })
 app.use('/profile', express.static('upload/images'));
-app.post("/uploadProfile", upload.single('image'), (req, res) => {
-    let email = req.body.email;
+app.post("/uploadprofile", upload.single('image'), (req, res) => {
+    let id = req.body.id;
     let image  = `http://localhost:3000/profile/${req.file.filename}`;
 
-    if(!email){
-        res.status(400).send({error: true, message: 'Please give your EMAIL to upload your profile picture'});
+    if(!id){
+        res.status(400).send({error: true, message: 'Please give your id to upload your profile picture'});
     }else{
-        dbCon.query("UPDATE account SET image = ? WHERE email = ?", [image, email], (error, results, fields) => {
+        dbCon.query("UPDATE account SET image = ? WHERE id = ?", [image, id], (error, results, fields) => {
             if (error) throw error;
     
             res.status(200).send({
                 error: false,
-                account: email,
+                account_id: id,
                 profile_url: image 
             })
         })
@@ -80,20 +80,20 @@ app.post("/uploadProfile", upload.single('image'), (req, res) => {
     }
 })
 
-app.use('/classPic', express.static('upload/images'));
-app.post("/uploadClassProfile", upload.single('image'), (req, res) => {
-    let class_id = req.body.class_id;
-    let image  = `http://localhost:3000/classPic/${req.file.filename}`;
+app.use('/classpic', express.static('upload/images'));
+app.post("/uploadclassprofile", upload.single('image'), (req, res) => {
+    let id = req.body.id;
+    let image  = `http://localhost:3000/classpic/${req.file.filename}`;
 
-    if(!class_id){
-        res.status(400).send({error: true, message: 'Please give CLASS ID to upload your profile picture'});
+    if(!id){
+        res.status(400).send({error: true, message: 'Please provide class id to upload your profile picture'});
     }else{
-        dbCon.query("UPDATE class SET class_pic = ? WHERE id = ?", [image, class_id], (error, results, fields) => {
+        dbCon.query("UPDATE class SET class_pic = ? WHERE id = ?", [image, id], (error, results, fields) => {
             if (error) throw error;
     
             res.status(200).send({
                 error: false,
-                class_id: class_id,
+                class_id: id,
                 profile_url: image 
             })
         })
@@ -101,20 +101,20 @@ app.post("/uploadClassProfile", upload.single('image'), (req, res) => {
     }
 })
 
-app.use('/postPic', express.static('upload/images'));
-app.post("/uploadPostPic", upload.single('image'), (req, res) => {
-    let post_id = req.body.id;
-    let image  = `http://localhost:3000/postPic/${req.file.filename}`;
+app.use('/postpic', express.static('upload/images'));
+app.post("/uploadpostpic", upload.single('image'), (req, res) => {
+    let id = req.body.id;
+    let image  = `http://localhost:3000/postpic/${req.file.filename}`;
 
-    if(!post_id){
+    if(!id){
         res.status(400).send({error: true, message: 'Please give POST ID to upload your picture'});
     }else{
-        dbCon.query("UPDATE post SET pic_url = ? WHERE id = ?", [image, post_id], (error, results, fields) => {
+        dbCon.query("UPDATE post SET pic_url = ? WHERE id = ?", [image, id], (error, results, fields) => {
             if (error) throw error;
     
             res.status(200).send({
                 error: false,
-                post_id: post_id,
+                post_id: id,
                 profile_url: image 
             })
         })
@@ -122,20 +122,20 @@ app.post("/uploadPostPic", upload.single('image'), (req, res) => {
     }
 })
 
-app.use('/commentPic', express.static('upload/images'));
-app.post("/uploadCommentPic", upload.single('image'), (req, res) => {
-    let comment_id = req.body.id;
-    let image  = `http://localhost:3000/commentPic/${req.file.filename}`;
+app.use('/commentpic', express.static('upload/images'));
+app.post("/uploadcommentpic", upload.single('image'), (req, res) => {
+    let id = req.body.id;
+    let image  = `http://localhost:3000/commentpic/${req.file.filename}`;
 
-    if(!comment_id){
+    if(!id){
         res.status(400).send({error: true, message: 'Please give COMMENT ID to upload your picture'});
     }else{
-        dbCon.query("UPDATE comment SET pic_url = ? WHERE id = ?", [image, comment_id], (error, results, fields) => {
+        dbCon.query("UPDATE comment SET pic_url = ? WHERE id = ?", [image, id], (error, results, fields) => {
             if (error) throw error;
     
             res.status(200).send({
                 error: false,
-                comment_id: comment_id,
+                comment_id: id,
                 profile_url: image 
             })
         })
