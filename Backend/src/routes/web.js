@@ -10,6 +10,7 @@ import setting from "../services/setting/setting";
 import addRole from "../services/addRole";
 import getProfileInfo from "../services/getProfileInfo";
 import classList from "../services/class/classList";
+import addFavClass from "../services/class/addFavClass";
 import discussion from "../services/class/discussion";
 import classCode from "../services/class/classroom";
 import editProfile from "../services/setting/editProfile";
@@ -83,6 +84,7 @@ let initWebRoutes = (app) => {
     router.get("/classrooms/:class_code", reqJWT, classCode);
     router.post("/getclassinfo", reqJWT, getclassinfo);
     router.post("/getclassid", reqJWT, getclassid);
+    router.post("/addfav", reqJWT, addFavClass);
     router.get("/classrooms/:id/discussion", reqJWT, discussion);
     router.post("/createClass", reqJWT, classController.createNewClass);
     router.post("/joinClass", reqJWT, joinClass);
