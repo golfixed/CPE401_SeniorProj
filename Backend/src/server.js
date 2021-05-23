@@ -8,9 +8,19 @@ import connectFlash from "connect-flash";
 import passport from "passport";
 import multer from "multer";
 import dbCon from "./configs/DBConnection";
+const cors = require('cors');
 const path = require('path');
 
 let app = express();
+
+//cors
+var corsOptions = {
+    origin: "http://localhost:8080",
+    optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
+
 //use cookie parser
 app.use(cookieParser('secret'));
 
