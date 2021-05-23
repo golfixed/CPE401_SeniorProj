@@ -335,14 +335,13 @@ export default {
         password: this.regis.password,
       };
       axios.post("/login", loginInfo).then((res) => {
-        if (res.status != 404 || res.status != 500) {
-          // console.log(res);
-          console.log("Login successfully");
+        if (res.false != true) {
+          console.log("Regis: Logged In");
           localStorage.token = res.data.token;
           this.user = res.data.user;
           localStorage.setItem("user", JSON.stringify(this.user));
-        } else if (res == 422) {
-          alert("Login Failed: Incorrect email or password");
+        } else {
+          alert("Regis: Login Failed");
         }
       });
       this.isLoading = false;
@@ -356,11 +355,10 @@ export default {
         password: this.regis.password,
       };
       axios.post("/register", regisInfo).then(function (res) {
-        console.log(res);
-        if (res.status != 404) {
-          console.log("Email check: Valid");
+        if (res.false != true) {
+          console.log("Regis: Email valid");
         } else {
-          console.log("Email check error");
+          console.log("Regis: Email error");
           alert("Error: ");
         }
       });

@@ -1,39 +1,56 @@
 <template>
-  <router-link :to="link">
-    <div class="card-wrapper">
-      <div class="card card-a">
-        <label class="code">{{ subject_code }}</label>
-        <label class="title"> {{ subject_title }}</label>
-        <label class="section">Section {{ section }}</label>
-        <div class="prev-member-box">
-          <div class="member-item">
-            <label class="more-num">+{{ prevPic.length }}</label>
-          </div>
-          <div class="member-item" v-for="item in prevPic" :key="item.id">
-            <img :src="item.pictureURL" />
-          </div>
+  <div class="card-wrapper">
+    <div class="card card-a" v-on:click="fetchClassInfo(id)">
+      <label class="code">{{ subject_code }}</label>
+      <label class="title"> {{ subject_title }}</label>
+      <label class="section">Section {{ section }}</label>
+      <div class="prev-member-box">
+        <div class="member-item">
+          <label class="more-num">+{{ prevPic.length }}</label>
+        </div>
+        <div class="member-item" v-for="item in prevPic" :key="item.id">
+          <img :src="item.pictureURL" />
         </div>
       </div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>
-import moment from "moment";
+import axios from "@/axios.js";
 export default {
   name: "fav-post",
   props: {
     subject_code: String,
     subject_title: String,
-    section: Number,
+    section: String,
     prevMember: Array,
     id: Number,
   },
   created: function () {},
   computed: {},
-  methods: {},
+  methods: {
+    fetchClassInfo: function (class_id) {
+      axios.get("/classrooms/" + class_id).then((res) => {
+        if (res.error != true) {
+          console.log("ClassPage: class Info fetched");
+          this.$store.commit("Update_CurrentViewClass", res.data.data);
+          this.$router.push("/classrooms/" + class_id);
+        } else {
+          console.log("ClassPage: class Info fetch failed");
+        }
+      });
+      setTimeout(
+        function () {
+          this.isLoading = false;
+        }.bind(this),
+        2000
+      );
+      // this.setPrevMember(this.classInfo.member);
+    },
+  },
   mounted() {
-    this.prevPic = this.prevMember.reverse();
+    if (this.prevMember) this.prevPic = this.prevMember.reverse();
     this.link = "/classrooms/" + this.id;
   },
   data() {
@@ -49,6 +66,7 @@ export default {
 .card-a {
   flex: 0 0 auto;
   width: 120px;
+  min-height: 138px;
   height: fit-content;
   display: block;
   padding: 15px;
@@ -77,6 +95,7 @@ export default {
     font-size: 14px;
     line-height: 16px;
     margin-bottom: 15px !important;
+    min-height: 32px;
   }
   .section {
     font-style: normal;

@@ -73,11 +73,11 @@ let initWebRoutes = (app) => {
     router.post("/logout", reqJWT, loginController.postLogOut);
 
     //CLASS
-    router.get("/classrooms", reqJWT, classList);
-    router.get("/classrooms/:class_code", reqJWT, classCode);
+    router.get("/classrooms", classList);
+    router.get("/classrooms/:id", classCode);
     router.post("/getclassinfo", getclassinfo);
     router.post("/createClass", classController.createNewClass);
-    router.post("/joinclass", , joinClass);
+    router.post("/joinclass", joinClass);
 
     //PIN CLASS
     router.get("/pinCode/:id", reqJWT, getJoinCode);

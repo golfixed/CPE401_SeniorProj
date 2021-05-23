@@ -12,7 +12,7 @@
               <img :src="userProfilePic" v-if="userProfilePic == null" />
             </router-link>
           </div>
-          <label class="page-title">{{ currentPage }}</label>
+          <label class="page-title">Hi, {{ userName }}</label>
         </div>
         <div class="titlebar-right">
           <div class="top-btn">
@@ -49,7 +49,7 @@
       <div
         id="pinned-bar"
         class="section app-default-pinnedbar"
-        v-if="currentRoute == '/' && favPostList.length > 0"
+        v-if="currentRoute == '/hide' && favPostList.length > 0"
       >
         <div class="pin-title">
           <label>Announcements</label>
@@ -69,29 +69,7 @@
           </div>
         </div>
       </div>
-      <div
-        id="pinned-bar"
-        class="section app-default-pinnedbar grey-bg"
-        v-if="currentRoute == '/'"
-      >
-        <div class="pin-title">
-          <label>Pinned Classrooms</label>
-        </div>
-        <div class="pin-tray-wrap">
-          <div class="slide-tray">
-            <favClass
-              v-for="item in favClassList"
-              :key="item.id"
-              v-if="item.isPinned == true"
-              v-bind:id="item.id"
-              v-bind:subject_code="item.code"
-              v-bind:subject_title="item.subject"
-              v-bind:section="item.section"
-              v-bind:prevMember="item.prevMember"
-            />
-          </div>
-        </div>
-      </div>
+
       <!-- <div
         id="pinned-bar"
         class="section app-default-pinnedbar"
@@ -122,14 +100,13 @@
 <script>
 import favPost from "@/components/favPost.vue";
 import favChat from "@/components/favChat.vue";
-import favClass from "@/components/favClass.vue";
+
 export default {
   name: "Page-TopBar",
   created: function () {},
   components: {
     favPost,
     favChat,
-    favClass,
   },
   methods: {
     openAncmt: function (id) {
@@ -176,6 +153,7 @@ export default {
     return {
       scrollPosition: null,
       userProfilePic: this.$store.state.user.profile.pic,
+      userName: this.$store.state.user.profile.firstname,
       favPostClicked: {
         id: 0,
         firstName: "Bhaksiree",
@@ -474,9 +452,5 @@ export default {
   transition: all 0.3s;
   transition-delay: 0.4s;
   transform: scale(1);
-}
-.grey-bg {
-  background-color: #f6f6f6 !important;
-  padding-top: 15px !important;
 }
 </style>

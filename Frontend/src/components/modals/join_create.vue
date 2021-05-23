@@ -86,6 +86,7 @@
 
 <script>
 import pageLoading from "@/components/pageLoading.vue";
+import axios from "@/axios.js";
 export default {
   name: "Join-Create-Modal",
   mounted() {},
@@ -121,16 +122,15 @@ export default {
     },
     joinClass: function () {
       this.isJoining = true;
-      axios
-        .then((res) => {
-          if (res.status != 404 || res.status != 500) {
-            // console.log(res);
-            // console.log("Create Class successfully");
-            this.
-          } else if (res == 422) {
-            // console.log("Create Failed");
-          }
-        });
+      axios.post("/joinclass").then((res) => {
+        console.log(res);
+        if (res.error != true) {
+          console.log("Join Class successfully");
+          this.getClassID();
+        } else {
+          console.log("Join Failed");
+        }
+      });
       setTimeout(
         function () {
           this.isJoining = false;
@@ -138,8 +138,8 @@ export default {
         2000
       );
     },
-    getClassInfo:function(){
-
+    getClassID: function () {
+      console.log("Get classID API");
     },
     createClassroom: function () {
       this.$store.commit("Close_AllMenu");

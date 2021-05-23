@@ -1,31 +1,30 @@
 <template>
-  <router-link :to="link">
-    <div class="class-item">
-      <div class="text-box">
-        <label class="code">{{ code }}</label>
-        <label class="title">{{ title }}</label>
-        <label class="section">Section {{ section }}</label>
+  <div class="class-item" v-on:click="fetchClassInfo(id)">
+    <div class="text-box">
+      <label class="code">{{ code }}</label>
+      <label class="title">{{ title }}</label>
+      <label class="section">Section {{ section }}</label>
+    </div>
+    <div class="img-box">
+      <div class="member-item">
+        <label class="more-num">+{{ prevPic.length }}</label>
       </div>
-      <div class="img-box">
-        <div class="member-item">
-          <label class="more-num">+{{ prevPic.length }}</label>
-        </div>
-        <div class="member-item" v-for="item in prevPic" :key="item.id">
-          <img :src="item.pictureURL" />
-        </div>
+      <div class="member-item" v-for="item in prevPic" :key="item.id">
+        <img :src="item.pictureURL" />
       </div>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>
+import axios from "@/axios.js";
 export default {
   name: "class-list",
   props: {
     id: Number,
     code: String,
     title: String,
-    section: Number,
+    section: String,
     prevMember: Array,
   },
   data: function () {
@@ -35,8 +34,27 @@ export default {
     };
   },
   mounted() {
-    this.prevPic = this.prevMember.reverse();
-    this.link = "/classrooms/" + this.id;
+    if (this.prevMember) this.prevPic = this.prevMember;
+  },
+  methods: {
+    fetchClassInfo: function (class_id) {
+      axios.get("/classrooms/" + class_id).then((res) => {
+        if (res.error != true) {
+          console.log("ClassPage: class Info fetched");
+          this.$store.commit("Update_CurrentViewClass", res.data.data);
+          this.$router.push("/classrooms/" + class_id);
+        } else {
+          console.log("ClassPage: class Info fetch failed");
+        }
+      });
+      setTimeout(
+        function () {
+          this.isLoading = false;
+        }.bind(this),
+        2000
+      );
+      // this.setPrevMember(this.classInfo.member);
+    },
   },
 };
 </script>
@@ -48,6 +66,11 @@ export default {
   padding: 15px 0;
   border: 1px solid #ededed;
   border-width: 0 0 1px 0;
+  // padding: 15px;
+  // background: #ffffff;
+  // box-shadow: 0px 0px 10px 2px rgb(0 0 0 / 10%);
+  // border-radius: 10px;
+  // margin-bottom: 15px;
   .text-box {
     display: flex;
     justify-content: center;

@@ -57,6 +57,7 @@ export default {
       this.$store.commit("Close_AllMenu");
     },
     signOut: function () {
+      alert("you are signed out");
       localStorage.clear();
       this.$router.push({ path: "/logout" });
       console.log("Logout successfully");

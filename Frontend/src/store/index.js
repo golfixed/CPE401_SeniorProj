@@ -17,6 +17,7 @@ export default new Vuex.Store({
     },
     assistModal: false,
     overlayShow: false,
+    currentClassInfo: {},
     user: {
       profile: {
         firstName: '',
@@ -75,6 +76,9 @@ export default new Vuex.Store({
     Open_assistMenu: (state) => {
       state.assistModal = true;
       state.overlayShow = true;
+    },
+    Update_CurrentViewClass: (state, payload) => {
+      state.currentClassInfo = payload;
     }
   },
   actions: {},

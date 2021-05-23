@@ -10,15 +10,41 @@
         >
       </div>
     </div>
+    <div id="section-favbar">
+      <div
+        id="pinned-bar"
+        class="section app-default-pinnedbar app-default-border-gray"
+      >
+        <div class="pin-title">
+          <label>Pinned Classrooms</label>
+        </div>
+        <div class="pin-tray-wrap">
+          <div class="slide-tray">
+            <favClass
+              v-for="item in classListPinned"
+              :key="item.id"
+              v-bind:id="item.id"
+              v-bind:subject_code="item.class_code"
+              v-bind:subject_title="item.class_name"
+              v-bind:section="item.section"
+              v-bind:prevMember="item.prevMember"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="page-list-wrapper" v-if="classList.length > 0">
+      <div class="pin-title-classrooms">
+        <label>All Classrooms</label>
+      </div>
       <div class="class-item-wrapper">
         <classItem
           v-for="item in classList"
           :key="item.id"
-          v-if="item.isPinned == false"
+          v-if="item.favorite == false"
           v-bind:id="item.id"
-          v-bind:code="item.code"
-          v-bind:title="item.title"
+          v-bind:code="item.class_code"
+          v-bind:title="item.class_name"
           v-bind:section="item.section"
           v-bind:prevMember="item.prevMember"
         />
@@ -30,13 +56,15 @@
 
 <script>
 import classItem from "@/components/lists/item_class.vue";
+import favClass from "@/components/favClass.vue";
+import axios from "@/axios.js";
 
 export default {
   name: "Classrooms-Page",
-  components: { classItem },
+  components: { classItem, favClass },
   data: function () {
     return {
-      classList: [
+      classListMockUp: [
         {
           id: 0,
           code: "CPE100",
@@ -126,6 +154,9 @@ export default {
           ],
         },
       ],
+      classList: [],
+      isLoading: false,
+      classListPinned: [],
     };
   },
   mounted() {
@@ -133,9 +164,31 @@ export default {
       this.$router.push({ path: "/" });
     }
     this.$store.commit("Close_AllMenu");
+    this.fetchClassList();
   },
   created: function () {},
-  methods: {},
+  methods: {
+    fetchClassList: function () {
+      this.isLoading = true;
+      axios.get("/classrooms").then((res) => {
+        if (res.error != true) {
+          console.log("Classrooms: class list fetched");
+          this.classList = res.data.data;
+          this.classListPinned = this.classList.filter(
+            (classList) => classList.favorite == true
+          );
+        } else {
+          console.log("Classrooms: class list fetch failed");
+        }
+      });
+      setTimeout(
+        function () {
+          this.isLoading = false;
+        }.bind(this),
+        2000
+      );
+    },
+  },
   computed: {},
 };
 </script>
@@ -145,5 +198,12 @@ export default {
 }
 .class-item-wrapper {
   padding: 0 20px;
+}
+.pin-title-classrooms {
+  font-size: 16px;
+  color: #8b8b8b;
+  font-weight: 400;
+  margin: 15px 20px;
+  margin-bottom: 0;
 }
 </style>

@@ -8,15 +8,15 @@
             <img :src="classInfo.pictureURL" draggable="false" />
           </div>
           <div class="text">
-            <label class="code">{{ classInfo.code }}</label>
-            <label class="title">{{ classInfo.title }}</label>
+            <label class="code">{{ classInfo.class_code }}</label>
+            <label class="title">{{ classInfo.class_name }}</label>
             <label class="section">Section {{ classInfo.section }}</label>
           </div>
         </div>
         <div class="member" v-on:click="openClassMember(classInfo.id)">
           <div class="img-box">
             <div class="member-item">
-              <label class="more-num">+{{ classInfo.member.length - 8 }}</label>
+              <!-- <label class="more-num">+{{ classInfo.member.length - 8 }}</label> -->
             </div>
             <div class="member-item" v-for="item in prevMember" :key="item.id">
               <img :src="item.pictureURL" />
@@ -75,6 +75,8 @@
 <script>
 import itemSingle from "@/components/lists/item_single.vue";
 import topNavi from "@/components/template/topNavi.vue";
+import axios from "@/axios.js";
+
 export default {
   name: "ClassPage-Page",
   components: {
@@ -85,86 +87,7 @@ export default {
     return {
       currentTab: 1,
       user: this.$store.state.user.profile,
-      classInfo: {
-        id: 1,
-        code: "CPE100",
-        title: "Basic Computer Programming I",
-        section: 2,
-        pictureURL: "/img/mockup/class.png",
-        isPinned: true,
-        member: [
-          {
-            id: 1,
-            pictureURL: "/img/mockup/profile.png",
-            fname: "Peerapong",
-            lname: "Thammakaew",
-            role: "std",
-          },
-          {
-            id: 2,
-            pictureURL: "/img/mockup/profile_volk.png",
-            fname: "Bhaksiree",
-            lname: "Tongtago",
-            role: "std",
-          },
-          {
-            id: 3,
-            pictureURL: "/img/mockup/profile_my.png",
-            fname: "Nithi",
-            lname: "My",
-            role: "tea",
-          },
-          {
-            id: 4,
-            pictureURL: "/img/mockup/profile_my.png",
-            fname: "Nithi",
-            lname: "MY",
-            role: "std",
-          },
-          {
-            id: 5,
-            pictureURL: "/img/mockup/profile.png",
-            fname: "Bhaksiree",
-            lname: "Wangviboonkij",
-            role: "std",
-          },
-          {
-            id: 6,
-            pictureURL: "/img/mockup/profile.png",
-            fname: "Bhaksiree",
-            lname: "Wangviboonkij",
-            role: "std",
-          },
-          {
-            id: 7,
-            pictureURL: "/img/mockup/profile.png",
-            fname: "Bhaksiree",
-            lname: "Wangviboonkij",
-            role: "ta",
-          },
-          {
-            id: 8,
-            pictureURL: "/img/mockup/profile.png",
-            fname: "Bhaksiree",
-            lname: "Wangviboonkij",
-            role: "std",
-          },
-          {
-            id: 9,
-            pictureURL: "/img/mockup/profile.png",
-            fname: "Bhaksiree",
-            lname: "Wangviboonkij",
-            role: "ta",
-          },
-          {
-            id: 10,
-            pictureURL: "/img/mockup/profile.png",
-            fname: "Bhaksiree",
-            lname: "Wangviboonkij",
-            role: "tea",
-          },
-        ],
-      },
+      classInfo: this.$store.state.currentClassInfo,
       prevMember: [],
     };
   },
@@ -172,26 +95,23 @@ export default {
     if (!localStorage.token) {
       this.$router.push({ path: "/" });
     }
-    this.fetchClassInfo();
   },
   methods: {
     openOptionMenu: function (payload) {
       this.$store.commit("Open_optionMenu", payload);
     },
-    fetchClassInfo: function (id) {
-      //axios call info here
-      console.log("call mockup: classroom info");
-      this.setPrevMember(this.classInfo.member);
-    },
-    setPrevMember: function (member) {
-      this.prevMember = member.slice(0, 8);
-    },
+
+    // setPrevMember: function (member) {
+    //   this.prevMember = member.slice(0, 8);
+    // },
     changeTab(tab) {
       this.currentTab = tab;
     },
     openClassMember: function (id) {
       this.$router.push({ path: "/classrooms/" + id + "/member" });
     },
+    fetchPost: function () {},
+    fetchMaterial: function () {},
   },
 };
 </script>

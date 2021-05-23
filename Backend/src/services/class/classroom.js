@@ -7,6 +7,7 @@ let classCode = express();
 //
 classCode.get('/classrooms/:id', (req, res) =>{
     let id = req.params.id;
+    console.log(req.params)
 
     if(!id){
         return res.status(400).send({ error: true, message: "Please provide class id"});

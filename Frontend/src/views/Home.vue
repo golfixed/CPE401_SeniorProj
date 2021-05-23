@@ -30,7 +30,6 @@ export default {
   created: function () {},
   methods: {
     openSearchPage: function () {
-      console.log("clicked");
       this.$store.commit("Open_searchPage");
     },
   },

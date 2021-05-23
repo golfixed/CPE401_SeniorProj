@@ -67,8 +67,7 @@ export default {
             })
             .then((res) => {
               if (res.status != 404 || res.status != 500) {
-                // console.log(res);
-                console.log("Login successfully");
+                console.log("Login: Signed In");
                 localStorage.token = res.data.token;
                 this.user = res.data.user;
                 localStorage.setItem("user", JSON.stringify(this.user));
