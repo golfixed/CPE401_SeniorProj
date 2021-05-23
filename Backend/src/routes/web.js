@@ -7,6 +7,8 @@ import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
 
 import setting from "../services/setting/setting";
+// import addRole from "../services/addRole";
+import getProfileInfo from "../services/getProfileInfo";
 import classList from "../services/class/classList";
 import classCode from "../services/class/classroom";
 import editProfile from "../services/setting/editProfile";
@@ -70,6 +72,8 @@ let initWebRoutes = (app) => {
     //REGISTOR
     router.get("/register", registerController.getPageRegister);
     router.post("/register", registerController.createNewUser);
+    // router.post("/addrole", addRole);
+    router.post("/getprofileinfo", getProfileInfo);
     router.post("/logout", reqJWT, loginController.postLogOut);
 
     //CLASS
