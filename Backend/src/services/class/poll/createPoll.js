@@ -5,6 +5,7 @@ let createPoll = express();
 
 createPoll.post('/createPoll', (req, res) => {
     let poll = {
+        class: req.body.class,
         published: req.body.published,
         expired: req.body.expired,
         content: req.body.content,
@@ -13,7 +14,7 @@ createPoll.post('/createPoll', (req, res) => {
         update_by: req.body.update_by
     }
     
-    if(!poll.options){
+    if(!poll.options || !poll.class){
         res.status(400).send({error: true, message: "Please provide at least 2 options"})
     }else{
         dbCon.query('INSERT INTO poll SET ?', poll, (error, results, fields) =>{
