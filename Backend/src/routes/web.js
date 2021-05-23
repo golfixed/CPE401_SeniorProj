@@ -75,7 +75,7 @@ let initWebRoutes = (app) => {
     //CLASS
     router.get("/classrooms", reqJWT, classList);
     router.get("/classrooms/:class_code", reqJWT, classCode);
-    router.get("/getclassinfo", reqJWT, getclassinfo);
+    router.post("/getclassinfo", reqJWT, getclassinfo);
     router.post("/createClass", reqJWT, classController.createNewClass);
     router.post("/joinClass", reqJWT, joinClass);
 
