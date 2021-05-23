@@ -66,25 +66,32 @@
     </div>
     <div class="subpage" v-if="currentSubPage == 2 && isLoading == false">
       <div class="content-page finish-page">
-        <div class="wrapper">
-          <div class="page-header">
-            <h1 class="pagename">New Class Created</h1>
+        <div class="success-box">
+          <div class="icon">
+            <img src="/img/icons/check_green.svg" />
           </div>
-        </div>
-        <div class="wrapper">
-          <div class="setup-sum">
-            <div class="pin-box">
-              <label class="pin-code">{{ classInfo.join_code }}</label>
+          <div class="text">
+            <h3>Classroom Created</h3>
+            <h4>
+              Classroom is successfully created.<br />PIN code to join is given
+              below.
+            </h4>
+          </div>
+          <div class="pin-code-box">
+            <label class="pin-code-label">{{ classInfo.join_code }}</label>
+            <div class="copy-img">
+              <img src="/img/icons/copy.svg" />
             </div>
           </div>
+          <label class="copy-btn">Tap to copy to clipboard</label>
         </div>
       </div>
-      <div class="bottom-section">
+      <div class="bottom-section bottom-section-white">
         <div class="wrapper">
           <div class="btn-wrapper">
             <button class="sign-in" v-on:click="Continue()">
               <div class="single-land">
-                <label>Continue</label>
+                <label>Go To Classroom</label>
               </div>
             </button>
             <button class="close-btn" v-on:click="closePage()">
@@ -97,10 +104,8 @@
       </div>
     </div>
     <div class="subpage loading-page" v-if="isLoading == true">
-      <div class="content-page">
-        <div class="loading-wrapper">
-          <pageLoading label="Creating, please wait..." />
-        </div>
+      <div class="loading-wrapper">
+        <pageLoading label="Creating, please wait..." />
       </div>
     </div>
   </div>
@@ -215,7 +220,7 @@ export default {
     width: 120px;
     height: 120px;
     position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     z-index: 2;
     div.img {
       border-radius: 10px;
@@ -255,16 +260,20 @@ export default {
 .loading-page {
   z-index: 10;
   position: relative;
+  background-color: #fff;
+  height: 100vh;
 }
 .bottom-section {
   padding-top: 40px;
-  background: rgb(246, 246, 246);
   background: linear-gradient(
     0deg,
     rgba(246, 246, 246, 1) 0%,
     rgba(246, 246, 246, 1) 80%,
     rgba(246, 246, 246, 0) 100%
   );
+}
+.bottom-section-white {
+  background-color: #fff;
 }
 
 .hr-line {
@@ -276,6 +285,7 @@ export default {
 .finish-page {
   padding-top: 61px;
   margin-top: 0;
+  background-color: #fff;
 }
 
 .page-header {
@@ -456,17 +466,91 @@ textarea {
 textarea::placeholder {
   margin-top: 20px;
 }
-.pin-box {
-  // height: 200px;
+
+.success-box {
   width: 100%;
+  height: calc(100% - 190px);
   display: flex;
   justify-content: center;
   align-items: center;
-  .pin-code {
-    font-size: 30px;
-    font-weight: bold;
-    text-align: center;
-    color: #479f60;
+  flex-direction: column;
+  .icon {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   }
+  .text {
+    margin-bottom: 20px;
+    h3 {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 22px;
+      line-height: 26px;
+      text-align: center;
+      letter-spacing: -0.01em;
+      color: #202020;
+      margin-bottom: 4px !important;
+    }
+    h4 {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 21px;
+      text-align: center;
+      letter-spacing: -0.01em;
+      color: #8b8b8b;
+    }
+  }
+
+  .pin-code-box {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px 30px;
+    margin-bottom: 20px;
+    position: relative;
+    label.pin-code-label {
+      font-size: 36px;
+      font-weight: bold;
+      text-align: center;
+      color: #479f60;
+    }
+    .copy-img {
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translate(0, -50%);
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+  .copy-btn {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    letter-spacing: -0.01em;
+    color: #c9c9c9;
+  }
+}
+btn {
+  background-color: unset;
 }
 </style>

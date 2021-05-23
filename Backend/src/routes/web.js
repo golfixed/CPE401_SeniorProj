@@ -77,7 +77,7 @@ let initWebRoutes = (app) => {
     router.get("/classrooms/:class_code", reqJWT, classCode);
     router.post("/getclassinfo", getclassinfo);
     router.post("/createClass", classController.createNewClass);
-    router.post("/joinClass", reqJWT, joinClass);
+    router.post("/joinclass", , joinClass);
 
     //PIN CLASS
     router.get("/pinCode/:id", reqJWT, getJoinCode);

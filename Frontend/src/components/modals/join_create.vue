@@ -2,7 +2,7 @@
   <transition name="mainModal">
     <div id="assist-modal" v-show="isOpen == true">
       <div class="modal-wrapper">
-        <div class="box" v-if="user_mock.role == 'std'">
+        <div class="box" v-if="user_mock.role == 'std' && isJoining == false">
           <div class="modal-head">
             <label class="title">Join Classroom</label>
             <label class="desc"
@@ -16,7 +16,9 @@
             > -->
           </div>
           <div class="modal-content">
-            <div><input placeholder="Enter PIN" /></div>
+            <div>
+              <input placeholder="Enter PIN" v-model="joinInfo.join_code" />
+            </div>
           </div>
           <div class="modal-btn">
             <div class="modal-btn-wrapper">
@@ -36,7 +38,7 @@
             </div>
           </div>
         </div>
-        <div class="box" v-if="user_mock.role == 'tea'">
+        <div class="box" v-if="user_mock.role == 'tea' && isJoining == false">
           <div class="modal-head">
             <label class="title">Join Classroom</label>
             <label class="desc"
@@ -50,7 +52,9 @@
             > -->
           </div>
           <div class="modal-content">
-            <div><input placeholder="Enter PIN" /></div>
+            <div>
+              <input placeholder="Enter PIN" v-model="joinInfo.join_code" />
+            </div>
             <button class="btn-dark btn-color-green" v-on:click="joinClass()">
               Join
             </button>
@@ -68,20 +72,36 @@
             <button class="btn-light" v-on:click="closeModal()">Cancel</button>
           </div>
         </div>
+        <div class="box" v-if="isJoining == true">
+          <div class="modal-content loading-box">
+            <div class="loading-wrapper">
+              <pageLoading label="Joining..." />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </transition>
 </template>
 
 <script>
+import pageLoading from "@/components/pageLoading.vue";
 export default {
-  name: "assist-modal",
+  name: "Join-Create-Modal",
   mounted() {},
+  components: {
+    pageLoading,
+  },
   data() {
     return {
       user_mock: {
         role: "tea",
       },
+      joinInfo: {
+        account_id: this.$store.state.user.profile.id,
+        join_code: "",
+      },
+      isJoining: false,
     };
   },
   computed: {
@@ -100,7 +120,26 @@ export default {
       this.$store.commit("Close_AllMenu");
     },
     joinClass: function () {
-      console.log("Call join class API");
+      this.isJoining = true;
+      axios
+        .then((res) => {
+          if (res.status != 404 || res.status != 500) {
+            // console.log(res);
+            // console.log("Create Class successfully");
+            this.
+          } else if (res == 422) {
+            // console.log("Create Failed");
+          }
+        });
+      setTimeout(
+        function () {
+          this.isJoining = false;
+        }.bind(this),
+        2000
+      );
+    },
+    getClassInfo:function(){
+
     },
     createClassroom: function () {
       this.$store.commit("Close_AllMenu");
@@ -230,5 +269,14 @@ input {
 
 .hr-line {
   height: 40px;
+}
+.loading-box {
+  height: 150px;
+  width: 60vw;
+  max-width: 80vw;
+  .loading-wrapper {
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>
