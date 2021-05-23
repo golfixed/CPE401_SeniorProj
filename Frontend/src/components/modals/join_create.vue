@@ -222,6 +222,13 @@ export default {
 }
 
 button {
-  margin-top: 20px;
+  margin-top: 10px;
+}
+input {
+  margin-bottom: 15px;
+}
+
+.hr-line {
+  height: 40px;
 }
 </style>

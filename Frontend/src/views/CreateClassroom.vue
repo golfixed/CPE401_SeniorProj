@@ -25,13 +25,23 @@
             placeholder="Ex: 2 or A"
             v-model="createInfo.section"
           />
-          <LabelFormInput text="Description" />
+          <LabelFormInput text="Description" :optional="true" />
           <textarea
             placeholder="This class is about..."
             v-model="createInfo.desc"
           >
           </textarea>
+          <LabelFormInput text="Classroom photo" :optional="true" />
+          <div class="set-profile-pic">
+            <div class="profile-pic">
+              <div class="img">
+                <img src="/img/mockup/class.png" />
+              </div>
+            </div>
+          </div>
+          <input type="file" />
         </div>
+        <div class="end-of-page"></div>
       </div>
       <div class="bottom-section">
         <div class="wrapper">
@@ -146,7 +156,12 @@ export default {
             // console.log("Create Failed");
           }
         });
-      this.isLoading = false;
+      setTimeout(
+        function () {
+          this.isLoading = false;
+        }.bind(this),
+        2000
+      );
     },
     Continue: function () {
       this.$router.push("/classrooms/" + this.classInfo.id);
@@ -203,7 +218,7 @@ export default {
     margin-bottom: 20px;
     z-index: 2;
     div.img {
-      border-radius: 100%;
+      border-radius: 10px;
       overflow: hidden;
       width: 120px;
       height: 120px;
@@ -236,70 +251,7 @@ export default {
     }
   }
 }
-.setup-sum {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 10px 0;
-  background-color: #fff;
-  width: 100vw;
-  border: solid;
-  border-width: 1px;
-  border-color: #ededed;
-  width: 100%;
-  border-radius: 100px;
-  div.profile-pic {
-    width: 120px;
-    height: 120px;
-    position: relative;
-    margin-bottom: 20px;
-    z-index: 2;
-    div.img {
-      border-radius: 100%;
-      overflow: hidden;
-      width: 120px;
-      height: 120px;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
-    div.edit {
-      background: linear-gradient(139.07deg, #3c6697 20.27%, #1e9f13 99.96%);
-      width: 30px;
-      height: 30px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      border-radius: 100%;
-      div.img-edit {
-        width: 13px;
-        height: 13px;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: contain;
-        }
-      }
-    }
-  }
-  h1.names {
-    color: #202020;
-    font-size: 24px;
-    line-height: 26px;
-  }
-  label.email,
-  label.role {
-    color: #8b8b8b;
-    font-size: 16px;
-    padding-top: 5px !important;
-  }
-}
+
 .loading-page {
   z-index: 10;
   position: relative;
@@ -337,7 +289,8 @@ export default {
     line-height: 26px;
   }
 }
-input {
+input,
+textarea {
   margin-bottom: 10px;
 }
 .sign-in {

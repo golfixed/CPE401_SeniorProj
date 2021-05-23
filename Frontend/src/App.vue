@@ -517,6 +517,7 @@ button:active {
   width: 100vw;
   padding: 20px 0 20px 0;
   background-color: inherit;
+  z-index: 20;
   .btn-wrapper {
     width: 100%;
   }

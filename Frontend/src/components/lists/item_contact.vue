@@ -71,7 +71,7 @@ export default {
     }
     .name {
       font-style: normal;
-      font-weight: bold;
+      font-weight: normal;
       font-size: 16px;
       line-height: 19px;
       color: #202020;
