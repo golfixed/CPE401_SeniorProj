@@ -4,17 +4,17 @@ import express from "express";
 let delComment = express();
 
 delComment.delete('/deleteComment/:id', (req, res) =>{
-    let comment_id = req.params.id;
+    let id = req.params.id;
 
-    if(!comment_id){
+    if(!id){
         res.status(400).send({error: true, message: "Please provide comment id to delete comment"})
     }else{
-        dbCon.query('DELETE FROM comment WHERE id = ?', comment_id, (error, results, fields) =>{
+        dbCon.query('DELETE FROM comment WHERE id = ?', id, (error, results, fields) =>{
             if (error) throw error;
 
             let message = "";
             if (results.affectedRows === 0) {
-                message = "No changed comment";
+                message = `No comment id = ${id}`;
             } else {
                 message = "Comment successfully deleted";
             }
