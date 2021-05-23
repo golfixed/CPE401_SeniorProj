@@ -14,6 +14,7 @@ import classCode from "../services/class/classroom";
 import editProfile from "../services/setting/editProfile";
 import editAccount from "../services/setting/editAccount";
 import classMember from "../services/class/classMember";
+import getclassid from "../services/class/getclassid";
 import delMember from "../services/class/delMember";
 import getJoinCode from "../services/class/getJoinCode";
 import joinClass from "../services/class/joinClass";
@@ -80,6 +81,7 @@ let initWebRoutes = (app) => {
     router.get("/classrooms", reqJWT, classList);
     router.get("/classrooms/:class_code", reqJWT, classCode);
     router.post("/getclassinfo", reqJWT, getclassinfo);
+    router.post("/getclassid", reqJWT, getclassid);
     router.post("/createClass", reqJWT, classController.createNewClass);
     router.post("/joinClass", reqJWT, joinClass);
 
