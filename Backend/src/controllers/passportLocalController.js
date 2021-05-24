@@ -18,14 +18,14 @@ let initPassportLocal = () => {
         try {
             await loginService.findUserByEmail(email).then(async (user) => {
                 if (!user) {
-                    return done(null, false, {message: 'Incorrect email'})
+                    return done(null, false, {false: true, message: 'Incorrect email'})
                 }
                 if (user) {
                     let match = await loginService.comparePassword(password, user);
                     if (match === true) {
                         return done(null, user, null)
                     } else {
-                        return done(null, false, {message: 'Incorrect password.'}
+                        return done(null, false, {false: true,message: 'Incorrect password.'}
                         )
                     }
                 }
