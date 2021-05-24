@@ -5,10 +5,9 @@ import express from "express";
 let classList = express();
 
 classList.post('/classrooms', (req, res) =>{
-    console.log('req id: ' +req.body.id)
     let id = req.body.id;
 
-    dbCon.query('SELECT class.class_code,class.class_name,class.section,account.firstname,account.lastname,account.image FROM class_member,class,account WHERE class_member.class=class.id AND class_member.account=account.id AND account.id= ?',[id],(error, results, fields) =>{
+    dbCon.query('SELECT class.id, class.class_code,class.class_name,class.section, class.class_pic, class.favorite FROM class_member,class,account WHERE class_member.class=class.id AND class_member.account=account.id AND account.id= ?',[id],(error, results, fields) =>{
         if(error) throw error;
         
         let message ="";

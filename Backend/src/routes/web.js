@@ -93,17 +93,17 @@ let initWebRoutes = (app) => {
     router.get("/pinCode/:id", getJoinCode);
 
     //CLASS MEMBER
-    router.get("/:class_code/:section/classMember", classMember);
+    router.get("/classrooms/:class_id/classmember", classMember);
     router.delete("/deleteMember/:id", delMember);
 
     //MATERIAL
-    router.get("/materials/:id", getMaterials);
+    router.get("/classrooms/:class_id/materials", getMaterials);
     router.post("/createTopic", createTopic);
     router.post("/postMaterial", postMaterial);
     router.delete("/deleteMaterial/:id", delMaterial);
 
     //POST
-    router.post("/:class/createPost", createPost);
+    router.post("/classrooms/:class_id/createPost", createPost);
     router.post("/addComment/:post", addComment);
     router.delete("/deleteComment/:id", delComment);
     router.get("/post/:id", getPost);
