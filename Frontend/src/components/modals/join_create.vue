@@ -118,13 +118,11 @@ export default {
       if (this.joinInfo.join_code) {
         this.isJoining = true;
         axios.post("/joinclass", this.joinInfo).then((res) => {
-          console.log("/joinclass: ");
-          console.log(res);
-          if (res.data.error != true) {
-            console.log("Join Class successfully");
-            this.getClassID();
+          if (res.error != true) {
+            // this.getClassID();
+            console.log(res);
           } else {
-            console.log("Join Failed");
+            alert("ERROR: " + res.message);
           }
         });
         setTimeout(
@@ -135,24 +133,24 @@ export default {
         );
       } else alert("Please enter join PIN code.");
     },
-    getClassID: function () {
-      axios
-        .post("/getclassid", { join_code: this.joinInfo.join_code })
-        .then((res) => {
-          console.log(res);
-          if (res.data.error != true) {
-            if (res.data.classInfo.id) {
-              console.log("receive class id completed");
-              this.classID = res.data.classInfo.id;
-              this.$router.push("/classrooms/" + this.classID);
-            } else {
-              alert("ERROR:" + res.data.error);
-            }
-          } else {
-            console.log("receive class id failed");
-          }
-        });
-    },
+    // getClassID: function () {
+    //   axios
+    //     .post("/getclassid", { join_code: this.joinInfo.join_code })
+    //     .then((res) => {
+    //       console.log(res);
+    //       if (res.data.error != true) {
+    //         if (res.data.classInfo.id) {
+    //           console.log("receive class id completed");
+    //           this.classID = res.data.classInfo.id;
+    //           this.$router.push("/classrooms/" + this.classID);
+    //         } else {
+    //           alert("ERROR:" + res.data.error);
+    //         }
+    //       } else {
+    //         console.log("receive class id failed");
+    //       }
+    //     });
+    // },
     createClassroom: function () {
       this.$store.commit("Close_AllMenu");
       this.$router.push("/createclass");
