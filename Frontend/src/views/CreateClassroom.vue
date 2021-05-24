@@ -77,7 +77,7 @@
               below.
             </h4>
           </div>
-          <div class="pin-code-box">
+          <div class="pin-code-box" v-on:click="doCopy()">
             <label class="pin-code-label">{{ classInfo.join_code }}</label>
             <div class="copy-img">
               <img src="/img/icons/copy.svg" />
@@ -172,6 +172,21 @@ export default {
       var class_id = this.classInfo.id;
       this.$router.push("/classrooms/" + class_id);
     },
+    joinClass: function () {
+      axios
+        .post("/joinclass", {
+          account_id: this.$store.state.user.profile.id,
+          join_code: this.classInfo.join_code,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.error != true) {
+            console.log("Join Class successfully");
+          } else {
+            console.log("Join Failed");
+          }
+        });
+    },
     closePage: function () {
       this.$router.push("/");
     },
@@ -186,12 +201,25 @@ export default {
           // console.log(res);
           // console.log("Get class info successfully");
           this.classInfo = res.data.classInfo;
+          this.joinClass();
           // console.log(this.classInfo);
           this.currentSubPage = 2;
         } else if (res.status == 422 || res.status == 400) {
           // console.log("Get Failed");
         }
       });
+    },
+    doCopy: function () {
+      this.$copyText(this.classInfo.join_code).then(
+        function (e) {
+          alert("Copied");
+          console.log(e);
+        },
+        function (e) {
+          alert("Can not copy");
+          console.log(e);
+        }
+      );
     },
   },
   computed: {
