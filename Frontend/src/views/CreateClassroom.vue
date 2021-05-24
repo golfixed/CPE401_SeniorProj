@@ -112,8 +112,8 @@
 </template>
 
 <script>
-import topNavi from "@/components/template/top_navibar.vue";
-import pageLoading from "@/components/page_loading.vue";
+import topNavi from "@/components/template/topNavi.vue";
+import pageLoading from "@/components/pageLoading.vue";
 import LabelFormInput from "@/components/labels/label_form_input.vue";
 import axios from "@/axios.js";
 
@@ -169,7 +169,8 @@ export default {
       );
     },
     Continue: function () {
-      this.$router.push("/classrooms/" + this.classInfo.id);
+      var class_id = this.classInfo.id;
+      this.$router.push("/classrooms/" + class_id);
     },
     closePage: function () {
       this.$router.push("/");

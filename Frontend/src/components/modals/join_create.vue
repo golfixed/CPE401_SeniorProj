@@ -85,11 +85,11 @@
 </template>
 
 <script>
-import pageLoading from "@/components/page_loading.vue";
+import pageLoading from "@/components/pageLoading.vue";
 import axios from "@/axios.js";
 export default {
   name: "Join-Create-Modal",
-  mounted() {},
+  created() {},
   components: {
     pageLoading,
   },
@@ -119,6 +119,7 @@ export default {
   methods: {
     closeModal: function () {
       this.$store.commit("Close_AllMenu");
+      this.joinInfo.join_code = "";
     },
     joinClass: function () {
       this.isJoining = true;

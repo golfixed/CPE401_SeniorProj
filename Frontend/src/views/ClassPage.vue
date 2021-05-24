@@ -74,7 +74,7 @@
 
 <script>
 import itemSingle from "@/components/lists/item_single.vue";
-import topNavi from "@/components/template/top_navibar.vue";
+import topNavi from "@/components/template/topNavi.vue";
 import axios from "@/axios.js";
 
 export default {
@@ -87,14 +87,20 @@ export default {
     return {
       currentTab: 1,
       user: this.$store.state.user.profile,
-      classInfo: this.$store.state.currentClassInfo,
+      classInfo: [],
       prevMember: [],
+      isLoading: false,
     };
   },
   mounted() {
     if (!localStorage.token) {
       this.$router.push({ path: "/" });
     }
+    var path = this.$route.path;
+    var class_id = path.replace("/classrooms/", "");
+
+    // console.log("Current class id:" + class_id);
+    this.fetchClassInfo(class_id);
   },
   methods: {
     openOptionMenu: function (payload) {
@@ -109,6 +115,23 @@ export default {
     },
     openClassMember: function (id) {
       this.$router.push({ path: "/classrooms/" + id + "/member" });
+    },
+    fetchClassInfo: function (class_id) {
+      axios.get("/classrooms/" + class_id).then((res) => {
+        if (res.error != true) {
+          // console.log("ClassPage: class Info fetched");
+          this.classInfo = res.data.data;
+        } else {
+          // console.log("ClassPage: class Info fetch failed");
+        }
+      });
+      setTimeout(
+        function () {
+          this.isLoading = false;
+        }.bind(this),
+        2000
+      );
+      // this.setPrevMember(this.classInfo.member);
     },
     fetchPost: function () {},
     fetchMaterial: function () {},
