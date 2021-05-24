@@ -13,6 +13,7 @@ classCode.get('/classrooms/:id', (req, res) =>{
         return res.status(400).send({ error: true, message: "Please provide class id"});
     }else
     {
+        // dbCon.query('SELECT * FROM class WHERE id = ?', [id], (error, results, fields) =>{
         dbCon.query('SELECT * FROM class WHERE id = ?', [id], (error, results, fields) =>{
             if(error) throw error;
 

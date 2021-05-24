@@ -7,11 +7,14 @@ import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
 
 import setting from "../services/setting/setting";
+import addRole from "../services/addRole";
+import getProfileInfo from "../services/getProfileInfo";
 import classList from "../services/class/classList";
 import classCode from "../services/class/classroom";
 import editProfile from "../services/setting/editProfile";
 import editAccount from "../services/setting/editAccount";
 import classMember from "../services/class/classMember";
+import getclassid from "../services/class/getclassid";
 import delMember from "../services/class/delMember";
 import getJoinCode from "../services/class/getJoinCode";
 import joinClass from "../services/class/joinClass";
@@ -70,14 +73,17 @@ let initWebRoutes = (app) => {
     //REGISTOR
     router.get("/register", registerController.getPageRegister);
     router.post("/register", registerController.createNewUser);
+    router.post("/addrole", addRole);
+    router.post("/getprofileinfo", getProfileInfo);
     router.post("/logout", reqJWT, loginController.postLogOut);
 
     //CLASS
-    router.get("/classrooms", classList);
-    router.get("/classrooms/:id", classCode);
-    router.post("/getclassinfo", getclassinfo);
-    router.post("/createClass", classController.createNewClass);
-    router.post("/joinclass", joinClass);
+    router.get("/classrooms", reqJWT, classList);
+    router.get("/classrooms/:class_code", reqJWT, classCode);
+    router.post("/getclassinfo", reqJWT, getclassinfo);
+    router.post("/getclassid", reqJWT, getclassid);
+    router.post("/createClass", reqJWT, classController.createNewClass);
+    router.post("/joinClass", reqJWT, joinClass);
 
     //PIN CLASS
     router.get("/pinCode/:id", reqJWT, getJoinCode);

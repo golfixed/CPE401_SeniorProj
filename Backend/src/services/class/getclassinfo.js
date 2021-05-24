@@ -7,9 +7,9 @@ getclassinfo.post('/getclassinfo', (req, res) =>{
     let class_code =req.body.class_code;
     let section = req.body.section
 
-    console.log(req.body.class_code);
-    console.log(req.body.section);
-    
+    console.log('classcode =' + class_code);
+    console.log('section =' + section);
+
     if(!class_code || !section){
         res.status(400).send({error: true, message: "Please provide class code and section"})
     }else{
