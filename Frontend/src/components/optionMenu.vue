@@ -29,9 +29,9 @@
       <div
         class="wrapper-menu-item"
         v-if="this.$store.state.optionMenu.settings == true"
+        v-on:click="signOut()"
       >
         <optionMenu
-          v-on:click="signOut()"
           label="Sign Out"
           iconURL="/img/btn/menuOption/signout.svg"
           link=""
@@ -57,7 +57,7 @@ export default {
       this.$store.commit("Close_AllMenu");
     },
     signOut: function () {
-      alert("you are signed out");
+      // alert("you are signed out");
       localStorage.clear();
       this.$router.push({ path: "/logout" });
       console.log("Logout successfully");

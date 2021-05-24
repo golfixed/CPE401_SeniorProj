@@ -169,7 +169,8 @@ export default {
       );
     },
     Continue: function () {
-      this.$router.push("/classrooms/" + this.classInfo.id);
+      var class_id = this.classInfo.id;
+      this.$router.push("/classrooms/" + class_id);
     },
     closePage: function () {
       this.$router.push("/");

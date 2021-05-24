@@ -24,13 +24,11 @@
               <label>Continue with Google</label>
             </div>
           </button>
-          <button>
-            <router-link to="/login">
-              <div class="single-land">
-                <div class="img-wrapper"><img src="/img/btn/email.png" /></div>
-                <label>Continue with Email</label>
-              </div>
-            </router-link>
+          <button v-on:click="login()">
+            <div class="single-land">
+              <div class="img-wrapper"><img src="/img/btn/email.png" /></div>
+              <label>Continue with Email</label>
+            </div>
           </button>
         </div>
 
@@ -55,12 +53,10 @@
           </div>
           <div class="set-bottom-box">
             <div class="set-bottom">
-              <button class="regis-btn">
-                <router-link to="/register">
-                  <div class="single-land">
-                    <label class="sign-up">Register</label>
-                  </div>
-                </router-link>
+              <button class="regis-btn" v-on:click="register()">
+                <div class="single-land">
+                  <label class="sign-up">Register</label>
+                </div>
               </button>
             </div>
           </div>
@@ -89,15 +85,12 @@ export default {
     }
   },
   methods: {
-    // test: function () {
-    //   axios.get("/").then((res) => {
-    //     if (res.status != 404 || res.status != 500) {
-    //       this.connectServer = true;
-    //       // console.log(res);
-    //       this.resData = res.data;
-    //     }
-    //   });
-    // },
+    register() {
+      this.$router.push({ path: "/register" });
+    },
+    login() {
+      this.$router.push({ path: "/login" });
+    },
   },
 };
 </script>

@@ -7,11 +7,7 @@
         <joinCreateBtn v-if="isLoggedIn == true" />
         <optionMenu v-if="isLoggedIn == true" />
         <modalJoinCreate v-if="isLoggedIn == true" />
-        <div
-          class="overlay-bg"
-          v-if="overlayShow == true"
-          v-on:click="closeAllMenu()"
-        ></div>
+        <div class="overlay-bg" v-if="overlayShow == true"></div>
       </div>
       <!-- <div class="app-tabbar" v-if="isLoggedIn == true">
         <tabBar />
@@ -466,7 +462,7 @@ button:active {
   justify-content: center;
   align-items: center;
   background-color: #f6f6f6;
-  height: calc(100vh - 190px);
+  height: calc(100vh - 131px);
   .no-msg {
     text-align: center;
     text-align: center;
