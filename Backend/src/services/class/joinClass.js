@@ -7,7 +7,6 @@ joinClass.post('/joinclass', (req, res) => {
     let join_code = req.body.join_code;
     let account_id = req.body.account_id;
 
-
     if (!join_code) {
         res.status(200).send({ error: true, message: "Please provide join code to enter class" })
     } else {
@@ -36,26 +35,17 @@ joinClass.post('/joinclass', (req, res) => {
                                     message: "Added member successfully"
                                 })
                             })
-                        }
-                    }
-                        
+                            }
+                        }  
                     })
-
-                    
                 }
                 else {
                     console.log('NO RESULT')
                     res.status(200).send({ error: true, message: "No joincode found XXX" })
-    
-    
-                    
                 }
             }
-            
         })
-    
     }
-
 })
 
 module.exports = joinClass;
