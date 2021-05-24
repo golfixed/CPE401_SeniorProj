@@ -26,7 +26,6 @@ joinClass.post('/joinclass', (req, res) => {
                             }
                             else {
                             dbCon.query('INSERT INTO class_member (account, role_member, class) SELECT account.id, account.role, class.id FROM account, class WHERE join_code =? AND account.id = ?', [join_code, account_id], (error, results, fields) => {
-                                // dbCon.query("INSERT INTO class_member [(account, role_member)] SELECT id, role FROM account WHERE email = 'volktgod@gmail.com'",[account_id, join_code], (error, results, fields) =>{
                                 if (error) throw error;
             
                                 return res.status(200).send({
