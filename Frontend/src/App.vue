@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import tabBar from "@/components/template/tabBar";
-import topBar from "@/components/template/topBar";
-import joinCreateBtn from "@/components/joinCreateBtn.vue";
-import optionMenu from "@/components/optionMenu.vue";
+import tabBar from "@/components/template/top_tabbar";
+import topBar from "@/components/template/top_titlebar";
+import joinCreateBtn from "@/components/join_button.vue";
+import optionMenu from "@/components/option_menu.vue";
 import modalJoinCreate from "@/components/modals/join_create.vue";
 import welcomePage from "@/views/Welcome.vue";
 export default {

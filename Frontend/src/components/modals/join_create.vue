@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import pageLoading from "@/components/pageLoading.vue";
+import pageLoading from "@/components/page_loading.vue";
 import axios from "@/axios.js";
 export default {
   name: "Join-Create-Modal",

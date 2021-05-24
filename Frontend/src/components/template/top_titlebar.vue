@@ -98,8 +98,8 @@
 </template>
 
 <script>
-import favPost from "@/components/favPost.vue";
-import favChat from "@/components/favChat.vue";
+import favPost from "@/components/fav_post.vue";
+import favChat from "@/components/fav_chat.vue";
 
 export default {
   name: "Page-TopBar",
