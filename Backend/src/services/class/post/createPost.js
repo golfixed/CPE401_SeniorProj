@@ -5,14 +5,14 @@ import express from "express";
 let createPost = express();
 
 createPost.post("/:class/createPost", (req, res) => {
-
+    
     let post = {
         class: req.params.class,
         comment: req.body.comment,
         announce: req.body.announce,
         click_count:req.body.click_count, 
         pic_url: req.body.pic_url,
-        detail: req.body.detail,
+        content: req.body.content,
         create_by: req.body.create_by,
         update_by: req.body.update_by
     }
