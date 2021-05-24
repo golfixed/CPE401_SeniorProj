@@ -43,16 +43,7 @@ const jwt = require('jsonwebtoken')
 let initWebRoutes = (app) => {
     router.get("/", loginController.checkLoggedIn, homePageController.handleHelloWorld);
     router.get("/login",loginController.checkLoggedOut, loginController.getPageLogin);
-    //in case of Redirect to Homepage
-
-    // router.post("/login", passport.authenticate("local", {
-    //     successRedirect: "/",
-    //     failureRedirect: "/login",
-    //     successFlash: true,
-    //     failureFlash: true
-    // }));
     router.post('/login', (req, res, next) => {
-  
         passport.authenticate('local', {session: false}, (err, user, info) => {
             if (err) return next(err)
             if(user) {
