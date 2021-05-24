@@ -80,7 +80,7 @@ let initWebRoutes = (app) => {
     router.post("/logout", loginController.postLogOut);
 
     //CLASS
-    router.get("/classrooms", classList);
+    router.post("/classrooms", classList);
     router.get("/classrooms/:class_code", classCode);
     router.post("/getclassinfo", getclassinfo);
     router.post("/getclassid", getclassid);
