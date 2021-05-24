@@ -3,7 +3,7 @@ import express from "express";
 
 let delComment = express();
 
-delComment.delete('/deleteComment/:id', (req, res) =>{
+delComment.delete('/deletecomment/:id', (req, res) =>{
     let id = req.params.id;
 
     if(!id){

@@ -43,16 +43,7 @@ const jwt = require('jsonwebtoken')
 let initWebRoutes = (app) => {
     router.get("/", loginController.checkLoggedIn, homePageController.handleHelloWorld);
     router.get("/login",loginController.checkLoggedOut, loginController.getPageLogin);
-    //in case of Redirect to Homepage
-
-    // router.post("/login", passport.authenticate("local", {
-    //     successRedirect: "/",
-    //     failureRedirect: "/login",
-    //     successFlash: true,
-    //     failureFlash: true
-    // }));
     router.post('/login', (req, res, next) => {
-  
         passport.authenticate('local', {session: false}, (err, user, info) => {
             if (err) return next(err)
             if(user) {
@@ -87,7 +78,7 @@ let initWebRoutes = (app) => {
     router.post("/addfav", addFavClass);
     router.get("/classrooms/:id/discussion", discussion);
     router.post("/createClass", classController.createNewClass);
-    router.post("/joinClass", joinClass);
+    router.post("/joinclass", joinClass);
 
     //PIN CLASS
     router.get("/pinCode/:id", getJoinCode);
@@ -103,9 +94,9 @@ let initWebRoutes = (app) => {
     router.delete("/deleteMaterial/:id", delMaterial);
 
     //POST
-    router.post("/classrooms/:class_id/createPost", createPost);
-    router.post("/addComment/:post", addComment);
-    router.delete("/deleteComment/:id", delComment);
+    router.post("/classrooms/:class/createPost", createPost);
+    router.post("/addcomment/:post", addComment);
+    router.delete("/deletecomment/:id", delComment);
     router.get("/post/:id", getPost);
     router.delete("/deletePost/:id", delPost);
     

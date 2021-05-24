@@ -3,10 +3,9 @@ import express from "express";
 
 let addComment = express();
 
-addComment.post('/addComment/:post', (req, res) =>{
+addComment.post('/addcomment/:post', (req, res) =>{
 
     let comment = {
-        // pic_url
         post: req.params.post,
         text: req.body.text,
         create_by: req.body.create_by,
