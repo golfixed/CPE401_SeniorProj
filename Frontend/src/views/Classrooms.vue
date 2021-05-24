@@ -10,7 +10,7 @@
         >
       </div>
     </div>
-    <div id="section-favbar" v-if="classListPinned.length > 0">
+    <div id="section-favbar">
       <div
         id="pinned-bar"
         class="section app-default-pinnedbar app-default-border-gray"
