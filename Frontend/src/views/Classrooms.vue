@@ -56,7 +56,7 @@
 
 <script>
 import classItem from "@/components/lists/item_class.vue";
-import favClass from "@/components/favClass.vue";
+import favClass from "@/components/fav_class.vue";
 import axios from "@/axios.js";
 
 export default {
