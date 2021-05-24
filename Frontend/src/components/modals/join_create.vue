@@ -20,22 +20,16 @@
               <input placeholder="Enter PIN" v-model="joinInfo.join_code" />
             </div>
           </div>
-          <div class="modal-btn">
-            <div class="modal-btn-wrapper">
-              <div class="left">
-                <button class="btn-light" v-on:click="closeModal()">
-                  Cancel
-                </button>
-              </div>
-              <div class="right">
-                <button
-                  class="btn-dark btn-color-green"
-                  v-on:click="joinClass()"
-                >
-                  Join
-                </button>
-              </div>
+          <div class="modal-btn-wrapper">
+            <div class="left">
+              <button class="btn-dark btn-color-green" v-on:click="joinClass()">
+                Join
+              </button>
+              <button class="btn-light" v-on:click="closeModal()">
+                Cancel
+              </button>
             </div>
+            <div class="right"></div>
           </div>
         </div>
         <div class="box" v-if="user_role == 'tea' && isJoining == false">
@@ -101,6 +95,7 @@ export default {
         join_code: "",
       },
       isJoining: false,
+      classID: "",
     };
   },
   computed: {
@@ -120,25 +115,43 @@ export default {
       this.joinInfo.join_code = "";
     },
     joinClass: function () {
-      this.isJoining = true;
-      axios.post("/joinclass", this.joinInfo).then((res) => {
-        console.log(res);
-        if (res.error != true) {
-          console.log("Join Class successfully");
-          this.getClassID();
-        } else {
-          console.log("Join Failed");
-        }
-      });
-      setTimeout(
-        function () {
-          this.isJoining = false;
-        }.bind(this),
-        2000
-      );
+      if (this.joinInfo.join_code) {
+        this.isJoining = true;
+        axios.post("/joinclass", this.joinInfo).then((res) => {
+          console.log("/joinclass: ");
+          console.log(res);
+          if (res.data.error != true) {
+            console.log("Join Class successfully");
+            this.getClassID();
+          } else {
+            console.log("Join Failed");
+          }
+        });
+        setTimeout(
+          function () {
+            this.isJoining = false;
+          }.bind(this),
+          2000
+        );
+      } else alert("Please enter join PIN code.");
     },
     getClassID: function () {
-      // console.log("Get classID API");
+      axios
+        .post("/getclassid", { join_code: this.joinInfo.join_code })
+        .then((res) => {
+          console.log(res);
+          if (res.data.error != true) {
+            if (res.data.classInfo.id) {
+              console.log("receive class id completed");
+              this.classID = res.data.classInfo.id;
+              this.$router.push("/classrooms/" + this.classID);
+            } else {
+              alert("ERROR:" + res.data.error);
+            }
+          } else {
+            console.log("receive class id failed");
+          }
+        });
     },
     createClassroom: function () {
       this.$store.commit("Close_AllMenu");

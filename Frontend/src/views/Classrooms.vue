@@ -1,13 +1,25 @@
 <template>
   <div id="page-classrooms">
-    <div class="page-content-none" v-if="classList.length == 0">
+    <div
+      class="page-content-none"
+      v-if="classList.length == 0 && isOffline == false"
+    >
       <div class="no-msg">
         <img class="icon" src="/img/icons/home_blank.svg" draggable="false" />
-        <label class="title">Nothing Going On Here</label>
-        <label class="desc"
-          >Join a class and start new conversations. <br />Tap Classrooms tab to
-          join class.</label
+        <label class="title">You are not in classroom yet.</label>
+        <label class="desc" v-if="this.$store.state.user.profile.role == 'std'"
+          >Tap bottom right button to join classroom.</label
         >
+        <label class="desc" v-if="this.$store.state.user.profile.role == 'tea'"
+          >Tap bottom right button to join or create classroom.</label
+        >
+      </div>
+    </div>
+    <div class="page-content-none" v-if="isOffline == true">
+      <div class="no-msg">
+        <img class="icon" src="/img/icons/nointernet.svg" draggable="false" />
+        <label class="title">You're offline</label>
+        <label class="desc">Please check your internet connection. </label>
       </div>
     </div>
     <div id="section-favbar" v-if="classListPinned.length > 0">
@@ -66,6 +78,7 @@ export default {
       classList: [],
       isLoading: false,
       classListPinned: [],
+      isOffline: true,
     };
   },
   mounted() {
@@ -80,16 +93,18 @@ export default {
     fetchClassList: function () {
       this.isLoading = true;
       var class_id = this.$store.state.user.profile.id;
-      console.log(class_id);
+      // console.log(class_id);
       axios.post("/classrooms", { id: class_id }).then((res) => {
+        console.log(res);
+        this.isOffline = false;
         if (res.error != true) {
-          console.log("Classrooms: class list fetched");
-          console.log(res);
+          // console.log("Classrooms: class list fetched");
+          // console.log(res);
           this.classList = res.data.data;
           this.classListPinned = this.classList.filter(
             (classList) => classList.favorite == true
           );
-          console.log(this.classList);
+          // console.log(this.classList);
         } else {
           console.log("Classrooms: class list fetch failed");
         }

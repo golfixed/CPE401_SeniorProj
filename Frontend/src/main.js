@@ -7,11 +7,13 @@ import axios from '@/axios.js'
 import VuePageTransition from 'vue-page-transition'
 import VueBottomDialog from 'vue-bottom-dialog'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import VueClipboard from 'vue-clipboard2'
 
 Vue.use(axios)
 Vue.use(VuePageTransition)
 Vue.use(VueBottomDialog)
 Vue.use(PulseLoader)
+Vue.use(VueClipboard)
 
 var moment = require('moment'); // require
 var dayjs = require('dayjs')
@@ -33,6 +35,7 @@ new Vue({
   moment,
   VuePageTransition,
   PulseLoader,
+  VueClipboard,
   render: h => h(App)
 }).$mount('#app')
 
