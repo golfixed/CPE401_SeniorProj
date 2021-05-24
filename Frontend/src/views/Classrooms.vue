@@ -10,7 +10,7 @@
         >
       </div>
     </div>
-    <div id="section-favbar" v-if="classListPinned.length > 0">
+    <div id="section-favbar">
       <div
         id="pinned-bar"
         class="section app-default-pinnedbar app-default-border-gray"
@@ -193,9 +193,9 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-// #page-classrooms {
-//   background-color: #f6f6f6;
-// }
+#page-classrooms {
+  background-color: #f6f6f6;
+}
 .class-item-wrapper {
   padding: 0 20px;
 }
@@ -203,7 +203,7 @@ export default {
   font-size: 16px;
   color: #8b8b8b;
   font-weight: 400;
-  margin: 0 15px 0 20px;
-  padding-top: 15px;
+  margin: 15px 20px;
+  margin-bottom: 0;
 }
 </style>

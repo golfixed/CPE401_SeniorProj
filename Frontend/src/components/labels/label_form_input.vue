@@ -25,7 +25,7 @@ export default {
     font-weight: bold;
     font-size: 16px;
     line-height: 19px;
-    color: #505050;
+    color: #202020;
     margin-right: 5px !important;
   }
   label.opt {
