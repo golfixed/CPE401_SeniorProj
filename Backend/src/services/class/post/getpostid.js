@@ -9,7 +9,7 @@ getpostid.post('/getpostid', (req, res) =>{
     console.log('joincode =' + join_code);
 
     if(!join_code){
-        res.status(400).send({error: true, message: "Please provide join code"})
+        res.status(200).send({error: true, message: "Please provide join code"})
     }else{
         dbCon.query("SELECT id FROM class WHERE join_code = ?", [join_code], (error, results, fields) =>{
             if (error) throw error;

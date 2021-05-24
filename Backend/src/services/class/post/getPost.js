@@ -7,7 +7,7 @@ getPost.get('/post/:id', (req, res) =>{
     let id =req.params.id;
 
     if(!id){
-        res.status(400).send({error: true, message: "Please provide post id"})
+        res.status(200).send({error: true, message: "Please provide post id"})
     }else{
         dbCon.query("SELECT * FROM post WHERE id = ?", id, (error, results, fields) =>{
             if (error) throw error;

@@ -17,7 +17,7 @@ editAccount.put('/setting/editAccount/:id', (req, res) => {
 
     if (!id) {
         console.log('you didnt send ID');
-        return res.status(400).send({ error: true, message: 'Please provide more information'});
+        return res.status(200).send({ error: true, message: 'Please provide more information'});
     } else {
         dbCon.query('UPDATE account SET email = ?, password = ?, phone = ? WHERE id = ?', [email, password, phone, id], (error, results, fields) => {
             if (error) throw error;

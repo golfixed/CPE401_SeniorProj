@@ -8,7 +8,7 @@ delPost.delete('/deletePost/:id', (req, res) => {
     let id = req.params.id;
 
     if (!id) {
-        return res.status(400).send({ error: true, message: "Please specify class id or account id"});
+        return res.status(200).send({ error: true, message: "Please specify class id or account id"});
     } else {
         dbCon.query('DELETE FROM post WHERE id = ?', id, (error, results, fields) => {
             if (error) throw error;

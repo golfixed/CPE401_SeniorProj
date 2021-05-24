@@ -11,7 +11,7 @@ getclassinfo.post('/getclassinfo', (req, res) =>{
     console.log('section =' + section);
 
     if(!class_code || !section){
-        res.status(400).send({error: true, message: "Please provide class code and section"})
+        res.status(200).send({error: true, message: "Please provide class code and section"})
     }else{
         dbCon.query("SELECT id,join_code FROM class WHERE class_code = ? AND section = ?", [class_code, section], (error, results, fields) =>{
             if (error) throw error;

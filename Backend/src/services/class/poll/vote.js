@@ -9,7 +9,7 @@ clickVotes.post('/clickVotes', (req, res) => {
     let options = req.body.options;
     
     if(!id){
-        res.status(400).send({error: true, message: "Please provide at least 2 options"})
+        res.status(200).send({error: true, message: "Please provide at least 2 options"})
     }
     dbCon.query('UPDATE poll SET options = ? WHERE published = 1 AND id = ?', [options, id], (error, results, fields) =>{
         if (error) throw error;

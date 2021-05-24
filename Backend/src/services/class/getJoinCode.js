@@ -7,7 +7,7 @@ getJoinCode.get('/pinCode/:id', (req, res) =>{
     let id =req.params.id;
 
     if(!id){
-        res.status(400).send({error: true, message: "Please provide post id"})
+        res.status(200).send({error: true, message: "Please provide post id"})
     }else{
         dbCon.query("SELECT join_code FROM class WHERE id = ?", id, (error, results, fields) =>{
             if (error) throw error;

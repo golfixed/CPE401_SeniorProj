@@ -13,7 +13,7 @@ editProfile.put('/setting/editProfile/:id', (req, res) => {
     let gender = req.body.gender;
     
     if (!id) {
-        return res.status(400).send({ error: true, message: 'Please provide more information'});
+        return res.status(200).send({ error: true, message: 'Please provide more information'});
     } else {
         dbCon.query('UPDATE account SET firstname = ?, lastname = ?, role = ?, image = ? WHERE id = ?', [firstname, lastname, role, image, id], (error, results, fields) => {
             if (error) throw error;

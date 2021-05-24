@@ -10,7 +10,7 @@ addFavClass.post('/addfav', (req, res) =>{
     let fav = req.body.fav;
 
     if(!id){
-        return res.status(400).send({ error: true, message: "Please provide class id"});
+        return res.status(200).send({ error: true, message: "Please provide class id"});
     }else
     {
         // dbCon.query('SELECT * FROM class WHERE id = ?', [id], (error, results, fields) =>{

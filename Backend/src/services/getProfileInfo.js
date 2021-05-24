@@ -9,7 +9,7 @@ getProfileInfo.post('/getprofileinfo', (req, res) =>{
     console.log('email =' + email);
 
     if(!email){
-        res.status(400).send({error: true, message: "Please provide class code and section"})
+        res.status(200).send({error: true, message: "Please provide class code and section"})
     }else{
         dbCon.query("SELECT * FROM account WHERE email = ?", [email], (error, results, fields) =>{
             if (error) throw error;

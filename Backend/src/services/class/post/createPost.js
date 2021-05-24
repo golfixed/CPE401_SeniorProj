@@ -17,7 +17,7 @@ createPost.post("/classrooms/:class/createPost", (req, res) => {
     }
 
     if(!post.class){
-        res.status(400).send({error: true, message: "Please provide class id"})
+        res.status(200).send({error: true, message: "Please provide class id"})
     }else{
         dbCon.query("INSERT INTO post SET ?", post, (error, results, fields) =>{
             if (error) throw error;
