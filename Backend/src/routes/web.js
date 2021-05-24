@@ -103,7 +103,7 @@ let initWebRoutes = (app) => {
     router.delete("/deleteMaterial/:id", delMaterial);
 
     //POST
-    router.post("/:class/createPost", createPost);
+    router.post("/classrooms/:class_id/createPost", createPost);
     router.post("/addComment/:post", addComment);
     router.delete("/deleteComment/:id", delComment);
     router.get("/post/:id", getPost);
