@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import topNavi from "@/components/template/topNavi.vue";
-import pageLoading from "@/components/pageLoading.vue";
+import topNavi from "@/components/template/top_navibar.vue";
+import pageLoading from "@/components/page_loading.vue";
 import axios from "@/axios.js";
 export default {
   name: "Login-Page",

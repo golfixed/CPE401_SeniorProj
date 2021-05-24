@@ -43,7 +43,7 @@
 <script>
 import LabelItemGroup from "@/components/labels/label_item_group.vue";
 import itemContact from "@/components/lists/item_contact.vue";
-import topNavi from "@/components/template/topNavi.vue";
+import topNavi from "@/components/template/top_navibar.vue";
 export default {
   name: "ClassMember-Page",
   components: {

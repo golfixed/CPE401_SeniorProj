@@ -1,5 +1,5 @@
 <template>
-  <div class="class-item" v-on:click="openClassroom(id)">
+  <div class="class-item" v-on:click="fetchClassInfo(id)">
     <div class="text-box">
       <label class="code">{{ code }}</label>
       <label class="title">{{ title }}</label>
@@ -37,8 +37,23 @@ export default {
     if (this.prevMember) this.prevPic = this.prevMember;
   },
   methods: {
-    openClassroom(id) {
-      this.$router.push("/classrooms/" + id);
+    fetchClassInfo: function (class_id) {
+      axios.get("/classrooms/" + class_id).then((res) => {
+        if (res.error != true) {
+          console.log("ClassPage: class Info fetched");
+          this.$store.commit("Update_CurrentViewClass", res.data.data);
+          this.$router.push("/classrooms/" + class_id);
+        } else {
+          console.log("ClassPage: class Info fetch failed");
+        }
+      });
+      setTimeout(
+        function () {
+          this.isLoading = false;
+        }.bind(this),
+        2000
+      );
+      // this.setPrevMember(this.classInfo.member);
     },
   },
 };

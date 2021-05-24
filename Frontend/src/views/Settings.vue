@@ -60,7 +60,7 @@
 
 <script>
 import itemSingle from "@/components/lists/item_single.vue";
-import topNavi from "@/components/template/topNavi.vue";
+import topNavi from "@/components/template/top_navibar.vue";
 export default {
   name: "Settings",
   components: {

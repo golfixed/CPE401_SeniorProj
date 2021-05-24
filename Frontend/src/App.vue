@@ -7,7 +7,11 @@
         <joinCreateBtn v-if="isLoggedIn == true" />
         <optionMenu v-if="isLoggedIn == true" />
         <modalJoinCreate v-if="isLoggedIn == true" />
-        <div class="overlay-bg" v-if="overlayShow == true"></div>
+        <div
+          class="overlay-bg"
+          v-if="overlayShow == true"
+          v-on:click="closeAllMenu()"
+        ></div>
       </div>
       <!-- <div class="app-tabbar" v-if="isLoggedIn == true">
         <tabBar />
@@ -17,10 +21,10 @@
 </template>
 
 <script>
-import tabBar from "@/components/template/tabBar";
-import topBar from "@/components/template/topBar";
-import joinCreateBtn from "@/components/joinCreateBtn.vue";
-import optionMenu from "@/components/optionMenu.vue";
+import tabBar from "@/components/template/top_tabbar";
+import topBar from "@/components/template/top_titlebar";
+import joinCreateBtn from "@/components/join_button.vue";
+import optionMenu from "@/components/option_menu.vue";
 import modalJoinCreate from "@/components/modals/join_create.vue";
 import welcomePage from "@/views/Welcome.vue";
 export default {
@@ -462,7 +466,7 @@ button:active {
   justify-content: center;
   align-items: center;
   background-color: #f6f6f6;
-  height: calc(100vh - 131px);
+  height: calc(100vh - 190px);
   .no-msg {
     text-align: center;
     text-align: center;

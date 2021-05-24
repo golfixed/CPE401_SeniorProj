@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import topNavi from "@/components/template/topNavi.vue";
+import topNavi from "@/components/template/top_navibar.vue";
 export default {
   name: "Notification",
   components: {
