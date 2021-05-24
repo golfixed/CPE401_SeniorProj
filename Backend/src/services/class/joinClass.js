@@ -10,6 +10,7 @@ joinClass.post('/joinclass', (req, res) => {
     if (!join_code) {
         res.status(200).send({ error: true, message: "Please provide join code to enter class" })
     } else {
+        //query join_code is in database
         dbCon.query('SELECT id FROM class WHERE join_code = ?', [join_code], (error, results) => {
             if(error) {console.log(error)}
             else {
