@@ -1,6 +1,6 @@
 <template>
   <div id="page-chats" class="app-default-border-gray-top">
-    <div class="page-list-wrapper" v-if="chatList.length > 0">
+    <!-- <div class="page-list-wrapper" v-if="chatList.length > 0">
       <div class="chat-item">
         <chatItem
           v-for="items in chatList"
@@ -15,15 +15,19 @@
         />
         <div class="end-of-page"></div>
       </div>
-    </div>
+    </div> -->
 
     <div class="page-content-none">
       <div class="no-msg">
-        <img class="icon" src="/img/icons/home_blank.svg" draggable="false" />
-        <label class="title">Nothing Going On Here</label>
+        <img
+          class="icon"
+          src="/img/icons/page_undercon.svg"
+          draggable="false"
+        />
+        <label class="title">Under developing...</label>
         <label class="desc"
-          >Join a class and start new conversations. <br />Tap Classrooms tab to
-          join class.</label
+          >This feature is not ready yet. <br />We will let you know once it is
+          ready.</label
         >
       </div>
     </div>
@@ -37,9 +41,13 @@ export default {
   components: {
     chatItem,
   },
+  mounted() {
+    if (!localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
+  },
   data: function () {
     return {
-      chatList: [],
       chatList2: [
         {
           id: 0,
@@ -185,12 +193,7 @@ export default {
     };
   },
   created: function () {},
-  methods: {
-    openSearchPage: function () {
-      console.log("clicked");
-      this.$store.commit("Open_searchPage");
-    },
-  },
+  methods: {},
 };
 </script>
 <style lang="scss" scoped>

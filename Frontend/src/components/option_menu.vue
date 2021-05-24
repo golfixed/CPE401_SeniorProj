@@ -2,7 +2,10 @@
   <transition name="slidein">
     <div id="menu-panel" v-if="isOpen == true">
       <div class="top-grey-bar"></div>
-      <div class="wrapper-menu-item" v-if="currentPage == '/home'">
+      <div
+        class="wrapper-menu-item"
+        v-if="this.$store.state.optionMenu.home == true"
+      >
         <optionMenu
           v-for="option in optionHome"
           :key="option.id"
@@ -11,22 +14,27 @@
           v-bind:link="option.url"
         />
       </div>
-      <div class="wrapper-menu-item" v-if="currentPage == '/classroom'">
+      <div
+        class="wrapper-menu-item"
+        v-if="this.$store.state.optionMenu.classpage == true"
+      >
         <optionMenu
-          v-for="option in optionClass"
+          v-for="option in optionClassPage"
           :key="option.id"
           v-bind:label="option.label"
           v-bind:iconURL="option.iconURL"
           v-bind:link="option.url"
         />
       </div>
-      <div class="wrapper-menu-item" v-if="currentPage == '/chats'">
+      <div
+        class="wrapper-menu-item"
+        v-if="this.$store.state.optionMenu.settings == true"
+        v-on:click="signOut()"
+      >
         <optionMenu
-          v-for="option in optionChat"
-          :key="option.id"
-          v-bind:label="option.label"
-          v-bind:iconURL="option.iconURL"
-          v-bind:link="option.url"
+          label="Sign Out"
+          iconURL="/img/btn/menuOption/signout.svg"
+          link=""
         />
       </div>
       <div class="btn-cancel" v-on:click="closeAllMenu()">
@@ -47,6 +55,11 @@ export default {
   methods: {
     closeAllMenu: function () {
       this.$store.commit("Close_AllMenu");
+    },
+    signOut: function () {
+      localStorage.clear();
+      this.$router.push({ path: "/logout" });
+      console.log("Logout successfully");
     },
   },
   computed: {
@@ -100,6 +113,26 @@ export default {
           url: "/settings",
         },
       ],
+      optionClassPage: [
+        {
+          id: 0,
+          label: "Pin to favourite",
+          iconURL: "/img/btn/menuOption/noti.svg",
+          url: "/settings/notification",
+        },
+        {
+          id: 1,
+          label: "Mute Notification",
+          iconURL: "/img/btn/menuOption/noti.svg",
+          url: "/settings/notification",
+        },
+        {
+          id: 2,
+          label: "Leave this class",
+          iconURL: "/img/btn/menuOption/setting.svg",
+          url: "/settings",
+        },
+      ],
     };
   },
 };
@@ -113,7 +146,7 @@ export default {
   left: 0;
   // bottom: -100%;
   bottom: 0;
-  z-index: 11;
+  z-index: 30;
   box-shadow: 0px -3px 20px 5px rgba(0, 0, 0, 0.08);
   border-radius: 20px 20px 0px 0px;
   overflow: hidden;

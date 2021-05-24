@@ -1,7 +1,7 @@
 <template>
   <div id="tabbar">
     <div class="tabbar-panel">
-      <router-link to="/home" class="tab-item">
+      <router-link to="/" class="tab-item">
         <div class="tab-btn" v-on:click="scrollTop()">
           <div class="icon">
             <img

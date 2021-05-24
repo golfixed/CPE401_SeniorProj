@@ -6,16 +6,20 @@
         <div class="page-header">
           <div class="profile-pic">
             <div class="img">
-              <img :src="user.pic" />
+              <img src="/img/default_profile.svg" v-if="user.pic == null" />
+              <img :src="user.pic" v-if="user.pic == null" />
             </div>
             <div class="edit">
               <img src="/img/btn/edit.svg" />
             </div>
           </div>
-          <h1 class="pagename">{{ user.firstName }} {{ user.lastName }}</h1>
+          <h1 class="pagename">{{ user.firstname }} {{ user.lastname }}</h1>
           <label class="role" v-if="user.role == 'std'">Student</label>
           <label class="role" v-if="user.role == 'lec'">Lecturer</label>
           <label class="role" v-if="user.role == 'ta'">Teacher Assistant</label>
+          <label class="role" v-if="user.role == null"
+            >Not select role yet</label
+          >
           <label class="email">{{ user.email }}</label>
         </div>
       </div>
@@ -46,7 +50,7 @@
         <itemSingle label="Feedback" type="normal" />
         <itemSingle label="Support & Contact Us" type="normal" />
       </div>
-      <div class="items-group">
+      <div class="items-group" v-on:click="openOptionMenu('settings')">
         <itemSingle label="Sign Out" type="red" />
       </div>
       <div class="end-of-page"></div>
@@ -56,7 +60,7 @@
 
 <script>
 import itemSingle from "@/components/lists/item_single.vue";
-import topNavi from "@/components/template/topNavi.vue";
+import topNavi from "@/components/template/top_navibar.vue";
 export default {
   name: "Settings",
   components: {
@@ -68,9 +72,15 @@ export default {
       user: this.$store.state.user.profile,
     };
   },
+  mounted() {
+    if (!localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
+    this.$store.commit("Close_AllMenu");
+  },
   methods: {
-    signin: function () {
-      this.$store.commit("LogIn");
+    openOptionMenu: function (payload) {
+      this.$store.commit("Open_optionMenu", payload);
     },
   },
 };

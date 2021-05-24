@@ -94,6 +94,6 @@ export default {
   padding-left: 0px;
 }
 .card-wrapper:last-child {
-  padding-right: 20px;
+  padding-right: 10px;
 }
 </style>

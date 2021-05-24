@@ -7,32 +7,28 @@
       <h1>Welcome to Class(i)</h1>
       <h3>An ultimate tool for the best study experience.</h3>
     </div>
-    <div class="content">
+    <div class="content-page-welcome">
       <div class="wrapper">
         <div class="set-top">
           <button>
-            <router-link to="/home">
-              <div class="single-land">
-                <div class="img-wrapper">
-                  <img src="/img/btn/facebook.png" />
-                </div>
-                <label>Continue with Facebook</label>
+            <div class="single-land">
+              <div class="img-wrapper">
+                <img src="/img/btn/facebook.png" />
               </div>
-            </router-link>
+              <label>Continue with Facebook</label>
+            </div>
           </button>
-          <!-- <button>
+          <button>
             <div class="single-land">
               <div class="img-wrapper"><img src="/img/btn/google.png" /></div>
               <label>Continue with Google</label>
             </div>
-          </button> -->
-          <button>
-            <router-link to="/login">
-              <div class="single-land">
-                <div class="img-wrapper"><img src="/img/btn/email.png" /></div>
-                <label>Continue with Email</label>
-              </div>
-            </router-link>
+          </button>
+          <button v-on:click="login()">
+            <div class="single-land">
+              <div class="img-wrapper"><img src="/img/btn/email.png" /></div>
+              <label>Continue with Email</label>
+            </div>
           </button>
         </div>
 
@@ -57,12 +53,10 @@
           </div>
           <div class="set-bottom-box">
             <div class="set-bottom">
-              <button class="regis-btn">
-                <router-link to="/register">
-                  <div class="single-land">
-                    <label class="sign-up">Register</label>
-                  </div>
-                </router-link>
+              <button class="regis-btn" v-on:click="register()">
+                <div class="single-land">
+                  <label class="sign-up">Register</label>
+                </div>
               </button>
             </div>
           </div>
@@ -75,7 +69,7 @@
 <script>
 import axios from "@/axios.js";
 export default {
-  name: "Welcome",
+  name: "Welcome-Page",
   created() {
     // this.test();
   },
@@ -85,16 +79,18 @@ export default {
       resData: "",
     };
   },
+  mounted() {
+    if (localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
+  },
   methods: {
-    // test: function () {
-    //   axios.get("/").then((res) => {
-    //     if (res.status != 404 || res.status != 500) {
-    //       this.connectServer = true;
-    //       // console.log(res);
-    //       this.resData = res.data;
-    //     }
-    //   });
-    // },
+    register() {
+      this.$router.push({ path: "/register" });
+    },
+    login() {
+      this.$router.push({ path: "/login" });
+    },
   },
 };
 </script>
@@ -112,13 +108,7 @@ button {
 button:last-child {
   margin-bottom: 0;
 }
-.welcome-page {
-  background-color: #f6f6f6;
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  grid-template-rows: 40% 60%;
-}
+
 .header {
   height: 100%;
   display: flex;
@@ -148,10 +138,11 @@ button:last-child {
     color: #8b8b8b;
     font-size: 14px;
     font-weight: 500;
-    padding-top: 5px !important;
+    // padding-top: 5px !important;
+    text-align: center;
   }
 }
-.content {
+.content-page-welcome {
   width: 100vw;
   height: 100%;
 }
@@ -186,5 +177,8 @@ button:last-child {
       margin-bottom: 0px;
     }
   }
+}
+.bottom-section {
+  background-color: #f6f6f6;
 }
 </style>

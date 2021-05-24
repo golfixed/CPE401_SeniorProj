@@ -1,5 +1,5 @@
 <template>
-  <div class="welcome-page">
+  <div class="regis-page">
     <topNavi type="cancel" v-if="this.currentSubPage != 4" />
     <div class="subpage" v-if="currentSubPage == 1">
       <div class="content-page">
@@ -21,7 +21,7 @@
             <label>or</label>
           </div>
           <button>
-            <router-link to="/home">
+            <router-link to="/">
               <div class="single-land btn-fb">
                 <div class="img-wrapper">
                   <img src="/img/btn/facebook.png" />
@@ -40,6 +40,16 @@
       </div>
       <div class="bottom-section">
         <div class="wrapper">
+          <div class="bottom-label">
+            <label
+              >By clicking continue, you agree to <br />our
+              <router-link to="/terms" class="text-btn">Terms</router-link>,
+              including our
+              <router-link to="/cookie" class="text-btn"
+                >Cookie Use.</router-link
+              ></label
+            >
+          </div>
           <div class="btn-wrapper">
             <button
               class="sign-in"
@@ -62,7 +72,7 @@
     <div class="subpage loading-page" v-if="isLoading == true">
       <div class="content-page">
         <div class="loading-wrapper">
-          <pageLoading label="hang on..." />
+          <pageLoading label="Registering, please wait..." />
         </div>
       </div>
     </div>
@@ -185,7 +195,7 @@
             <div class="bottom-label">
               <label
                 >Role cannot be changed after this. <br />
-                <router-link to="/help" class="help-btn"
+                <router-link to="/help" class="text-btn"
                   >Visit our FAQ</router-link
                 >
                 section if you need help.</label
@@ -195,7 +205,7 @@
               <button
                 class="sign-in"
                 v-if="selectedRole != ''"
-                v-on:click="nextPage()"
+                v-on:click="submitRole()"
               >
                 <div class="single-land">
                   <label>Continue</label>
@@ -235,13 +245,13 @@
             <div class="bottom-label">
               <label
                 >You can change profile photo later in settings page.<br />
-                <router-link to="/help" class="help-btn"
+                <router-link to="/help" class="text-btn"
                   >Visit our FAQ</router-link
                 >
                 section if you need help.</label
               >
             </div>
-            <button class="sign-in" v-on:click="submitRole()">
+            <button class="sign-in" v-on:click="nextPage()">
               <div class="single-land">
                 <label>Continue</label>
               </div>
@@ -274,13 +284,11 @@
       <div class="bottom-section">
         <div class="wrapper">
           <div class="btn-wrapper">
-            <router-link to="/home">
-              <button class="sign-in">
-                <div class="single-land">
-                  <label>Finish Setup</label>
-                </div>
-              </button>
-            </router-link>
+            <button class="sign-in" v-on:click="completeSetup()">
+              <div class="single-land">
+                <label>Finish Setup</label>
+              </div>
+            </button>
           </div>
         </div>
       </div>
@@ -289,8 +297,8 @@
 </template>
 
 <script>
-import topNavi from "@/components/template/topNavi.vue";
-import pageLoading from "@/components/pageLoading.vue";
+import topNavi from "@/components/template/top_navibar.vue";
+import pageLoading from "@/components/page_loading.vue";
 import axios from "@/axios.js";
 
 export default {
@@ -307,37 +315,80 @@ export default {
         email: "",
         password: "",
       },
+      user: {},
       currentSubPage: 1,
       selectedRole: "",
       isLoading: false,
     };
   },
   methods: {
+    completeSetup: function () {
+      window.location.reload();
+    },
     nextPage: function () {
       this.currentSubPage = this.currentSubPage + 1;
-      this.scrollTop();
     },
-    scrollTop: function () {
-      document.querySelector(".app-view").scroll(0, 0);
+    SignIn: function () {
+      this.isLoading = true;
+      var loginInfo = {
+        email: this.regis.email,
+        password: this.regis.password,
+      };
+      axios.post("/login", loginInfo).then((res) => {
+        if (res.false != true) {
+          console.log("Regis: Logged In");
+          localStorage.token = res.data.token;
+          this.user = res.data.user;
+        } else {
+          alert("Regis: Login Failed");
+        }
+      });
+      this.isLoading = false;
     },
     submitEmail: function () {
       this.isLoading = true;
-      var info = {
+      var regisInfo = {
         firstname: this.regis.fname,
         lastname: this.regis.lname,
         email: this.regis.email,
         password: this.regis.password,
       };
-      axios.post("/register", info).then(function (response) {
-        console.log(response);
-        if (response.status != 404) {
-          console.log("Email check: Valid");
+      axios.post("/register", regisInfo).then((res) => {
+        console.log(res);
+        if (res.false != true) {
+          console.log("Regis: Email valid");
+          this.SignIn();
           this.nextPage();
         } else {
-          console.log("Email check error");
+          console.log("Regis: Email error");
           alert("Error: ");
         }
       });
+
+      setTimeout(
+        function () {
+          this.isLoading = false;
+        }.bind(this),
+        2000
+      );
+    },
+    submitRole: function () {
+      this.isLoading = true;
+      axios
+        .post("/addrole", {
+          id: this.user.id,
+          role: this.selectedRole,
+        })
+        .then((res) => {
+          if (res.false != true) {
+            console.log("update role completed");
+            this.user.role = this.selectedRole;
+            localStorage.setItem("user", JSON.stringify(this.user));
+          } else {
+            console.log("update role fail");
+            alert("Error: ");
+          }
+        });
       //bypass change sub page
 
       setTimeout(
@@ -346,11 +397,7 @@ export default {
         }.bind(this),
         2000
       );
-      this.nextPage();
-    },
-    submitRole: function () {
-      //bypass change sub page
-      console.log("Call API");
+
       this.nextPage();
     },
     selectRole: function (role) {
@@ -519,9 +566,7 @@ export default {
   padding-top: 61px;
   margin-top: 0;
 }
-.btn-wrapper {
-  width: 100%;
-}
+
 .page-header {
   display: flex;
   justify-content: center;
@@ -671,24 +716,5 @@ input {
   .role-item-box-selected {
     border: 1px solid #479f60;
   }
-}
-.bottom-label {
-  width: 100%;
-  font-size: 14px;
-  font-weight: normal;
-  text-align: center;
-  line-height: 18px;
-  color: #505050;
-  margin-bottom: 15px;
-  .help-btn {
-    color: #479f60;
-    font-weight: 500;
-    text-decoration: underline;
-  }
-}
-.loading-wrapper {
-  width: 100vw;
-  height: calc(100vh - 190px);
-  overflow: hidden;
 }
 </style>

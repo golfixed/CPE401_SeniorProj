@@ -22,10 +22,14 @@ export default {
       recentAct: [],
     };
   },
+  mounted() {
+    if (!localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
+  },
   created: function () {},
   methods: {
     openSearchPage: function () {
-      console.log("clicked");
       this.$store.commit("Open_searchPage");
     },
   },

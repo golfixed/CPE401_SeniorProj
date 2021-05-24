@@ -1,47 +1,30 @@
 <template>
-  <div class="assist-btn-wrapper">
-    <div class="assist-btn">
+  <div class="assist-btn-wrapper" v-if="currentPage != '/chats'">
+    <div class="assist-btn" v-on:click="openAssistModal()">
       <div class="btn-img">
-        <img :src="iconToShow" />
+        <img src="/img/btn/plus.svg" />
       </div>
     </div>
-    <!-- <div class="assist-menu-wrapper">
-      <div class="assist-menu-item-box">
-        <label class="menu-label">Create Class</label>
-        <div class="assist-menu-item">
-          <div class="btn-img">
-            <img src="/img/btn/plus.svg" />
-          </div>
-        </div>
-      </div>
-      <div class="assist-menu-item-box">
-        <label class="menu-label">Create Class</label>
-        <div class="assist-menu-item">
-          <div class="btn-img">
-            <img src="/img/btn/plus.svg" />
-          </div>
-        </div>
-      </div>
-      <div class="assist-menu-item-box">
-        <label class="menu-label">Join Class</label>
-        <div class="assist-menu-item">
-          <div class="btn-img">
-            <img src="/img/btn/plus.svg" />
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 
 <script>
 export default {
-  name: "assist-btn",
+  name: "Join-Create-btn",
+  components: {},
+  methods: {
+    openAssistModal: function () {
+      this.$store.commit("Open_assistMenu");
+    },
+  },
   computed: {
-    iconToShow: function () {
-      var page = this.$route.path;
-      if (page == "/home") return "/img/btn/write.svg";
-      else return "/img/btn/plus.svg";
+    // iconToShow: function () {
+    //   var page = this.$route.path;
+    //   if (page == "/") return "/img/btn/plus.svg";
+    //   else return "/img/btn/plus.svg";
+    // },
+    currentPage: function () {
+      return this.$route.path;
     },
   },
   mounted() {
@@ -75,7 +58,7 @@ export default {
   z-index: 11;
   width: 66px;
   height: 66px;
-  bottom: 120px;
+  bottom: 80px;
   right: 40px;
   transition: all 0.3s;
   .assist-btn {

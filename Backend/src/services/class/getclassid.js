@@ -15,13 +15,16 @@ getclassid.post('/getclassid', (req, res) =>{
             if (error) throw error;
             
             let message = "";
+            let err = false;
             if(results === undefined || results.length == 0){
                 message = `Failed `;
+                err = true;
             }else{
                 message = `Successfully`;
+                err = false;
             }
             console.log(results)
-            return res.status(200).send ({error: false, classInfo: results[0], message: message})
+            return res.status(200).send ({error: err, classInfo: results[0], message: message})
         })
     }
 })

@@ -1,65 +1,86 @@
 <template>
-  <div class="welcome-page">
-    <topNavi />
+  <div class="login-page">
+    <topNavi type="back" />
     <div class="content-page">
       <div class="wrapper">
         <div class="page-header">
-          <h1 class="pagename">Login with E-mail</h1>
+          <h1 class="pagename">Continue with E-mail</h1>
         </div>
         <input type="text" placeholder="E-mail" v-model="email" />
         <input type="password" placeholder="Password" v-model="password" />
+      </div>
+    </div>
+    <div class="bottom-section">
+      <div class="wrapper">
+        <div class="bottom-label">
+          <label
+            >Forgot your password?<br />
+            <router-link to="/terms" class="text-btn"
+              >Reset password</router-link
+            ></label
+          >
+        </div>
         <div class="btn-wrapper">
-          <button class="sign-in" v-on:click="signin">
-            <router-link to="/home">
-              <div class="single-land">
-                <label>Sign In</label>
-              </div>
-            </router-link>
+          <button class="sign-in" v-on:click="SignIn()">
+            <div class="single-land">
+              <label>Log in</label>
+            </div>
           </button>
         </div>
       </div>
     </div>
-    <div class="bottom-sec">
-      <div class="wrapper">
-        <label class="bottom-label">Forget your password?</label>
-        <label class="bottom-btn">Reset password</label>
+    <div class="loading-page" v-if="isLoading == true">
+      <div class="loading-wrapper">
+        <pageLoading label="Logging in, please wait..." />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import topNavi from "@/components/template/topNavi.vue";
+import topNavi from "@/components/template/top_navibar.vue";
+import pageLoading from "@/components/page_loading.vue";
 import axios from "@/axios.js";
 export default {
   name: "Login-Page",
   components: {
     topNavi,
+    pageLoading,
   },
   data() {
     return {
       email: "",
       password: "",
+      isLoading: false,
+      user: {},
     };
   },
   methods: {
-    signin: function () {
-      axios
-        .post("/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then(function (response) {
-          console.log(response);
-        })
-        .catch((error) => {
-          if (!error.response) {
-            // network error
-            this.errorStatus = "Error: Network Error";
-          } else {
-            this.errorStatus = error.response.data.message;
-          }
-        });
+    SignIn: function () {
+      this.isLoading = true;
+      setTimeout(
+        function () {
+          axios
+            .post("/login", {
+              email: this.email,
+              password: this.password,
+            })
+            .then((res) => {
+              if (res.status != 404) {
+                console.log("Login: Signed In");
+                localStorage.token = res.data.token;
+                this.user = res.data.user;
+                localStorage.setItem("user", JSON.stringify(this.user));
+
+                window.location.reload();
+              } else {
+                alert("Login Failed: Incorrect email or password");
+              }
+            });
+          this.isLoading = false;
+        }.bind(this),
+        2000
+      );
     },
   },
 };
@@ -82,10 +103,6 @@ export default {
 }
 input {
   margin-bottom: 10px;
-}
-.btn-wrapper {
-  width: 100%;
-  margin: 20px 0;
 }
 .sign-in {
   background-color: #479f60;

@@ -1,53 +1,55 @@
 <template>
   <div>
-    <div id="app" v-if="isLogInPage == false">
+    <div id="app">
       <div class="app-view">
-        <topbar />
-        <router-view v-if="this.$store.state.searchPageOpen == false" />
-
-        <assistBtn />
-        <optionMenu />
-        <div
-          class="overlay-bg"
-          v-if="overlayShow == true"
-          v-on:click="closeAllMenu()"
-        ></div>
+        <topBar v-if="isLoggedIn == true" />
+        <router-view />
+        <joinCreateBtn v-if="isLoggedIn == true" />
+        <optionMenu v-if="isLoggedIn == true" />
+        <modalJoinCreate v-if="isLoggedIn == true" />
+        <div class="overlay-bg" v-if="overlayShow == true"></div>
       </div>
-      <div class="app-tabbar">
-        <tabbar v-if="this.$store.state.searchPageOpen == false" />
-      </div>
-    </div>
-    <div id="app" v-if="isLogInPage == true">
-      <router-view />
+      <!-- <div class="app-tabbar" v-if="isLoggedIn == true">
+        <tabBar />
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import tabbar from "@/components/template/tabbar";
-import topbar from "@/components/template/topbar";
-import assistBtn from "@/components/assistBtn.vue";
-import optionMenu from "@/components/optionMenu.vue";
+import tabBar from "@/components/template/bottom_tabbar";
+import topBar from "@/components/template/top_titlebar";
+import joinCreateBtn from "@/components/join_button.vue";
+import optionMenu from "@/components/option_menu.vue";
+import modalJoinCreate from "@/components/modals/join_create.vue";
+import welcomePage from "@/views/Welcome.vue";
 export default {
   name: "app",
   components: {
-    tabbar,
-    topbar,
-    assistBtn,
+    tabBar,
+    topBar,
+    joinCreateBtn,
     optionMenu,
+    welcomePage,
+    modalJoinCreate,
+  },
+  data() {
+    return {
+      isLoggedIn: false,
+      user: {},
+    };
+  },
+  mounted() {
+    if (localStorage.token && localStorage.user) {
+      this.isLoggedIn = true;
+      this.$router.push({ path: "/" });
+    }
+    if (localStorage.user) {
+      this.user = JSON.parse(localStorage.getItem("user"));
+      this.$store.commit("fetchProfile", this.user);
+    }
   },
   computed: {
-    loggedIn: function () {
-      return this.$store.state.loggedIn;
-    },
-    currentRoute: function () {
-      return this.$route.path;
-    },
-    isLogInPage: function () {
-      var r = this.currentRoute;
-      if (r == "/" || r == "/login" || r == "/register") return true;
-      else return false;
-    },
     overlayShow: function () {
       return this.$store.state.overlayShow;
     },
@@ -61,6 +63,8 @@ export default {
 </script>
 
 <style lang="scss">
+$app-font: "Helvetica Nueue", "Roboto", sans-serif;
+
 .pageslide-enter-active,
 .pageslide-leave-enter {
   transform: translateY(0);
@@ -95,7 +99,8 @@ body::-webkit-scrollbar {
   display: none;
 }
 #app {
-  font-family: Helvetica Neue, Roboto, Arial, sans-serif;
+  // font-family: Helvetica Neue, Roboto, Arial, sans-serif;
+  font-family: "Nunito", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -113,15 +118,12 @@ body::-webkit-scrollbar {
   p {
     margin: 0;
     padding: 0;
+    font-family: $app-font;
   }
 }
 a {
   text-decoration: none;
   color: #505050;
-}
-
-input {
-  border-style: solid;
 }
 
 // .app-statusbar {
@@ -186,6 +188,10 @@ input {
 }
 .app-view::-webkit-scrollbar {
   display: none;
+}
+::-webkit-input-placeholder {
+  /* Edge */
+  font-family: $app-font;
 }
 
 .section {
@@ -271,7 +277,7 @@ input {
     margin: 0 -20px;
 
     div.slide-tray {
-      padding: 20px;
+      padding: 15px 20px;
       display: flex;
       flex-wrap: nowrap;
       overflow-x: auto;
@@ -316,20 +322,24 @@ input {
   border: solid;
   border-width: 1px;
   border-color: #ededed;
-  border-radius: 10px;
+  border-radius: 50px;
   outline: none;
   height: 40px;
-  width: 100%;
+  width: -webkit-fill-available;
   text-indent: 20px;
   font-size: 16px;
   box-shadow: none;
+  border-style: solid;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 button {
   background-color: #fff;
   border: solid;
   border-width: 1px;
   border-color: #ededed;
-  border-radius: 10px;
+  border-radius: 50px;
   outline: none;
   height: 50px;
   width: 100%;
@@ -399,6 +409,11 @@ button:active {
     transform: translate(-50%, -50%);
   }
 }
+.hr-line-white {
+  label {
+    background-color: #fff;
+  }
+}
 #page-home,
 #page-classrooms,
 #page-chats {
@@ -447,7 +462,7 @@ button:active {
   justify-content: center;
   align-items: center;
   background-color: #f6f6f6;
-  height: calc(100vh - 190px);
+  height: calc(100vh - 131px);
   .no-msg {
     text-align: center;
     text-align: center;
@@ -462,9 +477,9 @@ button:active {
     }
     .title {
       font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 21px;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 20px;
       text-align: center;
       color: #8b8b8b;
     }
@@ -472,8 +487,8 @@ button:active {
       margin-top: 6px !important;
       font-style: normal;
       font-weight: normal;
-      font-size: 16px;
-      line-height: 20px;
+      font-size: 14px;
+      line-height: 16px;
       text-align: center;
       color: #8b8b8b;
     }
@@ -489,14 +504,85 @@ button:active {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10;
+  z-index: 20;
 }
 .bottom-section {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100vw;
-  padding: 20px 0 60px 0;
+  padding: 20px 0 20px 0;
   background-color: inherit;
+  z-index: 20;
+  .btn-wrapper {
+    width: 100%;
+  }
+  // iPhone XR, 11, 11 Pro Max
+  @media screen and (height: 848px) and (width: 414px) {
+    padding: 20px 0 40px 0;
+  }
+
+  // iPhone X, 11 Pro
+  @media screen and (height: 768px) and (width: 375px) {
+    padding: 20px 0 40px 0;
+  }
+
+  //iPhone 12 Pro
+  @media screen and (height: 797px) and (width: 390px) {
+    padding: 20px 0 40px 0;
+  }
+
+  // iPhone 12 mini
+  @media screen and (height: 762px) and (width: 375px) {
+    padding: 20px 0 40px 0;
+  }
+}
+
+.loading-page {
+  z-index: 10;
+  position: absolute;
+  width: 100vw;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /* margin-top: 61px; */
+  background-color: #fff;
+}
+.loading-wrapper {
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+}
+.welcome-page {
+  overflow: hidden;
+}
+.welcome-page,
+.regis-page,
+.login-page {
+  z-index: 1000;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: #f6f6f6;
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 40% 60%;
+}
+.bottom-label {
+  width: 100%;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: center;
+  line-height: 18px;
+  color: #505050;
+  margin-bottom: 15px;
+  .text-btn {
+    color: #479f60;
+    font-weight: 500;
+    text-decoration: underline;
+  }
 }
 </style>
