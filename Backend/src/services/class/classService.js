@@ -3,10 +3,10 @@ import DBConnection from "../../configs/DBConnection";
 let createNewClass = (data) => {
     return new Promise(async (resolve, reject) => {
         // check email is exist or not
-        let isClassExist = await checkExistClass(data.class_code, data.section);
-        if (isClassExist) {
-            reject(`This class "${data.id}" has already exist. Please choose an other class`);
-        } else {
+        // let isClassExist = await checkExistClass(data.class_code, data.section);
+        // if (isClassExist) {
+        //     reject(`This class "${data.id}" has already exist. Please choose an other class`);
+        // } else {
             
             function joinCode(length) {
                 var result           = [];
@@ -44,34 +44,34 @@ let createNewClass = (data) => {
                 }
             );
 
-        }
+        // }
     });
 };
 
-let checkExistClass = (class_code, section) => {
-    // console.log('check class exist');
-    return new Promise( (resolve, reject) => {
-        try {
-            DBConnection.query(
-                ' SELECT * FROM `class` WHERE `class_code` = ? AND `section` = ? ', [class_code, section],
-                function(err, rows) {
-                    // console.log('error:' + err);
-                    // console.log('rows:' + rows);
-                    if (err) { 
-                        reject(err)
-                    }
-                    if (rows.length > 0) {
-                        resolve(true)
-                    } else {
-                        resolve(false)
-                    }
-                }
-            );
-        } catch (err) {
-            reject(err);
-        }
-    });
-};
+// let checkExistClass = (class_code, section) => {
+//     // console.log('check class exist');
+//     return new Promise( (resolve, reject) => {
+//         try {
+//             DBConnection.query(
+//                 ' SELECT * FROM `class` WHERE `class_code` = ? AND `section` = ? ', [class_code, section],
+//                 function(err, rows) {
+//                     // console.log('error:' + err);
+//                     // console.log('rows:' + rows);
+//                     if (err) { 
+//                         reject(err)
+//                     }
+//                     if (rows.length > 0) {
+//                         resolve(true)
+//                     } else {
+//                         resolve(false)
+//                     }
+//                 }
+//             );
+//         } catch (err) {
+//             reject(err);
+//         }
+//     });
+// };
 
 
 module.exports = {
