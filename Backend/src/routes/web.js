@@ -97,7 +97,7 @@ let initWebRoutes = (app) => {
     router.delete("/deleteMember/:id", delMember);
 
     //MATERIAL
-    router.get("/materials/:id", getMaterials);
+    router.get("/classrooms/:class_id/materials", getMaterials);
     router.post("/createTopic", createTopic);
     router.post("/postMaterial", postMaterial);
     router.delete("/deleteMaterial/:id", delMaterial);
