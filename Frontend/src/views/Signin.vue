@@ -66,18 +66,15 @@ export default {
               password: this.password,
             })
             .then((res) => {
-              if (res.status != 404 || res.status != 500) {
+              console.log(res);
+              if (res.status != 404) {
                 console.log("Login: Signed In");
                 localStorage.token = res.data.token;
                 this.user = res.data.user;
                 localStorage.setItem("user", JSON.stringify(this.user));
-                // this.user = res.data.user;
-                // this.$store.commit("LogIn", this.user);
-                // if (localStorage.token) {
-                //   this.$router.push({ path: "/" });
-                // }
+
                 window.location.reload();
-              } else if (res == 422) {
+              } else {
                 alert("Login Failed: Incorrect email or password");
               }
             });
