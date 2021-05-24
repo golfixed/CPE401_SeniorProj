@@ -2,7 +2,7 @@
   <transition name="mainModal">
     <div id="assist-modal" v-show="isOpen == true">
       <div class="modal-wrapper">
-        <div class="box" v-if="user_mock.role == 'std' && isJoining == false">
+        <div class="box" v-if="user_role == 'std' && isJoining == false">
           <div class="modal-head">
             <label class="title">Join Classroom</label>
             <label class="desc"
@@ -38,7 +38,7 @@
             </div>
           </div>
         </div>
-        <div class="box" v-if="user_mock.role == 'tea' && isJoining == false">
+        <div class="box" v-if="user_role == 'tea' && isJoining == false">
           <div class="modal-head">
             <label class="title">Join Classroom</label>
             <label class="desc"
@@ -95,9 +95,7 @@ export default {
   },
   data() {
     return {
-      user_mock: {
-        role: "tea",
-      },
+      user_role: this.$store.state.user.profile.role,
       joinInfo: {
         account_id: this.$store.state.user.profile.id,
         join_code: "",
@@ -123,7 +121,7 @@ export default {
     },
     joinClass: function () {
       this.isJoining = true;
-      axios.post("/joinclass").then((res) => {
+      axios.post("/joinclass", this.joinInfo).then((res) => {
         console.log(res);
         if (res.error != true) {
           console.log("Join Class successfully");
@@ -140,7 +138,7 @@ export default {
       );
     },
     getClassID: function () {
-      console.log("Get classID API");
+      // console.log("Get classID API");
     },
     createClassroom: function () {
       this.$store.commit("Close_AllMenu");

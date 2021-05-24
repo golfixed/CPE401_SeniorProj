@@ -40,8 +40,7 @@
       <div class="class-item-wrapper">
         <classItem
           v-for="item in classList"
-          :key="item.id"
-          v-if="item.favorite == false"
+          :key="item.class_id"
           v-bind:id="item.id"
           v-bind:code="item.class_code"
           v-bind:title="item.class_name"
@@ -80,13 +79,17 @@ export default {
   methods: {
     fetchClassList: function () {
       this.isLoading = true;
-      axios.get("/classrooms").then((res) => {
+      var class_id = this.$store.state.user.profile.id;
+      console.log(class_id);
+      axios.post("/classrooms", { id: class_id }).then((res) => {
         if (res.error != true) {
           console.log("Classrooms: class list fetched");
+          console.log(res);
           this.classList = res.data.data;
           this.classListPinned = this.classList.filter(
             (classList) => classList.favorite == true
           );
+          console.log(this.classList);
         } else {
           console.log("Classrooms: class list fetch failed");
         }
