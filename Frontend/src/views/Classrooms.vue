@@ -204,6 +204,6 @@ export default {
   color: #8b8b8b;
   font-weight: 400;
   margin: 0 15px 0 20px;
-  padding-top: 15px;
+  // padding-top: 15px;
 }
 </style>

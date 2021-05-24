@@ -75,45 +75,45 @@ let initWebRoutes = (app) => {
     router.post("/register", registerController.createNewUser);
     router.post("/addrole", addRole);
     router.post("/getprofileinfo", getProfileInfo);
-    router.post("/logout", reqJWT, loginController.postLogOut);
+    router.post("/logout", loginController.postLogOut);
 
     //CLASS
-    router.get("/classrooms", reqJWT, classList);
-    router.get("/classrooms/:class_code", reqJWT, classCode);
-    router.post("/getclassinfo", reqJWT, getclassinfo);
-    router.post("/getclassid", reqJWT, getclassid);
-    router.post("/createClass", reqJWT, classController.createNewClass);
-    router.post("/joinClass", reqJWT, joinClass);
+    router.get("/classrooms",  classList);
+    router.get("/classrooms/:class_code", classCode);
+    router.post("/getclassinfo", getclassinfo);
+    router.post("/getclassid", getclassid);
+    router.post("/createClass", classController.createNewClass);
+    router.post("/joinClass", joinClass);
 
     //PIN CLASS
-    router.get("/pinCode/:id", reqJWT, getJoinCode);
+    router.get("/pinCode/:id", getJoinCode);
 
     //CLASS MEMBER
     router.get("/:class_code/:section/classMember", reqJWT, classMember);
-    router.delete("/deleteMember/:id", reqJWT, delMember);
+    router.delete("/deleteMember/:id", delMember);
 
     //MATERIAL
-    router.get("/materials/:id", reqJWT, getMaterials);
-    router.post("/createTopic", reqJWT, createTopic);
-    router.post("/postMaterial", reqJWT, postMaterial);
-    router.delete("/deleteMaterial/:id", reqJWT, delMaterial);
+    router.get("/materials/:id", getMaterials);
+    router.post("/createTopic", createTopic);
+    router.post("/postMaterial", postMaterial);
+    router.delete("/deleteMaterial/:id", delMaterial);
 
     //POST
-    router.post("/:class/createPost", reqJWT, createPost);
-    router.post("/addComment/:post", reqJWT, addComment);
-    router.delete("/deleteComment/:id", reqJWT, delComment);
-    router.get("/post/:id", reqJWT, getPost);
-    router.delete("/deletePost/:id", reqJWT, delPost);
+    router.post("/:class/createPost", createPost);
+    router.post("/addComment/:post", addComment);
+    router.delete("/deleteComment/:id", delComment);
+    router.get("/post/:id", getPost);
+    router.delete("/deletePost/:id", delPost);
     
     //POLL
-    router.post("/createPoll", reqJWT, createPoll);
-    router.get("/polls/:id", reqJWT, getPoll);
-    router.post("/clickVotes", reqJWT, clickVotes);
+    router.post("/createPoll", createPoll);
+    router.get("/polls/:id", getPoll);
+    router.post("/clickVotes", clickVotes);
 
     //SETTING
-    router.get("/setting/:id", reqJWT, setting);
-    router.put("/setting/editProfile/:id", reqJWT, editProfile);
-    router.put("/setting/editAccount/:id",reqJWT, editAccount);
+    router.get("/setting/:id", setting);
+    router.put("/setting/editProfile/:id", editProfile);
+    router.put("/setting/editAccount/:id", editAccount);
 
     return app.use("/", router);
 };
