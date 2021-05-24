@@ -3,24 +3,44 @@ import express from "express";
 
 let delMember = express();
 
-//delete member by id
-delMember.delete('/deleteMember/:id', (req, res) => {
-    let id = req.params.id;
+//delete member by account id and class id
+delMember.delete('/deleteMember', (req, res) => {
 
-    if (!id) {
-        return res.status(200).send({ error: true, message: "Please specify class id or account id"});
+    let account_id = req.body.account_id;
+    let class_id = req.body.class_id;
+
+    if (!account_id || !class_id) {
+        return res.status(200).send({ error: true, message: "Please specify class id and account id"});
     } else {
-        dbCon.query('DELETE FROM class_member WHERE id = ?', id, (error, results, fields) => {
-            if (error) throw error;
+        dbCon.query('SELECT id FROM class_member WHERE account = ? AND class = ?', [account_id, class_id], (error, results) =>{
+            if(error) {console.log(error)}
+            else {
+                if(results.length > 0){
+                    var member_id = results[0].id;
 
-            let message = "";
-            if (results.affectedRows === 0) {
-                message = "Member not found";
-            } else {
-                message = "Member successfully deleted";
+                    dbCon.query('DELETE FROM class_member WHERE id = ?', [member_id], (error, results, fields) => {
+                        if (error) throw error;
+            
+                        return res.status(200).send({
+                            error: false,
+                            message: "Deleted member successfully"
+                        })
+                    })
+                }else{
+                    console.log('NO RESULT')
+                    res.status(200).send({ error: true, message: `No member id this class`})
+                }
             }
-            return res.send({ error: false, data: results, message: message })
         })
+
+
+
+
+
+
+
+
+
     }
 })
 
