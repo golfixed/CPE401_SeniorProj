@@ -93,7 +93,7 @@ let initWebRoutes = (app) => {
     router.get("/pinCode/:id", getJoinCode);
 
     //CLASS MEMBER
-    router.get("/:class_code/:section/classMember", classMember);
+    router.get("/classrooms/:class_id/classmember", classMember);
     router.delete("/deleteMember/:id", delMember);
 
     //MATERIAL
