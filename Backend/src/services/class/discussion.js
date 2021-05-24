@@ -1,6 +1,5 @@
 import dbCon from "../../configs/DBConnection";
 import express from "express";
-//check exist class
 
 let discussion = express();
 
