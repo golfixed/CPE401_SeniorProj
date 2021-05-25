@@ -107,11 +107,12 @@ let initWebRoutes = (app) => {
     //POST
     router.get("/getpostlist/:class_id", posttab);
     router.post("/createpost", createPost);
-    router.post("/addcomment", addComment);
-    router.post("/announce", announce);
-    router.delete("/deletecomment", delComment);
     router.get("/post/:id", getPost);
     router.delete("/deletepost", delPost);
+    //COMMENT
+    router.post("/addcomment", addComment);
+    router.delete("/deletecomment", delComment);
+    router.post("/announce", announce);
     
     //POLL
     router.get("/getpolllist/:class_id", getpollist);
