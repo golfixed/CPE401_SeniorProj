@@ -3,7 +3,7 @@ import express from "express";
 
 let createTopic = express();
 
-createTopic.post("/createtopic", (req, res) => {
+createTopic.post("/creatematerialtopic", (req, res) => {
 
     let topic = {
         class: req.body.class,
@@ -25,7 +25,7 @@ createTopic.post("/createtopic", (req, res) => {
 
                         return res.status(200).send({
                             error: false,
-                            data: results,
+                            material_topic_id: results.insertId,
                             message: "Added material topic successfully",
                         })
                     })
