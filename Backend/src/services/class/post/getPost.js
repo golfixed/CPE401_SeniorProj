@@ -17,17 +17,26 @@ getPost.get('/post/:id', (req, res) => {
 
                     dbCon.query("SELECT * FROM post WHERE id = ?", post_id, (error, results, fields) => {
                         if (error) throw error;
+                        else {
+                            if (results.length > 0) {
 
-                        let message = "";
-                        if (results === undefined || results.length == 0) {
-                            message = `There's no post id = ${id} `;
-                        } else {
-                            message = `Get post id = ${id} successfully`;
+                                let pid = results;
+                                dbCon.query("SELECT comment.* FROM comment,post WHERE comment.post = post.id AND comment.post = ?", post_id, (error, results) => {
+                                    if (error) { console.log(errer) }
+
+                                    let message = "";
+                                    if (results === undefined || results.length == 0) {
+                                        message = `There's no comment id = ${post_id} `;
+                                    } else {
+                                        message = `Get post id = ${post_id} successfully`;
+                                    }
+                                    return res.status(200).send({ error: false, post: pid, comment: results, message: message })
+                                })
+                            }
                         }
-                        return res.status(200).send({ error: false, data: results[0], message: message })
                     })
                 } else {
-                    res.status(200).send({ error: true, message: "No class id in DB" })
+                    res.status(200).send({ error: true, message: "No post id in DB" })
                 }
             }
         })
