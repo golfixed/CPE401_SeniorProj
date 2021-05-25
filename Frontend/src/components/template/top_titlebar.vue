@@ -53,7 +53,7 @@
       <div
         id="pinned-bar"
         class="section app-default-pinnedbar"
-        v-if="currentRoute == '/' && favPostList.length > 0"
+        v-if="currentRoute == '/sss' && favPostList.length > 0"
       >
         <div class="pin-title">
           <label>Announcements</label>

@@ -160,14 +160,14 @@ export default {
   border-radius: 10px;
 }
 .card-wrapper {
-  padding-right: 10px;
+  padding-right: 15px;
   margin-bottom: 10px;
 }
 .card-wrapper:first-child {
   padding-left: 0px;
 }
 .card-wrapper:last-child {
-  padding-right: 10px;
+  padding-right: 20px;
   margin-right: 20px;
 }
 .prev-member-box {

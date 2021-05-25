@@ -1,12 +1,9 @@
 <template>
-  <div class="create-classroom-page">
-    <topNavi type="cancel" v-if="currentSubPage == 1" />
+  <div class="create-post-page">
+    <topNavi pageName="New Post" type="cancel" v-if="currentSubPage == 1" />
     <div class="subpage" v-if="currentSubPage == 1 && isLoading == false">
-      <div class="content-page">
+      <div class="content-page fullpage">
         <div class="wrapper">
-          <div class="page-header">
-            <h1 class="pagename">Create Classroom</h1>
-          </div>
           <LabelFormInput text="Class Code" />
           <input
             type="text"
@@ -25,21 +22,7 @@
             placeholder="Ex: 2 or A"
             v-model="createInfo.section"
           />
-          <LabelFormInput text="Description" :optional="true" />
-          <textarea
-            placeholder="This class is about..."
-            v-model="createInfo.desc"
-          >
-          </textarea>
-          <LabelFormInput text="Classroom photo" :optional="true" />
-          <div class="set-profile-pic">
-            <div class="profile-pic">
-              <div class="img">
-                <img src="/img/mockup/class.png" />
-              </div>
-            </div>
-          </div>
-          <input type="file" />
+          <textarea placeholder="Post" v-model="createInfo.desc"> </textarea>
         </div>
         <div class="end-of-page"></div>
       </div>
@@ -118,7 +101,7 @@ import LabelFormInput from "@/components/labels/label_form_input.vue";
 import axios from "@/axios.js";
 
 export default {
-  name: "CreateClassroom-Page",
+  name: "Create-Post-Page",
   components: {
     topNavi,
     pageLoading,
@@ -393,6 +376,7 @@ textarea {
 
 .wrapper {
   padding: 0 20px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;

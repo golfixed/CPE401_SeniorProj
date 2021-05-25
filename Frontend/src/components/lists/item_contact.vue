@@ -1,5 +1,5 @@
 <template>
-  <div class="item-wrapper">
+  <div class="item-wrapper" v-on:click="openProfile(id)">
     <div class="contact-item">
       <div class="profile-pic">
         <img :src="pictureURL" draggable="false" />
@@ -15,12 +15,19 @@
 export default {
   name: "contact-list",
   props: {
+    id: Number,
     pictureURL: String,
     fname: String,
     lname: String,
     time: String,
     read: Boolean,
     lastReply: Boolean,
+  },
+  methods: {
+    openProfile(id) {
+      if (id) this.$router.push("/profile/" + id);
+      else console.log("error no user id");
+    },
   },
 };
 </script>

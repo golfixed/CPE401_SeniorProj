@@ -2,25 +2,44 @@
   <div>
     <div class="items-group">
       <LabelMaterial text="Labsheet Week 4" />
-      <itemFile
-        v-for="item in memberList"
-        :key="item.id"
-        v-if="item.role == 'tea'"
-        v-bind:fname="item.fname"
-        v-bind:lname="item.lname"
-        v-bind:pictureURL="item.pictureURL"
-      />
+      <div class="add-btn">
+        <div class="add-icon">
+          <img src="/img/icons/plus-grey.svg" />
+        </div>
+        <label> add new file</label>
+      </div>
     </div>
     <div class="items-group">
       <LabelMaterial text="Course Syllabus" />
       <itemFile
-        v-for="item in memberList"
-        :key="item.id"
-        v-if="item.role == 'std'"
-        v-bind:fname="item.fname"
-        v-bind:lname="item.lname"
-        v-bind:pictureURL="item.pictureURL"
+        fileName="Sheet 4"
+        fileLink="drive.google.com"
+        time="Jan 20, 2021"
       />
+      <itemFile
+        fileName="Sheet 4"
+        fileLink="drive.google.com"
+        time="Jan 20, 2021"
+      />
+      <itemFile
+        fileName="Sheet 4"
+        fileLink="drive.google.com"
+        time="Jan 20, 2021"
+      />
+      <div class="add-btn">
+        <div class="add-icon">
+          <img src="/img/icons/plus-grey.svg" />
+        </div>
+        <label> add new file</label>
+      </div>
+    </div>
+    <div class="items-group">
+      <div class="add-btn">
+        <div class="add-icon">
+          <img src="/img/icons/plus-grey-dark.svg" />
+        </div>
+        <label class="dark-label">add new label</label>
+      </div>
     </div>
     <div class="end-of-page"></div>
   </div>
@@ -28,9 +47,9 @@
 
 <script>
 import LabelMaterial from "@/components/labels/label_item_material.vue";
-import itemFile from "@/components/lists/item_contact.vue";
+import itemFile from "@/components/lists/item_file.vue";
 export default {
-  name: "ClassMember-Page",
+  name: "ClassMaterial-Page",
   components: {
     itemFile,
     LabelMaterial,
@@ -38,76 +57,44 @@ export default {
   data() {
     return {
       user: this.$store.state.user.profile,
-      memberList: [
+      materialList: [
+        {
+          id: 0,
+          topic: "Classwork",
+          time: "20:30/21-05-2021",
+          item: [
+            {
+              id: 0,
+              title: "Week 1",
+              link: "drive.google.com",
+              time: "20:30/21-05-2021",
+            },
+            {
+              id: 1,
+              title: "Week 1",
+              link: "drive.google.com",
+              time: "20:30/21-05-2021",
+            },
+          ],
+        },
         {
           id: 1,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Peerapong",
-          lname: "Thammakaew",
-          role: "std",
-        },
-        {
-          id: 2,
-          pictureURL: "/img/mockup/profile_volk.png",
-          fname: "Bhaksiree",
-          lname: "Tongtago",
-          role: "std",
-        },
-        {
-          id: 3,
-          pictureURL: "/img/mockup/profile_my.png",
-          fname: "Nithi",
-          lname: "My",
-          role: "tea",
-        },
-        {
-          id: 4,
-          pictureURL: "/img/mockup/profile_my.png",
-          fname: "Nithi",
-          lname: "MY",
-          role: "std",
-        },
-        {
-          id: 5,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "std",
-        },
-        {
-          id: 6,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "std",
-        },
-        {
-          id: 7,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "ta",
-        },
-        {
-          id: 8,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "std",
-        },
-        {
-          id: 9,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "ta",
-        },
-        {
-          id: 10,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "tea",
+          topic: "Classwork",
+          time: "20:30/21-05-2021",
+          item: [
+            {
+              id: 0,
+              title: "Week 1",
+              link: "drive.google.com",
+              time: "20:30/21-05-2021",
+            },
+            {
+              id: 1,
+              title: "Week 1",
+              link: "drive.google.com",
+              time: "20:30/21-05-2021",
+            },
+          ],
         },
       ],
     };
@@ -145,5 +132,37 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.add-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  padding: 20px 0;
+
+  .add-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  label {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: right;
+    color: #8b8b8b;
+  }
+
+  .dark-label {
+    color: #505050;
+    font-weight: 600;
+  }
 }
 </style>

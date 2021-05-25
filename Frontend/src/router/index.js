@@ -54,11 +54,21 @@ const routes = [
     name: 'CreateClassroom',
     component: () => import(  '../views/CreateClassroom.vue')
   },
+  {
+    path: '/createpost/:id',
+    name: 'CreatePost',
+    component: () => import(  '../views/CreatePost.vue')
+  },
   // {
   //   path: '/chats',
   //   name: 'Chats',
   //   component: () => import( '../views/Chats.vue')
   // },
+  {
+    path: '/profile/:id',
+    name: 'UserProfile',
+    component: () => import( '../views/UserProfile.vue')
+  },
   {
     path: '/search',
     name: 'Search',

@@ -2,20 +2,20 @@
   <div id="page-setting" class="fullpage">
     <topNavi type="gohome" :menu="true" optionName="classpage" />
     <div class="content-page">
+      <div class="class-img">
+        <img
+          :src="classInfo.pictureURL"
+          draggable="false"
+          v-if="classInfo.pictureURL"
+        />
+        <img
+          src="/img/classrooms/green.jpg"
+          draggable="false"
+          v-if="!classInfo.pictureURL"
+        />
+      </div>
       <div class="class-info">
         <div class="info">
-          <div class="img">
-            <img
-              :src="classInfo.pictureURL"
-              draggable="false"
-              v-if="classInfo.pictureURL"
-            />
-            <img
-              src="/img/classrooms/green.jpg"
-              draggable="false"
-              v-if="!classInfo.pictureURL"
-            />
-          </div>
           <div class="text">
             <div class="left">
               <label class="code">{{ classInfo.class_code }}</label>
@@ -51,36 +51,48 @@
           <div class="tabs">
             <div class="tab-item">
               <div class="tab-item-box active" v-if="this.currentTab == 1">
-                <label>Discussion</label>
+                <label>Posts</label>
               </div>
               <div
                 class="tab-item-box"
                 v-on:click="changeTab(1)"
                 v-if="this.currentTab != 1"
               >
-                <label>Discussion</label>
+                <label>Posts</label>
               </div>
             </div>
             <div class="tab-item">
               <div class="tab-item-box active" v-if="this.currentTab == 2">
-                <label>Material</label>
+                <label>Polls</label>
               </div>
               <div
                 class="tab-item-box"
                 v-on:click="changeTab(2)"
                 v-if="this.currentTab != 2"
               >
-                <label>Material</label>
+                <label>Polls</label>
               </div>
             </div>
             <div class="tab-item">
               <div class="tab-item-box active" v-if="this.currentTab == 3">
-                <label>Members</label>
+                <label>Materials</label>
               </div>
               <div
                 class="tab-item-box"
                 v-on:click="changeTab(3)"
                 v-if="this.currentTab != 3"
+              >
+                <label>Materials</label>
+              </div>
+            </div>
+            <div class="tab-item">
+              <div class="tab-item-box active" v-if="this.currentTab == 4">
+                <label>Members</label>
+              </div>
+              <div
+                class="tab-item-box"
+                v-on:click="changeTab(4)"
+                v-if="this.currentTab != 4"
               >
                 <label>Members</label>
               </div>
@@ -89,14 +101,14 @@
         </div>
       </div>
       <div class="tabs-page">
-        <div
-          v-if="currentTab == 1"
-          style="height: 1000px; background-color: green"
-        ></div>
+        <div v-if="currentTab == 1"><pageDiscussion /></div>
         <div v-if="currentTab == 2">
-          <pageMaterial />
+          <pagePoll />
         </div>
         <div v-if="currentTab == 3">
+          <pageMaterial />
+        </div>
+        <div v-if="currentTab == 4">
           <pageMember />
         </div>
       </div>
@@ -109,6 +121,9 @@ import itemSingle from "@/components/lists/item_single.vue";
 import topNavi from "@/components/template/top_navibar.vue";
 import pageMember from "@/views/ClassMembers.vue";
 import pageMaterial from "@/views/ClassMaterial.vue";
+import pageDiscussion from "@/views/ClassDiscussion.vue";
+import pagePoll from "@/views/ClassPoll.vue";
+import plusBTN from "@/components/join_button.vue";
 import axios from "@/axios.js";
 
 export default {
@@ -118,6 +133,9 @@ export default {
     itemSingle,
     pageMember,
     pageMaterial,
+    pageDiscussion,
+    pagePoll,
+    plusBTN,
   },
   data() {
     return {
@@ -147,6 +165,7 @@ export default {
     //   this.prevMember = member.slice(0, 8);
     // },
     changeTab(tab) {
+      window.scrollTo(0, 0);
       this.currentTab = tab;
     },
     openClassMember: function (id) {
@@ -179,6 +198,17 @@ export default {
 #page-setting {
   background-color: #f6f6f6;
 }
+.class-img {
+  height: 150px;
+  width: 100%;
+  // border-radius: 10px;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
 .class-info {
   background-color: #fff;
   border: 1px solid #ededed;
@@ -190,23 +220,10 @@ export default {
     // grid-template-columns: 70px auto;
     display: flex;
     flex-direction: column;
-    .img {
-      height: 130px;
-      width: 100%;
-      border-radius: 10px;
-      overflow: hidden;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    }
     .text {
       width: 100%;
       display: grid;
       grid-template-columns: auto 60px;
-      // padding-left: 15px;
-      margin-top: 15px;
 
       .left {
         width: -webkit-fill-available;
@@ -220,8 +237,8 @@ export default {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           font-style: normal;
-          font-weight: bold;
-          font-size: 24px;
+          font-weight: 600;
+          font-size: 20px;
           line-height: 24px;
           margin-bottom: 6px !important;
         }
@@ -229,14 +246,9 @@ export default {
           font-style: normal;
           font-weight: 600;
           font-size: 20px;
-          line-height: 20px;
+          line-height: 24px;
           color: #505050;
           margin-bottom: 6px !important;
-          display: -webkit-box;
-          -webkit-line-clamp: 1;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-          -webkit-box-pack: end;
         }
         .section {
           font-style: normal;
@@ -348,19 +360,26 @@ export default {
     .tabs {
       display: flex;
       margin: 0 -20px;
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
 
       .tab-item {
-        width: 100%;
+        flex: 0 0 auto;
+        width: fit-content;
         justify-content: center;
         align-items: center;
-
+        margin-right: 10px;
         .tab-item-box {
           display: flex;
           justify-content: center;
           align-items: center;
-          width: 100%;
+          width: fit-content;
+          padding: 0 20px;
+          margin: 0;
           height: 40px;
           border-radius: 100px;
+          background: #f6f6f6;
           label {
             font-style: normal;
             font-weight: normal;
@@ -371,18 +390,10 @@ export default {
           }
         }
         .active {
-          width: 100%;
-          background: #f6f6f6;
+          background: #479f60;
           border-radius: 100px;
-          height: 40px;
           label {
-            font-style: normal;
-            font-weight: normal;
-            font-size: 16px;
-            line-height: 19px;
-            text-align: center;
-            text-align: center;
-            color: #505050;
+            color: #fff;
           }
         }
       }
@@ -391,11 +402,15 @@ export default {
       }
       .tab-item:last-child {
         margin-right: 20px;
+        padding-right: 20px;
       }
     }
     .tabs::-webkit-scrollbar {
       display: none;
     }
   }
+}
+.assist-btn-wrapper {
+  bottom: 120px;
 }
 </style>

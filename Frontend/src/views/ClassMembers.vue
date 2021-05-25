@@ -3,9 +3,9 @@
     <div class="items-group">
       <LabelItemGroup text="Class Instructor" />
       <itemContact
-        v-for="item in memberList"
+        v-for="item in teacherList"
         :key="item.id"
-        v-if="item.role == 'tea'"
+        v-bind:id="item.id"
         v-bind:fname="item.fname"
         v-bind:lname="item.lname"
         v-bind:pictureURL="item.pictureURL"
@@ -25,9 +25,9 @@
     <div class="items-group">
       <LabelItemGroup text="Students" />
       <itemContact
-        v-for="item in memberList"
+        v-for="item in studentList"
         :key="item.id"
-        v-if="item.role == 'std'"
+        v-bind:id="item.id"
         v-bind:fname="item.fname"
         v-bind:lname="item.lname"
         v-bind:pictureURL="item.pictureURL"
@@ -123,11 +123,21 @@ export default {
           role: "tea",
         },
       ],
+      studentList: [],
+      teacherList: [],
     };
   },
   mounted() {
     if (!localStorage.token) {
       this.$router.push({ path: "/" });
+    }
+    if (this.memberList) {
+      this.studentList = this.memberList.filter(
+        (memberList) => memberList.role == "std"
+      );
+      this.teacherList = this.memberList.filter(
+        (memberList) => memberList.role == "tea"
+      );
     }
   },
   methods: {

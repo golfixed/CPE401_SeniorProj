@@ -1,21 +1,11 @@
 <template>
   <div class="file-item">
-    <div class="profile-pic">
-      <img :src="pictureURL" draggable="false" />
-    </div>
     <div class="text">
-      <label class="name">{{ fname }} {{ lname }}</label>
-      <div class="preview">
-        <label class="reply" v-if="lastReply == true"> You: </label>
-        <label class="read" v-if="read == true">{{ previewMessage }}</label>
-        <label class="unread" v-if="read == false">{{ previewMessage }}</label>
-      </div>
+      <label class="name">{{ fileName }}</label>
+      <label class="link">{{ fileLink }}</label>
     </div>
-    <div class="misc">
-      <label class="time">{{ time }}</label>
-      <div class="unread" v-if="read == false">
-        <img src="/img/btn/chat/dot_red.svg" draggable="false" />
-      </div>
+    <div class="time">
+      <label>{{ time }}</label>
     </div>
   </div>
 </template>
@@ -24,7 +14,7 @@
 export default {
   name: "file-list",
   props: {
-    filename: String,
+    fileName: String,
     fileLink: String,
     time: String,
   },
@@ -36,27 +26,16 @@ export default {
   width: 100%;
   padding: 10px 0;
   max-width: 100vw;
-  display: grid;
-  grid-template-columns: 54px auto 40px;
-  .profile-pic {
-    width: 54px;
-    height: 54px;
-    border-radius: 100%;
-    overflow: hidden;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-  }
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
   .text {
     display: flex;
-    justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    text-indent: 15px;
+    padding-left: 20px;
     .name,
-    .preview {
+    .link {
       display: -webkit-box;
       -webkit-box-orient: vertical;
       overflow: hidden;
@@ -65,55 +44,28 @@ export default {
     }
     .name {
       font-style: normal;
-      font-weight: bold;
+      font-weight: normal;
       font-size: 16px;
       line-height: 19px;
       color: #202020;
     }
-    .preview {
+    .link {
       margin-top: 5px !important;
-      .read,
-      .reply {
-        font-style: normal;
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 16px;
-        color: #808080;
-      }
-      .unread {
-        font-style: normal;
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 16px;
-        color: #202020;
-      }
-    }
-  }
-  .misc {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    .time {
       font-style: normal;
-      font-weight: 300;
+      font-weight: normal;
       font-size: 14px;
       line-height: 16px;
-      text-align: center;
-      color: #c9c9c9;
+      color: #808080;
     }
-    .unread {
-      margin-top: 8px;
-      width: 13px;
-      height: 13px;
-      border-radius: 100%;
-      overflow: hidden;
-      img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-      }
-    }
+  }
+  .time {
+    padding-right: 20px;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 16px;
+    text-align: center;
+    color: #c9c9c9;
   }
 }
 </style>
