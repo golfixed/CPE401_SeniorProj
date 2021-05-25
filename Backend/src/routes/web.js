@@ -25,6 +25,7 @@ import createPost from "../services/class/post/createPost";
 import createPoll from "../services/class/poll/createPoll";
 import getPoll from "../services/class/poll/getPoll";
 import clickVotes from "../services/class/poll/vote";
+import announce from "../services/class/post/announce";
 import addComment from "../services/class/post/addComment";
 import delComment from "../services/class/post/delComment";
 import getPost from "../services/class/post/getPost";
@@ -96,6 +97,7 @@ let initWebRoutes = (app) => {
     //POST
     router.post("/createpost", createPost);
     router.post("/addcomment", addComment);
+    router.post("/announce", announce);
     router.delete("/deletecomment/:id", delComment);
     router.get("/post/:id", getPost);
     router.delete("/deletePost/:id", delPost);
