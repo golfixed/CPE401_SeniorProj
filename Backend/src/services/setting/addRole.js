@@ -1,4 +1,4 @@
-import dbCon from "../configs/DBConnection";
+import dbCon from "../../configs/DBConnection";
 import express from "express";
 
 let addRole = express();
@@ -16,7 +16,6 @@ addRole.post('/addrole', (req, res) => {
     
             return res.status(200).send({
                 error: false,
-                data: results,
                 message: "Role added"
             })
         })
