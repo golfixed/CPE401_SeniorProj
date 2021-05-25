@@ -3,10 +3,10 @@ import express from "express";
 
 let createPost = express();
 
-createPost.post("/classrooms/:class/createPost", (req, res) => {
+createPost.post("/createpost", (req, res) => {
     
     let post = {
-        class: req.params.class,
+        class: req.body.class,
         content: req.body.content,
         pic_url: req.body.pic_url,
         //create_by = account id
@@ -25,14 +25,14 @@ createPost.post("/classrooms/:class/createPost", (req, res) => {
             if(error) {console.log(error)}
             else{
                 console.log(results)
+                // res.status(200).send({error: true, message: })
                 if(results.length > 0){
                     dbCon.query("INSERT INTO post SET ?", post, (error, results, fields) =>{
                         if (error) throw error;
                         
                         return res.status(200).send({
                             error: false,
-                            data: results,
-                            post: post,
+                            post_id: results.insertId,
                             message: "Post successfully"
                         })
                     })
