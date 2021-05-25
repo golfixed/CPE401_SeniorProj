@@ -2,7 +2,7 @@
   <div class="class-item" v-on:click="openClassroom(id)">
     <div class="class-img">
       <img :src="img" v-if="img" />
-      <img src="/img/mockup/class.png" v-if="!img" />
+      <img src="/img/classrooms/green.jpg" v-if="!img" />
       <!-- <img :src="img" v-if="img" />
       <label v-if="!img">{{ previewLetter }}</label> -->
     </div>
@@ -106,6 +106,7 @@ export default {
   align-items: center;
   flex-direction: row-reverse;
   padding-left: 10px;
+
   .member-item {
     width: 34px;
     height: 34px;
@@ -142,9 +143,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0px 5px 25px 4px rgb(0 0 0 / 7%);
   img {
     width: 64px;
     height: 64px;
+    object-fit: cover;
   }
   label {
     font-size: 54px;

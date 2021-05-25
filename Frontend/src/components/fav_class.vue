@@ -2,7 +2,7 @@
   <div class="card-wrapper">
     <div class="card card-a" v-on:click="fetchClassInfo(id)">
       <div class="class-pic">
-        <img src="/img/mockup/class.png" v-if="!pic" />
+        <img src="/img/classrooms/green.jpg" v-if="!pic" />
         <img :src="pic" v-if="pic" />
       </div>
       <div class="card-text">
@@ -83,7 +83,7 @@ export default {
   box-shadow: 0px 5px 25px 4px rgb(0 0 0 / 7%);
   .class-pic {
     width: 100%;
-    height: 80px;
+    height: 100px;
     overflow: hidden;
     // border-radius: 4px;
     img {
@@ -121,6 +121,7 @@ export default {
       line-height: 16px;
       margin-bottom: 15px !important;
       min-height: 32px;
+      color: #505050;
     }
     .section {
       font-style: normal;
@@ -128,11 +129,7 @@ export default {
       font-size: 14px;
       line-height: 16px;
       margin-bottom: 5px !important;
-    }
-
-    .title,
-    .section {
-      color: #505050;
+      color: #808080;
     }
   }
 
@@ -163,7 +160,7 @@ export default {
   border-radius: 10px;
 }
 .card-wrapper {
-  padding: 0 5px;
+  padding-right: 10px;
   margin-bottom: 10px;
 }
 .card-wrapper:first-child {
@@ -171,6 +168,7 @@ export default {
 }
 .card-wrapper:last-child {
   padding-right: 10px;
+  margin-right: 20px;
 }
 .prev-member-box {
   display: flex;

@@ -1,8 +1,8 @@
 <template>
-  <div class="">
+  <div>
     <div class="items-group">
-      <LabelItemGroup text="Class Instructor" />
-      <itemContact
+      <LabelMaterial text="Labsheet Week 4" />
+      <itemFile
         v-for="item in memberList"
         :key="item.id"
         v-if="item.role == 'tea'"
@@ -11,20 +11,9 @@
         v-bind:pictureURL="item.pictureURL"
       />
     </div>
-    <!-- <div class="items-group">
-      <LabelItemGroup text="Teacher Assistant" />
-      <itemContact
-        v-for="item in memberList"
-        :key="item.id"
-        v-if="item.role == 'ta'"
-        v-bind:fname="item.fname"
-        v-bind:lname="item.lname"
-        v-bind:pictureURL="item.pictureURL"
-      />
-    </div> -->
     <div class="items-group">
-      <LabelItemGroup text="Students" />
-      <itemContact
+      <LabelMaterial text="Course Syllabus" />
+      <itemFile
         v-for="item in memberList"
         :key="item.id"
         v-if="item.role == 'std'"
@@ -38,15 +27,13 @@
 </template>
 
 <script>
-import LabelItemGroup from "@/components/labels/label_item_group.vue";
-import itemContact from "@/components/lists/item_contact.vue";
-import topNavi from "@/components/template/top_navibar.vue";
+import LabelMaterial from "@/components/labels/label_item_material.vue";
+import itemFile from "@/components/lists/item_contact.vue";
 export default {
   name: "ClassMember-Page",
   components: {
-    topNavi,
-    itemContact,
-    LabelItemGroup,
+    itemFile,
+    LabelMaterial,
   },
   data() {
     return {

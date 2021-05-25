@@ -20,7 +20,11 @@
               <img src="/img/icons/plus-btn.svg" />
             </div>
           </div>
-          <router-link to="/notification" class="top-btn">
+          <router-link
+            to="/notification"
+            class="top-btn"
+            style="margin-right: 10px"
+          >
             <div class="btn-img-wrapper">
               <img src="/img/icons/noti-bell.svg" />
             </div>
@@ -28,11 +32,11 @@
               {{ notifications.length }}
             </div>
           </router-link>
-          <div class="top-btn" v-on:click="openOptionMenu('home')">
+          <!-- <div class="top-btn" v-on:click="openOptionMenu('home')">
             <div class="btn-img-wrapper">
               <img src="/img/icons/option-menu.svg" />
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
