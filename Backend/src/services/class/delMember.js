@@ -3,7 +3,7 @@ import express from "express";
 
 let delMember = express();
 
-//delete member by account id and class id
+//delete member require account id and class id
 delMember.delete('/deleteMember', (req, res) => {
 
     let account_id = req.body.account_id;
@@ -32,15 +32,6 @@ delMember.delete('/deleteMember', (req, res) => {
                 }
             }
         })
-
-
-
-
-
-
-
-
-
     }
 })
 
