@@ -27,6 +27,7 @@ import createPoll from "../services/class/poll/createPoll";
 import getPoll from "../services/class/poll/getPoll";
 import clickVotes from "../services/class/poll/vote";
 import announce from "../services/class/post/announce";
+import posttab from "../services/class/post/posttab";
 import addComment from "../services/class/post/addComment";
 import delComment from "../services/class/post/delComment";
 import getPost from "../services/class/post/getPost";
@@ -91,12 +92,13 @@ let initWebRoutes = (app) => {
     router.delete("/deleteMember", delMember);
 
     //MATERIAL
-    // router.get("/getmaterial/:class_id", getMaterials);
+    router.get("/getmaterial/:class_id", getMaterials);
     router.post("/creatematerialtopic", createTopic);
     router.post("/postMaterial", postMaterial);
     router.delete("/deleteMaterial/:id", delMaterial);
 
     //POST
+    router.get("/posttab/:class_id", posttab);
     router.post("/createpost", createPost);
     router.post("/addcomment", addComment);
     router.post("/announce", announce);
