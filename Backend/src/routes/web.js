@@ -98,7 +98,7 @@ let initWebRoutes = (app) => {
     router.delete("/deleteMaterial/:id", delMaterial);
 
     //POST
-    router.get("/posttab/:class_id", posttab);
+    router.get("/getpostlist/:class_id", posttab);
     router.post("/createpost", createPost);
     router.post("/addcomment", addComment);
     router.post("/announce", announce);
