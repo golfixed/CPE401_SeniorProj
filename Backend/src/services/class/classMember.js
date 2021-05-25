@@ -17,7 +17,7 @@ classMember.post("/classmember", (req, res) => {
 
                 if (results.length > 0) {
                     let cid = results[0].id;
-                    dbCon.query('SELECT class_member.id, account.firstname,account.lastname, account.email, account.image, account.role FROM class_member,class,account WHERE class_member.class=class.id AND class_member.account=account.id AND class.id= ?', [cid], (error, results, fields) => {
+                    dbCon.query('SELECT class_member.id, account.firstname, account.lastname, account.image, account.role FROM class_member,class,account WHERE class_member.class=class.id AND class_member.account=account.id AND class.id= ?', [cid], (error, results, fields) => {
 
                         if (error) throw error;
                         let message = "";
