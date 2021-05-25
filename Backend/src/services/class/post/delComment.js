@@ -7,7 +7,7 @@ delComment.delete('/deletecomment/:id', (req, res) =>{
     let id = req.params.id;
 
     if(!id){
-        res.status(400).send({error: true, message: "Please provide comment id to delete comment"})
+        res.status(200).send({error: true, message: "Please provide comment id to delete comment"})
     }else{
         dbCon.query('DELETE FROM comment WHERE id = ?', id, (error, results, fields) =>{
             if (error) throw error;

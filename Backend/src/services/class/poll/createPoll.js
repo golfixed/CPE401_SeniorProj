@@ -15,7 +15,7 @@ createPoll.post('/createPoll', (req, res) => {
     }
     
     if(!poll.options || !poll.class){
-        res.status(400).send({error: true, message: "Please provide at least 2 options"})
+        res.status(200).send({error: true, message: "Please provide at least 2 options"})
     }else{
         dbCon.query('INSERT INTO poll SET ?', poll, (error, results, fields) =>{
             if (error) throw error;

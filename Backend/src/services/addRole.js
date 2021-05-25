@@ -9,7 +9,7 @@ addRole.post('/addrole', (req, res) => {
     let role = req.body.role;
     
     if(!id || !role){
-        res.status(400).send({error: true, message: "Please provide id and role"})
+        res.status(200).send({error: true, message: "Please provide id and role"})
     }else{
         dbCon.query('UPDATE account SET role = ? WHERE id = ?', [role, id], (error, results, fields) =>{
             if (error) throw error;

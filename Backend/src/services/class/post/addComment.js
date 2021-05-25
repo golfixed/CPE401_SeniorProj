@@ -13,7 +13,7 @@ addComment.post('/addcomment/:post', (req, res) =>{
     }
 
     if(!comment.post){
-        res.status(400).send({error: true, message: "Please provide post id to add comment"})
+        res.status(200).send({error: true, message: "Please provide post id to add comment"})
     }else{
         dbCon.query('INSERT INTO comment SET ?', comment, (error, results, fields) =>{
             if (error) throw error;

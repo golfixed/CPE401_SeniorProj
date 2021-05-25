@@ -75,7 +75,7 @@ let initWebRoutes = (app) => {
     router.get("/classrooms/:class_code", classCode);
     router.post("/getclassinfo", getclassinfo);
     router.post("/getclassid", getclassid);
-    router.post("/addfav", addFavClass);
+    router.post("/pinclass", addFavClass);
     router.get("/classrooms/:id/discussion", discussion);
     router.post("/createClass", classController.createNewClass);
     router.post("/joinclass", joinClass);
@@ -85,7 +85,7 @@ let initWebRoutes = (app) => {
 
     //CLASS MEMBER
     router.get("/classrooms/:class_id/classmember", classMember);
-    router.delete("/deleteMember/:id", delMember);
+    router.delete("/deleteMember", delMember);
 
     //MATERIAL
     router.get("/classrooms/:class_id/materials", getMaterials);

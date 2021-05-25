@@ -7,7 +7,7 @@ getMaterials.get('/classrooms/:class_id/materials', (req, res) =>{
     let class_id = req.params.class_id;
 
     if(!class_id){
-        res.status(400).send({error: true, message: "Please provide class id"})
+        res.status(200).send({error: true, message: "Please provide class id"})
     }else{
         
         dbCon.query("SELECT material_topic.topic, material.title, material.material_url, material.create_at FROM material_topic,material,class WHERE class.id = material_topic.class = ?", class_id, (error, results, fields) =>{

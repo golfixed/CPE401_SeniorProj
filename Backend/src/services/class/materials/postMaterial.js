@@ -14,7 +14,7 @@ postMaterial.post("/postMaterial", (req, res) => {
     }
 
     if(!material.material_topic){
-        res.status(400).send({error: true, message: "Please select TOPIC to add material"})
+        res.status(200).send({error: true, message: "Please select TOPIC to add material"})
 
     }else{
         dbCon.query("INSERT INTO material SET ?", material, (error, results, fields) =>{
