@@ -8,7 +8,7 @@ import initPassportLocal from "../controllers/passportLocalController";
 
 import setting from "../services/setting/setting";
 import addRole from "../services/setting/addRole";
-import getProfileInfo from "../services/getProfileInfo";
+import getProfileInfo from "../services/setting/getProfileInfo";
 import editProfile from "../services/setting/editProfile";
 import editAccount from "../services/setting/editAccount";
 
