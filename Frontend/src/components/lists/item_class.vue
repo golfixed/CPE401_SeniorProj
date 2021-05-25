@@ -1,18 +1,24 @@
 <template>
   <div class="class-item" v-on:click="openClassroom(id)">
+    <div class="class-img">
+      <img :src="img" v-if="img" />
+      <img src="/img/mockup/class.png" v-if="!img" />
+      <!-- <img :src="img" v-if="img" />
+      <label v-if="!img">{{ previewLetter }}</label> -->
+    </div>
     <div class="text-box">
       <label class="code">{{ code }}</label>
       <label class="title">{{ title }}</label>
       <label class="section">Section {{ section }}</label>
     </div>
-    <div class="img-box">
+    <!-- <div class="img-box">
       <div class="member-item">
         <label class="more-num">+{{ prevPic.length }}</label>
       </div>
       <div class="member-item" v-for="item in prevPic" :key="item.id">
         <img :src="item.pictureURL" />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -25,16 +31,18 @@ export default {
     code: String,
     title: String,
     section: String,
-    prevMember: Array,
+    img: Array,
   },
   data: function () {
     return {
-      prevPic: [{}],
-      link: "",
+      previewLetter: "",
+      // prevPic: [{}],
+      // link: "",
     };
   },
   mounted() {
-    if (this.prevMember) this.prevPic = this.prevMember;
+    // if (this.prevMember) this.prevPic = this.prevMember;
+    this.previewLetter = this.title.charAt(0);
   },
   methods: {
     openClassroom(id) {
@@ -47,7 +55,7 @@ export default {
 <style lang="scss" scoped>
 .class-item {
   display: grid;
-  grid-template-columns: calc(100% - 110px) 110px;
+  grid-template-columns: 64px auto;
   padding: 15px 0;
   border: 1px solid #ededed;
   border-width: 0 0 1px 0;
@@ -61,7 +69,7 @@ export default {
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
-    padding-right: 10px;
+    padding-left: 15px;
     .code {
       font-style: normal;
       font-weight: bold;
@@ -123,6 +131,26 @@ export default {
       text-align: center;
       color: #c9c9c9;
     }
+  }
+}
+.class-img {
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border-radius: 10px;
+  // background: linear-gradient(139.07deg, #3c6697 20.27%, #1e9f13 99.96%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 64px;
+    height: 64px;
+  }
+  label {
+    font-size: 54px;
+    text-align: center;
+    font-weight: 600;
+    // color: #fff;
   }
 }
 </style>

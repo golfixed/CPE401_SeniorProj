@@ -143,6 +143,7 @@ export default {
   methods: {
     createClass: function () {
       this.isLoading = true;
+
       var userID = this.$store.state.user.profile.id;
       axios
         .post("/createclass", {
@@ -169,8 +170,7 @@ export default {
       );
     },
     Continue: function () {
-      var class_id = this.classInfo.id;
-      this.$router.push("/classrooms/" + class_id);
+      this.$router.push("/classrooms/" + this.classInfo.id);
     },
     joinClass: function () {
       axios
@@ -179,11 +179,10 @@ export default {
           join_code: this.classInfo.join_code,
         })
         .then((res) => {
-          console.log(res);
-          if (res.error != true) {
-            console.log("Join Class successfully");
+          if (res.data.error != true) {
+            // console.log("auto join class success");
           } else {
-            console.log("Join Failed");
+            alert(res.data.message);
           }
         });
     },

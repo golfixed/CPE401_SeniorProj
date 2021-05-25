@@ -1,17 +1,23 @@
 <template>
   <div class="card-wrapper">
     <div class="card card-a" v-on:click="fetchClassInfo(id)">
-      <label class="code">{{ subject_code }}</label>
-      <label class="title"> {{ subject_title }}</label>
-      <label class="section">Section {{ section }}</label>
-      <div class="prev-member-box">
+      <div class="class-pic">
+        <img src="/img/mockup/class.png" v-if="!pic" />
+        <img :src="pic" v-if="pic" />
+      </div>
+      <div class="card-text">
+        <label class="code">{{ subject_code }}</label>
+        <label class="title"> {{ subject_title }}</label>
+        <label class="section">Section {{ section }}</label>
+      </div>
+      <!-- <div class="prev-member-box">
         <div class="member-item">
           <label class="more-num">+{{ prevPic.length }}</label>
         </div>
         <div class="member-item" v-for="item in prevPic" :key="item.id">
           <img :src="item.pictureURL" />
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -25,6 +31,7 @@ export default {
     subject_title: String,
     section: String,
     prevMember: Array,
+    pic: String,
     id: Number,
   },
   created: function () {},
@@ -65,44 +72,68 @@ export default {
 <style lang="scss" scoped>
 .card-a {
   flex: 0 0 auto;
-  width: 120px;
-  min-height: 138px;
+  width: 140px;
+  // min-height: 138px;
   height: fit-content;
   display: block;
-  padding: 15px;
-  background: linear-gradient(135deg, #3c6697 0%, #3b9b50 100%);
-
-  label {
-    color: #fff;
-    font-size: 12px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
+  overflow: hidden;
+  // padding: 15px;
+  // background: linear-gradient(135deg, #3c6697 0%, #3b9b50 100%);
+  background: #ffffff;
+  box-shadow: 0px 5px 25px 4px rgb(0 0 0 / 7%);
+  .class-pic {
+    width: 100%;
+    height: 80px;
     overflow: hidden;
-    -webkit-box-pack: end;
+    // border-radius: 4px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
-  .code {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 18px;
-    line-height: 21px;
-    margin-bottom: 5px !important;
-    text-transform: uppercase;
-  }
-  .title {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 16px;
-    margin-bottom: 15px !important;
-    min-height: 32px;
-  }
-  .section {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 16px;
-    margin-bottom: 15px !important;
+  .card-text {
+    padding: 12px;
+    label {
+      color: #fff;
+      font-size: 12px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      -webkit-box-pack: end;
+    }
+    .code {
+      font-style: normal;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 21px;
+      margin-bottom: 5px !important;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #3c6697 0%, #3b9b50 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .title {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16px;
+      margin-bottom: 15px !important;
+      min-height: 32px;
+    }
+    .section {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 16px;
+      margin-bottom: 5px !important;
+    }
+
+    .title,
+    .section {
+      color: #505050;
+    }
   }
 
   div.message-box {
@@ -133,6 +164,7 @@ export default {
 }
 .card-wrapper {
   padding: 0 5px;
+  margin-bottom: 10px;
 }
 .card-wrapper:first-child {
   padding-left: 0px;

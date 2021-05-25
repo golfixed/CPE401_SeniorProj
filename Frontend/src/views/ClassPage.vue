@@ -5,7 +5,16 @@
       <div class="class-info">
         <div class="info">
           <div class="img">
-            <img :src="classInfo.pictureURL" draggable="false" />
+            <img
+              :src="classInfo.pictureURL"
+              draggable="false"
+              v-if="classInfo.pictureURL"
+            />
+            <img
+              src="/img/mockup/class.png"
+              draggable="false"
+              v-if="!classInfo.pictureURL"
+            />
           </div>
           <div class="text">
             <label class="code">{{ classInfo.class_code }}</label>
