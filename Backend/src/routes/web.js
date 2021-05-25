@@ -96,7 +96,7 @@ let initWebRoutes = (app) => {
 
     //CLASS MEMBER
     router.post("/classmember", classMember);
-    router.delete("/deleteMember", delMember);
+    router.delete("/deletemember", delMember);
 
     //MATERIAL
     router.get("/getmaterial/:class_id", getMaterials);
@@ -109,9 +109,9 @@ let initWebRoutes = (app) => {
     router.post("/createpost", createPost);
     router.post("/addcomment", addComment);
     router.post("/announce", announce);
-    router.delete("/deletecomment/:id", delComment);
+    router.delete("/deletecomment", delComment);
     router.get("/post/:id", getPost);
-    router.delete("/deletePost/:id", delPost);
+    router.delete("/deletepost", delPost);
     
     //POLL
     router.get("/getpolllist/:class_id", getpollist);
