@@ -5,25 +5,48 @@ import express from "express";
 let addFavClass = express();
 
 //
-addFavClass.post('/addfav', (req, res) =>{
-    let id = req.body.id;
-    let fav = req.body.fav;
+addFavClass.post('/pinclass', (req, res) => {
+    let account_id = req.body.account_id;
+    let class_id = req.body.class_id;
 
-    if(!id){
-        return res.status(200).send({ error: true, message: "Please provide class id"});
-    }else
-    {
-        // dbCon.query('SELECT * FROM class WHERE id = ?', [id], (error, results, fields) =>{
-        dbCon.query('UPDATE class SET favorite = ? WHERE id = ?', [fav, id], (error, results, fields) =>{
-            if(error) throw error;
+    if (!account_id || !class_id) {
+        return res.status(200).send({ error: true, message: "Please provide class id and account id" });
+    } else {
+        dbCon.query('SELECT favorite FROM class_member WHERE account = ? AND class = ?', [account_id, class_id], (error, results) => {
+            if (error) { console.log(error) }
 
-            let message ="";
-            if(results === undefined || results.length == 0){
-                message = `There's no class id = ${id}`;
-            }else{
-                message = `Set add favorite successgully`;
+            else {
+                if (results.length > 0) {
+                    let fav = results[0].favorite;
+                    if (fav == 0) {
+                        dbCon.query('UPDATE class_member SET favorite = 1 WHERE account = ? AND class = ?', [account_id, class_id], (error, results, fields) => {
+                            if (error) throw error;
+
+                            let message = "";
+                            if (results === undefined || results.length == 0) {
+                                message = `There's no class id = ${id}`;
+                            } else {
+                                message = `Set add favorite to 1`;
+                            }
+                            return res.send({ error: false, data: results[0], message: message })
+                        })
+                    } else if (fav == 1) {
+                        dbCon.query('UPDATE class_member SET favorite = 0 WHERE account = ? AND class = ?', [account_id, class_id], (error, results, fields) => {
+                            if (error) throw error;
+
+                            let message = "";
+                            if (results === undefined || results.length == 0) {
+                                message = `There's no class id = ${id}`;
+                            } else {
+                                message = `Set add favorite to 0`;
+                            }
+                            return res.send({ error: false, data: results[0], message: message })
+                        })
+                    }
+                } else {
+                    return res.status(200).send({ error: true, message: "No class exist" });
+                }
             }
-            return res.send ({error: false, data: results[0], message: message})
         })
     }
 })
