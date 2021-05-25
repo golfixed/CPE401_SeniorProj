@@ -9,29 +9,36 @@ import initPassportLocal from "../controllers/passportLocalController";
 import setting from "../services/setting/setting";
 import addRole from "../services/addRole";
 import getProfileInfo from "../services/getProfileInfo";
+import editProfile from "../services/setting/editProfile";
+import editAccount from "../services/setting/editAccount";
+
 import classList from "../services/class/classList";
 import classListAnnounce from "../services/class/classList-announce";
 import addFavClass from "../services/class/addFavClass";
 import discussion from "../services/class/discussion";
 import classCode from "../services/class/classroom";
-import editProfile from "../services/setting/editProfile";
-import editAccount from "../services/setting/editAccount";
-import classMember from "../services/class/classMember";
 import getclassid from "../services/class/getclassid";
-import delMember from "../services/class/delMember";
 import getJoinCode from "../services/class/getJoinCode";
-import joinClass from "../services/class/joinClass";
 import getclassinfo from "../services/class/getclassinfo";
+import joinClass from "../services/class/joinClass";
+
+import classMember from "../services/class/classMember";
+import delMember from "../services/class/delMember";
+
 import createPost from "../services/class/post/createPost";
-import createPoll from "../services/class/poll/createPoll";
-import getPoll from "../services/class/poll/getPoll";
-import clickVotes from "../services/class/poll/vote";
 import announce from "../services/class/post/announce";
 import posttab from "../services/class/post/posttab";
 import addComment from "../services/class/post/addComment";
 import delComment from "../services/class/post/delComment";
 import getPost from "../services/class/post/getPost";
 import delPost from "../services/class/post/delPost";
+
+import createPoll from "../services/class/poll/createPoll";
+import getPoll from "../services/class/poll/getPoll";
+import clickVotes from "../services/class/poll/vote";
+import getpollist from "../services/class/poll/polltab";
+
+
 import createTopic from "../services/class/materials/createTopic";
 import postMaterial from "../services/class/materials/postMaterial";
 import getMaterials from "../services/class/materials/getMaterials";
@@ -96,7 +103,7 @@ let initWebRoutes = (app) => {
     router.post("/creatematerialtopic", createTopic);
     router.post("/postMaterial", postMaterial);
     router.delete("/deleteMaterial/:id", delMaterial);
-
+    
     //POST
     router.get("/getpostlist/:class_id", posttab);
     router.post("/createpost", createPost);
@@ -107,6 +114,7 @@ let initWebRoutes = (app) => {
     router.delete("/deletePost/:id", delPost);
     
     //POLL
+    router.get("/getpolllist/:class_id", getpollist);
     router.post("/createPoll", createPoll);
     router.get("/polls/:id", getPoll);
     router.post("/clickVotes", clickVotes);
