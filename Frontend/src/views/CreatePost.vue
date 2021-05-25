@@ -269,7 +269,7 @@ export default {
 }
 
 .loading-page {
-  z-index: 10;
+  z-index: 20;
   position: relative;
   background-color: #fff;
   height: 100vh;

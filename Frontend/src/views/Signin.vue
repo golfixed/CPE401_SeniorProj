@@ -51,7 +51,7 @@ export default {
     return {
       email: "",
       password: "",
-      isLoading: false,
+      isLoading: true,
       user: {},
     };
   },
@@ -66,6 +66,7 @@ export default {
               password: this.password,
             })
             .then((res) => {
+              console.log(res);
               if (res.status != 404) {
                 console.log("Login: Signed In");
                 localStorage.token = res.data.token;

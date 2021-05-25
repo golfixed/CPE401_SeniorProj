@@ -2,7 +2,7 @@
   <div class="create-classroom-page">
     <topNavi type="cancel" v-if="currentSubPage == 1" />
     <div class="subpage" v-if="currentSubPage == 1 && isLoading == false">
-      <div class="content-page">
+      <div class="content-page fullpage">
         <div class="wrapper">
           <div class="page-header">
             <h1 class="pagename">Create Classroom</h1>
@@ -286,7 +286,7 @@ export default {
 }
 
 .loading-page {
-  z-index: 10;
+  z-index: 20;
   position: relative;
   background-color: #fff;
   height: 100vh;
