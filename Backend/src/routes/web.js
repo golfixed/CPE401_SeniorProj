@@ -92,7 +92,7 @@ let initWebRoutes = (app) => {
 
     //MATERIAL
     router.get("/classrooms/:class_id/materials", getMaterials);
-    router.post("/createTopic", createTopic);
+    router.post("/createtopic", createTopic);
     router.post("/postMaterial", postMaterial);
     router.delete("/deleteMaterial/:id", delMaterial);
 
