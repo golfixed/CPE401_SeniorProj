@@ -6,7 +6,7 @@ import classController from "../controllers/classController";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
 
-import setting from "../services/setting/setting";
+import profile from "../services/setting/profile";
 import addRole from "../services/setting/addRole";
 import getProfileInfo from "../services/setting/getProfileInfo";
 import editProfile from "../services/setting/editProfile";
@@ -121,7 +121,7 @@ let initWebRoutes = (app) => {
     router.post("/clickVotes", clickVotes);
 
     //SETTING
-    router.get("/setting/:id", setting);
+    router.get("/profile/:id", profile);
     router.put("/setting/editProfile/:id", editProfile);
     router.put("/setting/editAccount/:id", editAccount);
 
