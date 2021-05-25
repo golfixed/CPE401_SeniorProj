@@ -116,9 +116,9 @@ let initWebRoutes = (app) => {
     
     //POLL
     router.get("/getpolllist/:class_id", getpollist);
-    router.post("/createPoll", createPoll);
+    router.post("/createpoll", createPoll);
     router.get("/polls/:id", getPoll);
-    router.post("/clickVotes", clickVotes);
+    router.post("/clickvotes", clickVotes);
 
     //SETTING
     router.get("/profile/:id", profile);
