@@ -10,6 +10,7 @@ import setting from "../services/setting/setting";
 import addRole from "../services/addRole";
 import getProfileInfo from "../services/getProfileInfo";
 import classList from "../services/class/classList";
+import classListAnnounce from "../services/class/classList-announce";
 import addFavClass from "../services/class/addFavClass";
 import discussion from "../services/class/discussion";
 import classCode from "../services/class/classroom";
@@ -73,6 +74,7 @@ let initWebRoutes = (app) => {
 
     //CLASS
     router.post("/classrooms", classList);
+    router.post("/classrooms/announce", classListAnnounce);
     router.get("/classrooms/:class_code", classCode);
     router.post("/getclassinfo", getclassinfo);
     router.post("/getclassid", getclassid);
