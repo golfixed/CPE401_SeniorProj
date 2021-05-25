@@ -16,7 +16,7 @@ import classList from "../services/class/classList";
 import classListAnnounce from "../services/class/classList-announce";
 import addFavClass from "../services/class/addFavClass";
 import discussion from "../services/class/discussion";
-import classCode from "../services/class/classroom";
+import classroom from "../services/class/classroom";
 import getclassid from "../services/class/getclassid";
 import getJoinCode from "../services/class/getJoinCode";
 import getclassinfo from "../services/class/getclassinfo";
@@ -83,7 +83,7 @@ let initWebRoutes = (app) => {
     //CLASS
     router.post("/classrooms", classList);
     router.post("/classrooms/announce", classListAnnounce);
-    router.get("/classrooms/:class_code", classCode);
+    router.get("/classrooms/:id", classroom);
     router.post("/getclassinfo", getclassinfo);
     router.post("/getclassid", getclassid);
     router.post("/pinclass", addFavClass);
