@@ -10,7 +10,7 @@ classMember.get("/classrooms/:class_id/classmember", (req, res) =>{
     if(!class_id){
         return res.status(200).send({ error: true, message: "Please provide class id"});
     }else{
-        dbCon.query('SELECT class_member.id, account.firstname,account.lastname, account.image,class_member.role_member, class.class_code, class.section FROM class_member,class,account WHERE class_member.class=class.id AND class_member.account=account.id AND class.id= ?', [class_id], (error, results, fields) =>{
+        dbCon.query('SELECT class_member.id, account.firstname,account.lastname, account.image,class_member.role_member FROM class_member,class,account WHERE class_member.class=class.id AND class_member.account=account.id AND class.id= ?', [class_id], (error, results, fields) =>{
 
             if(error) throw error;
             let message ="";
