@@ -45,7 +45,7 @@ joinClass.post('/joinclass', (req, res) => {
                 }
                 else {
                     console.log('NO RESULT')
-                    res.status(200).send({ error: true, message: "No joincode found XXX" })
+                    res.status(200).send({ error: true, message: "No classroom found for code: " + join_code})
     
     
                     
