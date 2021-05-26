@@ -1,13 +1,16 @@
 <template>
-  <div class="item-post">
+  <div class="item-post" v-on:click="openPost()">
     <div class="post-wrapper">
       <div class="post-head">
         <div class="profile-pic" v-on:click="openProfile(account.id)">
-          <img src="/img/mockup/profile_volk.png" />
+          <img :src="postItem.pictureURL" v-if="postItem.pictureURL" />
+          <img :src="postItem.pictureURL" v-if="!postItem.pictureURL" />
         </div>
         <div class="text" v-on:click="openProfile(account.id)">
-          <label class="name">Bhaksiree Tongtago</label>
-          <label class="time">Jan 20, 2021</label>
+          <label class="name"
+            >{{ postItem.firstname }} {{ postItem.lastname }}</label
+          >
+          <label class="time">{{ postItem.create_at }}</label>
         </div>
         <div class="option-btn">
           <img src="/img/icons/label-btn.svg" />
@@ -15,13 +18,9 @@
       </div>
       <div class="post-content">
         <div class="text">
-          <label
-            >Alright at the moment 9 out of 15 students will have exam on
-            Thursday at 1 pm, and i dont think they all will attend my class or
-            pay concentrate.
-          </label>
+          <label v-if="postItem.content">{{ postItem.content }} </label>
         </div>
-        <div class="pic">
+        <div class="pic" v-if="postItem.pic_url">
           <img src="/img/classrooms/news.jpg" />
         </div>
       </div>
@@ -31,19 +30,28 @@
 </template>
 
 <script>
+import axios from "@/axios.js";
 export default {
   name: "item-post",
   data() {
-    return {};
+    return {
+      post_id: "",
+    };
   },
   props: {
-    account: Object,
+    postItem: Object,
+  },
+  mounted() {
+    var path = this.$route.path;
+    var id = path.replace("/post/", "");
+    this.post_id = parseInt(id);
   },
   methods: {
     openProfile(id) {
       if (id) this.$router.push("/profile/" + id);
       else console.log("error no user id");
     },
+    openPost() {},
   },
 };
 </script>

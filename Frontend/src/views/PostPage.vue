@@ -19,15 +19,14 @@ import itemPost from "@/components/lists/item_post.vue";
 import axios from "@/axios.js";
 
 export default {
-  name: "ClassDiscussion-Page",
+  name: "Post-Page",
   components: {
     itemPost,
     LabelMaterial,
   },
   data() {
     return {
-      user: this.$store.state.user.profile,
-      postList: [],
+      postInfo: [],
     };
   },
   mounted() {
@@ -44,16 +43,11 @@ export default {
     openOptionMenu: function () {
       this.$store.commit("Open_optionMenu");
     },
-    createPost(id) {
-      console.log(id);
-      if (id) this.$router.push("/createpost/" + id);
-      else console.log("err: no class_id");
-    },
-    fetchPostList() {
-      axios.get("/getpostlist/" + this.class_id).then((res) => {
-        console.log(res);
+    fetchPostInfo() {
+      axios.get("/post/" + this.postItem.id).then((res) => {
         if (res.data.false != true) {
-          this.postList = res.data.data;
+          console.log(res);
+          console.log("get post success");
         }
       });
     },

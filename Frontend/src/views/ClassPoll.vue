@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="poll-add-btn">
+    <div class="poll-add-btn" v-on:click="createPoll(class_id)">
       <div class="add-icon">
         <img src="/img/icons/plus-grey-dark.svg" />
       </div>
@@ -31,8 +31,14 @@ export default {
     if (!localStorage.token) {
       this.$router.push({ path: "/" });
     }
+    var path = this.$route.path;
+    var id = path.replace("/classrooms/", "");
+    this.class_id = id;
   },
   methods: {
+    createPoll(id) {
+      this.$router.push("/createpoll/" + this.class_id);
+    },
     openOptionMenu: function () {
       this.$store.commit("Open_optionMenu");
     },

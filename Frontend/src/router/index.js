@@ -59,6 +59,11 @@ const routes = [
     name: 'CreatePost',
     component: () => import(  '../views/CreatePost.vue')
   },
+  {
+    path: '/createpoll/:id',
+    name: 'CreatePoll',
+    component: () => import(  '../views/CreatePoll.vue')
+  },
   // {
   //   path: '/chats',
   //   name: 'Chats',

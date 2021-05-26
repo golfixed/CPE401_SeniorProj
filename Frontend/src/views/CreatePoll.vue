@@ -1,6 +1,6 @@
 <template>
-  <div class="create-post-page">
-    <topNavi pageName="New Post" type="cancel" />
+  <div class="create-poll-page">
+    <topNavi pageName="New Poll" type="cancel" />
     <div class="subpage" v-if="isLoading == false">
       <div class="content-page fullpage">
         <div class="wrapper">
@@ -17,29 +17,18 @@
           </div>
           <textarea
             class="message"
-            placeholder="Message..."
-            v-model="createPostInfo.content"
+            placeholder="Question"
+            v-model="createPollInfo.question"
           >
           </textarea>
-          <button class="land-btn">
+          <button class="land-btn" v-on:click="addOption()">
             <div class="icon">
-              <img src="/img/icons/add-img.svg" />
+              <img src="/img/icons/plus-btn.svg" />
             </div>
             <div class="text">
-              <label>add image</label>
+              <label>add option</label>
             </div>
           </button>
-          <div class="check-box">
-            <div class="icon">
-              <VueSwitches
-                v-model="createPostInfo.announcement"
-                type-bold="true"
-              />
-            </div>
-            <div class="text">
-              <label>announce this post</label>
-            </div>
-          </div>
         </div>
         <div class="end-of-page"></div>
       </div>
@@ -52,12 +41,12 @@
               v-if="allFilled == true"
             >
               <div class="single-land">
-                <label>Create Post</label>
+                <label>Create Poll</label>
               </div>
             </button>
             <button class="sign-in grey" v-if="allFilled == false">
               <div class="single-land">
-                <label>Create Post</label>
+                <label>Create Poll</label>
               </div>
             </button>
           </div>
@@ -77,15 +66,13 @@ import topNavi from "@/components/template/top_navibar.vue";
 import pageLoading from "@/components/page_loading.vue";
 import LabelFormInput from "@/components/labels/label_form_input.vue";
 import axios from "@/axios.js";
-import VueSwitches from "vue-switches";
 
 export default {
-  name: "Create-Post-Page",
+  name: "Create-Poll-Page",
   components: {
     topNavi,
     pageLoading,
     LabelFormInput,
-    VueSwitches,
   },
   mounted() {
     if (!localStorage.token) {
@@ -94,18 +81,15 @@ export default {
 
     var path = this.$route.path;
     var id = path.replace("/createpost/", "");
-    this.createPostInfo.class = parseInt(id);
+    this.createPollInfo.class_id = parseInt(id);
   },
   data() {
     return {
-      createPostInfo: {
-        class: "",
-        content: "",
-        pic_url: "",
-        create_by: this.$store.state.user.profile.id,
-        update_by: this.$store.state.user.profile.id,
-        click_count: 0,
-        announce: false,
+      createPollInfo: {
+        question: "",
+        class_id: "",
+        option: [],
+        account_id: this.$store.state.user.profile.id,
       },
       isLoading: false,
       account: this.$store.state.user.profile,
@@ -117,8 +101,6 @@ export default {
         if (res.data.false != true) {
           console.log("create post sucess");
           var post_id = res.data.post_id;
-          console.log(res);
-          alert("Create Post Successfully");
           this.$router.push(
             "/classrooms/" + this.class_id + "/post/" + post_id
           );
@@ -130,7 +112,10 @@ export default {
   },
   computed: {
     allFilled: function () {
-      if (this.createPostInfo.message == "") {
+      if (
+        this.createPollInfo.option == "" ||
+        this.createPollInfo.option == ""
+      ) {
         return false;
       } else return true;
     },
@@ -487,7 +472,6 @@ btn {
 }
 textarea.message {
   padding-top: 20px;
-  height: 200px;
   max-width: 100%;
 }
 .land-btn {
@@ -550,53 +534,6 @@ textarea.message {
     img {
       width: 20px;
       object-fit: contain;
-    }
-  }
-}
-.vue-switcher-theme--custom {
-  &.vue-switcher-color--blue {
-    div {
-      background-color: lighten(#479f60, 10%);
-
-      &:after {
-        // for the circle on the switch
-        background-color: darken(#479f60, 5%);
-      }
-    }
-
-    &.vue-switcher--unchecked {
-      div {
-        background-color: lighten(#c9c9c9, 30%);
-
-        &:after {
-          background-color: lighten(#c9c9c9, 10%);
-        }
-      }
-    }
-  }
-}
-.check-box {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 100px auto;
-  height: 40px;
-  margin-top: 20px;
-  div.icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  div.text {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    label {
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
-      color: #505050;
     }
   }
 }
