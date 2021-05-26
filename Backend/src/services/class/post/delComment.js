@@ -23,8 +23,10 @@ delComment.delete('/deletecomment', (req, res) => {
                         } else {
                             message = "Comment successfully deleted";
                         }
-                        return res.send({ error: false, data: results, message: message })
+                        return res.send({ error: false, message: message })
                     })
+                } else {
+                    res.status(200).send({ error: true, message: "No comment id in DB" })
                 }
             }
         })
