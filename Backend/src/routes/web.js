@@ -37,6 +37,7 @@ import createPoll from "../services/class/poll/createPoll";
 import getPoll from "../services/class/poll/getPoll";
 import clickVotes from "../services/class/poll/vote";
 import getpollist from "../services/class/poll/polltab";
+import delpoll from "../services/class/poll/delpoll";
 
 
 import createTopic from "../services/class/materials/createTopic";
@@ -119,6 +120,7 @@ let initWebRoutes = (app) => {
     router.post("/createpoll", createPoll);
     router.get("/polls/:id", getPoll);
     router.post("/clickvotes", clickVotes);
+    router.delete("/deletepoll", delpoll);
 
     //SETTING
     router.get("/profile/:id", profile);
