@@ -2,11 +2,11 @@
   <div class="item-post" v-on:click="openPost()">
     <div class="post-wrapper">
       <div class="post-head">
-        <div class="profile-pic">
+        <div class="profile-pic" v-on:click="openProfile(account.id)">
           <img :src="postItem.pic_url" v-if="postItem.pic_url" />
           <img src="/img/default_profile.svg" v-if="!postItem.pic_url" />
         </div>
-        <div class="text">
+        <div class="text" v-on:click="openProfile(account.id)">
           <label class="name"
             >{{ postItem.firstname }} {{ postItem.lastname }}</label
           >

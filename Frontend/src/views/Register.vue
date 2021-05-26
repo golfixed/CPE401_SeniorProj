@@ -1,13 +1,6 @@
 <template>
   <div class="regis-page">
     <topNavi type="cancel" v-if="this.currentSubPage != 4" />
-    <div class="subpage loading-page" v-if="isLoading == true">
-      <div class="content-page">
-        <div class="loading-wrapper">
-          <pageLoading label="Registering, please wait..." />
-        </div>
-      </div>
-    </div>
     <div class="subpage" v-if="currentSubPage == 1">
       <div class="content-page fullpage">
         <div class="wrapper">
@@ -73,6 +66,13 @@
               </div>
             </button>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="subpage loading-page" v-if="isLoading == true">
+      <div class="content-page">
+        <div class="loading-wrapper">
+          <pageLoading label="Registering, please wait..." />
         </div>
       </div>
     </div>

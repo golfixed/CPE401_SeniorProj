@@ -22,7 +22,7 @@
           </div>
         </div>
         <!-- <label class="bottom-label">Seen by: {{ post.click_count }}</label> -->
-        <div class="post-comment" v-if="commentList.length > 0">
+        <div class="post-comment">
           <div class="section-label">
             <label>Comments</label>
           </div>
