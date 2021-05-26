@@ -26,6 +26,8 @@
     "vue-page-transition": "^0.2.2",
     "vue-router": "^3.2.0",
     "vue-spinner": "^1.0.4",
+    "vue-toggle-btn": "^0.1.2",
+    "vue-toggle-component": "^1.0.16",
     "vuex": "^3.4.0"
   },
   "devDependencies": {
