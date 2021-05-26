@@ -1,45 +1,34 @@
 <template>
-  <div class="create-classroom-page">
-    <topNavi type="cancel" v-if="currentSubPage == 1" />
-    <div class="subpage" v-if="currentSubPage == 1 && isLoading == false">
+  <div class="create-poll-page">
+    <topNavi pageName="New Poll" type="cancel" />
+    <div class="subpage" v-if="isLoading == false">
       <div class="content-page fullpage">
         <div class="wrapper">
-          <div class="page-header">
-            <h1 class="pagename">Create Classroom</h1>
-          </div>
-          <LabelFormInput text="Class Code" />
-          <input
-            type="text"
-            placeholder="Ex: CPE401"
-            v-model="createInfo.code"
-          />
-          <LabelFormInput text="Class Name" />
-          <input
-            type="text"
-            placeholder="Ex: Senior Project II"
-            v-model="createInfo.name"
-          />
-          <LabelFormInput text="Section" />
-          <input
-            type="text"
-            placeholder="Ex: 2 or A"
-            v-model="createInfo.section"
-          />
-          <LabelFormInput text="Description" :optional="true" />
-          <textarea
-            placeholder="This class is about..."
-            v-model="createInfo.desc"
-          >
-          </textarea>
-          <LabelFormInput text="Classroom photo" :optional="true" />
-          <div class="set-profile-pic">
+          <div class="post-head-create">
             <div class="profile-pic">
-              <div class="img">
-                <img src="/img/mockup/class.png" />
-              </div>
+              <img :src="account.image" v-if="account.image" />
+              <img src="/img/default_profile.svg" v-if="!account.image" />
+            </div>
+            <div class="text">
+              <label class="name"
+                >{{ account.firstname }} {{ account.lastname }}</label
+              >
             </div>
           </div>
-          <input type="file" />
+          <textarea
+            class="message"
+            placeholder="Question"
+            v-model="createPollInfo.question"
+          >
+          </textarea>
+          <button class="land-btn" v-on:click="addOption()">
+            <div class="icon">
+              <img src="/img/icons/plus-btn.svg" />
+            </div>
+            <div class="text">
+              <label>add option</label>
+            </div>
+          </button>
         </div>
         <div class="end-of-page"></div>
       </div>
@@ -48,55 +37,16 @@
           <div class="btn-wrapper">
             <button
               class="sign-in"
-              v-on:click="createClass()"
+              v-on:click="createPost()"
               v-if="allFilled == true"
             >
               <div class="single-land">
-                <label>Continue</label>
+                <label>Create Poll</label>
               </div>
             </button>
             <button class="sign-in grey" v-if="allFilled == false">
               <div class="single-land">
-                <label>Continue</label>
-              </div>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="subpage" v-if="currentSubPage == 2 && isLoading == false">
-      <div class="content-page finish-page">
-        <div class="success-box">
-          <div class="icon">
-            <img src="/img/icons/check_green.svg" />
-          </div>
-          <div class="text">
-            <h3>Classroom Created</h3>
-            <h4>
-              Classroom is successfully created.<br />PIN code to join is given
-              below.
-            </h4>
-          </div>
-          <div class="pin-code-box" v-on:click="doCopy()">
-            <label class="pin-code-label">{{ classInfo.join_code }}</label>
-            <div class="copy-img">
-              <img src="/img/icons/copy.svg" />
-            </div>
-          </div>
-          <label class="copy-btn">Tap to copy to clipboard</label>
-        </div>
-      </div>
-      <div class="bottom-section bottom-section-white">
-        <div class="wrapper">
-          <div class="btn-wrapper">
-            <button class="sign-in" v-on:click="Continue()">
-              <div class="single-land">
-                <label>Go To Classroom</label>
-              </div>
-            </button>
-            <button class="close-btn" v-on:click="closePage()">
-              <div class="single-land">
-                <label>Close</label>
+                <label>Create Poll</label>
               </div>
             </button>
           </div>
@@ -118,115 +68,53 @@ import LabelFormInput from "@/components/labels/label_form_input.vue";
 import axios from "@/axios.js";
 
 export default {
-  name: "CreateClassroom-Page",
+  name: "Create-Poll-Page",
   components: {
     topNavi,
     pageLoading,
     LabelFormInput,
   },
+  mounted() {
+    if (!localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
+
+    var path = this.$route.path;
+    var id = path.replace("/createpost/", "");
+    this.createPollInfo.class_id = parseInt(id);
+  },
   data() {
     return {
-      createInfo: {
-        code: "",
-        name: "",
-        section: "",
-        desc: "",
+      createPollInfo: {
+        question: "",
+        class_id: "",
+        option: [],
+        account_id: this.$store.state.user.profile.id,
       },
       isLoading: false,
-      currentSubPage: 1,
-      classInfo: {
-        id: 3,
-        join_code: "2NRWLX",
-      },
+      account: this.$store.state.user.profile,
     };
   },
   methods: {
-    createClass: function () {
-      this.isLoading = true;
-
-      var userID = this.$store.state.user.profile.id;
-      axios
-        .post("/createclass", {
-          class_code: this.createInfo.code,
-          class_name: this.createInfo.name,
-          class_desc: this.createInfo.desc,
-          section: this.createInfo.section,
-          create_by: userID,
-        })
-        .then((res) => {
-          if (res.status != 404 || res.status != 500) {
-            // console.log(res);
-            // console.log("Create Class successfully");
-            this.getClassInfo();
-          } else if (res == 422) {
-            // console.log("Create Failed");
-          }
-        });
-      setTimeout(
-        function () {
-          this.isLoading = false;
-        }.bind(this),
-        2000
-      );
-    },
-    Continue: function () {
-      this.$router.push("/classrooms/" + this.classInfo.id);
-    },
-    joinClass: function () {
-      axios
-        .post("/joinclass", {
-          account_id: this.$store.state.user.profile.id,
-          join_code: this.classInfo.join_code,
-        })
-        .then((res) => {
-          if (res.data.error != true) {
-            // console.log("auto join class success");
-          } else {
-            alert(res.data.message);
-          }
-        });
-    },
-    closePage: function () {
-      this.$router.push("/");
-    },
-    getClassInfo: function () {
-      var payload = {
-        class_code: this.createInfo.code,
-        section: this.createInfo.section,
-      };
-      // console.log(payload);
-      axios.post("/getclassinfo", payload).then((res) => {
-        if (res.status != 404 || res.status != 500) {
-          // console.log(res);
-          // console.log("Get class info successfully");
-          this.classInfo = res.data.classInfo;
-          this.joinClass();
-          // console.log(this.classInfo);
-          this.currentSubPage = 2;
-        } else if (res.status == 422 || res.status == 400) {
-          // console.log("Get Failed");
+    createPost() {
+      axios.post("/createpost", this.createPostInfo).then((res) => {
+        if (res.data.false != true) {
+          console.log("create post sucess");
+          var post_id = res.data.post_id;
+          this.$router.push(
+            "/classrooms/" + this.class_id + "/post/" + post_id
+          );
+        } else {
+          alert("ERROR:" + res.data.message);
         }
       });
-    },
-    doCopy: function () {
-      this.$copyText(this.classInfo.join_code).then(
-        function (e) {
-          alert("Copied");
-          console.log(e);
-        },
-        function (e) {
-          alert("Can not copy");
-          console.log(e);
-        }
-      );
     },
   },
   computed: {
     allFilled: function () {
       if (
-        this.createInfo.code == "" ||
-        this.createInfo.section == "" ||
-        this.createInfo.name == ""
+        this.createPollInfo.option == "" ||
+        this.createPollInfo.option == ""
       ) {
         return false;
       } else return true;
@@ -393,6 +281,7 @@ textarea {
 
 .wrapper {
   padding: 0 20px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -580,5 +469,72 @@ textarea::placeholder {
 }
 btn {
   background-color: unset;
+}
+textarea.message {
+  padding-top: 20px;
+  max-width: 100%;
+}
+.land-btn {
+  display: grid;
+  grid-template-columns: 100px auto;
+  .icon {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img {
+      width: 20px;
+      object-fit: contain;
+    }
+  }
+  .text {
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+}
+.post-head-create {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 44px auto 30px;
+  padding-bottom: 15px;
+  .profile-pic {
+    width: 44px;
+    height: 44px;
+    border-radius: 100%;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding-left: 10px;
+    .name {
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 20px;
+      color: #202020;
+    }
+  }
+  .option-btn {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    img {
+      width: 20px;
+      object-fit: contain;
+    }
+  }
 }
 </style>

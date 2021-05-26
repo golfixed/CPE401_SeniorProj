@@ -2,7 +2,7 @@
   <div class="regis-page">
     <topNavi type="cancel" v-if="this.currentSubPage != 4" />
     <div class="subpage" v-if="currentSubPage == 1">
-      <div class="content-page">
+      <div class="content-page fullpage">
         <div class="wrapper">
           <div class="page-header">
             <h1 class="pagename">Register with email</h1>
@@ -542,7 +542,7 @@ export default {
   }
 }
 .loading-page {
-  z-index: 10;
+  z-index: 20;
   position: relative;
 }
 .bottom-section {

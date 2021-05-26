@@ -22,24 +22,21 @@
         <label class="desc">Please check your internet connection. </label>
       </div>
     </div>
-    <div id="section-favbar" v-if="classListPinned.length > 0">
-      <div
-        id="pinned-bar"
-        class="section app-default-pinnedbar app-default-border-gray"
-      >
+    <div id="section-favbar" v-if="classList.length > 0">
+      <div id="pinned-bar" class="section app-default-pinnedbar">
         <div class="pin-title">
           <label>Pinned Classrooms</label>
         </div>
         <div class="pin-tray-wrap">
           <div class="slide-tray">
             <favClass
-              v-for="item in classListPinned"
+              v-for="item in classList"
               :key="item.id"
               v-bind:id="item.id"
               v-bind:subject_code="item.class_code"
               v-bind:subject_title="item.class_name"
               v-bind:section="item.section"
-              v-bind:prevMember="item.prevMember"
+              v-bind:pic="item.class_pic"
             />
           </div>
         </div>
@@ -57,7 +54,7 @@
           v-bind:code="item.class_code"
           v-bind:title="item.class_name"
           v-bind:section="item.section"
-          v-bind:prevMember="item.prevMember"
+          v-bind:pic="item.class_pic"
         />
         <div class="end-of-page"></div>
       </div>
@@ -95,12 +92,15 @@ export default {
       var class_id = this.$store.state.user.profile.id;
       // console.log(class_id);
       axios.post("/classrooms", { id: class_id }).then((res) => {
-        console.log(res);
+        // console.log(res);
         this.isOffline = false;
         if (res.error != true) {
           // console.log("Classrooms: class list fetched");
-          // console.log(res);
+          console.log(res);
           this.classList = res.data.data;
+          this.classList = this.classList.filter(
+            (classList) => classList.favorite == false
+          );
           this.classListPinned = this.classList.filter(
             (classList) => classList.favorite == true
           );

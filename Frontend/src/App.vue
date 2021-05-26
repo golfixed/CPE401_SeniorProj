@@ -539,7 +539,7 @@ button:active {
 }
 
 .loading-page {
-  z-index: 10;
+  z-index: 20;
   position: absolute;
   width: 100vw;
   height: 100%;

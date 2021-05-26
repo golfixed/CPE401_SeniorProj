@@ -8,12 +8,16 @@ import VuePageTransition from 'vue-page-transition'
 import VueBottomDialog from 'vue-bottom-dialog'
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import VueClipboard from 'vue-clipboard2'
+import KProgress from 'k-progress';
+import OnoffToggle from 'vue-onoff-toggle'
 
 Vue.use(axios)
 Vue.use(VuePageTransition)
 Vue.use(VueBottomDialog)
 Vue.use(PulseLoader)
 Vue.use(VueClipboard)
+Vue.use(OnoffToggle)
+Vue.component('k-progress', KProgress);
 
 var moment = require('moment'); // require
 var dayjs = require('dayjs')
@@ -36,6 +40,7 @@ new Vue({
   VuePageTransition,
   PulseLoader,
   VueClipboard,
+  KProgress,
   render: h => h(App)
 }).$mount('#app')
 

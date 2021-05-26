@@ -58,7 +58,7 @@ export default {
   z-index: 11;
   width: 66px;
   height: 66px;
-  bottom: 80px;
+  bottom: 40px;
   right: 40px;
   transition: all 0.3s;
   .assist-btn {
@@ -85,7 +85,7 @@ export default {
 //move to top
 .assist-btn-hide {
   bottom: calc(100vh - 72px);
-  right: 98px;
+  right: 58px;
   transform: scale(0.5);
   transition: all 0.5s;
   opacity: 0;
