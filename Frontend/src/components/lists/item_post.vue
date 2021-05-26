@@ -3,8 +3,8 @@
     <div class="post-wrapper">
       <div class="post-head">
         <div class="profile-pic" v-on:click="openProfile(account.id)">
-          <img :src="postItem.pictureURL" v-if="postItem.pictureURL" />
-          <img :src="postItem.pictureURL" v-if="!postItem.pictureURL" />
+          <img :src="postItem.pic_url" v-if="postItem.pic_url" />
+          <img src="/img/default_profile.svg" v-if="!postItem.pic_url" />
         </div>
         <div class="text" v-on:click="openProfile(account.id)">
           <label class="name"
@@ -30,11 +30,13 @@
 </template>
 
 <script>
-import axios from "@/axios.js";
 export default {
   name: "item-post",
   data() {
     return {
+      account: {
+        id: this.$store.state.user.profile.id,
+      },
       post_id: "",
     };
   },
@@ -43,15 +45,17 @@ export default {
   },
   mounted() {
     var path = this.$route.path;
-    var id = path.replace("/post/", "");
-    this.post_id = parseInt(id);
+    var id = path.replace("/classrooms/", "");
+    this.class_id = id;
   },
   methods: {
     openProfile(id) {
       if (id) this.$router.push("/profile/" + id);
       else console.log("error no user id");
     },
-    openPost() {},
+    openPost() {
+      this.$router.push("/classrooms/post/" + this.postItem.id);
+    },
   },
 };
 </script>

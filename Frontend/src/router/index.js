@@ -50,6 +50,11 @@ const routes = [
     component: () => import(  '../views/ClassMembers.vue')
   },
   {
+    path: '/classrooms/post/:id',
+    name: 'ClassroomPost',
+    component: () => import(  '../views/PostPage.vue')
+  },
+  {
     path: '/createclass',
     name: 'CreateClassroom',
     component: () => import(  '../views/CreateClassroom.vue')

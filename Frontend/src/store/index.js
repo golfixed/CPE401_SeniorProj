@@ -16,6 +16,10 @@ export default new Vuex.Store({
       settings: false,
     },
     assistModal: false,
+    modal:{
+      overlay: false,
+      PINcode: false,
+    },
     overlayShow: false,
     currentClassInfo: {},
     user: {
@@ -72,10 +76,17 @@ export default new Vuex.Store({
       state.optionMenu.settings = false;
       state.overlayShow = false;
       state.assistModal = false;
+      state.modal.PINcode = false;
+      state.modal.overlay = false;
     },
     Open_assistMenu: (state) => {
       state.assistModal = true;
       state.overlayShow = true;
+
+    },
+    OpenModal: (state, payload)=>{
+      state.modal.overlay = true;
+      if (payload == 'pincode') state.modal.PINcode = true;
     },
     Update_CurrentViewClass: (state, payload) => {
       state.currentClassInfo = payload;

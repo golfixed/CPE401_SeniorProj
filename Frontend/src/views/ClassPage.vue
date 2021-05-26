@@ -23,7 +23,7 @@
               <label class="section">Section {{ classInfo.section }}</label>
             </div>
             <div class="right">
-              <div class="pincode-btn">
+              <div class="pincode-btn" v-on:click="openPINcode('pincode')">
                 <div class="code-icon">
                   <img src="/img/icons/add_member.svg" />
                 </div>
@@ -113,6 +113,14 @@
         </div>
       </div>
     </div>
+    <div class="pin-modal">
+      <pinCode :pincode="classInfo.join_code" />
+    </div>
+    <div
+      class="modal-overlay"
+      v-if="isOverlayOpen == true"
+      v-on:click="closePINcode()"
+    ></div>
   </div>
 </template>
 
@@ -125,6 +133,7 @@ import pageDiscussion from "@/views/ClassDiscussion.vue";
 import pagePoll from "@/views/ClassPoll.vue";
 import plusBTN from "@/components/join_button.vue";
 import axios from "@/axios.js";
+import pinCode from "@/components/modals/pin_code.vue";
 
 export default {
   name: "ClassPage-Page",
@@ -136,6 +145,7 @@ export default {
     pageDiscussion,
     pagePoll,
     plusBTN,
+    pinCode,
   },
   data() {
     return {
@@ -145,6 +155,11 @@ export default {
       prevMember: [],
       isLoading: false,
     };
+  },
+  computed: {
+    isOverlayOpen() {
+      return this.$store.state.modal.overlay;
+    },
   },
   mounted() {
     if (!localStorage.token) {
@@ -176,6 +191,7 @@ export default {
         if (res.error != true) {
           // console.log("ClassPage: class Info fetched");
           this.classInfo = res.data.data;
+          console.log(this.classInfo);
         } else {
           // console.log("ClassPage: class Info fetch failed");
         }
@@ -190,6 +206,12 @@ export default {
     },
     fetchPost: function () {},
     fetchMaterial: function () {},
+    openPINcode(opt) {
+      this.$store.commit("OpenModal", opt);
+    },
+    closePINcode() {
+      this.$store.commit("Close_AllMenu");
+    },
   },
 };
 </script>
@@ -412,5 +434,21 @@ export default {
 }
 .assist-btn-wrapper {
   bottom: 120px;
+}
+.pin-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 25;
+}
+.modal-overlay {
+  background-color: #0000003b;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
 }
 </style>
