@@ -1,11 +1,7 @@
 //GET OUR HOMEPAGE
 let handleHelloWorld = async (req, res) => {
-    // return res.render("homepage.ejs",{
-    //     user: req.user
-    // });
-    return res.send({ error: false, message: "Home Page"});
+    return res.status(200).send({ error: false, message: "Server connected"});
 };
-
 module.exports = {
-    handleHelloWorld: handleHelloWorld,
+    handleHelloWorld: handleHelloWorld
 };
