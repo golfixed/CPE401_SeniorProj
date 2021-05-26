@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     fetchUserProfile(id) {
-      axios.post("/getprofileinfo", { account_id: id }).then((res) => {
+      axios.get("/profile/" + id).then((res) => {
         console.log(res);
         if (res.data.false != true) {
           this.user = res.data.data;

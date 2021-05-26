@@ -1,5 +1,5 @@
 <template>
-  <div class="item-wrapper" v-on:click="openProfile(id)">
+  <div class="item-wrapper" v-on:click="openProfile(account_id)">
     <div class="contact-item">
       <div class="profile-pic">
         <img :src="pictureURL" v-if="pictureURL" draggable="false" />
@@ -10,7 +10,7 @@
         />
       </div>
       <div class="text">
-        <label class="name">{{ fname }} {{ lname }}</label>
+        <label class="name">{{ fname }} {{ lname }} id:{{ account_id }}</label>
       </div>
     </div>
   </div>
@@ -30,7 +30,8 @@ export default {
     account_id: Number,
   },
   methods: {
-    openProfile(id) {
+    openProfile(account_id) {
+      console.log("account_id: " + account_id);
       if (account_id) this.$router.push("/profile/" + account_id);
       else console.log("error no account_id");
     },

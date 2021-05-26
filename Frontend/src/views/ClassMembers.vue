@@ -6,7 +6,7 @@
         v-for="item in teacherList"
         :key="item.id"
         v-bind:id="item.id"
-        v-bind:account="item.account_id"
+        v-bind:account_id="item.account_id"
         v-bind:fname="item.firstname"
         v-bind:lname="item.lastname"
         v-bind:pictureURL="item.image"
@@ -18,7 +18,7 @@
         v-for="item in studentList"
         :key="item.id"
         v-bind:id="item.id"
-        v-bind:account="item.account_id"
+        v-bind:account_id="item.account_id"
         v-bind:fname="item.firstname"
         v-bind:lname="item.lastname"
         v-bind:pictureURL="item.image"
@@ -54,7 +54,7 @@ export default {
     var path = this.$route.path;
     var id = path.replace("/classrooms/", "");
     this.class_id = parseInt(id);
-    console.log(this.class_id);
+    console.log("class_id: " + this.class_id);
     this.fetchMemberList(this.class_id);
   },
   methods: {
@@ -64,7 +64,9 @@ export default {
     fetchMemberList(id) {
       axios.post("/classmember", { class_id: id }).then((res) => {
         if (res.data.false != true) {
+          console.log("class member list:");
           console.log(res);
+
           this.memberList = res.data.data;
           if (this.memberList.length > 0) {
             this.studentList = this.memberList.filter(
