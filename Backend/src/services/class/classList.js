@@ -13,7 +13,7 @@ classList.post('/classrooms', (req, res) => {
 
         let message = "";
         if (results === undefined || results.length == 0) {
-            message = `Have no class`;
+            message = `You enter no class`;
         } else {
             message = `All class list`;
         }
