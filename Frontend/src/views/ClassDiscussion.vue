@@ -53,7 +53,7 @@ export default {
       axios.get("/getpostlist/" + this.class_id).then((res) => {
         console.log(res);
         if (res.data.false != true) {
-          this.postList = res.data.data;
+          this.postList = res.data.data.reverse();
         }
       });
     },
