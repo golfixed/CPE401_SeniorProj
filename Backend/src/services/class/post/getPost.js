@@ -21,17 +21,23 @@ getPost.get('/post/:id', (req, res) => {
                             if (results.length > 0) {
 
                                 let pid = results[0];
-                                dbCon.query("SELECT comment.*, account.firstname, account.lastname, account.image FROM comment,post,account WHERE comment.post = post.id AND comment.create_by = account.id AND comment.post = ?", post_id, (error, results) => {
+                                dbCon.query('UPDATE post SET click_count = click_count+1 WHERE id = ?',post_id, (error, results) =>{
                                     if (error) { console.log(errer) }
-
-                                    let message = "";
-                                    if (results === undefined || results.length == 0) {
-                                        message = `There's no comment id = ${post_id} `;
-                                    } else {
-                                        message = `Get post id = ${post_id} successfully`;
-                                    }
-                                    return res.status(200).send({ error: false, post: pid, comment: results, message: message })
+                                    
+                                    console.log(results)
+                                    dbCon.query("SELECT comment.*, account.firstname, account.lastname, account.image FROM comment,post,account WHERE comment.post = post.id AND comment.create_by = account.id AND comment.post = ?", post_id, (error, results) => {
+                                        if (error) { console.log(errer) }
+    
+                                        let message = "";
+                                        if (results === undefined || results.length == 0) {
+                                            message = `There's no comment id = ${post_id} `;
+                                        } else {
+                                            message = `Get post id = ${post_id} successfully`;
+                                        }
+                                        return res.status(200).send({ error: false, post: pid, comment: results, message: message })
+                                    })
                                 })
+
                             }
                         }
                     })
