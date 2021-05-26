@@ -43,7 +43,7 @@ import delpoll from "../services/class/poll/delpoll";
 import createTopic from "../services/class/materials/createTopic";
 import postMaterial from "../services/class/materials/postMaterial";
 import getMaterials from "../services/class/materials/getMaterials";
-import delMaterial from "../services/class/materials/deleteMaterial";
+import delMaterialTopic from "../services/class/materials/deleteMaterialTopic";
 
 // Init all passport
 initPassportLocal();
@@ -100,10 +100,10 @@ let initWebRoutes = (app) => {
     router.delete("/deletemember", delMember);
 
     //MATERIAL
-    router.get("/getmaterial/:class_id", getMaterials);
+    router.get("/materials/:class_id", getMaterials);
     router.post("/creatematerialtopic", createTopic);
     router.post("/postMaterial", postMaterial);
-    router.delete("/deleteMaterial/:id", delMaterial);
+    router.delete("/deletematerialtopic", delMaterialTopic);
     
     //POST
     router.get("/getpostlist/:class_id", posttab);

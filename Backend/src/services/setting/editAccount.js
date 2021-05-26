@@ -1,6 +1,5 @@
 import dbCon from "../../configs/DBConnection";
 import express from "express";
-import passport from "passport";
 import bcrypt from "bcryptjs";
 
 let editAccount = express();
@@ -19,6 +18,7 @@ editAccount.put('/setting/editAccount/:id', (req, res) => {
         console.log('you didnt send ID');
         return res.status(200).send({ error: true, message: 'Please provide more information'});
     } else {
+
         dbCon.query('UPDATE account SET email = ?, password = ?, phone = ? WHERE id = ?', [email, password, phone, id], (error, results, fields) => {
             if (error) throw error;
 

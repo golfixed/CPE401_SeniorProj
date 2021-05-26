@@ -12,7 +12,7 @@ addComment.post('/addcomment', (req, res) =>{
         update_by: req.body.update_by
     }
 
-    if(!comment.post){
+    if(!comment.post || !comment.text){
         res.status(200).send({error: true, message: "Please provide post id to add comment"})
     }else{
         dbCon.query('SELECT id FROM post WHERE id = ?', comment.post, (error, results) =>{
