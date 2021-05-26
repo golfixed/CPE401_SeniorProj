@@ -170,6 +170,8 @@ export default {
       );
     },
     Continue: function () {
+      console.log(this.classInfo);
+      console.log(this.classInfo.id);
       this.$router.push("/classrooms/" + this.classInfo.id);
     },
     joinClass: function () {
@@ -180,7 +182,7 @@ export default {
         })
         .then((res) => {
           if (res.data.error != true) {
-            // console.log("auto join class success");
+            console.log("auto join class success");
           } else {
             alert(res.data.message);
           }

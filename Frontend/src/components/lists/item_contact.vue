@@ -10,7 +10,7 @@
         />
       </div>
       <div class="text">
-        <label class="name">{{ fname }} {{ lname }} id:{{ account_id }}</label>
+        <label class="name">{{ fname }} {{ lname }}</label>
       </div>
     </div>
   </div>

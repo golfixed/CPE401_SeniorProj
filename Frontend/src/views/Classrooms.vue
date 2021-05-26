@@ -22,7 +22,7 @@
         <label class="desc">Please check your internet connection. </label>
       </div>
     </div>
-    <div id="section-favbar" v-if="classList.length > 0">
+    <div id="section-favbar" v-if="classListPinned.length > 0">
       <div id="pinned-bar" class="section app-default-pinnedbar">
         <div class="pin-title">
           <label>Pinned Classrooms</label>
@@ -30,7 +30,7 @@
         <div class="pin-tray-wrap">
           <div class="slide-tray">
             <favClass
-              v-for="item in classList"
+              v-for="item in classListPinned"
               :key="item.id"
               v-bind:id="item.id"
               v-bind:subject_code="item.class_code"
@@ -95,7 +95,7 @@ export default {
         // console.log(res);
         this.isOffline = false;
         if (res.error != true) {
-          // console.log("Classrooms: class list fetched");
+          console.log("Classrooms list fetched:");
           console.log(res);
           this.classList = res.data.data;
           this.classList = this.classList.filter(
