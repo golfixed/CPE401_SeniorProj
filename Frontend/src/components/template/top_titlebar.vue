@@ -5,10 +5,14 @@
         <div class="titlebar-left">
           <div class="profile-btn">
             <router-link to="/settings">
-              <img :src="userProfilePic" />
+              <img
+                src="/img/default_profile.svg"
+                v-if="userProfilePic == null"
+              />
+              <img :src="userProfilePic" v-if="userProfilePic == null" />
             </router-link>
           </div>
-          <label class="page-title">{{ currentPage }}</label>
+          <label class="page-title">Hi, {{ userName }}</label>
         </div>
         <div class="titlebar-right">
           <div class="top-btn">
@@ -16,7 +20,11 @@
               <img src="/img/icons/plus-btn.svg" />
             </div>
           </div>
-          <router-link to="/notification" class="top-btn">
+          <router-link
+            to="/notification"
+            class="top-btn"
+            style="margin-right: 10px"
+          >
             <div class="btn-img-wrapper">
               <img src="/img/icons/noti-bell.svg" />
             </div>
@@ -24,11 +32,11 @@
               {{ notifications.length }}
             </div>
           </router-link>
-          <div class="top-btn" v-on:click="openOptionMenu()">
+          <!-- <div class="top-btn" v-on:click="openOptionMenu('home')">
             <div class="btn-img-wrapper">
               <img src="/img/icons/option-menu.svg" />
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -45,7 +53,7 @@
       <div
         id="pinned-bar"
         class="section app-default-pinnedbar"
-        v-if="currentRoute == '/home' && favPostList.length == 0"
+        v-if="currentRoute == '/sss' && favPostList.length > 0"
       >
         <div class="pin-title">
           <label>Announcements</label>
@@ -65,17 +73,8 @@
           </div>
         </div>
       </div>
-      <div
-        id="pinned-bar"
-        class="section app-default-pinnedbar"
-        v-if="currentRoute == '/classroom'"
-      >
-        <div class="pin-title">
-          <label>Favourites</label>
-        </div>
-        <div class="pin-tray-wrap"></div>
-      </div>
-      <div
+
+      <!-- <div
         id="pinned-bar"
         class="section app-default-pinnedbar"
         v-if="currentRoute == '/chats' && favChatList.length > 0"
@@ -97,16 +96,17 @@
             />
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
 
 <script>
-import favPost from "@/components/favpost.vue";
-import favChat from "@/components/favchat.vue";
+import favPost from "@/components/fav_post.vue";
+import favChat from "@/components/fav_chat.vue";
+
 export default {
-  name: "pagetitle",
+  name: "Page-TopBar",
   created: function () {},
   components: {
     favPost,
@@ -116,8 +116,8 @@ export default {
     openAncmt: function (id) {
       this.favPostClicked = this.favPostList[id];
     },
-    openOptionMenu: function () {
-      this.$store.commit("Open_optionMenu");
+    openOptionMenu: function (payload) {
+      this.$store.commit("Open_optionMenu", payload);
     },
   },
   mounted() {
@@ -142,16 +142,22 @@ export default {
     },
     currentPage: function () {
       var page = this.$route.path;
-      if (page == "/home") return "Home";
+      if (page == "/") return "Home";
       else if (page == "/classrooms") return "Classrooms";
       else if (page == "/chats") return "Chats";
       else return "";
     },
+    // iconToShow: function () {
+    //   var page = this.currentRoute;
+    //   if (page == "/") return "/img/icons/topbar-write.svg";
+    //   else return "/img/icons/plus-btn.svg";
+    // },
   },
   data: function () {
     return {
       scrollPosition: null,
       userProfilePic: this.$store.state.user.profile.pic,
+      userName: this.$store.state.user.profile.firstname,
       favPostClicked: {
         id: 0,
         firstName: "Bhaksiree",
@@ -231,7 +237,96 @@ export default {
           profilePic: "/img/mockup/profile_volk.png",
         },
       ],
-      favClassList: [],
+      favClassList: [
+        {
+          id: 0,
+          code: "CPE100",
+          subject: "Basic Computer Programming I",
+          section: 2,
+          pictureURL: "/img/mockup/class.png",
+          isPinned: true,
+          prevMember: [
+            {
+              id: 0,
+              pictureURL: "/img/mockup/profile.png",
+            },
+            {
+              id: 1,
+              pictureURL: "/img/mockup/profile_volk.png",
+            },
+            {
+              id: 2,
+              pictureURL: "/img/mockup/profile_my.png",
+            },
+          ],
+        },
+        {
+          id: 1,
+          code: "CPE100",
+          subject: "Basic Computer Programming I",
+          section: 2,
+          pictureURL: "/img/mockup/class.png",
+          isPinned: true,
+          prevMember: [
+            {
+              id: 0,
+              pictureURL: "/img/mockup/profile.png",
+            },
+            {
+              id: 1,
+              pictureURL: "/img/mockup/profile_volk.png",
+            },
+            {
+              id: 2,
+              pictureURL: "/img/mockup/profile_my.png",
+            },
+          ],
+        },
+        {
+          id: 2,
+          code: "CPE100",
+          subject: "Basic Computer Programming I",
+          section: 2,
+          pictureURL: "/img/mockup/class.png",
+          isPinned: false,
+          prevMember: [
+            {
+              id: 0,
+              pictureURL: "/img/mockup/profile.png",
+            },
+            {
+              id: 1,
+              pictureURL: "/img/mockup/profile_volk.png",
+            },
+            {
+              id: 2,
+              pictureURL: "/img/mockup/profile_my.png",
+            },
+          ],
+        },
+        {
+          id: 3,
+          code: "CPE100",
+          subject: "Basic Computer Programming I",
+          section: 2,
+          pictureURL: "/img/mockup/class.png",
+          isPinned: true,
+          prevMember: [
+            {
+              id: 0,
+              pictureURL: "/img/mockup/profile.png",
+            },
+            {
+              id: 1,
+              pictureURL: "/img/mockup/profile_volk.png",
+            },
+            {
+              id: 2,
+              pictureURL: "/img/mockup/profile_my.png",
+            },
+          ],
+        },
+      ],
     };
   },
 };
@@ -284,7 +379,7 @@ export default {
     .page-title {
       font-size: 2.25em;
       font-style: normal;
-      font-weight: 500;
+      font-weight: 600;
       background: linear-gradient(
         135deg,
         rgba(60, 102, 151, 1) 0%,

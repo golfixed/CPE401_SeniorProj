@@ -1,7 +1,7 @@
 <template>
   <div class="chat-item">
     <div class="profile-pic">
-      <img :src="picURL" draggable="false" />
+      <img :src="pictureURL" draggable="false" />
     </div>
     <div class="text">
       <label class="name">{{ fname }} {{ lname }}</label>
@@ -24,7 +24,7 @@
 export default {
   name: "chat-list",
   props: {
-    picURL: String,
+    pictureURL: String,
     fname: String,
     lname: String,
     previewMessage: String,

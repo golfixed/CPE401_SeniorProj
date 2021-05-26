@@ -1,92 +1,137 @@
 <template>
-  <div id="page-home" class="app-page app-default-border-gray-top">
-    <!-- <hr class="page-hr" /> -->
-    <div class="section" style="padding-top: 20px; height: 1500px">
-      <h2 style="font-size: 20px">Current screen resolution:</h2>
-      <h4 style="font-size: 30px; color: green">
-        {{ screenwidth }} × {{ screenheight }}
-      </h4>
+  <div id="page-classrooms">
+    <div
+      class="page-content-none"
+      v-if="classList.length == 0 && isOffline == false"
+    >
+      <div class="no-msg">
+        <img class="icon" src="/img/icons/home_blank.svg" draggable="false" />
+        <label class="title">You are not in classroom yet.</label>
+        <label class="desc" v-if="this.$store.state.user.profile.role == 'std'"
+          >Tap bottom right button to join classroom.</label
+        >
+        <label class="desc" v-if="this.$store.state.user.profile.role == 'tea'"
+          >Tap bottom right button to join or create classroom.</label
+        >
+      </div>
+    </div>
+    <div class="page-content-none" v-if="isOffline == true">
+      <div class="no-msg">
+        <img class="icon" src="/img/icons/nointernet.svg" draggable="false" />
+        <label class="title">You're offline</label>
+        <label class="desc">Please check your internet connection. </label>
+      </div>
+    </div>
+    <div id="section-favbar" v-if="classList.length > 0">
+      <div id="pinned-bar" class="section app-default-pinnedbar">
+        <div class="pin-title">
+          <label>Pinned Classrooms</label>
+        </div>
+        <div class="pin-tray-wrap">
+          <div class="slide-tray">
+            <favClass
+              v-for="item in classList"
+              :key="item.id"
+              v-bind:id="item.id"
+              v-bind:subject_code="item.class_code"
+              v-bind:subject_title="item.class_name"
+              v-bind:section="item.section"
+              v-bind:pic="item.class_pic"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-list-wrapper" v-if="classList.length > 0">
+      <div class="pin-title-classrooms">
+        <label>All Classrooms</label>
+      </div>
+      <div class="class-item-wrapper">
+        <classItem
+          v-for="item in classList"
+          :key="item.class_id"
+          v-bind:id="item.id"
+          v-bind:code="item.class_code"
+          v-bind:title="item.class_name"
+          v-bind:section="item.section"
+          v-bind:pic="item.class_pic"
+        />
+        <div class="end-of-page"></div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import classItem from "@/components/lists/item_class.vue";
+import favClass from "@/components/fav_class.vue";
+import axios from "@/axios.js";
 
 export default {
   name: "Classrooms-Page",
-  components: {},
+  components: { classItem, favClass },
   data: function () {
-    return {};
+    return {
+      classList: [],
+      isLoading: false,
+      classListPinned: [],
+      isOffline: true,
+    };
+  },
+  mounted() {
+    if (!localStorage.token && !localStorage.user) {
+      this.$router.push({ path: "/" });
+    }
+    this.$store.commit("Close_AllMenu");
+    this.fetchClassList();
   },
   created: function () {},
   methods: {
-    openSearchPage: function () {
-      console.log("clicked");
-      this.$store.commit("Open_searchPage");
+    fetchClassList: function () {
+      this.isLoading = true;
+      var class_id = this.$store.state.user.profile.id;
+      // console.log(class_id);
+      axios.post("/classrooms", { id: class_id }).then((res) => {
+        // console.log(res);
+        this.isOffline = false;
+        if (res.error != true) {
+          // console.log("Classrooms: class list fetched");
+          console.log(res);
+          this.classList = res.data.data;
+          this.classList = this.classList.filter(
+            (classList) => classList.favorite == false
+          );
+          this.classListPinned = this.classList.filter(
+            (classList) => classList.favorite == true
+          );
+          // console.log(this.classList);
+        } else {
+          console.log("Classrooms: class list fetch failed");
+        }
+      });
+      setTimeout(
+        function () {
+          this.isLoading = false;
+        }.bind(this),
+        2000
+      );
     },
   },
-  computed: {
-    screenheight: function () {
-      return window.innerHeight;
-    },
-    screenwidth: function () {
-      return window.innerWidth;
-    },
-    helloUser: function () {
-      const time = new Date();
-      const currentTime = time.getHours();
-
-      if (currentTime < 0) return "Time Error!";
-      else if (currentTime >= 0 && currentTime < 6) return "Good night";
-      else if (currentTime >= 6 && currentTime < 12) return "Good morning";
-      else if (currentTime >= 12 && currentTime < 17) return "Good Afternoon";
-      else if (currentTime >= 17 && currentTime < 21) return "Good Evening";
-      else if (currentTime >= 21 && currentTime < 24) return "Good night";
-      else return "Time error!";
-    },
-    currentYear: function () {
-      const year = new Date();
-      return year.getFullYear().toString().substring(2);
-    },
-    currentDay: function () {
-      const day = new Date();
-      const currentDay = day.getDay();
-
-      if (currentDay == 1) return "Monday";
-      else if (currentDay == 2) return "Tuesday";
-      else if (currentDay == 3) return "Wednesday";
-      else if (currentDay == 4) return "Thursday";
-      else if (currentDay == 5) return "Friday";
-      else if (currentDay == 6) return "Saturday";
-      else if (currentDay == 0) return "Sunday";
-      else return "Day error!";
-    },
-    currentMonth: function () {
-      const month = new Date();
-      const currentMonth = month.getMonth() + 1;
-
-      if (currentMonth == 1) return "January";
-      else if (currentMonth == 2) return "February";
-      else if (currentMonth == 3) return "March";
-      else if (currentMonth == 4) return "April";
-      else if (currentMonth == 5) return "May";
-      else if (currentMonth == 6) return "June";
-      else if (currentMonth == 7) return "July";
-      else if (currentMonth == 8) return "August";
-      else if (currentMonth == 9) return "September";
-      else if (currentMonth == 10) return "October";
-      else if (currentMonth == 11) return "November";
-      else if (currentMonth == 12) return "December";
-      else return "Month error!";
-    },
-    currentDate: function () {
-      const numdate = new Date();
-      return numdate.getDate();
-    },
-  },
+  computed: {},
 };
 </script>
 <style lang="scss" scoped>
+// #page-classrooms {
+//   background-color: #f6f6f6;
+// }
+.class-item-wrapper {
+  padding: 0 20px;
+}
+.pin-title-classrooms {
+  font-size: 16px;
+  color: #8b8b8b;
+  font-weight: 400;
+  margin: 0 15px 0 20px;
+  // padding-top: 15px;
+}
 </style>

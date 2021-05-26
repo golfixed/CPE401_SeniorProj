@@ -7,32 +7,28 @@
       <h1>Welcome to Class(i)</h1>
       <h3>An ultimate tool for the best study experience.</h3>
     </div>
-    <div class="content">
+    <div class="content-page-welcome">
       <div class="wrapper">
         <div class="set-top">
           <button>
-            <router-link to="/home">
-              <div class="single-land">
-                <div class="img-wrapper">
-                  <img src="/img/btn/facebook.png" />
-                </div>
-                <label>Continue with Facebook</label>
+            <div class="single-land">
+              <div class="img-wrapper">
+                <img src="/img/btn/facebook.png" />
               </div>
-            </router-link>
+              <label>Continue with Facebook</label>
+            </div>
           </button>
-          <!-- <button>
+          <button>
             <div class="single-land">
               <div class="img-wrapper"><img src="/img/btn/google.png" /></div>
               <label>Continue with Google</label>
             </div>
-          </button> -->
-          <button>
-            <router-link to="/login">
-              <div class="single-land">
-                <div class="img-wrapper"><img src="/img/btn/email.png" /></div>
-                <label>Continue with Email</label>
-              </div>
-            </router-link>
+          </button>
+          <button v-on:click="login()">
+            <div class="single-land">
+              <div class="img-wrapper"><img src="/img/btn/email.png" /></div>
+              <label>Continue with Email</label>
+            </div>
           </button>
         </div>
 
@@ -49,18 +45,20 @@
           No server connection
         </h1> -->
       </div>
-      <div class="set-bottom-wrapper">
-        <div class="set-bottom-box">
-          <div class="set-bottom">
-            <label class="bottom-label">Don't have an account?</label>
-            <button>
-              <router-link to="/regis">
+      <div class="bottom-section">
+        <div class="wrapper">
+          <div class="hr-line">
+            <div>&nbsp;</div>
+            <label>or</label>
+          </div>
+          <div class="set-bottom-box">
+            <div class="set-bottom">
+              <button class="regis-btn" v-on:click="register()">
                 <div class="single-land">
-                  <div><img /></div>
-                  <label class="sign-up">Sign Up</label>
+                  <label class="sign-up">Register</label>
                 </div>
-              </router-link>
-            </button>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -71,7 +69,7 @@
 <script>
 import axios from "@/axios.js";
 export default {
-  name: "Welcome",
+  name: "Welcome-Page",
   created() {
     // this.test();
   },
@@ -81,34 +79,36 @@ export default {
       resData: "",
     };
   },
+  mounted() {
+    if (localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
+  },
   methods: {
-    // test: function () {
-    //   axios.get("/").then((res) => {
-    //     if (res.status != 404 || res.status != 500) {
-    //       this.connectServer = true;
-    //       // console.log(res);
-    //       this.resData = res.data;
-    //     }
-    //   });
-    // },
+    register() {
+      this.$router.push({ path: "/register" });
+    },
+    login() {
+      this.$router.push({ path: "/login" });
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.regis-btn {
+  background-color: #479f60;
+  label {
+    color: #fff;
+  }
+}
 button {
   margin-bottom: 10px;
 }
 button:last-child {
   margin-bottom: 0;
 }
-.welcome-page {
-  background-color: #f6f6f6;
-  width: 100vw;
-  height: 100vh;
-  display: grid;
-  grid-template-rows: 40% 60%;
-}
+
 .header {
   height: 100%;
   display: flex;
@@ -138,10 +138,11 @@ button:last-child {
     color: #8b8b8b;
     font-size: 14px;
     font-weight: 500;
-    padding-top: 5px !important;
+    // padding-top: 5px !important;
+    text-align: center;
   }
 }
-.content {
+.content-page-welcome {
   width: 100vw;
   height: 100%;
 }
@@ -155,34 +156,29 @@ button:last-child {
     width: 100%;
   }
 }
-.set-bottom-wrapper {
-  width: 100%;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  .set-bottom-box {
-    padding: 0 20px;
-    .set-bottom {
+.set-bottom-box {
+  .set-bottom {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .bottom-label {
+      color: #8b8b8b;
+      font-size: 14px;
+      padding-top: 10px !important;
+      padding-bottom: 10px !important;
+      border: solid;
+      border-width: 1px 0 0 0;
+      border-color: #ededed;
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding-bottom: 40px;
-      .bottom-label {
-        color: #8b8b8b;
-        font-size: 14px;
-        padding-top: 10px !important;
-        padding-bottom: 10px !important;
-        border: solid;
-        border-width: 1px 0 0 0;
-        border-color: #ededed;
-        width: 100%;
-        text-align: center;
-      }
-      button {
-        margin-bottom: 0px;
-      }
+      text-align: center;
+    }
+    button {
+      margin-bottom: 0px;
     }
   }
+}
+.bottom-section {
+  background-color: #f6f6f6;
 }
 </style>

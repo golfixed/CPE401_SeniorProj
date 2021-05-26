@@ -49,6 +49,8 @@ export default {
   display: block;
   padding: 15px;
   background: linear-gradient(135deg, #3c6697 0%, #3b9b50 100%);
+  box-shadow: 0px 5px 25px 4px rgb(0 0 0 / 7%);
+  margin-bottom: 10px;
 
   label {
     color: #fff;
@@ -94,6 +96,6 @@ export default {
   padding-left: 0px;
 }
 .card-wrapper:last-child {
-  padding-right: 20px;
+  padding-right: 10px;
 }
 </style>

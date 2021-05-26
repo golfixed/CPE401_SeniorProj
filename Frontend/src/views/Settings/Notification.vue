@@ -1,6 +1,6 @@
 <template>
   <div id="setting-page" class="fullpage">
-    <topNavi pageName="Notification Settings" />
+    <topNavi pageName="Notification Settings" type="back" />
     <div class="content-page">
       <div class="items-group">
         <itemSelect
@@ -27,7 +27,7 @@
 import itemSelect from "@/components/lists/item_select.vue";
 import itemInput from "@/components/lists/item_input.vue";
 import itemSingle from "@/components/lists/item_single.vue";
-import topNavi from "@/components/template/topNavi.vue";
+import topNavi from "@/components/template/top_navibar.vue";
 export default {
   name: "Settings-Profile",
   components: {

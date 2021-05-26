@@ -1,7 +1,19 @@
 <template>
   <div id="navi-bar">
     <div class="left">
-      <div class="btn-back" @click="$router.go(-1)">
+      <div class="btn-back" @click="$router.go(-1)" v-if="type == 'back'">
+        <div class="icon">
+          <img src="/img/btn/chevron.png" />
+        </div>
+        <label>Back</label>
+      </div>
+      <div class="btn-back" @click="$router.go(-1)" v-if="type == 'cancel'">
+        <div class="icon">
+          <img src="/img/btn/chevron.png" />
+        </div>
+        <label>Cancel</label>
+      </div>
+      <div class="btn-back" @click="$router.push('/')" v-if="type == 'gohome'">
         <div class="icon">
           <img src="/img/btn/chevron.png" />
         </div>
@@ -11,6 +23,15 @@
     <div class="center">
       <label>{{ pageName }}</label>
     </div>
+    <div class="right">
+      <div
+        class="btn-img-wrapper"
+        v-on:click="openOptionMenu(optionName)"
+        v-if="menu == true"
+      >
+        <img src="/img/icons/option-menu.svg" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -19,6 +40,14 @@ export default {
   name: "topNavibar",
   props: {
     pageName: String,
+    type: String,
+    menu: Boolean,
+    optionName: String,
+  },
+  methods: {
+    openOptionMenu: function (payload) {
+      this.$store.commit("Open_optionMenu", payload);
+    },
   },
 };
 </script>
@@ -90,7 +119,12 @@ export default {
   .right {
     width: 80px;
     justify-content: flex-end;
-    padding-right: 20px;
+    .btn-img-wrapper {
+      margin-right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 </style>

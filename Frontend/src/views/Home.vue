@@ -2,10 +2,11 @@
   <div id="page-home" class="app-default-border-gray-top">
     <div class="page-content-none" v-if="recentAct.length == 0">
       <div class="no-msg">
+        <img class="icon" src="/img/icons/home_blank.svg" draggable="false" />
         <label class="title">Nothing Going On Here</label>
         <label class="desc"
-          >To join classrooms and start a new discussion, <br />
-          tap the plus botton at buttom right.</label
+          >Join a class and start new conversations. <br />Tap Classrooms tab to
+          join class.</label
         >
       </div>
     </div>
@@ -21,10 +22,14 @@ export default {
       recentAct: [],
     };
   },
+  mounted() {
+    if (!localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
+  },
   created: function () {},
   methods: {
     openSearchPage: function () {
-      console.log("clicked");
       this.$store.commit("Open_searchPage");
     },
   },

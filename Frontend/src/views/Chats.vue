@@ -1,6 +1,6 @@
 <template>
-  <div id="page-chat" class="app-default-border-gray-top">
-    <div class="page-list-wrapper" v-if="chatList.length > 0">
+  <div id="page-chats" class="app-default-border-gray-top">
+    <!-- <div class="page-list-wrapper" v-if="chatList.length > 0">
       <div class="chat-item">
         <chatItem
           v-for="items in chatList"
@@ -13,18 +13,24 @@
           v-bind:read="items.read"
           v-bind:lastReply="items.lastReply"
         />
+        <div class="end-of-page"></div>
       </div>
-    </div>
-    <div class="page-content-none" v-if="chatList.length == 0">
+    </div> -->
+
+    <div class="page-content-none">
       <div class="no-msg">
-        <label class="title">Start a New Message</label>
+        <img
+          class="icon"
+          src="/img/icons/page_undercon.svg"
+          draggable="false"
+        />
+        <label class="title">Under developing...</label>
         <label class="desc"
-          >Tap the + button at bottom right<br />
-          to start a new chatroom.</label
+          >This feature is not ready yet. <br />We will let you know once it is
+          ready.</label
         >
       </div>
     </div>
-    <div class="end-of-page"></div>
   </div>
 </template>
 
@@ -35,9 +41,14 @@ export default {
   components: {
     chatItem,
   },
+  mounted() {
+    if (!localStorage.token) {
+      this.$router.push({ path: "/" });
+    }
+  },
   data: function () {
     return {
-      chatList: [
+      chatList2: [
         {
           id: 0,
           firstName: "Nithiwadee",
@@ -182,12 +193,7 @@ export default {
     };
   },
   created: function () {},
-  methods: {
-    openSearchPage: function () {
-      console.log("clicked");
-      this.$store.commit("Open_searchPage");
-    },
-  },
+  methods: {},
 };
 </script>
 <style lang="scss" scoped>

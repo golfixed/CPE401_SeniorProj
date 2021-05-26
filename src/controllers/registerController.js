@@ -17,7 +17,6 @@ let createNewUser = async (req, res) => {
             errorsArr.push(item.msg);
         });
         req.flash("errors", errorsArr);
-        // return res.redirect("/register");
         return res.send({ error: false, message: "Register Page"});
     }
     console.log('new regis info : ');
@@ -28,20 +27,15 @@ let createNewUser = async (req, res) => {
         lastname: req.body.lastname,
         email: req.body.email,
         password: req.body.password
-        // role: req.body.role,
-        // image: req.body.image,    
-        // gender: req.body.gender,
-        // phone: req.body.phone    
     };
     try {
         await registerService.createNewUser(newUser);
         console.log('New user account register successfully');
-        // return res.redirect("/home");
-        
-        return res.send({ error: false, message: "Register Successfully"})
+        return res.send({ error: false, data: newUser, message: "Register Successfully"})
     } catch (err) {
         req.flash("errors", err);
-        return res.send({ error: false, message: "ERROR"})
+        console.log(err);
+        return res.send({ error: false, message: err})
     }
 };
 module.exports = {

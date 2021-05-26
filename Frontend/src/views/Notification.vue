@@ -1,44 +1,23 @@
 <template>
   <div id="page-setting" class="fullpage">
-    <topNavi pageName="Notifications" />
+    <topNavi pageName="Notifications" type="back" />
     <div class="content-page">
-      <div class="items-group">
-        <router-link to="/settings/profile">
-          <itemSingle
-            label="Profile Settings"
-            desc="Display name, Gender, User roles"
-            type="normal"
-          />
-        </router-link>
-        <router-link to="/settings/account">
-          <itemSingle
-            label="Account Settings"
-            desc="E-mail, Password, Deactivation"
-            type="normal"
-          />
-        </router-link>
-        <router-link to="/settings/notification">
-          <itemSingle
-            label="Notifications"
-            desc="Chat notification, Group notification"
-            type="normal"
-          />
-        </router-link>
+      <div
+        class="page-content-none page-content-none-fullpage"
+        v-if="notiList.length == 0"
+      >
+        <div class="no-msg">
+          <img class="icon" src="/img/icons/noti_bell.svg" draggable="false" />
+          <label class="title">No New Notification</label>
+          <label class="desc">Be back later.</label>
+        </div>
       </div>
-      <div class="items-group">
-        <itemSingle label="Feedback" type="normal" />
-        <itemSingle label="Support & Contact Us" type="normal" />
-      </div>
-      <div class="items-group">
-        <itemSingle label="Sign Out" type="red" />
-      </div>
-      <div class="end-of-page"></div>
     </div>
   </div>
 </template>
 
 <script>
-import topNavi from "@/components/template/topNavi.vue";
+import topNavi from "@/components/template/top_navibar.vue";
 export default {
   name: "Notification",
   components: {
@@ -47,6 +26,7 @@ export default {
   data() {
     return {
       user: this.$store.state.user.profile,
+      notiList: [],
     };
   },
   methods: {},
