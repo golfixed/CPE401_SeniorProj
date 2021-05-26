@@ -32,7 +32,7 @@ classMember.post("/classmember", (req, res) => {
 
                 } else {
                     console.log('NO RESULT')
-                    res.status(200).send({ error: true, message: `No member id this class` })
+                    res.status(200).send({ error: true, message: `No class id in DB` })
                 }
             }
         })
