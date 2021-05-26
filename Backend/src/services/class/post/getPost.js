@@ -20,8 +20,8 @@ getPost.get('/post/:id', (req, res) => {
                         else {
                             if (results.length > 0) {
 
-                                let pid = results;
-                                dbCon.query("SELECT comment.* FROM comment,post WHERE comment.post = post.id AND comment.post = ?", post_id, (error, results) => {
+                                let pid = results[0];
+                                dbCon.query("SELECT comment.*, account.firstname, account.lastname, account.image FROM comment,post,account WHERE comment.post = post.id AND comment.create_by = account.id AND comment.post = ?", post_id, (error, results) => {
                                     if (error) { console.log(errer) }
 
                                     let message = "";
