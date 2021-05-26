@@ -1,6 +1,9 @@
 {
   "name": "tutorial-youtube",
   "version": "1.0.0",
+  "engines": {
+    "node": "6.14.8"
+  }
   "description": "Building a login system with NodeJS",
   "main": "server.js",
   "scripts": {
