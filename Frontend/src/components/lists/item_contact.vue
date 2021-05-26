@@ -27,11 +27,12 @@ export default {
     time: String,
     read: Boolean,
     lastReply: Boolean,
+    account_id: Number,
   },
   methods: {
     openProfile(id) {
-      if (id) this.$router.push("/profile/" + id);
-      else console.log("error no user id");
+      if (account_id) this.$router.push("/profile/" + account_id);
+      else console.log("error no account_id");
     },
   },
 };
