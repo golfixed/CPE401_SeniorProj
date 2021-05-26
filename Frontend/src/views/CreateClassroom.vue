@@ -65,7 +65,7 @@
       </div>
     </div>
     <div class="subpage" v-if="currentSubPage == 2 && isLoading == false">
-      <div class="content-page finish-page">
+      <div class="content-page fullpage finish-page">
         <div class="success-box">
           <div class="icon">
             <img src="/img/icons/check_green.svg" />
