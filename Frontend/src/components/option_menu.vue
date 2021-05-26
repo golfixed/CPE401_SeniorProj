@@ -17,8 +17,14 @@
       >
         <div class="menu-item" v-on:click="pinClass()">
           <optionMenu
-            label="Pin to favourite"
-            iconURL="/img/btn/menuOption/noti.svg"
+            label="Pin this Classroom"
+            iconURL="/img/btn/menuOption/fav.svg"
+            v-if="this.$store.state.currentClassInfo.favorite == false"
+          />
+          <optionMenu
+            label="Unpin this classroom"
+            iconURL="/img/btn/menuOption/fav.svg"
+            v-if="this.$store.state.currentClassInfo.favorite == true"
           />
         </div>
       </div>

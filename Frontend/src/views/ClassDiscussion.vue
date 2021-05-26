@@ -51,9 +51,10 @@ export default {
     },
     fetchPostList() {
       axios.get("/getpostlist/" + this.class_id).then((res) => {
-        console.log(res);
         if (res.data.false != true) {
           this.postList = res.data.data.reverse();
+          console.log("CLASSROOM_PAGE_POST: Fetch Post List");
+          console.log(this.postList);
         }
       });
     },

@@ -187,7 +187,6 @@ export default {
       this.$router.push({ path: "/classrooms/" + id + "/member" });
     },
     fetchClassInfo: function (class_id) {
-      console.log("Fetch Class Info: ");
       axios
         .post("/classroom/", {
           account_id: this.$store.state.user.profile.id,
@@ -197,6 +196,8 @@ export default {
           if (res.error != true) {
             // console.log("ClassPage: class Info fetched");
             this.classInfo = res.data.data;
+            this.$store.commit("Update_CurrentViewClass", this.classInfo);
+            console.log("CLASSROOM_PAGE: Fetch Class Info");
             console.log(this.classInfo);
           } else {
             // console.log("ClassPage: class Info fetch failed");

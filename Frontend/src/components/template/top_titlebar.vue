@@ -3,14 +3,9 @@
     <div class="app-title-bar">
       <div id="app-title" class="app-statusbar">
         <div class="titlebar-left">
-          <div class="profile-btn">
-            <router-link to="/settings">
-              <img
-                src="/img/default_profile.svg"
-                v-if="userProfilePic == null"
-              />
-              <img :src="userProfilePic" v-if="userProfilePic == null" />
-            </router-link>
+          <div class="profile-btn" v-on:click="openSettingPage()">
+            <img src="/img/default_profile.svg" v-if="userProfilePic == null" />
+            <img :src="userProfilePic" v-if="userProfilePic == null" />
           </div>
           <label class="page-title">Hi, {{ userName }}</label>
         </div>
@@ -118,6 +113,9 @@ export default {
     },
     openOptionMenu: function (payload) {
       this.$store.commit("Open_optionMenu", payload);
+    },
+    openSettingPage() {
+      this.$router.push("/settings");
     },
   },
   mounted() {

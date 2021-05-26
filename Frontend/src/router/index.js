@@ -15,7 +15,7 @@ const routes = [
         localStorage.clear();
         return import('../views/Welcome.vue')
       } else {
-        return import('../views/Classrooms.vue')
+        return import('../views/Home.vue')
       }
     }
   },
@@ -34,11 +34,6 @@ const routes = [
     name: 'Regis',
     component: () => import(  '../views/Register.vue'),
   },
-  // {
-  //   path: '/classrooms',
-  //   name: 'Classrooms',
-  //   component: () => import('../views/Classrooms.vue')
-  // },
   {
     path: '/classrooms/:id',
     name: 'ClassroomPage',

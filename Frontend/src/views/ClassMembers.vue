@@ -54,7 +54,7 @@ export default {
     var path = this.$route.path;
     var id = path.replace("/classrooms/", "");
     this.class_id = parseInt(id);
-    console.log("class_id: " + this.class_id);
+    // console.log("class_id: " + this.class_id);
     this.fetchMemberList(this.class_id);
   },
   methods: {
@@ -64,10 +64,11 @@ export default {
     fetchMemberList(id) {
       axios.post("/classmember", { class_id: id }).then((res) => {
         if (res.data.false != true) {
-          console.log("class member list:");
-          console.log(res);
-
           this.memberList = res.data.data;
+
+          console.log("CLASSROOM_PAGE_MEMBER: Fetch Member List");
+          console.log(this.memberList);
+
           if (this.memberList.length > 0) {
             this.studentList = this.memberList.filter(
               (memberList) => memberList.role == "std"
