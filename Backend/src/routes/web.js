@@ -6,7 +6,7 @@ import classController from "../controllers/classController";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
 
-import setting from "../services/setting/setting";
+import profile from "../services/setting/profile";
 import addRole from "../services/setting/addRole";
 import getProfileInfo from "../services/setting/getProfileInfo";
 import editProfile from "../services/setting/editProfile";
@@ -16,7 +16,7 @@ import classList from "../services/class/classList";
 import classListAnnounce from "../services/class/classList-announce";
 import addFavClass from "../services/class/addFavClass";
 import discussion from "../services/class/discussion";
-import classCode from "../services/class/classroom";
+import classroom from "../services/class/classroom";
 import getclassid from "../services/class/getclassid";
 import getJoinCode from "../services/class/getJoinCode";
 import getclassinfo from "../services/class/getclassinfo";
@@ -37,6 +37,7 @@ import createPoll from "../services/class/poll/createPoll";
 import getPoll from "../services/class/poll/getPoll";
 import clickVotes from "../services/class/poll/vote";
 import getpollist from "../services/class/poll/polltab";
+import delpoll from "../services/class/poll/delpoll";
 
 
 import createTopic from "../services/class/materials/createTopic";
@@ -83,7 +84,7 @@ let initWebRoutes = (app) => {
     //CLASS
     router.post("/classrooms", classList);
     router.post("/classrooms/announce", classListAnnounce);
-    router.get("/classrooms/:class_code", classCode);
+    router.get("/classrooms/:id", classroom);
     router.post("/getclassinfo", getclassinfo);
     router.post("/getclassid", getclassid);
     router.post("/pinclass", addFavClass);
@@ -107,20 +108,22 @@ let initWebRoutes = (app) => {
     //POST
     router.get("/getpostlist/:class_id", posttab);
     router.post("/createpost", createPost);
-    router.post("/addcomment", addComment);
-    router.post("/announce", announce);
-    router.delete("/deletecomment", delComment);
     router.get("/post/:id", getPost);
     router.delete("/deletepost", delPost);
+    //COMMENT
+    router.post("/addcomment", addComment);
+    router.delete("/deletecomment", delComment);
+    router.post("/announce", announce);
     
     //POLL
     router.get("/getpolllist/:class_id", getpollist);
-    router.post("/createPoll", createPoll);
+    router.post("/createpoll", createPoll);
     router.get("/polls/:id", getPoll);
-    router.post("/clickVotes", clickVotes);
+    router.post("/clickvotes", clickVotes);
+    router.delete("/deletepoll", delpoll);
 
     //SETTING
-    router.get("/setting/:id", setting);
+    router.get("/profile/:id", profile);
     router.put("/setting/editProfile/:id", editProfile);
     router.put("/setting/editAccount/:id", editAccount);
 

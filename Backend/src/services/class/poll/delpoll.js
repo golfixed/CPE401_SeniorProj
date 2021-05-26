@@ -1,32 +1,33 @@
 import dbCon from "../../../configs/DBConnection";
 import express from "express";
 
-let delComment = express();
+let delpoll = express();
 
-delComment.delete('/deletecomment', (req, res) => {
+delpoll.delete('/deletepoll', (req, res) => {
+    //REQUEST POLL ID
     let id = req.body.id;
 
     if (!id) {
-        res.status(200).send({ error: true, message: "Please provide comment id" })
+        res.status(200).send({ error: true, message: "Please provide poll id" })
     } else {
-        dbCon.query('SELECT id FROM comment WHERE id = ?', [id], (error, results) => {
+        dbCon.query('SELECT id FROM poll WHERE id = ?', [id], (error, results) => {
             if (error) { console.log(error) }
             else {
                 if (results.length > 0) {
-                    let comment_id = results[0].id;
-                    dbCon.query('DELETE FROM comment WHERE id = ?', comment_id, (error, results, fields) => {
+                    let poll_id = results[0].id;
+                    dbCon.query('DELETE FROM poll WHERE id = ?', poll_id, (error, results) => {
                         if (error) throw error;
-
+                        
                         let message = "";
                         if (results.affectedRows === 0) {
                             message = `Delete failed at id = ${id}`;
                         } else {
-                            message = "Comment successfully deleted";
+                            message = "Poll successfully deleted";
                         }
                         return res.send({ error: false, message: message })
                     })
-                } else {
-                    res.status(200).send({ error: true, message: "No comment id in DB" })
+                }else{
+                    res.status(200).send({ error: true, message: "No poll id in DB" })
                 }
             }
         })
@@ -34,4 +35,4 @@ delComment.delete('/deletecomment', (req, res) => {
 
 })
 
-module.exports = delComment;
+module.exports = delpoll;

@@ -18,7 +18,7 @@ getclassinfo.post('/getclassinfo', (req, res) =>{
             
             let message = "";
             if(results === undefined || results.length == 0){
-                message = `Failed `;
+                message = `Class code and section doest no exist`;
             }else{
                 message = `Successfully`;
             }

@@ -25,8 +25,7 @@ let createNewClass = (data) => {
                 class_desc: data.class_desc,
                 join_code: joinCode(6),
                 section: data.section,
-                create_by: data.create_by,
-                mute_noti:false
+                create_by: data.create_by
             };
         
             console.log(classObject.join_code);
