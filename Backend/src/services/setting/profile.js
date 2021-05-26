@@ -19,7 +19,7 @@ setting.get("/profile/:id", (req, res) => {
         if (results.length > 0) {
           let ac_id = results[0].id;
 
-          dbCon.query("SELECT id, firstname, lastname, email, role, image, gender, phone FROM account WHERE id = ?", ac_id, (error, results) => {
+          dbCon.query("SELECT id, firstname, lastname, email, role, image, gender, phone FROM account, class_member WHERE account.id = class_member.account AND class_member.account = ?", ac_id, (error, results) => {
             if (error) throw error;
 
             let message = "";
