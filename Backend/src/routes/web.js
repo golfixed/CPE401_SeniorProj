@@ -26,6 +26,7 @@ import classMember from "../services/class/classMember";
 import delMember from "../services/class/delMember";
 
 import createPost from "../services/class/post/createPost";
+import createPostContent from "../services/class/post/createPost-content";
 import announce from "../services/class/post/announce";
 import posttab from "../services/class/post/posttab";
 import addComment from "../services/class/post/addComment";
@@ -108,6 +109,7 @@ let initWebRoutes = (app) => {
     //POST
     router.get("/getpostlist/:class_id", posttab);
     router.post("/createpost", createPost);
+    router.post("/createcontent", createPostContent);
     router.get("/post/:id", getPost);
     router.delete("/deletepost", delPost);
     //COMMENT
