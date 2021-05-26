@@ -1,0 +1,12 @@
+DROP TABLE IF EXISTS `class_member`;
+
+CREATE TABLE IF NOT EXISTS `class_member` (
+`id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`account` int(10) NOT NULL,
+`class` int(10) NOT NULL,
+`role_member` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `class_member` 
+    ADD FOREIGN KEY (`account`) REFERENCES `account`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    ADD FOREIGN KEY (`class`) REFERENCES `class`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

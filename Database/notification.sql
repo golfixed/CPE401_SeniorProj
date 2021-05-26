@@ -1,0 +1,17 @@
+DROP TABLE IF EXISTS `notification`;
+
+CREATE TABLE IF NOT EXISTS `notification` (
+`id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`class_log` int(10) NOT NULL,
+`read` boolean NOT NULL,
+`delete` boolean NOT NULL,
+`create_at` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+`create_by` int(10) NOT NULL,
+`update_at` DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+`update_by` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `notification` 
+    ADD FOREIGN KEY (`class_log`) REFERENCES `class_log`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    ADD FOREIGN KEY (`create_by`) REFERENCES `account`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    ADD FOREIGN KEY (`update_by`) REFERENCES `account`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;

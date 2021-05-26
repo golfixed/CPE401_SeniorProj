@@ -1,0 +1,14 @@
+DROP TABLE IF EXISTS `chat_list`;
+
+CREATE TABLE IF NOT EXISTS `chat_list` (
+`id` int(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`account` int(10) NOT NULL,
+`chat` int(10) NOT NULL,
+`classchat` int(10) NOT NULL,
+`favorite` boolean NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `chat_list` 
+    ADD FOREIGN KEY (`account`) REFERENCES `account`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    ADD FOREIGN KEY (`chat`) REFERENCES `chatroom`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    ADD FOREIGN KEY (`classchat`) REFERENCES `classchat`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
