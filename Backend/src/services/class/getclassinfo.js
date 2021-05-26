@@ -2,7 +2,7 @@ import dbCon from "../../configs/DBConnection";
 import express from "express";
 
 let getclassinfo = express();
-
+//USE WHEN CREATE CLASS
 getclassinfo.post('/getclassinfo', (req, res) => {
     let class_code = req.body.class_code;
     let section = req.body.section
