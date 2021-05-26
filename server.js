@@ -1,13 +1,13 @@
 require('dotenv').config();
 import express from "express";
-import initWebRoutes from "./routes/web";
+import initWebRoutes from "./src/routes/web";
 import bodyParser from "body-parser";
 import cookieParser from 'cookie-parser';
 import session from "express-session";
 import connectFlash from "connect-flash";
 import passport from "passport";
 import multer from "multer";
-import dbCon from "./configs/DBConnection";
+import dbCon from "./src/configs/DBConnection";
 const cors = require('cors');
 const path = require('path');
 
