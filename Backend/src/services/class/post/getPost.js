@@ -15,7 +15,7 @@ getPost.get('/post/:id', (req, res) => {
                 if (results.length > 0) {
                     let post_id = results[0].id;
 
-                    dbCon.query("SELECT * FROM post WHERE id = ?", post_id, (error, results, fields) => {
+                    dbCon.query("SELECT post.*, account.firstname, account.lastname, account.image FROM post,account WHERE post.create_by = account.id AND post.id = ?", post_id, (error, results, fields) => {
                         if (error) throw error;
                         else {
                             if (results.length > 0) {
