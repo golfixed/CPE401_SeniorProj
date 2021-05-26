@@ -32,4 +32,3 @@ classListAnnounce.post('/classrooms/announce', (req, res) => {
 })
 
 module.exports = classListAnnounce;
-// return res.send({ error: false, message: "No announce post from your class" })
