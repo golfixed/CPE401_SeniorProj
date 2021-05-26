@@ -1,36 +1,25 @@
 <template>
   <div class="">
-    <div class="items-group">
+    <div class="items-group" v-if="teacherList.length > 0">
       <LabelItemGroup text="Class Instructor" />
       <itemContact
         v-for="item in teacherList"
         :key="item.id"
         v-bind:id="item.id"
-        v-bind:fname="item.fname"
-        v-bind:lname="item.lname"
-        v-bind:pictureURL="item.pictureURL"
+        v-bind:fname="item.firstname"
+        v-bind:lname="item.lastname"
+        v-bind:pictureURL="item.image"
       />
     </div>
-    <!-- <div class="items-group">
-      <LabelItemGroup text="Teacher Assistant" />
-      <itemContact
-        v-for="item in memberList"
-        :key="item.id"
-        v-if="item.role == 'ta'"
-        v-bind:fname="item.fname"
-        v-bind:lname="item.lname"
-        v-bind:pictureURL="item.pictureURL"
-      />
-    </div> -->
-    <div class="items-group">
+    <div class="items-group" v-if="studentList.length > 0">
       <LabelItemGroup text="Students" />
       <itemContact
         v-for="item in studentList"
         :key="item.id"
         v-bind:id="item.id"
-        v-bind:fname="item.fname"
-        v-bind:lname="item.lname"
-        v-bind:pictureURL="item.pictureURL"
+        v-bind:fname="item.firstname"
+        v-bind:lname="item.lastname"
+        v-bind:pictureURL="item.image"
       />
     </div>
     <div class="end-of-page"></div>
@@ -41,6 +30,7 @@
 import LabelItemGroup from "@/components/labels/label_item_group.vue";
 import itemContact from "@/components/lists/item_contact.vue";
 import topNavi from "@/components/template/top_navibar.vue";
+import axios from "@/axios.js";
 export default {
   name: "ClassMember-Page",
   components: {
@@ -50,79 +40,7 @@ export default {
   },
   data() {
     return {
-      user: this.$store.state.user.profile,
-      memberList: [
-        {
-          id: 1,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Peerapong",
-          lname: "Thammakaew",
-          role: "std",
-        },
-        {
-          id: 2,
-          pictureURL: "/img/mockup/profile_volk.png",
-          fname: "Bhaksiree",
-          lname: "Tongtago",
-          role: "std",
-        },
-        {
-          id: 3,
-          pictureURL: "/img/mockup/profile_my.png",
-          fname: "Nithi",
-          lname: "My",
-          role: "tea",
-        },
-        {
-          id: 4,
-          pictureURL: "/img/mockup/profile_my.png",
-          fname: "Nithi",
-          lname: "MY",
-          role: "std",
-        },
-        {
-          id: 5,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "std",
-        },
-        {
-          id: 6,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "std",
-        },
-        {
-          id: 7,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "ta",
-        },
-        {
-          id: 8,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "std",
-        },
-        {
-          id: 9,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "ta",
-        },
-        {
-          id: 10,
-          pictureURL: "/img/mockup/profile.png",
-          fname: "Bhaksiree",
-          lname: "Wangviboonkij",
-          role: "tea",
-        },
-      ],
+      memberList: [],
       studentList: [],
       teacherList: [],
     };
@@ -131,18 +49,31 @@ export default {
     if (!localStorage.token) {
       this.$router.push({ path: "/" });
     }
-    if (this.memberList) {
-      this.studentList = this.memberList.filter(
-        (memberList) => memberList.role == "std"
-      );
-      this.teacherList = this.memberList.filter(
-        (memberList) => memberList.role == "tea"
-      );
-    }
+    var path = this.$route.path;
+    var id = path.replace("/classrooms/", "");
+    this.class_id = parseInt(id);
+    console.log(this.class_id);
+    this.fetchMemberList(this.class_id);
   },
   methods: {
     openOptionMenu: function () {
       this.$store.commit("Open_optionMenu");
+    },
+    fetchMemberList(id) {
+      axios.post("/classmember", { class_id: id }).then((res) => {
+        if (res.data.false != true) {
+          console.log(res);
+          this.memberList = res.data.data;
+          if (this.memberList.length > 0) {
+            this.studentList = this.memberList.filter(
+              (memberList) => memberList.role == "std"
+            );
+            this.teacherList = this.memberList.filter(
+              (memberList) => memberList.role == "tea"
+            );
+          }
+        }
+      });
     },
   },
 };

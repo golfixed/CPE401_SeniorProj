@@ -2,7 +2,12 @@
   <div class="item-wrapper" v-on:click="openProfile(id)">
     <div class="contact-item">
       <div class="profile-pic">
-        <img :src="pictureURL" draggable="false" />
+        <img :src="pictureURL" v-if="pictureURL" draggable="false" />
+        <img
+          src="/img/default_profile.svg"
+          v-if="!pictureURL"
+          draggable="false"
+        />
       </div>
       <div class="text">
         <label class="name">{{ fname }} {{ lname }}</label>

@@ -4,11 +4,11 @@
     <div class="content-page">
       <div class="post-wrapper">
         <div class="post-head">
-          <div class="profile-pic" v-on:click="openProfile(post.create_by)">
+          <div class="profile-pic">
             <img :src="post.image" v-if="post.image" />
             <img src="/img/default_profile.svg" v-if="!post.image" />
           </div>
-          <div class="text" v-on:click="openProfile(post.post)">
+          <div class="text">
             <label class="name">{{ post.firstname }} {{ post.lastname }}</label>
             <label class="time">{{ post.create_at }}</label>
           </div>
@@ -22,7 +22,7 @@
           </div>
         </div>
         <!-- <label class="bottom-label">Seen by: {{ post.click_count }}</label> -->
-        <div class="post-comment">
+        <div class="post-comment" v-if="commentList.length > 0">
           <div class="section-label">
             <label>Comments</label>
           </div>

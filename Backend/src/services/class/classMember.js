@@ -7,6 +7,8 @@ classMember.post("/classmember", (req, res) => {
 
     let class_id = req.body.class_id;
 
+    console.log(req.body.class_id);
+
     if (!class_id) {
         return res.status(200).send({ error: true, message: "Please provide class id" });
     } else {

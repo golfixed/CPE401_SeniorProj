@@ -6,8 +6,8 @@
         <div class="page-header">
           <div class="profile-pic">
             <div class="img">
-              <img src="/img/default_profile.svg" v-if="!user.pic" />
-              <img :src="user.pic" v-if="user.pic == null" />
+              <img src="/img/default_profile.svg" v-if="!user.image" />
+              <img :src="user.image" v-if="user.image == null" />
             </div>
           </div>
           <h1 class="pagename">{{ user.firstname }} {{ user.lastname }}</h1>
@@ -26,6 +26,7 @@
 <script>
 import itemSingle from "@/components/lists/item_single.vue";
 import topNavi from "@/components/template/top_navibar.vue";
+import axios from "@/axios.js";
 export default {
   name: "UserProfile",
   components: {
@@ -41,6 +42,7 @@ export default {
         lastname: "lastname",
         email: "email",
       },
+      account_id: "",
     };
   },
   mounted() {
@@ -48,12 +50,19 @@ export default {
       this.$router.push({ path: "/" });
     }
     this.$store.commit("Close_AllMenu");
+
+    var path = this.$route.path;
+    var id = path.replace("/profile/", "");
+    this.account_id = id;
+
+    this.fetchUserProfile(this.account_id);
   },
   methods: {
     fetchUserProfile(id) {
-      axios.get("/profile/", { id }).then((res) => {
+      axios.post("/getprofileinfo", { account_id: id }).then((res) => {
+        console.log(res);
         if (res.data.false != true) {
-          this.user = res.data;
+          this.user = res.data.data;
         }
       });
     },
