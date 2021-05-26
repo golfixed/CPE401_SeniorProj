@@ -1,10 +1,10 @@
 <template>
-  <router-link :to="link" class="option-menu">
+  <div class="option-menu">
     <div class="option-icon"><img :src="iconURL" draggable="false" /></div>
     <div class="option-label app-default-border-gray">
       <label>{{ label }}</label>
     </div>
-  </router-link>
+  </div>
 </template>
 
 <script>

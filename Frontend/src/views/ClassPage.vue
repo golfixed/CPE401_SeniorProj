@@ -187,25 +187,28 @@ export default {
       this.$router.push({ path: "/classrooms/" + id + "/member" });
     },
     fetchClassInfo: function (class_id) {
-      axios.get("/classrooms/" + class_id).then((res) => {
-        if (res.error != true) {
-          // console.log("ClassPage: class Info fetched");
-          this.classInfo = res.data.data;
-          console.log(this.classInfo);
-        } else {
-          // console.log("ClassPage: class Info fetch failed");
-        }
-      });
+      console.log("Fetch Class Info: ");
+      axios
+        .post("/classroom/", {
+          account_id: this.$store.state.user.profile.id,
+          class_id: class_id,
+        })
+        .then((res) => {
+          if (res.error != true) {
+            // console.log("ClassPage: class Info fetched");
+            this.classInfo = res.data.data;
+            console.log(this.classInfo);
+          } else {
+            // console.log("ClassPage: class Info fetch failed");
+          }
+        });
       setTimeout(
         function () {
           this.isLoading = false;
         }.bind(this),
         2000
       );
-      // this.setPrevMember(this.classInfo.member);
     },
-    fetchPost: function () {},
-    fetchMaterial: function () {},
     openPINcode(opt) {
       this.$store.commit("OpenModal", opt);
     },

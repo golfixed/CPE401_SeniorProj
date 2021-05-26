@@ -84,7 +84,7 @@ let initWebRoutes = (app) => {
     //CLASS
     router.post("/classrooms", classList);
     router.post("/classrooms/announce", classListAnnounce);
-    router.get("/classrooms/:id", classroom);
+    router.post("/classrooms/:id", classroom);
     router.post("/getclassinfo", getclassinfo);
     router.post("/getclassid", getclassid);
     router.post("/pinclass", addFavClass);

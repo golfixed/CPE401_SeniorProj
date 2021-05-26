@@ -7,24 +7,20 @@
         v-if="this.$store.state.optionMenu.home == true"
       >
         <optionMenu
-          v-for="option in optionHome"
-          :key="option.id"
-          v-bind:label="option.label"
-          v-bind:iconURL="option.iconURL"
-          v-bind:link="option.url"
+          label="Pin to favourite"
+          iconURL="/img/btn/menuOption/noti.svg"
         />
       </div>
       <div
         class="wrapper-menu-item"
         v-if="this.$store.state.optionMenu.classpage == true"
       >
-        <optionMenu
-          v-for="option in optionClassPage"
-          :key="option.id"
-          v-bind:label="option.label"
-          v-bind:iconURL="option.iconURL"
-          v-bind:link="option.url"
-        />
+        <div class="menu-item" v-on:click="pinClass()">
+          <optionMenu
+            label="Pin to favourite"
+            iconURL="/img/btn/menuOption/noti.svg"
+          />
+        </div>
       </div>
       <div
         class="wrapper-menu-item"
@@ -45,6 +41,7 @@
 </template>
 
 <script>
+import axios from "@/axios.js";
 import optionMenu from "@/components/lists/item_option.vue";
 export default {
   name: "option-menu",
@@ -61,6 +58,21 @@ export default {
       this.$router.push({ path: "/logout" });
       console.log("Logout successfully");
     },
+    pinClass() {
+      console.log("pin clicked");
+      axios
+        .post("/pinclass", {
+          account_id: this.$store.state.user.profile.id,
+          class_id: this.class_id,
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.false != true) {
+            console.log("Pinned Class");
+            this.$store.commit("Close_AllMenu");
+          }
+        });
+    },
   },
   computed: {
     currentPage: function () {
@@ -69,71 +81,14 @@ export default {
     isOpen: function () {
       return this.$store.state.optionMenuOpen;
     },
+    class_id() {
+      var path = this.$route.path;
+      var id = path.replace("/classrooms/", "");
+      return parseInt(id);
+    },
   },
   data() {
-    return {
-      optionHome: [
-        {
-          id: 0,
-          label: "Sort By",
-          iconURL: "/img/btn/menuOption/sort.svg",
-          url: "",
-        },
-        {
-          id: 1,
-          label: "Clear All Announcements",
-          iconURL: "/img/btn/menuOption/clear.svg",
-          url: "",
-        },
-        {
-          id: 2,
-          label: "Notification Settings",
-          iconURL: "/img/btn/menuOption/noti.svg",
-          url: "/settings/notification",
-        },
-        {
-          id: 3,
-          label: "Settings",
-          iconURL: "/img/btn/menuOption/setting.svg",
-          url: "/settings",
-        },
-      ],
-      optionClass: [],
-      optionChat: [
-        {
-          id: 0,
-          label: "Notification Settings",
-          iconURL: "/img/btn/menuOption/noti.svg",
-          url: "/settings/notification",
-        },
-        {
-          id: 1,
-          label: "Settings",
-          iconURL: "/img/btn/menuOption/setting.svg",
-          url: "/settings",
-        },
-      ],
-      optionClassPage: [
-        {
-          id: 0,
-          label: "Pin to favourite",
-          iconURL: "/img/btn/menuOption/noti.svg",
-          url: "/settings/notification",
-        },
-        {
-          id: 1,
-          label: "Mute Notification",
-          iconURL: "/img/btn/menuOption/noti.svg",
-          url: "/settings/notification",
-        },
-        {
-          id: 2,
-          label: "Leave this class",
-          iconURL: "/img/btn/menuOption/setting.svg",
-          url: "/settings",
-        },
-      ],
-    };
+    return {};
   },
 };
 </script>
@@ -170,6 +125,9 @@ export default {
     justify-content: center;
     align-items: flex-start;
     flex-direction: column;
+    .menu-item {
+      width: 100%;
+    }
   }
 }
 .slidein-enter-active {

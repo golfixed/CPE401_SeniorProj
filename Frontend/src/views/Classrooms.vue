@@ -42,13 +42,13 @@
         </div>
       </div>
     </div>
-    <div class="page-list-wrapper" v-if="classList.length > 0">
+    <div class="page-list-wrapper" v-if="classListUnpinned.length > 0">
       <div class="pin-title-classrooms">
         <label>All Classrooms</label>
       </div>
       <div class="class-item-wrapper">
         <classItem
-          v-for="item in classList"
+          v-for="item in classListUnpinned"
           :key="item.class_id"
           v-bind:id="item.id"
           v-bind:code="item.class_code"
@@ -75,6 +75,7 @@ export default {
       classList: [],
       isLoading: false,
       classListPinned: [],
+      classListUnpinned: [],
       isOffline: true,
     };
   },
@@ -84,6 +85,8 @@ export default {
     }
     this.$store.commit("Close_AllMenu");
     this.fetchClassList();
+    console.log(this.classList);
+    console.log(this.classListPinned);
   },
   created: function () {},
   methods: {
@@ -98,12 +101,15 @@ export default {
           console.log("Classrooms list fetched:");
           console.log(res);
           this.classList = res.data.data;
-          this.classList = this.classList.filter(
-            (classList) => classList.favorite == false
-          );
+
           this.classListPinned = this.classList.filter(
-            (classList) => classList.favorite == true
+            (classList) => classList.favorite == 1
           );
+
+          this.classListUnpinned = this.classList.filter(
+            (classList) => classList.favorite == 0
+          );
+
           // console.log(this.classList);
         } else {
           console.log("Classrooms: class list fetch failed");

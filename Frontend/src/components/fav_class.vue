@@ -1,6 +1,6 @@
 <template>
-  <div class="card-wrapper">
-    <div class="card card-a" v-on:click="fetchClassInfo(id)">
+  <div class="card-wrapper" v-on:click="openClassroom(id)">
+    <div class="card card-a">
       <div class="class-pic">
         <img src="/img/classrooms/green.jpg" v-if="!pic" />
         <img :src="pic" v-if="pic" />
@@ -37,35 +37,11 @@ export default {
   created: function () {},
   computed: {},
   methods: {
-    fetchClassInfo: function (class_id) {
-      axios.get("/classrooms/" + class_id).then((res) => {
-        if (res.error != true) {
-          console.log("ClassPage: class Info fetched");
-          this.$store.commit("Update_CurrentViewClass", res.data.data);
-          this.$router.push("/classrooms/" + class_id);
-        } else {
-          console.log("ClassPage: class Info fetch failed");
-        }
-      });
-      setTimeout(
-        function () {
-          this.isLoading = false;
-        }.bind(this),
-        2000
-      );
-      // this.setPrevMember(this.classInfo.member);
+    openClassroom(id) {
+      this.$router.push("/classrooms/" + id);
     },
   },
-  mounted() {
-    if (this.prevMember) this.prevPic = this.prevMember.reverse();
-    this.link = "/classrooms/" + this.id;
-  },
-  data() {
-    return {
-      prevPic: [{}],
-      link: "",
-    };
-  },
+  mounted() {},
 };
 </script>
 

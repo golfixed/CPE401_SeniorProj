@@ -5,9 +5,11 @@ import express from "express";
 let classCode = express();
 
 //
-classCode.get('/classrooms/:id', (req, res) => {
+classCode.post('/classrooms/:id', (req, res) => {
     let id = req.params.id;
+    let idac = req.params.id;
     console.log(req.params)
+    console.log(idac);
 
     if (!id) {
         return res.status(200).send({ error: true, message: "Please provide class id" });
