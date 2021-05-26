@@ -4,7 +4,7 @@ import express from "express";
 
 let getpolllist = express();
 
-getpolllist.get('/getpolllist/:class_id', (req, res) => {
+getpolllist.get('/api/getpolllist/:class_id', (req, res) => {
     let class_id = req.params.class_id;
 
     if (!class_id) {

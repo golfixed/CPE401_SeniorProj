@@ -3,7 +3,7 @@ import express from "express";
 
 let getProfileInfo = express();
 
-getProfileInfo.post('/getprofileinfo', (req, res) =>{
+getProfileInfo.post('/api/getprofileinfo', (req, res) =>{
     let email =req.body.email;
 
     console.log('email =' + email);

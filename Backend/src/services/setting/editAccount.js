@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 let editAccount = express();
 
 
-editAccount.put('/setting/editAccount/:id', (req, res) => {
+editAccount.put('/api/setting/editAccount/:id', (req, res) => {
     let id = req.params.id;
     let email = req.body.email;
     let phone = req.body.phone;

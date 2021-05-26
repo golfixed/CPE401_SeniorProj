@@ -3,25 +3,12 @@ import express from "express";
 
 let createPost = express();
 
-createPost.post("/createpost", (req, res) => {
+createPost.post("/api/createpost", (req, res) => {
     
     let post = {
         class: req.body.class,
-        // content: req.body.content,
-        //create_by = account id
-        create_by: req.body.create_by,
-        // update_by: req.body.update_by
+        create_by: req.body.create_by
     }
-    // let post = {
-    //     class: req.body.class,
-    //     content: req.body.content,
-    //     pic_url: req.body.pic_url,
-    //     //create_by = account id
-    //     create_by: req.body.create_by,
-    //     update_by: req.body.update_by,
-    //     click_count:0, 
-    //     announce: false
-    // }
 
     //Request Class id 
     if(!post.class){

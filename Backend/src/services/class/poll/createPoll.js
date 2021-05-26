@@ -3,7 +3,7 @@ import express from "express";
 
 let createPoll = express();
 
-createPoll.post('/createpoll', (req, res) => {
+createPoll.post('/api/createpoll', (req, res) => {
     let poll = {
         class: req.body.class,
         published: req.body.published,

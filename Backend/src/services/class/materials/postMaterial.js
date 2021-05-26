@@ -3,7 +3,7 @@ import express from "express";
 
 let postMaterial = express();
 
-postMaterial.post("/postMaterial", (req, res) => {
+postMaterial.post("/api/postMaterial", (req, res) => {
 
     let material ={
         title: req.body.title,

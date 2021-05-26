@@ -4,7 +4,7 @@ import express from "express";
 let posttab = express();
 
 //SHOW ALL POST IN CLASS
-posttab.get('/getpostlist/:class_id', (req, res) => {
+posttab.get('/api/getpostlist/:class_id', (req, res) => {
     let class_id = req.params.class_id;
 
     if (!class_id) {

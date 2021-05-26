@@ -4,7 +4,7 @@ import express from "express";
 let setting = express();
 
 //REQUEST ACCOUNT ID 
-setting.get("/profile/:id", (req, res) => {
+setting.get("/api/profile/:id", (req, res) => {
   const id = req.params.id;
   if (!id) {
     return res

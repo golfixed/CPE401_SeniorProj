@@ -4,7 +4,7 @@ import express from "express";
 
 let classList = express();
 
-classList.post('/classrooms', (req, res) => {
+classList.post('/api/classrooms', (req, res) => {
     //REQUEST ACCOUNT ID 
     let id = req.body.id;
 

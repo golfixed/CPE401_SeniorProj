@@ -29,12 +29,9 @@ let createNewClass = async (req, res) => {
     };
     try {
         await classService.createNewClass(classObject);
-        // return res.redirect("/login");
         return res.send({ error: false, message: "OK"})
     } catch (err) {
         req.flash("errors", err);
-        // return res.redirect("/register");
-        // if(classObject.class_code)
         console.log('error' + err);
         return res.send({ error: false, message: "This class has already exist."})
     }

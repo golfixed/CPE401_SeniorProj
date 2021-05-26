@@ -4,7 +4,7 @@ import express from "express";
 let delPost = express();
 
 //delete post by id
-delPost.delete('/deletepost', (req, res) => {
+delPost.delete('/api/deletepost', (req, res) => {
     let id = req.body.id;
 
     if (!id) {
@@ -58,7 +58,7 @@ delPost.delete('/deletepost', (req, res) => {
                                 }
                                 return res.status(200).send({ error: false, data: results[0], message: message })
                             })
-                                                        
+                                                       
                         }
                     })
 

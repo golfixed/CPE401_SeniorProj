@@ -4,7 +4,7 @@ import express from "express";
 
 let classCode = express();
 
-classCode.post('/classroom', (req, res) => {
+classCode.post('/api/classroom', (req, res) => {
 
     let class_id = req.body.class_id;
     let account_id = req.body.account_id;

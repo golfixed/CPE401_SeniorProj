@@ -60,7 +60,7 @@ const upload = multer({
     }
 })
 app.use('/profile', express.static('upload/images'));
-app.post("/uploadprofile", upload.single('image'), (req, res) => {
+app.post("/api/uploadprofile", upload.single('image'), (req, res) => {
     let id = req.body.id;
     let image = `http://localhost:3000/profile/${req.file.filename}`;
 
@@ -81,7 +81,7 @@ app.post("/uploadprofile", upload.single('image'), (req, res) => {
 })
 
 app.use('/classpic', express.static('upload/images'));
-app.post("/uploadclassprofile", upload.single('image'), (req, res) => {
+app.post("/api/uploadclassprofile", upload.single('image'), (req, res) => {
     let id = req.body.id;
     let image = `http://localhost:3000/classpic/${req.file.filename}`;
 
@@ -102,7 +102,7 @@ app.post("/uploadclassprofile", upload.single('image'), (req, res) => {
 })
 
 app.use('/postpic', express.static('upload/images'));
-app.post("/uploadpostpic", upload.single('image'), (req, res) => {
+app.post("/api/uploadpostpic", upload.single('image'), (req, res) => {
     let id = req.body.id;
     let image = `http://localhost:3000/postpic/${req.file.filename}`;
 
@@ -123,7 +123,7 @@ app.post("/uploadpostpic", upload.single('image'), (req, res) => {
 })
 
 app.use('/commentpic', express.static('upload/images'));
-app.post("/uploadcommentpic", upload.single('image'), (req, res) => {
+app.post("/api/uploadcommentpic", upload.single('image'), (req, res) => {
     let id = req.body.id;
     let image = `http://localhost:3000/commentpic/${req.file.filename}`;
 

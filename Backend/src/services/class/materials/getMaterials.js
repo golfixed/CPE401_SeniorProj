@@ -3,7 +3,7 @@ import express from "express";
 
 let getMaterials = express();
 
-getMaterials.get('/materials/:class_id', (req, res) =>{
+getMaterials.get('/api/materials/:class_id', (req, res) =>{
     let class_id = req.params.class_id;
 
     if(!class_id){

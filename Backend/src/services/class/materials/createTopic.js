@@ -3,7 +3,7 @@ import express from "express";
 
 let createTopic = express();
 
-createTopic.post("/creatematerialtopic", (req, res) => {
+createTopic.post("/api/creatematerialtopic", (req, res) => {
 
     let topic = {
         class: req.body.class,
