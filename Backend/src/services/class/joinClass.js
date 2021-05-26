@@ -26,7 +26,7 @@ joinClass.post('/joinclass', (req, res) => {
                                 res.status(200).send({ error: true, message: "You are already in class" })
                             }
                             else {
-                            dbCon.query('INSERT INTO class_member (account, role_member, class) SELECT account.id, account.role, class.id FROM account, class WHERE join_code =? AND account.id = ?', [join_code, account_id], (error, results, fields) => {
+                            dbCon.query('INSERT INTO class_member (account, class) SELECT account.id, class.id FROM account, class WHERE join_code =? AND account.id = ?', [join_code, account_id], (error, results, fields) => {
                                 if (error) throw error;
             
                                 return res.status(200).send({
