@@ -4,7 +4,7 @@ import express from "express";
 
 let getPoll = express();
 
-getPoll.get('/polls/:id', (req, res) =>{
+getPoll.get('/api/polls/:id', (req, res) =>{
     let id = req.params.id;
 
     dbCon.query('SELECT * FROM poll WHERE id = ?',[id],(error, results, fields) =>{

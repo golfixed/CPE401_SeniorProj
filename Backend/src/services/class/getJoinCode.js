@@ -3,7 +3,7 @@ import express from "express";
 
 let getJoinCode = express();
 
-getJoinCode.get('/pinCode/:id', (req, res) =>{
+getJoinCode.get('/api/pinCode/:id', (req, res) =>{
     let id =req.params.id;
 
     if(!id){

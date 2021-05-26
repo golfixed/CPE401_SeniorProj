@@ -54,8 +54,8 @@ const jwt = require('jsonwebtoken')
 
 let initWebRoutes = (app) => {
     router.get("/", loginController.checkLoggedIn, homePageController.handleHelloWorld);
-    router.get("/login",loginController.checkLoggedOut, loginController.getPageLogin);
-    router.post('/login', (req, res, next) => {
+    router.get("/api/login",loginController.checkLoggedOut, loginController.getPageLogin);
+    router.post('/api/login', (req, res, next) => {
         passport.authenticate('local', {session: false}, (err, user, info) => {
             if (err) return next(err)
             if(user) {
@@ -76,58 +76,58 @@ let initWebRoutes = (app) => {
 
     const reqJWT = passport.authenticate('jwt', {session: false});
     //REGISTOR
-    router.get("/register", registerController.getPageRegister);
-    router.post("/register", registerController.createNewUser);
-    router.post("/addrole", addRole);
-    router.post("/getprofileinfo", getProfileInfo);
-    router.post("/logout", loginController.postLogOut);
+    router.get("/api/register", registerController.getPageRegister);
+    router.post("/api/register", registerController.createNewUser);
+    router.post("/api/addrole", addRole);
+    router.post("/api/getprofileinfo", getProfileInfo);
+    router.post("/api/logout", loginController.postLogOut);
 
     //CLASS
-    router.post("/classrooms", classList);
-    router.post("/classrooms/announce", classListAnnounce);
-    router.post("/classroom", classroom);
-    router.post("/getclassinfo", getclassinfo);
-    router.post("/getclassid", getclassid);
-    router.post("/pinclass", addFavClass);
-    router.get("/classrooms/:id/discussion", discussion);
-    router.post("/createClass", classController.createNewClass);
-    router.post("/joinclass", joinClass);
+    router.post("/api/classrooms", classList);
+    router.post("/api/classrooms/announce", classListAnnounce);
+    router.post("/api/classroom", classroom);
+    router.post("/api/getclassinfo", getclassinfo);
+    router.post("/api/getclassid", getclassid);
+    router.post("/api/pinclass", addFavClass);
+    router.get("/api/classrooms/:id/discussion", discussion);
+    router.post("/api/createClass", classController.createNewClass);
+    router.post("/api/joinclass", joinClass);
 
     //PIN CLASS
-    router.get("/pinCode/:id", getJoinCode);
+    router.get("/api/pinCode/:id", getJoinCode);
 
     //CLASS MEMBER
-    router.post("/classmember", classMember);
-    router.delete("/deletemember", delMember);
+    router.post("/api/classmember", classMember);
+    router.delete("/api/leaveclass", delMember);
 
     //MATERIAL
-    router.get("/materials/:class_id", getMaterials);
-    router.post("/creatematerialtopic", createTopic);
-    router.post("/postMaterial", postMaterial);
-    router.delete("/deletematerialtopic", delMaterialTopic);
+    router.get("/api/materials/:class_id", getMaterials);
+    router.post("/api/creatematerialtopic", createTopic);
+    router.post("/api/postMaterial", postMaterial);
+    router.delete("/api/deletematerialtopic", delMaterialTopic);
     
     //POST
-    router.get("/getpostlist/:class_id", posttab);
-    router.post("/createpost", createPost);
-    router.post("/createcontent", createPostContent);
-    router.get("/post/:id", getPost);
-    router.delete("/deletepost", delPost);
+    router.get("/api/getpostlist/:class_id", posttab);
+    router.post("/api/createpost", createPost);
+    router.post("/api/createcontent", createPostContent);
+    router.get("/api/post/:id", getPost);
+    router.delete("/api/deletepost", delPost);
     //COMMENT
-    router.post("/addcomment", addComment);
-    router.delete("/deletecomment", delComment);
-    router.post("/announce", announce);
+    router.post("/api/addcomment", addComment);
+    router.delete("/api/deletecomment", delComment);
+    router.post("/api/announce", announce);
     
     //POLL
-    router.get("/getpolllist/:class_id", getpollist);
-    router.post("/createpoll", createPoll);
-    router.get("/polls/:id", getPoll);
-    router.post("/clickvotes", clickVotes);
-    router.delete("/deletepoll", delpoll);
+    router.get("/api/getpolllist/:class_id", getpollist);
+    router.post("/api/createpoll", createPoll);
+    router.get("/api/polls/:id", getPoll);
+    router.post("/api/clickvotes", clickVotes);
+    router.delete("/api/deletepoll", delpoll);
 
     //SETTING
-    router.get("/profile/:id", profile);
-    router.put("/setting/editProfile/:id", editProfile);
-    router.put("/setting/editAccount/:id", editAccount);
+    router.get("/api/profile/:id", profile);
+    router.put("/api/setting/editProfile/:id", editProfile);
+    router.put("/api/setting/editAccount/:id", editAccount);
 
     return app.use("/", router);
 };

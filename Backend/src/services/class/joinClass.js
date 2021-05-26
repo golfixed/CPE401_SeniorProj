@@ -3,7 +3,7 @@ import express from "express";
 
 let joinClass = express();
 
-joinClass.post('/joinclass', (req, res) => {
+joinClass.post('/api/joinclass', (req, res) => {
     let join_code = req.body.join_code;
     let account_id = req.body.account_id;
 

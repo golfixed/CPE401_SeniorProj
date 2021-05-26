@@ -3,7 +3,7 @@ import express from "express";
 
 let addRole = express();
 
-addRole.post('/addrole', (req, res) => {
+addRole.post('/api/addrole', (req, res) => {
     console.log(req.body);
     let id = req.body.id;
     let role = req.body.role;

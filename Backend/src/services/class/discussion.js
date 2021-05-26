@@ -3,7 +3,7 @@ import express from "express";
 
 let discussion = express();
 
-discussion.get('/classrooms/:id/discussion', (req, res) =>{
+discussion.get('/api/classrooms/:id/discussion', (req, res) =>{
     let id = req.params.id;
 
     if(!id){

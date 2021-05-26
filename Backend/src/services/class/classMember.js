@@ -3,7 +3,7 @@ import express from "express";
 
 let classMember = express();
 
-classMember.post("/classmember", (req, res) => {
+classMember.post("/api/classmember", (req, res) => {
 
     let class_id = req.body.class_id;
 

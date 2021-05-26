@@ -3,22 +3,20 @@ import express from "express";
 
 let getProfileInfo = express();
 
-getProfileInfo.post('/getprofileinfo', (req, res) =>{
-    let account_id =req.body.account_id;
+getProfileInfo.post('/api/getprofileinfo', (req, res) =>{
+    let email =req.body.email;
 
-    // console.log('email =' + account_id);
+    console.log('email =' + email);
 
-    if(!account_id){
+    if(!email){
         res.status(200).send({error: true, message: "Please provide class code and section"})
     }else{
-        dbCon.query("SELECT * FROM account WHERE id = ?", [account_id], (error, results, fields) =>{
+        dbCon.query("SELECT * FROM account WHERE email = ?", [email], (error, results, fields) =>{
             if (error) throw error;
-
-            console.log(results);
             
             let message = "";
             if(results === undefined || results.length == 0){
-                message = `There's no id = ${account_id}`;
+                message = `There's no email = ${email}`;
             }else{
                 message = `Successfully`;
             }

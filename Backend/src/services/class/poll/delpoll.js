@@ -3,7 +3,7 @@ import express from "express";
 
 let delpoll = express();
 
-delpoll.delete('/deletepoll', (req, res) => {
+delpoll.delete('/api/deletepoll', (req, res) => {
     //REQUEST POLL ID
     let id = req.body.id;
 

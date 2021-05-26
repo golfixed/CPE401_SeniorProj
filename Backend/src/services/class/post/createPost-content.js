@@ -3,7 +3,7 @@ import express from "express";
 
 let createPost = express();
 
-createPost.post("/createcontent", (req, res) => {
+createPost.post("/api/createcontent", (req, res) => {
 
     let post = {
         //REQ POST ID

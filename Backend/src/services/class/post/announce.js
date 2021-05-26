@@ -4,7 +4,7 @@ import express from "express";
 
 let announce = express();
 
-announce.post('/announce', (req, res) => {
+announce.post('/api/announce', (req, res) => {
     let post_id = req.body.post_id;
 
     if (!post_id) {

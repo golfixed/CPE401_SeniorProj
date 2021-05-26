@@ -4,7 +4,7 @@ import express from "express";
 
 let classListAnnounce = express();
 
-classListAnnounce.post('/classrooms/announce', (req, res) => {
+classListAnnounce.post('/api/classrooms/announce', (req, res) => {
     //account id
     let id = req.body.id;
 

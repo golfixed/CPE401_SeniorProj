@@ -3,7 +3,7 @@ import express from "express";
 
 let delmaterialtopic = express();
 
-delmaterialtopic.delete('/deletematerialtopic', (req, res) => {
+delmaterialtopic.delete('/api/deletematerialtopic', (req, res) => {
     //material topic id
     let id = req.body.id;
 

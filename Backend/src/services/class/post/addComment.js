@@ -3,7 +3,7 @@ import express from "express";
 
 let addComment = express();
 
-addComment.post('/addcomment', (req, res) =>{
+addComment.post('/api/addcomment', (req, res) =>{
 
     let comment = {
         post: req.body.post,

@@ -3,7 +3,7 @@ import express from "express";
 
 let getPost = express();
 
-getPost.get('/post/:id', (req, res) => {
+getPost.get('/api/post/:id', (req, res) => {
     let id = req.params.id;
 
     if (!id) {

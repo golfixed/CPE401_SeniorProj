@@ -4,8 +4,7 @@ import express from "express";
 
 let addFavClass = express();
 
-//
-addFavClass.post('/pinclass', (req, res) => {
+addFavClass.post('/api/pinclass', (req, res) => {
     let account_id = req.body.account_id;
     let class_id = req.body.class_id;
 
