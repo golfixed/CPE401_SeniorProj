@@ -62,7 +62,7 @@ const upload = multer({
 app.use('/profile', express.static('upload/images'));
 app.post("/uploadprofile", upload.single('image'), (req, res) => {
     let id = req.body.id;
-    let image = `http://localhost:3000/profile/${req.file.filename}`;
+    let image = `http://localhost:5000/profile/${req.file.filename}`;
 
     if (!id) {
         res.status(400).send({ error: true, message: 'Please give your id to upload your profile picture' });
@@ -83,7 +83,7 @@ app.post("/uploadprofile", upload.single('image'), (req, res) => {
 app.use('/classpic', express.static('upload/images'));
 app.post("/uploadclassprofile", upload.single('image'), (req, res) => {
     let id = req.body.id;
-    let image = `http://localhost:3000/classpic/${req.file.filename}`;
+    let image = `http://localhost:5000/classpic/${req.file.filename}`;
 
     if (!id) {
         res.status(400).send({ error: true, message: 'Please provide class id to upload your profile picture' });
@@ -104,7 +104,7 @@ app.post("/uploadclassprofile", upload.single('image'), (req, res) => {
 app.use('/postpic', express.static('upload/images'));
 app.post("/uploadpostpic", upload.single('image'), (req, res) => {
     let id = req.body.id;
-    let image = `http://localhost:3000/postpic/${req.file.filename}`;
+    let image = `http://localhost:5000/postpic/${req.file.filename}`;
 
     if (!id) {
         res.status(400).send({ error: true, message: 'Please give POST ID to upload your picture' });
@@ -125,7 +125,7 @@ app.post("/uploadpostpic", upload.single('image'), (req, res) => {
 app.use('/commentpic', express.static('upload/images'));
 app.post("/uploadcommentpic", upload.single('image'), (req, res) => {
     let id = req.body.id;
-    let image = `http://localhost:3000/commentpic/${req.file.filename}`;
+    let image = `http://localhost:5000/commentpic/${req.file.filename}`;
 
     if (!id) {
         res.status(400).send({ error: true, message: 'Please give COMMENT ID to upload your picture' });
@@ -156,6 +156,5 @@ app.use(errHandler);
 // init all web routes
 initWebRoutes(app);
 
-let port = process.env.PORT || 3000;
-app.listen(3000, () => console.log(`Building a login system with NodeJS is running on port ${port}!`));
-// app.listen(3000, '192.168.2.34', () => console.log(`Building a login system with NodeJS is running on port ${port}!`));
+let port = process.env.PORT || 5000;
+app.listen(5000, () => console.log(`Building a login system with NodeJS is running on port ${port}!`));
