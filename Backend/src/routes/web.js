@@ -53,7 +53,7 @@ let router = express.Router();
 const jwt = require('jsonwebtoken')
 
 let initWebRoutes = (app) => {
-    router.get("/", loginController.checkLoggedIn, homePageController.handleHelloWorld);
+    router.get("/api/");
     router.get("/api/login",loginController.checkLoggedOut, loginController.getPageLogin);
     router.post('/api/login', (req, res, next) => {
         passport.authenticate('local', {session: false}, (err, user, info) => {

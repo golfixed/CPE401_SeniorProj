@@ -48,7 +48,7 @@
           <div class="btn-wrapper">
             <button
               class="sign-in"
-              v-on:click="createPost()"
+              v-on:click="updatePost()"
               v-if="allFilled == true"
             >
               <div class="single-land">
@@ -94,7 +94,11 @@ export default {
 
     var path = this.$route.path;
     var id = path.replace("/createpost/", "");
+
     this.createPostInfo.class = parseInt(id);
+
+    // console.log("ID " + this.createPostInfo.class);
+    this.createPost(this.createPostInfo.class);
   },
   data() {
     return {
@@ -106,26 +110,49 @@ export default {
         update_by: this.$store.state.user.profile.id,
         click_count: 0,
         announce: false,
+        post_id: "",
       },
       isLoading: false,
       account: this.$store.state.user.profile,
     };
   },
   methods: {
-    createPost() {
-      axios.post("/createpost", this.createPostInfo).then((res) => {
-        if (res.data.false != true) {
-          console.log("create post sucess");
-          var post_id = res.data.post_id;
+    createPost(class_id) {
+      axios
+        .post("/createpost", {
+          class: class_id,
+          create_by: this.$store.state.user.profile.id,
+        })
+        .then((res) => {
+          // console.log(res);
+          if (res.data.error != true) {
+            this.createPostInfo.post_id = res.data.post_id;
+            console.log(
+              "CREATE_POST: post_id created [id = " + res.data.post_id + "]"
+            );
+          } else {
+            alert("ERROR:" + res.data.message);
+          }
+        });
+    },
+    updatePost() {
+      axios
+        .post("/api/createcontent", {
+          id: this.createPostInfo.post_id,
+          content: this.createPostInfo.content,
+          isShow: true,
+          update_by: this.$store.state.user.profile.id,
+          announce: this.createPostInfo.announce,
+        })
+        .then((res) => {
           console.log(res);
-          alert("Create Post Successfully");
-          this.$router.push(
-            "/classrooms/" + this.class_id + "/post/" + post_id
-          );
-        } else {
-          alert("ERROR:" + res.data.message);
-        }
-      });
+          if (res.data.error != true) {
+            console.log("CREATE_POST: update post completed");
+            this.$router.push("/classrooms/post" + this.createPostInfo.post_id);
+          } else {
+            alert("ERROR: " + res.data.message);
+          }
+        });
     },
   },
   computed: {

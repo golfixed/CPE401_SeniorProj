@@ -76,6 +76,7 @@ export default {
           if (res.data.false != true) {
             console.log("Pinned Class");
             this.$store.commit("Close_AllMenu");
+            this.$router.push("/");
           }
         });
     },

@@ -28,6 +28,7 @@ export default {
     return {
       user: this.$store.state.user.profile,
       postList: [],
+      class_id: "",
     };
   },
   mounted() {
@@ -37,7 +38,7 @@ export default {
 
     var path = this.$route.path;
     var id = path.replace("/classrooms/", "");
-    this.class_id = id;
+    this.class_id = parseInt(id);
     this.fetchPostList();
   },
   methods: {

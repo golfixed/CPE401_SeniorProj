@@ -9,7 +9,8 @@ createPost.post("/api/createcontent", (req, res) => {
         //REQ POST ID
         id: req.body.id,
         content: req.body.content,
-        update_by: req.body.update_by
+        update_by: req.body.update_by,
+        isShow: req.body.isShow,
     }
 
     //Request Class id 
