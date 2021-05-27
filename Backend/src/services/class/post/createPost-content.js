@@ -24,7 +24,7 @@ createPost.post("/api/createcontent", (req, res) => {
                 console.log(results)
                 if (results.length > 0) {
                     let post_id = results[0].id;
-                    dbCon.query("UPDATE post SET content = ?, isShow = ? WHERE id = 421", [post.content,post.isShow, post_id], (error, results) => {
+                    dbCon.query("UPDATE post SET content = ?, isShow = ? WHERE id = ?", [post.content,post.isShow, post_id], (error, results) => {
                         if (error) throw error;
 
                         return res.status(200).send({
