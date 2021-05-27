@@ -14,7 +14,7 @@ posttab.get('/api/getpostlist/:class_id', (req, res) => {
             if (error) { console.log(error) }
             else {
                 if (results.length > 0) {
-                    dbCon.query("SELECT post.*, account.firstname, account.lastname, account.image FROM post,account WHERE post.create_by = account.id AND class = ?", class_id, (error, results, fields) => {
+                    dbCon.query("SELECT post.*, account.firstname, account.lastname, account.image FROM post,account WHERE post.create_by = account.id AND post.isShow = 1 AND class = ?", class_id, (error, results, fields) => {
                         if (error) throw error;
 
                         let message = "";
