@@ -137,7 +137,7 @@ export default {
     },
     updatePost() {
       axios
-        .post("/api/createcontent", {
+        .post("/createcontent", {
           id: this.createPostInfo.post_id,
           content: this.createPostInfo.content,
           isShow: true,
@@ -148,7 +148,9 @@ export default {
           console.log(res);
           if (res.data.error != true) {
             console.log("CREATE_POST: update post completed");
-            this.$router.push("/classrooms/post" + this.createPostInfo.post_id);
+            this.$router.push(
+              "/classrooms/post/" + this.createPostInfo.post_id
+            );
           } else {
             alert("ERROR: " + res.data.message);
           }
