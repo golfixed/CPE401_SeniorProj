@@ -3,7 +3,7 @@ import express from "express";
 
 let clickVotes = express();
 
-clickVotes.post('/clickvotes', (req, res) => {
+clickVotes.post('/api/clickvotes', (req, res) => {
     //options id
     let id = req.body.id;
     let options = req.body.options;
@@ -13,7 +13,7 @@ clickVotes.post('/clickvotes', (req, res) => {
     }else{
         dbCon.query('UPDATE poll SET options = ? WHERE published = 1 AND id = ?', [options, id], (error, results, fields) =>{
             if (error) throw error;
-    
+            
             return res.status(200).send({
                 error: false,
                 data: results,

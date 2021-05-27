@@ -25,7 +25,7 @@ getPost.get('/api/post/:id', (req, res) => {
                                     if (error) { console.log(errer) }
                                     
                                     console.log(results)
-                                    dbCon.query("SELECT comment.*, account.firstname, account.lastname, account.image FROM comment,post,account WHERE comment.post = post.id AND comment.create_by = account.id AND comment.post = ?", post_id, (error, results) => {
+                                    dbCon.query("SELECT comment.*, account.firstname, account.lastname, account.image FROM comment,post,account WHERE comment.post = post.id AND comment.create_by = account.id AND post.isShow = 1 AND comment.post = ?", post_id, (error, results) => {
                                         if (error) { console.log(errer) }
     
                                         let message = "";
