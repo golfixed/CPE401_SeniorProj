@@ -28,26 +28,29 @@ export default {
   //   filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.15));
   .fav-chat-box {
     display: flex;
-    width: 64px;
     height: fit-content;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     .profile-pic-wrapper {
-      width: 64px;
-      height: 64px;
-      margin-bottom: 10px;
+      width: 84px;
+      height: 84px;
+      margin-bottom: 15px;
+      border-radius: 100px;
+      overflow: hidden;
+      box-shadow: 0px 5px 25px 4px rgb(0 0 0 / 7%);
       img {
         width: 100%;
         height: 100%;
-        border-radius: 100000px;
-        object-fit: contain;
+        object-fit: cover;
       }
     }
     label {
-      font-size: 1em;
-      font-weight: 400;
-      color: #8b8b8b;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 16px;
+      color: #505050;
     }
   }
 }

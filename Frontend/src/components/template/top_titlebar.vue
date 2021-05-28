@@ -68,44 +68,18 @@
           </div>
         </div>
       </div>
-
-      <!-- <div
-        id="pinned-bar"
-        class="section app-default-pinnedbar"
-        v-if="currentRoute == '/chats' && favChatList.length > 0"
-      >
-        <div class="pin-title">
-          <label>Favourites</label>
-        </div>
-        <div class="pin-tray-wrap">
-          <div class="slide-tray">
-            <favChat
-              v-for="items in favChatList"
-              :key="items.id"
-              v-bind:firstName="items.firstName"
-              v-bind:profilePic="items.profilePic"
-            />
-            <favChat
-              firstName="add new"
-              profilePic="/img/btn/chat/plus_circle.svg"
-            />
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
 
 <script>
 import favPost from "@/components/fav_post.vue";
-import favChat from "@/components/fav_chat.vue";
 
 export default {
   name: "Page-TopBar",
   created: function () {},
   components: {
     favPost,
-    favChat,
   },
   methods: {
     openAncmt: function (id) {

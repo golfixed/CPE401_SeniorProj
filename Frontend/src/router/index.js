@@ -64,11 +64,11 @@ const routes = [
     name: 'CreatePoll',
     component: () => import(  '../views/CreatePoll.vue')
   },
-  // {
-  //   path: '/chats',
-  //   name: 'Chats',
-  //   component: () => import( '../views/Chats.vue')
-  // },
+  {
+    path: '/chats',
+    name: 'Chats',
+    component: () => import( '../views/Chats.vue')
+  },
   {
     path: '/profile/:id',
     name: 'UserProfile',
