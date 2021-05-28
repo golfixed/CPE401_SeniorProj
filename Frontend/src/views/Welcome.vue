@@ -10,20 +10,20 @@
     <div class="content-page-welcome">
       <div class="wrapper">
         <div class="set-top">
-          <button>
+          <!-- <button>
             <div class="single-land">
               <div class="img-wrapper">
                 <img src="/img/btn/facebook.png" />
               </div>
               <label>Continue with Facebook</label>
             </div>
-          </button>
-          <button>
+          </button> -->
+          <!-- <button>
             <div class="single-land">
               <div class="img-wrapper"><img src="/img/btn/google.png" /></div>
               <label>Continue with Google</label>
             </div>
-          </button>
+          </button> -->
           <button v-on:click="login()">
             <div class="single-land">
               <div class="img-wrapper"><img src="/img/btn/email.png" /></div>
