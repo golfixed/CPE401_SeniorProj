@@ -46,6 +46,9 @@ import postMaterial from "../services/class/materials/postMaterial";
 import getMaterials from "../services/class/materials/getMaterials";
 import delMaterialTopic from "../services/class/materials/deleteMaterialTopic";
 
+import createChat from "../services/class/chat/createChatroom";
+import createMessage from "../services/class/chat/createMessage";
+
 // Init all passport
 initPassportLocal();
 
@@ -123,11 +126,16 @@ let initWebRoutes = (app) => {
     router.get("/api/polls/:id", getPoll);
     router.post("/api/clickvotes", clickVotes);
     router.delete("/api/deletepoll", delpoll);
-
+    
     //SETTING
     router.get("/api/profile/:id", profile);
     router.put("/api/setting/editProfile/:id", editProfile);
     router.put("/api/setting/editAccount/:id", editAccount);
+    
+    //CHAT
+    router.post("/api/createchat", createChat);
+    router.post("/api/sendmessage", createMessage);
+
 
     return app.use("/", router);
 };
