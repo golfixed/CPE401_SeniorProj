@@ -1,7 +1,7 @@
 <template>
   <div id="tabbar">
     <div class="tabbar-panel">
-      <router-link to="/" class="tab-item">
+      <!-- <router-link to="/" class="tab-item">
         <div class="tab-btn" v-on:click="scrollTop()">
           <div class="icon">
             <img
@@ -17,8 +17,8 @@
           </div>
           <label>Home</label>
         </div>
-      </router-link>
-      <router-link to="/classrooms" class="tab-item">
+      </router-link> -->
+      <router-link to="/" class="tab-item">
         <div class="tab-btn" v-on:click="scrollTop()">
           <div class="icon">
             <img
@@ -35,6 +35,7 @@
           <label>Classrooms</label>
         </div>
       </router-link>
+      <div class="tab-item"><centerButton /></div>
       <router-link to="/chats" class="tab-item">
         <div class="tab-btn" v-on:click="scrollTop()">
           <div class="icon">
@@ -57,8 +58,12 @@
 </template>
 
 <script>
+import centerButton from "@/components/center_button.vue";
 export default {
   name: "tabbar",
+  components: {
+    centerButton,
+  },
   methods: {
     scrollTop: function () {
       document.querySelector(".app-view").scroll(0, 0);
@@ -70,8 +75,11 @@ export default {
 <style lang="scss" scoped>
 #tabbar {
   .tabbar-panel {
-    display: grid;
-    grid-template-columns: repeat(3, 33.33%);
+    // display: grid;
+    // grid-template-columns: repeat(3, 33.33%);
+    display: flex;
+    justify-content: space-around;
+    padding: 0 20px;
     height: 60px;
     position: relative;
     border: 1px solid #ededed;
@@ -84,6 +92,7 @@ export default {
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    width: 60px;
     div.tab-btn {
       width: 100%;
       height: 100%;
