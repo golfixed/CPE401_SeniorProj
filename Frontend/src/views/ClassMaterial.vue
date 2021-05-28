@@ -57,56 +57,32 @@ export default {
   data() {
     return {
       user: this.$store.state.user.profile,
-      materialList: [
-        {
-          id: 0,
-          topic: "Classwork",
-          time: "20:30/21-05-2021",
-          item: [
-            {
-              id: 0,
-              title: "Week 1",
-              link: "drive.google.com",
-              time: "20:30/21-05-2021",
-            },
-            {
-              id: 1,
-              title: "Week 1",
-              link: "drive.google.com",
-              time: "20:30/21-05-2021",
-            },
-          ],
-        },
-        {
-          id: 1,
-          topic: "Classwork",
-          time: "20:30/21-05-2021",
-          item: [
-            {
-              id: 0,
-              title: "Week 1",
-              link: "drive.google.com",
-              time: "20:30/21-05-2021",
-            },
-            {
-              id: 1,
-              title: "Week 1",
-              link: "drive.google.com",
-              time: "20:30/21-05-2021",
-            },
-          ],
-        },
-      ],
+      class_id: "",
     };
   },
   mounted() {
     if (!localStorage.token) {
       this.$router.push({ path: "/" });
     }
+
+    var path = this.$route.path;
+    var id = path.replace("/classrooms/", "");
+
+    this.class_id = parseInt(id);
   },
   methods: {
     openOptionMenu: function () {
       this.$store.commit("Open_optionMenu");
+    },
+    fetchMaterialList: function () {
+      axios.post("/materials/" + this.class_id).then((res) => {});
+    },
+    createTopic: function () {
+      var data = {
+        class: this.class_id,
+        create_by: req.body.create_by,
+      };
+      axios.post("/creatematerialtopic", data).then((res) => {});
     },
   },
 };

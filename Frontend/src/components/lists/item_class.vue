@@ -1,8 +1,8 @@
 <template>
   <div class="class-item" v-on:click="openClassroom(id)">
     <div class="class-img">
-      <img :src="img" v-if="img" />
-      <img src="/img/classrooms/green.jpg" v-if="!img" />
+      <img :src="pic" v-if="pic" />
+      <img src="/img/classrooms/green.jpg" v-if="!pic" />
       <!-- <img :src="img" v-if="img" />
       <label v-if="!img">{{ previewLetter }}</label> -->
     </div>
@@ -31,7 +31,7 @@ export default {
     code: String,
     title: String,
     section: String,
-    img: Array,
+    pic: String,
   },
   data: function () {
     return {

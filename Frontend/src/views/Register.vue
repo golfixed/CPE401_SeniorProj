@@ -237,6 +237,7 @@
             </div>
           </div>
           <input type="file" />
+          <label></label>
         </div>
       </div>
       <div class="bottom-section">
@@ -300,6 +301,7 @@
 import topNavi from "@/components/template/top_navibar.vue";
 import pageLoading from "@/components/page_loading.vue";
 import axios from "@/axios.js";
+// import UploadFilesService from "../services/UploadFilesService";
 
 export default {
   name: "Register-Page",
@@ -319,9 +321,45 @@ export default {
       currentSubPage: 1,
       selectedRole: "",
       isLoading: false,
+
+      selectedFiles: undefined,
+      currentFile: undefined,
+      progress: 0,
+      message: "",
+      fileInfos: [],
     };
   },
   methods: {
+    uploadProfile() {
+      this.progress = 0;
+
+      this.currentFile = this.selectedFiles.item(0);
+      UploadFilesService.upload(this.currentFile, (event) => {
+        this.progress = Math.round((100 * event.loaded) / event.total);
+      })
+        .then((response) => {
+          this.message = response.data.message;
+          return UploadFilesService.getFiles();
+        })
+        .then((files) => {
+          this.fileInfos = files.data;
+        })
+        .catch(() => {
+          this.progress = 0;
+          this.message = "Could not upload the file!";
+          this.currentFile = undefined;
+        });
+
+      this.selectedFiles = undefined;
+    },
+    getPicPreview() {
+      UploadFilesService.getFiles().then((response) => {
+        this.fileInfos = response.data;
+      });
+    },
+    selectFile() {
+      this.selectedFiles = this.$refs.file.files;
+    },
     completeSetup: function () {
       window.location.reload();
     },

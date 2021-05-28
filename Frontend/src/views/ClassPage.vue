@@ -4,14 +4,14 @@
     <div class="content-page">
       <div class="class-img">
         <img
-          :src="classInfo.pictureURL"
+          :src="classInfo.class_pic"
           draggable="false"
-          v-if="classInfo.pictureURL"
+          v-if="classInfo.class_pic"
         />
         <img
           src="/img/classrooms/green.jpg"
           draggable="false"
-          v-if="!classInfo.pictureURL"
+          v-if="!classInfo.class_pic"
         />
       </div>
       <div class="class-info">

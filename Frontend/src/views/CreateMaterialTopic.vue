@@ -1,45 +1,10 @@
 <template>
-  <div class="create-post-page">
-    <topNavi pageName="New Post" type="cancel" />
+  <div class="create-mat-topic-page">
+    <topNavi pageName="New Material Topic" type="cancel" />
     <div class="subpage" v-if="isLoading == false">
       <div class="content-page fullpage">
         <div class="wrapper">
-          <div class="post-head-create">
-            <div class="profile-pic">
-              <img :src="account.image" v-if="account.image" />
-              <img src="/img/default_profile.svg" v-if="!account.image" />
-            </div>
-            <div class="text">
-              <label class="name"
-                >{{ account.firstname }} {{ account.lastname }}</label
-              >
-            </div>
-          </div>
-          <textarea
-            class="message"
-            placeholder="Message..."
-            v-model="createPostInfo.content"
-          >
-          </textarea>
-          <button class="land-btn">
-            <div class="icon">
-              <img src="/img/icons/add-img.svg" />
-            </div>
-            <div class="text">
-              <label>add image</label>
-            </div>
-          </button>
-          <div class="check-box">
-            <div class="icon">
-              <VueSwitches
-                v-model="createPostInfo.announcement"
-                type-bold="true"
-              />
-            </div>
-            <div class="text">
-              <label>announce this post</label>
-            </div>
-          </div>
+          <input placeholder="Ex: Lab Sheets" />
         </div>
         <div class="end-of-page"></div>
       </div>
