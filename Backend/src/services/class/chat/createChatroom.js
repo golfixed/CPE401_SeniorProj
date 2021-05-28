@@ -32,7 +32,7 @@ createChat.post('/api/createchat', (req, res) => {
                         })
                     })
                 } else {
-                    res.status(200).send({ message: "No id in this DB" });
+                    res.status(200).send({ error: true, message: "No id in this DB" });
                 }
             }
         })
