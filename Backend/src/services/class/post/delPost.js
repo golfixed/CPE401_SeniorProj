@@ -17,18 +17,18 @@ delPost.delete('/api/deletepost', (req, res) => {
                     let post_id = results[0].id;
                     console.log('result id from post ' + post_id)
                     //CHECK IS COMMENT EXIST
-                    dbCon.query('SELECT post FROM comment WHERE post = ?', post_id, (error, results) =>{
+                    dbCon.query('SELECT post FROM comment WHERE post = ?', post_id, (error, results) => {
                         if (error) throw error;
 
-                        if(results.length > 0){
+                        if (results.length > 0) {
                             //DELETE COMMENT IF THERE IS COMMENT EXIST
                             dbCon.query("DELETE FROM comment WHERE post = ?", post_id, (error, results, fields) => {
                                 if (error) throw error;
-        
+
                                 console.log(results)
                                 if (results.affectedRows > 0) {
                                     // message = `Delete comment id = ${id} successfully`;
-                                    
+
                                     dbCon.query("DELETE FROM post WHERE id = ?", post_id, (error, results, fields) => {
                                         if (error) throw error;
                                         console.log('del post' + results)
@@ -40,13 +40,13 @@ delPost.delete('/api/deletepost', (req, res) => {
                                         }
                                         return res.status(200).send({ error: false, data: results[0], message: message })
                                     })
-                                    
+
                                 } else {
                                     return res.status(200).send({ error: false, data: results[0], message: "Delete failed" })
                                 }
                             })
 
-                        }else{
+                        } else {
                             dbCon.query("DELETE FROM post WHERE id = ?", post_id, (error, results, fields) => {
                                 if (error) throw error;
                                 console.log('del post' + results)
@@ -58,10 +58,8 @@ delPost.delete('/api/deletepost', (req, res) => {
                                 }
                                 return res.status(200).send({ error: false, data: results[0], message: message })
                             })
-                                                       
                         }
                     })
-
                 } else {
                     res.status(200).send({ error: true, message: "No post id in DB" })
                 }
