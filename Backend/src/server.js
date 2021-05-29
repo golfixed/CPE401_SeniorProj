@@ -158,4 +158,4 @@ initWebRoutes(app);
 
 let port = process.env.PORT || 3000;
 // app.listen(3000, () => console.log(`NodeJS is running on port ${port}!`));
-app.listen(3000, '192.168.2.45', () => console.log(`Building a login system with NodeJS is running on port ${port}!`));
+app.listen(3000, '192.168.2.45', () => console.log(`NodeJS is running on port ${port}!`));

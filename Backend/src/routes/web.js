@@ -46,6 +46,13 @@ import postMaterial from "../services/class/materials/postMaterial";
 import getMaterials from "../services/class/materials/getMaterials";
 import delMaterialTopic from "../services/class/materials/deleteMaterialTopic";
 
+import createChat from "../services/class/chat/createChatroom";
+import createMessage from "../services/class/chat/createMessage";
+import chatlist from "../services/class/chat/chatlist";
+import chatroominfo from "../services/class/chat/chatroominfo";
+import chatmessage from "../services/class/chat/chatmessage";
+import leavechat from "../services/class/chat/leavechat";
+
 // Init all passport
 initPassportLocal();
 
@@ -53,28 +60,28 @@ let router = express.Router();
 const jwt = require('jsonwebtoken')
 
 let initWebRoutes = (app) => {
-    router.get("/api/");
-    router.get("/api/login",loginController.checkLoggedOut, loginController.getPageLogin);
+    router.get("/", homePageController.handleHelloWorld);
+    router.get("/api/login", loginController.checkLoggedOut, loginController.getPageLogin);
     router.post('/api/login', (req, res, next) => {
-        passport.authenticate('local', {session: false}, (err, user, info) => {
+        passport.authenticate('local', { session: false }, (err, user, info) => {
             if (err) return next(err)
-            if(user) {
+            if (user) {
                 const genToken = user => {
                     return jwt.sign({
-                      iss: 'Classi jwt',
-                      sub: user.id,
-                      iat: new Date().getTime()
+                        iss: 'Classi jwt',
+                        sub: user.id,
+                        iat: new Date().getTime()
                     }, 'your_jwt_secret');
-                  }
+                }
                 const token = genToken(user);
-                return res.json({user, token})
+                return res.json({ user, token })
             } else {
                 return res.status(422).json(info)
             }
         })(req, res, next);
     });
 
-    const reqJWT = passport.authenticate('jwt', {session: false});
+    const reqJWT = passport.authenticate('jwt', { session: false });
     //REGISTOR
     router.get("/api/register", registerController.getPageRegister);
     router.post("/api/register", registerController.createNewUser);
@@ -105,7 +112,7 @@ let initWebRoutes = (app) => {
     router.post("/api/creatematerialtopic", createTopic);
     router.post("/api/postMaterial", postMaterial);
     router.delete("/api/deletematerialtopic", delMaterialTopic);
-    
+
     //POST
     router.get("/api/getpostlist/:class_id", posttab);
     router.post("/api/createpost", createPost);
@@ -116,7 +123,7 @@ let initWebRoutes = (app) => {
     router.post("/api/addcomment", addComment);
     router.delete("/api/deletecomment", delComment);
     router.post("/api/announce", announce);
-    
+
     //POLL
     router.get("/api/getpolllist/:class_id", getpollist);
     router.post("/api/createpoll", createPoll);
@@ -128,6 +135,14 @@ let initWebRoutes = (app) => {
     router.get("/api/profile/:id", profile);
     router.put("/api/setting/editProfile/:id", editProfile);
     router.put("/api/setting/editAccount/:id", editAccount);
+
+    //CHAT
+    router.post("/api/createchat", createChat);
+    router.post("/api/sendmessage", createMessage);
+    router.post("/api/chatlist", chatlist);
+    router.post("/api/chatroominfo", chatroominfo);
+    router.post("/api/chatmessage", chatmessage);
+    router.delete("/api/leavechat", leavechat);
 
     return app.use("/", router);
 };
