@@ -13,7 +13,7 @@ leavechat.delete('/api/leavechat', (req, res) => {
         res.status(200).send({ error: true, message: "Please provide  chat id and account id" });
     } else {
         //check is chat id exist and match account id
-        dbCon.query("SELECT chatroom.id, chatroom.sender AS account_id FROM chatroom, account WHERE chatroom.id =? AND chatroom.sender = account.id AND account.id=?", [chat_id, account_id], (error, results) => {
+        dbCon.query("SELECT chatroom.id, chatroom.sender AS account_id FROM chatroom, account WHERE chatroom.id =? AND chatroom.isLeave = 0 AND chatroom.sender = account.id AND account.id=?", [chat_id, account_id], (error, results) => {
             if (error) { console.log(error) }
             else {
                 if (results.length > 0) {
@@ -32,7 +32,7 @@ leavechat.delete('/api/leavechat', (req, res) => {
                         }
                     })
                 } else {
-                    res.status(200).send({ error: true, message: "No chatroom id in this DB" });
+                    res.status(200).send({ error: true, message: "No chatroom id in this DB or isLeave is 1 already" });
                 }
             }
         })
