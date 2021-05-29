@@ -31,7 +31,29 @@ leavechat.post('/api/leavechat', (req, res) => {
                         }
                     })
                 } else {
-                    res.status(200).send({ error: true, message: "No chatroom id in this DB or isLeave is 1 already" });
+                    dbCon.query("SELECT chatroom.id, chatroom.receiver AS account_id FROM chatroom, account WHERE chatroom.id =? AND chatroom.isLeave = 0 AND chatroom.receiver = account.id AND account.id=?", [chat_id, account_id], (error, results) => {
+                        if (error) { console.log(error) }
+                        else {
+                            if (results.length > 0) {
+                                console.log(results)
+                                //set isLeave = 1
+                                dbCon.query("UPDATE chatroom SET isLeave = 1 WHERE id = ?", (chat_id), (error, results) => {
+                                    if (error) { console.log(error) }
+                                    else {
+                                        if (results.affectedRows > 0) {
+
+                                            return res.status(200).send({
+                                                error: false,
+                                                message: "Done"
+                                            })
+                                        }
+                                    }
+                                })
+                            } else {
+                                res.status(200).send({ error: true, message: "No chatroom id in this DB or isLeave is 1 already" });
+                            }
+                        }
+                    })
                 }
             }
         })
