@@ -415,12 +415,11 @@ export default {
   position: fixed;
   bottom: 0;
   left: 0;
-  padding: 15px 20px;
+  padding: 15px 0px;
   background-color: #fff;
   border: 1px solid #ededed;
   .chat-sender {
-    width: 100%;
-
+    padding: 0px 20px;
     display: grid;
     grid-gap: 10px;
     grid-template-columns: 44px auto 44px;

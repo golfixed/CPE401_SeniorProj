@@ -1,7 +1,7 @@
 <template>
   <div id="page-chats">
     <div class="page-list-wrapper" v-if="chatList.length > 0">
-      <div
+      <!-- <div
         id="pinned-bar"
         class="section app-default-pinnedbar"
         v-if="chatList.length > 0"
@@ -21,9 +21,9 @@
             <favChat fname="add new" picURL="/img/btn/chat/plus_circle.svg" />
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="pin-title-chat">
-        <label>All Chats</label>
+        <label>Chats</label>
       </div>
       <div class="chat-item">
         <chatItem
