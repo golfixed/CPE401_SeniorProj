@@ -14,6 +14,7 @@ export default new Vuex.Store({
       classrooms: false,
       classpage: false,
       settings: false,
+      chat: false,
     },
     assistModal: false,
     modal:{
@@ -58,15 +59,26 @@ export default new Vuex.Store({
     Open_optionMenu: (state, payload) => {
       if(payload == 'home') {
         state.optionMenu.home = true;
+        state.overlayShow = true;
+        state.optionMenuOpen = true;
       } else if (payload == 'classrooms'){
         state.optionMenu.classrooms = true;
+        state.overlayShow = true;
+        state.optionMenuOpen = true;
       } else if (payload == 'classpage'){
         state.optionMenu.classpage = true;
+        state.overlayShow = true;
+        state.optionMenuOpen = true;
       } else if (payload == 'settings') {
         state.optionMenu.settings = true;
+        state.overlayShow = true;
+        state.optionMenuOpen = true;
+      } else if (payload == 'chat') {
+        state.optionMenu.chat = true;
+        state.overlayShow = true;
+        state.optionMenuOpen = true;
       }
-      state.overlayShow = true;
-      state.optionMenuOpen = true;
+
     },
     Close_AllMenu: (state) => {
       state.optionMenuOpen = false;
@@ -74,6 +86,7 @@ export default new Vuex.Store({
       state.optionMenu.classrooms = false;
       state.optionMenu.classpage = false;
       state.optionMenu.settings = false;
+      state.optionMenu.chat = false;
       state.overlayShow = false;
       state.assistModal = false;
       state.modal.PINcode = false;

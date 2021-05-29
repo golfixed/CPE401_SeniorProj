@@ -144,7 +144,6 @@ export default {
   padding-top: 0;
 }
 .pin-title-chat {
-  margin-top: 10px;
   font-size: 16px;
   color: #8b8b8b;
   font-weight: 400;

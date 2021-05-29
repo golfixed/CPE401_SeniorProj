@@ -13,6 +13,15 @@
       </div>
       <div
         class="wrapper-menu-item"
+        v-if="this.$store.state.optionMenu.chat == true"
+      >
+        <optionMenu
+          label="Leave this chat"
+          iconURL="/img/btn/menuOption/signout.svg"
+        />
+      </div>
+      <div
+        class="wrapper-menu-item"
         v-if="this.$store.state.optionMenu.classpage == true"
       >
         <div class="menu-item" v-on:click="pinClass()">
@@ -83,7 +92,7 @@ export default {
   },
   computed: {
     currentPage: function () {
-      return this.$route.path;
+      var fullURL = this.$route.path;
     },
     isOpen: function () {
       return this.$store.state.optionMenuOpen;

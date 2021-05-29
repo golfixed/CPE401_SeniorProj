@@ -7,7 +7,11 @@
         <joinCreateBtn v-if="isLoggedIn == true" />
         <optionMenu v-if="isLoggedIn == true" />
         <modalJoinCreate v-if="isLoggedIn == true" />
-        <div class="overlay-bg" v-if="overlayShow == true"></div>
+        <div
+          class="overlay-bg"
+          v-if="overlayShow == true"
+          v-on:click="closeAllMenu()"
+        ></div>
       </div>
       <div class="app-tabbar" v-if="isLoggedIn == true">
         <tabBar />

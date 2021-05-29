@@ -30,6 +30,7 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   name: "item-post",
   data() {
@@ -55,6 +56,14 @@ export default {
     },
     openPost() {
       this.$router.push("/classrooms/post/" + this.postItem.id);
+    },
+  },
+  computed: {
+    timeDiff() {
+      console.log(this.postItem.create_at);
+      var post_time = this.postItem.create_at;
+      var then = moment(post_time, "MMM DD YYYY hh:mm:ss");
+      return then.fromNow();
     },
   },
 };

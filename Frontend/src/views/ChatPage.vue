@@ -5,7 +5,7 @@
       :chathead="true"
       :menu="true"
       :chatInfo="chatInfo"
-      optionName="classpage"
+      optionName="chat"
     />
     <div class="content-page app-default-border-gray" id="display-port">
       <div class="message-wrapper">
