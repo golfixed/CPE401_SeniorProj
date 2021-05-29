@@ -1,6 +1,9 @@
 <template>
   <div id="page-chats">
-    <div class="page-list-wrapper" v-if="chatList.length > 0">
+    <div
+      class="page-list-wrapper"
+      v-if="chatList.sender.length > 0 || chatList.receiver.length > 0"
+    >
       <!-- <div
         id="pinned-bar"
         class="section app-default-pinnedbar"
@@ -26,16 +29,14 @@
         <label>Chats</label>
       </div>
       <div class="chat-item" v-if="chatList.sender.length > 0">
-        <label>dfdfdfdd</label>
         <chatItem
           v-for="item in chatList.sender"
           :key="item.id"
           v-bind:chat_id="item.chat_id"
+          v-bind:chat_with="item.chat_with"
           v-bind:firstname="item.firstname"
           v-bind:lastname="item.lastname"
           v-bind:image="item.image"
-          v-bind:class_code="item.class_code"
-          v-bind:class_name="item.class_name"
         />
 
         <div class="end-of-page"></div>
@@ -45,18 +46,20 @@
           v-for="item in chatList.receiver"
           :key="item.id"
           v-bind:chat_id="item.chat_id"
+          v-bind:chat_with="item.chat_with"
           v-bind:firstname="item.firstname"
           v-bind:lastname="item.lastname"
           v-bind:image="item.image"
-          v-bind:class_code="item.class_code"
-          v-bind:class_name="item.class_name"
         />
         <div class="end-of-page"></div>
       </div>
     </div>
 
-    <div class="page-content-none" v-if="chatList.length == 0">
-      <div class="no-msg" v-on:click="fetchChatList()">
+    <div
+      class="page-content-none"
+      v-if="chatList.sender.length == 0 && chatList.receiver.length == 0"
+    >
+      <div class="no-msg">
         <img class="icon" src="/img/icons/home_blank.svg" draggable="false" />
         <label class="title">No any conversation</label>
         <label class="desc"

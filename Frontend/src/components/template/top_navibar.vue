@@ -24,7 +24,8 @@
       <label v-if="this.chathead == false">{{ pageName }}</label>
       <div class="chat-head" v-if="this.chathead == true">
         <div class="profile-img">
-          <img :src="chatInfo.profile_pic" v-if="chatInfo.profile_pic" />
+          <img :src="chatInfo.image" v-if="chatInfo.image" />
+          <img src="/img/default_profile.svg" v-if="!chatInfo.image" />
         </div>
         <div class="name">
           <label class="chat-name"

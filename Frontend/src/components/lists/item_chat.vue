@@ -6,9 +6,9 @@
     </div>
     <div class="text">
       <label class="name">{{ firstname }} {{ lastname }}</label>
-      <div class="preview">
+      <!-- <div class="preview">
         <label class="unread">{{ class_code }} {{ class_name }}</label>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -18,14 +18,18 @@ export default {
   name: "chat-list",
   props: {
     chat_id: Number,
+    chat_with: Number,
     firstname: String,
     lastname: String,
     image: String,
-    class_code: String,
-    class_name: String,
+    // class_code: String,
+    // class_name: String,
   },
   methods: {
     openChat() {
+      if (this.chat_with) {
+        this.$store.commit("Update_ChatInfo", this.chat_with);
+      }
       if (this.chat_id) {
         this.$router.push("/chat/" + this.chat_id);
       }

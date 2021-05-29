@@ -100,6 +100,7 @@ export default {
         //   content: "Oh let's see how I can help you",
         // },
       ],
+      chat_id: "",
     };
   },
   computed: {},
@@ -108,7 +109,8 @@ export default {
       this.$router.push({ path: "/" });
     }
     var path = this.$route.path;
-    var chai_id = path.replace("/chat/", "");
+    var chat_id = path.replace("/chat/", "");
+    this.chat_id = chat_id;
 
     // console.log("Current class id:" + class_id);
     this.fetchChatInfo();
@@ -121,7 +123,16 @@ export default {
       this.currentTab = tab;
     },
     fetchChatInfo() {
-      console.log("CHATROOM: Fetch Info");
+      axios
+        .post("/chatroominfo", {
+          chat_id: this.chat_id,
+          account_id: this.$store.state.chatInfo.chat_id,
+        })
+        .then((res) => {
+          console.log("CHATROOM: Fetch Info");
+          this.chatInfo = res.data.data;
+          console.log(res);
+        });
     },
     fetchMessage() {
       console.log("CHATROOM: Fetch Messages");

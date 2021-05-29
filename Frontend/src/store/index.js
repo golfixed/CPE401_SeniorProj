@@ -40,7 +40,10 @@ export default new Vuex.Store({
           chat: false,
         }
       }
-    }
+    },
+    chatInfo: {
+      chat_id: ''
+    },
   }),
   mutations: {
     Open_searchPage: (state) => {
@@ -103,6 +106,9 @@ export default new Vuex.Store({
     },
     Update_CurrentViewClass: (state, payload) => {
       state.currentClassInfo = payload;
+    },
+    Update_ChatInfo:(state, payload) => {
+      state.chatInfo.chat_id = payload;
     }
   },
   actions: {},
