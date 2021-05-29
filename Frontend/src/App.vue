@@ -4,7 +4,7 @@
       <div class="app-view">
         <topBar v-if="isLoggedIn == true" />
         <router-view />
-        <!-- <joinCreateBtn v-if="isLoggedIn == true" /> -->
+        <joinCreateBtn v-if="isLoggedIn == true" />
         <optionMenu v-if="isLoggedIn == true" />
         <modalJoinCreate v-if="isLoggedIn == true" />
         <div class="overlay-bg" v-if="overlayShow == true"></div>

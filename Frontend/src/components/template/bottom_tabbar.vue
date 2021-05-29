@@ -35,7 +35,7 @@
           <label>Classrooms</label>
         </div>
       </router-link>
-      <div class="tab-item"><centerButton /></div>
+      <!-- <div class="tab-item"><centerButton /></div> -->
       <router-link to="/chats" class="tab-item">
         <div class="tab-btn" v-on:click="scrollTop()">
           <div class="icon">
@@ -75,10 +75,10 @@ export default {
 <style lang="scss" scoped>
 #tabbar {
   .tabbar-panel {
-    display: grid;
-    grid-template-columns: repeat(3, 33.33%);
-    // display: flex;
-    // justify-content: space-around;
+    // display: grid;
+    // grid-template-columns: repeat(3, 33.33%);
+    display: flex;
+    justify-content: space-around;
     padding: 0 20px;
     height: 60px;
     position: relative;
