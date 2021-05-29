@@ -14,25 +14,33 @@ createChat.post('/api/createchat', (req, res) => {
     if (!chat) {
         res.status(200).send({ error: true, message: "Please provide 'sender id' and 'receiver id'" })
     } else {
-        dbCon.query("SELECT id FROM account WHERE id IN (?, ?)", [chat.sender, chat.receiver], (error, results) => {
+        dbCon.query("SELECT * FROM chatroom WHERE sender = ? AND receiver = ?", [chat.sender, chat.receiver], (error, results) => {
             if (error) { console.log(error) }
             else {
                 if (results.length > 0) {
-
-                    console.log(results)
-                    // let from_id = results[0];
-                    // let to_id = results[1];
-
-                    dbCon.query('INSERT INTO chatroom SET ?', chat, (error, results) => {
-                        if (error) { console.log(error) }
-
-                        return res.status(200).send({
-                            error: false,
-                            chat_id: results.insertId
-                        })
-                    })
+                    res.status(200).send({ error: true, message: "You created chatroom already" });
                 } else {
-                    res.status(200).send({ error: true, message: "No id in this DB" });
+
+                    dbCon.query("SELECT * FROM chatroom WHERE receiver = ? AND sender = ?", [chat.sender, chat.receiver], (error, results) => {
+                        if (error) { console.log(error) }
+                        else {
+                            if (results.length > 0) {
+                                res.status(200).send({ error: true, message: "Receiver created chatroom already" });
+                            } else {
+                                console.log(results)
+
+                                dbCon.query('INSERT INTO chatroom SET ?', chat, (error, results) => {
+                                    if (error) { console.log(error) }
+
+                                    return res.status(200).send({
+                                        error: false,
+                                        chat_id: results.insertId
+                                    })
+                                })
+                            }
+                        }
+
+                    })
                 }
             }
         })
