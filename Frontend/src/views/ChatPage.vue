@@ -9,7 +9,7 @@
     />
     <div class="content-page app-default-border-gray" id="display-port">
       <div class="message-wrapper">
-        <label for="">debug: sender ID= {{ senderID }}</label>
+        <!-- <label for="">debug: sender ID= {{ senderID }}</label> -->
         <div
           class="chat-bubble-item"
           v-for="item in messageList"
@@ -79,57 +79,26 @@ export default {
         text: "",
       },
       messageList: [
-        {
-          id: 1,
-          create_by: 1,
-          receiver_pic: "/img/mockup/profile_volk.png",
-          content: "Hey!",
-        },
-        {
-          id: 2,
-          create_by: 2,
-          receiver_pic: "/img/mockup/profile_volk.png",
-          content: "This is a test message na ka",
-        },
-        {
-          id: 3,
-          create_by: 1,
-          receiver_pic: "/img/mockup/profile_volk.png",
-          content: "OK Kha",
-        },
-        {
-          id: 4,
-          create_by: 1,
-          receiver_pic: "/img/mockup/profile_volk.png",
-          content:
-            "Praesent lobortis fermentum mi, rhoncus facilisis augue euismod ac. Etiam auctor libero ut dui feugiat imperdiet. Nullam nec massa id lorem malesuada fringilla mattis ac nunc. Aenean non ante ipsum. Integer at pretium sem. Phasellus dolor nisl dolor.",
-        },
-        {
-          id: 5,
-          create_by: 2,
-          receiver_pic: "/img/mockup/profile_volk.png",
-          content:
-            "Nulla at pharetra orci. Integer sit amet mi facilisis, pharetra libero non, rutrum ligula. ",
-        },
-        {
-          id: 6,
-          create_by: 1,
-          receiver_pic: "/img/mockup/profile_volk.png",
-          content: "Okiyoki",
-        },
-        {
-          id: 7,
-          create_by: 2,
-          receiver_pic: "/img/mockup/profile_volk.png",
-          content: "Okiyoki",
-        },
-        {
-          id: 8,
-          create_by: 2,
-          receiver_pic: "/img/mockup/profile_volk.png",
-          content:
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Eget",
-        },
+        // {
+        //   id: 1,
+        //   create_by: 12,
+        //   content: "Hello, Mr. Thammakew",
+        // },
+        // {
+        //   id: 2,
+        //   create_by: 1,
+        //   content: "Hi John, how can I help?",
+        // },
+        // {
+        //   id: 3,
+        //   create_by: 12,
+        //   content: "I have a question on homework#3",
+        // },
+        // {
+        //   id: 3,
+        //   create_by: 12,
+        //   content: "Oh let's see how I can help you",
+        // },
       ],
     };
   },

@@ -36,6 +36,12 @@
             v-if="this.$store.state.currentClassInfo.favorite == true"
           />
         </div>
+        <div class="menu-item" v-on:click="leaveClass()">
+          <optionMenu
+            label="Leave this classroom"
+            iconURL="/img/btn/menuOption/signout.svg"
+          />
+        </div>
       </div>
       <div
         class="wrapper-menu-item"
@@ -65,6 +71,20 @@ export default {
   },
   mounted() {},
   methods: {
+    leaveClass: function () {
+      var data = {
+        account_id: this.$store.state.user.profile.id,
+        class_id: this.class_id,
+      };
+      console.log(data);
+      axios.post("/leaveclass", data).then((res) => {
+        if (res.data.error != true) {
+          this.$router.push("/");
+        } else {
+          alert("ERROR: " + res.data.message);
+        }
+      });
+    },
     closeAllMenu: function () {
       this.$store.commit("Close_AllMenu");
     },

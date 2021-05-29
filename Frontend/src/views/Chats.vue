@@ -133,7 +133,7 @@ export default {
   created: function () {},
   methods: {
     fetchChatList() {
-      console.log("CHAT_PAGE: Fetch chat list");
+      axios.post;
     },
   },
 };

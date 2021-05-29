@@ -4,8 +4,8 @@ import express from "express";
 let delMember = express();
 
 //delete member require account id and class id
-delMember.delete('/api/leaveclass', (req, res) => {
-
+delMember.post('/api/leaveclass', (req, res) => {
+    console.log(req.body)
     let account_id = req.body.account_id;
     let class_id = req.body.class_id;
 
@@ -19,7 +19,7 @@ delMember.delete('/api/leaveclass', (req, res) => {
                     var member_id = results[0].id;
 
                     dbCon.query('DELETE FROM class_member WHERE id = ?', [member_id], (error, results, fields) => {
-                        if (error) throw error;
+                        if (error) console.log(error)
 
                         return res.status(200).send({
                             error: false,

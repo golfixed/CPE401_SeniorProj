@@ -18,7 +18,16 @@
           <label class="email">{{ user.email }}</label>
         </div>
       </div>
-      <div class="end-of-page"></div>
+      <div class="wrapper">
+        <div
+          class="send-msg-btn"
+          v-on:click="sendMessage(user.id)"
+          v-if="user.id != this.$store.state.user.profile.id"
+        >
+          <div class="icon"><img src="/img/icons/send_message.svg" /></div>
+          <div class="text"><label for="">Send Message</label></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -68,6 +77,16 @@ export default {
     },
     openOptionMenu: function (payload) {
       this.$store.commit("Open_optionMenu", payload);
+    },
+    sendMessage(id) {
+      var data = {
+        receiver_id: id,
+        account_id: this.$store.state.user.profile.id,
+      };
+      axios.post("/sendmessage", data).then((res) => {
+        console.log("call create message API");
+      });
+      this.$router.push("/chat/" + data.receiver_id);
     },
   },
 };
@@ -153,5 +172,34 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.send-msg-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #fff;
+  padding: 15px 0;
+  margin-top: 20px;
+  border-radius: 10px;
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-left: 20px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+  .text {
+    margin-left: 15px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    color: #505050;
+  }
 }
 </style>

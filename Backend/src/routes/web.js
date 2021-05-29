@@ -98,7 +98,7 @@ let initWebRoutes = (app) => {
 
     //CLASS MEMBER
     router.post("/api/classmember", classMember);
-    router.delete("/api/leaveclass", delMember);
+    router.post("/api/leaveclass", delMember);
 
     //MATERIAL
     router.get("/api/materials/:class_id", getMaterials);
