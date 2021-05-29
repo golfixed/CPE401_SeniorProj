@@ -75,10 +75,10 @@ export default {
 <style lang="scss" scoped>
 #tabbar {
   .tabbar-panel {
-    // display: grid;
-    // grid-template-columns: repeat(3, 33.33%);
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: repeat(3, 33.33%);
+    // display: flex;
+    // justify-content: space-around;
     padding: 0 20px;
     height: 60px;
     position: relative;
@@ -92,7 +92,7 @@ export default {
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    width: 60px;
+    width: 100%;
     div.tab-btn {
       width: 100%;
       height: 100%;

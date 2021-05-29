@@ -1,10 +1,10 @@
 <template>
-  <div class="fav-chat">
+  <div class="fav-chat" v-on:click="openChat(chat_id)">
     <div class="fav-chat-box">
       <div class="profile-pic-wrapper">
-        <img class="profile-pic" :src="profilePic" />
+        <img class="profile-pic" :src="picURL" />
       </div>
-      <label>{{ firstName }}</label>
+      <label>{{ fname }}</label>
     </div>
   </div>
 </template>
@@ -13,11 +13,24 @@
 export default {
   name: "fav-chat",
   props: {
-    firstName: String,
-    profilePic: String,
+    chat_id: Number,
+    picURL: String,
+    fname: String,
+    lname: String,
+    previewMessage: String,
+    time: String,
+    read: Boolean,
+    lastReply: Boolean,
   },
   data: function () {
     return {};
+  },
+  methods: {
+    openChat() {
+      if (this.chat_id) {
+        this.$router.push("/chat/" + this.chat_id);
+      }
+    },
   },
 };
 </script>
@@ -33,8 +46,8 @@ export default {
     justify-content: center;
     align-items: center;
     .profile-pic-wrapper {
-      width: 84px;
-      height: 84px;
+      width: 70px;
+      height: 70px;
       margin-bottom: 15px;
       border-radius: 100px;
       overflow: hidden;

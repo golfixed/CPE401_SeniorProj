@@ -21,7 +21,17 @@
       </div>
     </div>
     <div class="center">
-      <label>{{ pageName }}</label>
+      <label v-if="this.chathead == false">{{ pageName }}</label>
+      <div class="chat-head" v-if="this.chathead == true">
+        <div class="profile-img">
+          <img :src="chatInfo.profile_pic" v-if="chatInfo.profile_pic" />
+        </div>
+        <div class="name">
+          <label class="chat-name"
+            >{{ chatInfo.firstname }} {{ chatInfo.lastname }}</label
+          >
+        </div>
+      </div>
     </div>
     <div class="right">
       <div
@@ -43,6 +53,8 @@ export default {
     type: String,
     menu: Boolean,
     optionName: String,
+    chathead: Boolean,
+    chatInfo: Object,
   },
   methods: {
     openOptionMenu: function (payload) {
@@ -124,6 +136,34 @@ export default {
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+  }
+}
+.chat-head {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .profile-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-bottom: 4px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .name {
+    label.chat-name {
+      font-style: normal;
+      font-weight: 600 !important;
+      font-size: 12px !important;
+      text-align: center;
+      letter-spacing: -0.01em;
+      color: #202020;
     }
   }
 }

@@ -14,13 +14,11 @@
             <favChat
               v-for="item in chatList"
               :key="item.id"
-              v-bind:firstName="item.firstName"
-              v-bind:profilePic="item.picURL"
+              v-bind:chat_id="item.id"
+              v-bind:fname="item.firstName"
+              v-bind:picURL="item.picURL"
             />
-            <favChat
-              firstName="add new"
-              profilePic="/img/btn/chat/plus_circle.svg"
-            />
+            <favChat fname="add new" picURL="/img/btn/chat/plus_circle.svg" />
           </div>
         </div>
       </div>
@@ -38,6 +36,7 @@
           v-bind:time="item.time"
           v-bind:read="item.read"
           v-bind:lastReply="item.lastReply"
+          v-bind:chat_id="item.id"
         />
         <div class="end-of-page"></div>
       </div>
@@ -73,12 +72,13 @@ export default {
     if (!localStorage.token) {
       this.$router.push({ path: "/" });
     }
+    this.fetchChatList();
   },
   data: function () {
     return {
       chatList: [
         {
-          id: 0,
+          id: 1,
           firstName: "Nithiwadee",
           lastName: "Wangviboonkij",
           picURL: "/img/mockup/profile_my.png",
@@ -88,22 +88,12 @@ export default {
           lastReply: false,
         },
         {
-          id: 1,
+          id: 2,
           firstName: "Bhaksiree",
           lastName: "Tongtago",
           picURL: "/img/mockup/profile_volk.png",
           previewMessage: "I got it. thx",
           time: "11:21",
-          read: true,
-          lastReply: true,
-        },
-        {
-          id: 2,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
           read: true,
           lastReply: true,
         },
@@ -137,96 +127,21 @@ export default {
           read: true,
           lastReply: true,
         },
-        {
-          id: 6,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
-          read: true,
-          lastReply: true,
-        },
-        {
-          id: 7,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
-          read: true,
-          lastReply: true,
-        },
-        {
-          id: 8,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
-          read: true,
-          lastReply: true,
-        },
-        {
-          id: 9,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
-          read: true,
-          lastReply: true,
-        },
-        {
-          id: 10,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
-          read: true,
-          lastReply: true,
-        },
-        {
-          id: 11,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
-          read: true,
-          lastReply: true,
-        },
-        {
-          id: 12,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
-          read: true,
-          lastReply: true,
-        },
-        {
-          id: 13,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
-          read: true,
-          lastReply: true,
-        },
       ],
     };
   },
   created: function () {},
-  methods: {},
+  methods: {
+    fetchChatList() {
+      console.log("CHAT_PAGE: Fetch chat list");
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
 .page-list-wrapper {
   padding: 10px 20px 0px 20px;
+  padding-top: 0;
 }
 .pin-title-chat {
   margin-top: 10px;

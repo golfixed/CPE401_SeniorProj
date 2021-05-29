@@ -1,5 +1,5 @@
 <template>
-  <div class="chat-item">
+  <div class="chat-item" v-on:click="openChat(chat_id)">
     <div class="profile-pic">
       <img :src="picURL" draggable="false" />
     </div>
@@ -24,6 +24,7 @@
 export default {
   name: "chat-list",
   props: {
+    chat_id: Number,
     picURL: String,
     fname: String,
     lname: String,
@@ -32,16 +33,25 @@ export default {
     read: Boolean,
     lastReply: Boolean,
   },
+  methods: {
+    openChat() {
+      if (this.chat_id) {
+        this.$router.push("/chat/" + this.chat_id);
+      }
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
 .chat-item {
   width: 100%;
-  padding: 10px 0;
+  padding: 15px 0;
   max-width: 100vw;
   display: grid;
   grid-template-columns: 54px auto 40px;
+  border: 1px solid #ededed;
+  border-width: 0 0 1px 0;
 
   .profile-pic {
     width: 54px;

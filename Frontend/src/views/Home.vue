@@ -96,7 +96,7 @@ export default {
         // console.log(res);
         this.isOffline = false;
         if (res.error != true) {
-          console.log("HOME: fetch classroom list");
+          console.log("HOME_PAGE: fetch classroom list");
           console.log(res);
           this.classList = res.data.data;
 
