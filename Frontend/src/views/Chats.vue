@@ -43,7 +43,7 @@
     </div>
 
     <div class="page-content-none" v-if="chatList.length == 0">
-      <div class="no-msg">
+      <div class="no-msg" v-on:click="fetchChatList()">
         <img class="icon" src="/img/icons/home_blank.svg" draggable="false" />
         <label class="title">No any conversation</label>
         <label class="desc"
@@ -69,7 +69,9 @@ export default {
     if (!localStorage.token) {
       this.$router.push({ path: "/" });
     }
-    this.fetchChatList();
+    this.$store.commit("Close_AllMenu");
+    // this.fetchChatList();
+    console.log("CHAT_PAGE");
   },
   data: function () {
     return {
@@ -77,17 +79,19 @@ export default {
     };
   },
   methods: {
-    fetchChatList() {
+    fetchChatList: function () {
       axios
         .post("/chatlist", { account_id: this.$store.state.user.profile.id })
         .then((res) => {
           console.log(res);
-          if (res.data.error != true && res.status == 200) {
-            console.log(res.data.message);
-            this.chatList = res.data.data;
-          } else {
-            this.chatList = this.chatList;
-          }
+          // if (res.data.error != true) {
+          //   console.log("IF");
+          //   console.log(res.data.data);
+          //   this.chatList = res.data.data;
+          // } else {
+          //   console.log("ELSE");
+          //   this.chatList = this.chatList;
+          // }
         });
     },
   },

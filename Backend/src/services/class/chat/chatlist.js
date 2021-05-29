@@ -21,10 +21,11 @@ chatlist.post('/api/chatlist', (req, res) => {
                         if (error) { console.log(error) }
                         else {
                             //return receiver
+                            console.log(results)
                             if (results.length > 0) {
                                 let sender = results[0].sender;
                                 console.log('sender =' + sender);
-                                //account is sender
+                                //account is a sender
                                 dbCon.query('SELECT chatroom.id AS chat_id, account.id AS chat_with, account.firstname, account.lastname, account.image FROM chatroom, account WHERE chatroom.receiver = account.id AND chatroom.sender =?', [sender], (error, results) => {
                                     let datareceiver = results;
                                     //if account id is receiver return sender
@@ -42,6 +43,10 @@ chatlist.post('/api/chatlist', (req, res) => {
                                         })
                                     })
                                 })
+                                
+                            }
+                            else {
+                                res.status(200).send({ error: false, message: "TESTTTTT" });
                             }
                         }
                     })

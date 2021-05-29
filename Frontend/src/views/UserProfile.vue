@@ -80,13 +80,20 @@ export default {
     },
     sendMessage(id) {
       var data = {
-        receiver_id: id,
-        account_id: this.$store.state.user.profile.id,
+        sender: id,
+        receiver: this.$store.state.user.profile.id,
       };
-      axios.post("/sendmessage", data).then((res) => {
-        console.log("call create message API");
+      axios.post("/createchat", data).then((res) => {
+        console.log(res);
+        if (res.data.error != true) {
+          console.log(res);
+          this.$router.push("/chat/" + res.chat_id);
+        } else {
+          if (res.data.message == "You created chatroom already") {
+            this.$router.push("/chat/" + res.chat_id);
+          } else alert("ERROR: " + res.data.message);
+        }
       });
-      this.$router.push("/chat/" + data.receiver_id);
     },
   },
 };
