@@ -17,8 +17,8 @@ chatroominfo.post('/api/chatroominfo', (req, res) => {
             if (error) { console.log(error) }
             else {
                 if (results.length > 0) {
-                    dbCon.query("SELECT chatroom.sender, chatroom.receiver, account.firstname, account.lastname, chatroom.favorite AS pinchat FROM chatroom,account WHERE chatroom.receiver = account.id AND chatroom.receiver = ? AND chatroom.id = ?", [account_id, chat_id], (error, results) => {
-                        // dbCon.query("SELECT chatroom.sender, chatroom.receiver, account.firstname, account.lastname FROM chatroom,account WHERE chatroom.sender = account.id AND chatroom.sender = ? AND chatroom.id = ?", [account_id, chat_id], (error, results) => {
+                    dbCon.query("SELECT chatroom.sender, chatroom.receiver, account.firstname, account.lastname, account.image, chatroom.favorite AS pinchat FROM chatroom,account WHERE chatroom.receiver = account.id AND chatroom.receiver = ? AND chatroom.id = ?", [account_id, chat_id], (error, results) => {
+                
                         if (error) { console.log(error) }
                         else {
                             if (results.length > 0) {
