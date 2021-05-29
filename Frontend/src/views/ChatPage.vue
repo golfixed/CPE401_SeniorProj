@@ -19,7 +19,7 @@
             <div class="receiver">
               <label class="timestamp">10:30</label>
               <label for="">
-                {{ item.content }}
+                {{ item.text }}
               </label>
             </div>
             <div></div>
@@ -29,7 +29,7 @@
             <div class="sender">
               <label class="timestamp">10:30</label>
               <label for="">
-                {{ item.content }}
+                {{ item.text }}
               </label>
             </div>
           </div>
@@ -41,7 +41,11 @@
         <div class="add-img-btn">
           <img src="/img/icons/add-img.svg" />
         </div>
-        <input type="text" placeholder="comment" />
+        <input
+          type="text"
+          v-model="sendMessageText.text"
+          placeholder="message..."
+        />
         <div class="enter-btn" v-on:click="sendMessage()">
           <img src="/img/icons/arrow-up.svg" />
         </div>
@@ -71,9 +75,9 @@ export default {
       senderID: this.$store.state.user.profile.id,
       chatInfo: {
         chat_id: 1,
-        profile_pic: "/img/mockup/profile_volk.png",
-        firstname: "Bhaksiree",
-        lastname: "Tongtago",
+        image: "",
+        firstname: "",
+        lastname: "",
       },
       sendMessageText: {
         text: "",
@@ -123,21 +127,44 @@ export default {
       this.currentTab = tab;
     },
     fetchChatInfo() {
-      axios
-        .post("/chatroominfo", {
-          chat_id: this.chat_id,
-          account_id: this.$store.state.chatInfo.chat_id,
-        })
-        .then((res) => {
+      var data = {
+        chat_id: this.chat_id,
+        account_id: this.$store.state.chatInfo.chat_id,
+      };
+      console.log(data);
+      axios.post("/chatroominfo", data).then((res) => {
+        if (res.data.error != true) {
           console.log("CHATROOM: Fetch Info");
           this.chatInfo = res.data.data;
           console.log(res);
-        });
+        } else {
+          alert("ERROR: " + res.data.message);
+        }
+      });
     },
     fetchMessage() {
+      var data = {
+        chatroom: this.chat_id,
+        account_id: this.$store.state.user.profile.id,
+      };
+      axios.post("/chatmessage", data).then((res) => {
+        console.log(res);
+        this.messageList = res.data.data;
+      });
       console.log("CHATROOM: Fetch Messages");
     },
-    sendMessage() {},
+    sendMessage() {
+      var data = {
+        chatroom: this.chat_id,
+        text: this.sendMessageText.text,
+        create_by: this.$store.state.user.profile.id,
+      };
+      axios.post("/sendmessage", data).then((res) => {
+        console.log(res);
+        this.sendMessageText.text = "";
+        this.fetchMessage();
+      });
+    },
     scrollToBottom: function (id) {
       var div = document.getElementById("display-port");
       div.scrollTop = div.scrollHeight - div.clientHeight;
