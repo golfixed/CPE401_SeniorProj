@@ -1,20 +1,13 @@
 <template>
   <div class="chat-item" v-on:click="openChat(chat_id)">
     <div class="profile-pic">
-      <img :src="picURL" draggable="false" />
+      <img :src="image" v-if="image" draggable="false" />
+      <img src="/img/default_profile.svg" v-if="!image" draggable="false" />
     </div>
     <div class="text">
-      <label class="name">{{ fname }} {{ lname }}</label>
+      <label class="name">{{ firstname }} {{ lastname }}</label>
       <div class="preview">
-        <label class="reply" v-if="lastReply == true"> You: </label>
-        <label class="read" v-if="read == true">{{ previewMessage }}</label>
-        <label class="unread" v-if="read == false">{{ previewMessage }}</label>
-      </div>
-    </div>
-    <div class="misc">
-      <label class="time">{{ time }}</label>
-      <div class="unread" v-if="read == false">
-        <img src="/img/btn/chat/dot_red.svg" draggable="false" />
+        <label class="unread">{{ class_code }} {{ class_name }}</label>
       </div>
     </div>
   </div>
@@ -25,13 +18,11 @@ export default {
   name: "chat-list",
   props: {
     chat_id: Number,
-    picURL: String,
-    fname: String,
-    lname: String,
-    previewMessage: String,
-    time: String,
-    read: Boolean,
-    lastReply: Boolean,
+    firstname: String,
+    lastname: String,
+    image: String,
+    class_code: String,
+    class_name: String,
   },
   methods: {
     openChat() {

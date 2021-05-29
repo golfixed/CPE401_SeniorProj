@@ -25,18 +25,31 @@
       <div class="pin-title-chat">
         <label>Chats</label>
       </div>
-      <div class="chat-item">
+      <div class="chat-item" v-if="chatList.sender.length > 0">
+        <label>dfdfdfdd</label>
         <chatItem
-          v-for="item in chatList"
+          v-for="item in chatList.sender"
           :key="item.id"
-          v-bind:fname="item.firstName"
-          v-bind:lname="item.lastName"
-          v-bind:picURL="item.picURL"
-          v-bind:previewMessage="item.previewMessage"
-          v-bind:time="item.time"
-          v-bind:read="item.read"
-          v-bind:lastReply="item.lastReply"
-          v-bind:chat_id="item.id"
+          v-bind:chat_id="item.chat_id"
+          v-bind:firstname="item.firstname"
+          v-bind:lastname="item.lastname"
+          v-bind:image="item.image"
+          v-bind:class_code="item.class_code"
+          v-bind:class_name="item.class_name"
+        />
+
+        <div class="end-of-page"></div>
+      </div>
+      <div class="chat-item" v-if="chatList.receiver.length > 0">
+        <chatItem
+          v-for="item in chatList.receiver"
+          :key="item.id"
+          v-bind:chat_id="item.chat_id"
+          v-bind:firstname="item.firstname"
+          v-bind:lastname="item.lastname"
+          v-bind:image="item.image"
+          v-bind:class_code="item.class_code"
+          v-bind:class_name="item.class_name"
         />
         <div class="end-of-page"></div>
       </div>
@@ -70,12 +83,14 @@ export default {
       this.$router.push({ path: "/" });
     }
     this.$store.commit("Close_AllMenu");
-    // this.fetchChatList();
-    console.log("CHAT_PAGE");
+    this.fetchChatList();
   },
   data: function () {
     return {
-      chatList: [],
+      chatList: {
+        sender: [],
+        receiver: [],
+      },
     };
   },
   methods: {
@@ -83,15 +98,18 @@ export default {
       axios
         .post("/chatlist", { account_id: this.$store.state.user.profile.id })
         .then((res) => {
-          console.log(res);
-          // if (res.data.error != true) {
-          //   console.log("IF");
-          //   console.log(res.data.data);
-          //   this.chatList = res.data.data;
-          // } else {
-          //   console.log("ELSE");
-          //   this.chatList = this.chatList;
-          // }
+          if (res.data.error != true) {
+            console.log("CHATS_PAGE: Fetch chat list");
+            console.log(res);
+            if (res.data.Sender.length > 0) {
+              this.chatList.sender = res.data.Sender;
+            }
+            if (res.data.Receiver.length > 0) {
+              this.chatList.receiver = res.data.Receiver;
+            }
+          } else {
+            this.chatList = this.chatList;
+          }
         });
     },
   },
