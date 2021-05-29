@@ -44,15 +44,11 @@
 
     <div class="page-content-none" v-if="chatList.length == 0">
       <div class="no-msg">
-        <img
-          class="icon"
-          src="/img/icons/page_undercon.svg"
-          draggable="false"
-        />
-        <label class="title">Under developing...</label>
+        <img class="icon" src="/img/icons/home_blank.svg" draggable="false" />
+        <label class="title">No any conversation</label>
         <label class="desc"
-          >This feature is not ready yet. <br />We will let you know once it is
-          ready.</label
+          >To start chatting with classmates, <br />tap Member tab in
+          classroom.</label
         >
       </div>
     </div>
@@ -62,6 +58,7 @@
 <script>
 import chatItem from "@/components/lists/item_chat.vue";
 import favChat from "@/components/fav_chat.vue";
+import axios from "@/axios.js";
 export default {
   name: "Chats-Page",
   components: {
@@ -76,66 +73,25 @@ export default {
   },
   data: function () {
     return {
-      chatList: [
-        {
-          id: 1,
-          firstName: "Nithiwadee",
-          lastName: "Wangviboonkij",
-          picURL: "/img/mockup/profile_my.png",
-          previewMessage: "Do not forget to submit your proposal within today",
-          time: "12:30",
-          read: false,
-          lastReply: false,
-        },
-        {
-          id: 2,
-          firstName: "Bhaksiree",
-          lastName: "Tongtago",
-          picURL: "/img/mockup/profile_volk.png",
-          previewMessage: "I got it. thx",
-          time: "11:21",
-          read: true,
-          lastReply: true,
-        },
-        {
-          id: 3,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
-          read: true,
-          lastReply: true,
-        },
-        {
-          id: 4,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
-          read: true,
-          lastReply: true,
-        },
-        {
-          id: 5,
-          firstName: "Peerapong",
-          lastName: "Thammakaew",
-          picURL: "/img/mockup/profile.png",
-          previewMessage: "I got it. thx",
-          time: "09:30",
-          read: true,
-          lastReply: true,
-        },
-      ],
+      chatList: [],
     };
   },
-  created: function () {},
   methods: {
     fetchChatList() {
-      axios.post;
+      axios
+        .post("/chatlist", { account_id: this.$store.state.user.profile.id })
+        .then((res) => {
+          console.log(res);
+          if (res.data.error != true && res.status == 200) {
+            console.log(res.data.message);
+            this.chatList = res.data.data;
+          } else {
+            this.chatList = this.chatList;
+          }
+        });
     },
   },
+  created: function () {},
 };
 </script>
 <style lang="scss" scoped>

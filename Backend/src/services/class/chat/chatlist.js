@@ -54,7 +54,7 @@ chatlist.post('/api/chatlist', (req, res) => {
                         }
                     })
                 } else {
-                    res.status(200).send({ error: true, message: "Empty chat" });
+                    res.status(200).send({ error: false, message: "Empty chat" });
                 }
             }
         })

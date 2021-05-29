@@ -466,7 +466,7 @@ button:active {
   justify-content: center;
   align-items: center;
   background-color: #f6f6f6;
-  height: calc(100vh - 131px);
+  height: calc(100vh - 200px);
   .no-msg {
     text-align: center;
     text-align: center;

@@ -8,10 +8,10 @@
         <img class="icon" src="/img/icons/home_blank.svg" draggable="false" />
         <label class="title">You are not in classroom yet.</label>
         <label class="desc" v-if="this.$store.state.user.profile.role == 'std'"
-          >Tap bottom right button to join classroom.</label
+          >Tap bottom right button to join classroom</label
         >
         <label class="desc" v-if="this.$store.state.user.profile.role == 'tea'"
-          >Tap bottom right button to join or create classroom.</label
+          >Tap bottom right button to join or create classroom</label
         >
       </div>
     </div>
