@@ -14,11 +14,11 @@
       <div
         class="wrapper-menu-item"
         v-if="this.$store.state.optionMenu.chat == true"
+        v-on:click="leaveChat()"
       >
         <optionMenu
           label="Leave this chat"
           iconURL="/img/btn/menuOption/signout.svg"
-          v-on:click="leaveChat()"
         />
       </div>
       <div
@@ -37,8 +37,9 @@
             v-if="this.$store.state.currentClassInfo.favorite == true"
           />
         </div>
-        <div class="menu-item" v-on:click="leaveClass()">
+        <div class="menu-item">
           <optionMenu
+            v-on:click="leaveClass()"
             label="Leave this classroom"
             iconURL="/img/btn/menuOption/signout.svg"
           />
@@ -70,10 +71,22 @@ export default {
   components: {
     optionMenu,
   },
-  mounted() {},
+  mounted() {
+    var path = this.$route.path;
+    var chat_id = path.replace("/chat/", "");
+    this.chat_id = chat_id;
+  },
   methods: {
     leaveChat: function () {
-      axios.post("/");
+      console.log("CHAT_PAGE: leave chat btn pressed");
+      var data = {
+        chat_id: this.chat_id,
+        account_id: this.$store.state.user.profile.id,
+      };
+      axios.post("/leavechat", data).then((res) => {
+        console.log(res);
+        this.$router.push("/");
+      });
     },
     leaveClass: function () {
       var data = {
@@ -128,7 +141,9 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      chat_id: "",
+    };
   },
 };
 </script>

@@ -38,8 +38,6 @@
           v-bind:lastname="item.lastname"
           v-bind:image="item.image"
         />
-
-        <div class="end-of-page"></div>
       </div>
       <div class="chat-item" v-if="chatList.receiver.length > 0">
         <chatItem
@@ -51,8 +49,8 @@
           v-bind:lastname="item.lastname"
           v-bind:image="item.image"
         />
-        <div class="end-of-page"></div>
       </div>
+      <div class="end-of-page"></div>
     </div>
 
     <div

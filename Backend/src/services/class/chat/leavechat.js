@@ -3,11 +3,10 @@ import express from "express";
 
 let leavechat = express();
 
-leavechat.delete('/api/leavechat', (req, res) => {
+leavechat.post('/api/leavechat', (req, res) => {
     let chat_id = req.body.chat_id;
     //Sender account id?
     let account_id = req.body.account_id;
-    let isLeave = req.body.isLeave;
 
     if (!chat_id || !account_id) {
         res.status(200).send({ error: true, message: "Please provide  chat id and account id" });
