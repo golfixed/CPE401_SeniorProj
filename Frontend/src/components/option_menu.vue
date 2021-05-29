@@ -18,6 +18,7 @@
         <optionMenu
           label="Leave this chat"
           iconURL="/img/btn/menuOption/signout.svg"
+          v-on:click="leaveChat()"
         />
       </div>
       <div
@@ -71,6 +72,9 @@ export default {
   },
   mounted() {},
   methods: {
+    leaveChat: function () {
+      axios.post("/");
+    },
     leaveClass: function () {
       var data = {
         account_id: this.$store.state.user.profile.id,
