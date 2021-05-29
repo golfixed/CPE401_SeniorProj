@@ -3,11 +3,6 @@ import express from "express";
 
 let chatlist = express();
 
-// POST. /chatlist
-// request: { account_id }
-// respond: { chat_id, firstname, lastname, profile_image, favourite, timestamp, preview_message, isRead:Boolean
-// }
-
 chatlist.post('/api/chatlist', (req, res) => {
     //request account id
     let account_id = req.body.account_id;
@@ -30,26 +25,23 @@ chatlist.post('/api/chatlist', (req, res) => {
                                 let sender = results[0].sender;
                                 console.log('sender =' + sender);
                                 //account is sender
-                                dbCon.query('SELECT chatroom.id AS chat_id, account.firstname, account.lastname, account.image FROM chatroom, account WHERE chatroom.receiver = account.id AND chatroom.sender =?', [sender], (error, results) => {
+                                dbCon.query('SELECT chatroom.id AS chat_id, account.id AS chat_with, account.firstname, account.lastname, account.image FROM chatroom, account WHERE chatroom.receiver = account.id AND chatroom.sender =?', [sender], (error, results) => {
                                     let datareceiver = results;
                                     //if account id is receiver return sender
-                                    dbCon.query('SELECT chatroom.id AS chat_id, account.firstname, account.lastname, account.image FROM chatroom, account WHERE chatroom.sender = account.id AND chatroom.receiver =?', [sender], (error, results) => {
+                                    dbCon.query('SELECT chatroom.id AS chat_id, account.id AS chat_with, account.firstname, account.lastname, account.image FROM chatroom, account WHERE chatroom.sender = account.id AND chatroom.receiver =?', [sender], (error, results) => {
                                         let datasender = results;
-                                        
+
                                         if (error) { console.log(error) }
                                         console.log('receiver = ' + results)
                                         console.log('sender =' + sender);
-                                        
+
                                         return res.status(200).send({
                                             error: false,
                                             Sender: datasender,
-                                            Sender: Object.values(datasender),
-                                            Receiver: datareceiver,
+                                            Receiver: datareceiver
                                         })
                                     })
                                 })
-                            } else {
-
                             }
                         }
                     })
@@ -60,6 +52,5 @@ chatlist.post('/api/chatlist', (req, res) => {
         })
     }
 })
-
 
 module.exports = chatlist;
