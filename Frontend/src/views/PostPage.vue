@@ -41,18 +41,14 @@
         </div>
       </div>
       <div class="end-of-page"></div>
-      <div class="bottom-section">
-        <div class="wrapper">
-          <div class="btn-wrapper">
-            <div class="comment-sender">
-              <div class="add-img-btn">
-                <img src="/img/icons/add-img.svg" />
-              </div>
-              <input type="text" placeholder="comment" v-model="comment.text" />
-              <div class="enter-btn" v-on:click="addComment()">
-                <img src="/img/icons/arrow-up.svg" />
-              </div>
-            </div>
+      <div class="comment-sender-wrapper">
+        <div class="comment-sender">
+          <div class="add-img-btn">
+            <img src="/img/icons/add-img.svg" />
+          </div>
+          <input type="text" placeholder="comment" v-model="comment.text" />
+          <div class="enter-btn" v-on:click="addComment()">
+            <img src="/img/icons/arrow-up.svg" />
           </div>
         </div>
       </div>
@@ -350,33 +346,39 @@ input {
     }
   }
 }
-.comment-sender {
+.comment-sender-wrapper {
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 15px 0px;
   background-color: #fff;
   border: 1px solid #ededed;
-  padding: 15px;
-  margin: 0 -20px -40px -20px;
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: 44px auto 44px;
-  .enter-btn,
-  .add-img-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 44px;
-    width: 44px;
-    border-radius: 100px;
-    overflow: hidden;
-    img {
-      height: 20px;
-      object-fit: contain;
+  .comment-sender {
+    padding: 0px 20px;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 44px auto 44px;
+    .enter-btn,
+    .add-img-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 44px;
+      width: 44px;
+      border-radius: 100px;
+      overflow: hidden;
+      img {
+        height: 20px;
+        object-fit: contain;
+      }
     }
-  }
-  .enter-btn {
-    background: linear-gradient(139.07deg, #3c6697 20.27%, #1e9f13 99.96%);
-  }
-  input {
-    margin-bottom: 0;
+    .enter-btn {
+      background: linear-gradient(139.07deg, #3c6697 20.27%, #1e9f13 99.96%);
+    }
+    input {
+      margin-bottom: 0;
+    }
   }
 }
 </style>
