@@ -50,6 +50,8 @@ import createChat from "../services/class/chat/createChatroom";
 import createMessage from "../services/class/chat/createMessage";
 import chatlist from "../services/class/chat/chatlist";
 import chatroominfo from "../services/class/chat/chatroominfo";
+import chatmessage from "../services/class/chat/chatmessage";
+import leavechat from "../services/class/chat/leavechat";
 
 // Init all passport
 initPassportLocal();
@@ -139,7 +141,8 @@ let initWebRoutes = (app) => {
     router.post("/api/sendmessage", createMessage);
     router.post("/api/chatlist", chatlist);
     router.post("/api/chatroominfo", chatroominfo);
-
+    router.post("/api/chatmessage", chatmessage);
+    router.delete("/api/leavechat", leavechat);
 
     return app.use("/", router);
 };
