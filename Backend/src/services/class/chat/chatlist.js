@@ -25,10 +25,10 @@ chatlist.post('/api/chatlist', (req, res) => {
                                 let sender = results[0].sender;
                                 console.log('sender =' + sender);
                                 //account is sender
-                                dbCon.query('SELECT chatroom.id AS chat_id, account.id AS chat_with,class.class_code,class.class_name, account.firstname, account.lastname, account.image FROM chatroom, account ,class,class_member WHERE chatroom.receiver = account.id AND class_member.account = chatroom.receiver AND class_member.class = class.id AND chatroom.sender =?', [sender], (error, results) => {
+                                dbCon.query('SELECT chatroom.id AS chat_id, chatroom.isLeave,  account.id AS chat_with,class.class_code,class.class_name, account.firstname, account.lastname, account.image FROM chatroom, account ,class,class_member WHERE chatroom.receiver = account.id AND class_member.account = chatroom.receiver AND class_member.class = class.id AND chatroom.sender =?', [sender], (error, results) => {
                                     let datareceiver = results;
                                     //if account id is receiver return sender
-                                    dbCon.query('SELECT chatroom.id AS chat_id, account.id AS chat_with,class.class_code,class.class_name, account.firstname, account.lastname, account.image FROM chatroom, account,class,class_member WHERE chatroom.sender = account.id  AND class_member.account = chatroom.sender AND class_member.class = class.id AND chatroom.receiver =?', [sender], (error, results) => {
+                                    dbCon.query('SELECT chatroom.id AS chat_id, chatroom.isLeave, account.id AS chat_with,class.class_code,class.class_name, account.firstname, account.lastname, account.image FROM chatroom, account,class,class_member WHERE chatroom.sender = account.id  AND class_member.account = chatroom.sender AND class_member.class = class.id AND chatroom.receiver =?', [sender], (error, results) => {
                                         let datasender = results;
 
                                         if (error) { console.log(error) }
@@ -52,10 +52,10 @@ chatlist.post('/api/chatlist', (req, res) => {
                                             let receiver = results[0].receiver;
                                             console.log('receiver =' + receiver);
                                             //account is receiver
-                                            dbCon.query('SELECT chatroom.id AS chat_id,class.class_code,class.class_name, account.id AS chat_with, account.firstname, account.lastname, account.image FROM chatroom, account,class,class_member WHERE chatroom.sender = account.id AND class_member.account = chatroom.sender AND class_member.class = class.id AND chatroom.receiver =?', [receiver], (error, results) => {
+                                            dbCon.query('SELECT chatroom.id AS chat_id, chatroom.isLeave,class.class_code,class.class_name, account.id AS chat_with, account.firstname, account.lastname, account.image FROM chatroom, account,class,class_member WHERE chatroom.sender = account.id AND class_member.account = chatroom.sender AND class_member.class = class.id AND chatroom.receiver =?', [receiver], (error, results) => {
                                                 let datasender = results;
                                                 //if account id is receiver return sender
-                                                dbCon.query('SELECT chatroom.id AS chat_id,class.class_code,class.class_name, account.id AS chat_with, account.firstname, account.lastname, account.image FROM chatroom, account,class,class_member WHERE chatroom.receiver = account.id AND class_member.account = chatroom.receiver AND class_member.class = class.id AND chatroom.sender =?', [receiver], (error, results) => {
+                                                dbCon.query('SELECT chatroom.id AS chat_id, chatroom.isLeave,class.class_code,class.class_name, account.id AS chat_with, account.firstname, account.lastname, account.image FROM chatroom, account,class,class_member WHERE chatroom.receiver = account.id AND class_member.account = chatroom.receiver AND class_member.class = class.id AND chatroom.sender =?', [receiver], (error, results) => {
                                                     let datareceiver = results;
 
                                                     if (error) { console.log(error) }
