@@ -1,7 +1,7 @@
 <template>
   <div id="page-setting" class="fullpage">
     <topNavi type="gohome" :menu="true" optionName="classpage" />
-    <div class="content-page">
+    <div class="content-page" id="display-port">
       <div class="class-img">
         <img
           :src="classInfo.class_pic"
@@ -101,7 +101,9 @@
         </div>
       </div>
       <div class="tabs-page">
-        <div v-if="currentTab == 1"><pageDiscussion /></div>
+        <div v-if="currentTab == 1">
+          <pageDiscussion />
+        </div>
         <div v-if="currentTab == 2">
           <pagePoll />
         </div>
@@ -180,7 +182,8 @@ export default {
     //   this.prevMember = member.slice(0, 8);
     // },
     changeTab(tab) {
-      window.scrollTo(0, 0);
+      var div = document.getElementById("display-port");
+      div.scrollTop = div.scrollHeight - div.scrollHeight;
       this.currentTab = tab;
     },
     openClassMember: function (id) {
